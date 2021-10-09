@@ -26,8 +26,8 @@ public class Second {
 
     public void toString(char[][] arr) {
 
-        for (int i = 0; i < arr.length; i++) {
-            System.out.println(arr[i][0] + " - " + arr[i][1]);
+        for (char[] chars : arr) {
+            System.out.println(chars[0] + " - " + chars[1]);
         }
     }
 
@@ -35,15 +35,14 @@ public class Second {
 
         boolean rsl = false;
 
-        for (int i = 0; i < chars.length; i++) {
-            if (c == chars[i][0]) {
+        for (char[] aChar : chars) {
+            if (c == aChar[0]) {
                 rsl = true;
                 break;
             }
         }
         return rsl;
     }
-
 
 
     private int findIndexByValue(char c, char[][] ch) {
@@ -56,7 +55,7 @@ public class Second {
         return rsl;
     }
 
-    public static void main(String[] args) {
+    public static void start() {
 
         Second second = new Second();
 
@@ -65,7 +64,7 @@ public class Second {
         char[] symbols = scanner.nextLine().toLowerCase().toCharArray();
         Arrays.sort(symbols);
         char[][] rsl = second.getLettersSequence(symbols);
-        System.out.println("Result is:");
+        System.out.println("Char sequence:");
         second.toString(rsl);
     }
 }

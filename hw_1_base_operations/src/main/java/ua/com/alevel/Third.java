@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Third {
 
-    public static void main(String[] args) {
+    public static void start() {
 
         int dayStartedAt = 9 * 60;
         int lessonEndAt = 0;

@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class First {
 
-    public static void main(String[] args) {
+    public static void start() {
 
         int sum = 0;
 
@@ -18,4 +18,6 @@ public class First {
         }
         System.out.println("Sum of numbers are: " + sum);
     }
+
+
 }
