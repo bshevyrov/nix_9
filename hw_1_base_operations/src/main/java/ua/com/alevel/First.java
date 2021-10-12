@@ -1,16 +1,23 @@
 package ua.com.alevel;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class First {
 
     public static void start() {
 
         int sum = 0;
+        char[] symbols = new char[0];
 
         System.out.print("Please enter a string: ");
-        Scanner scanner = new Scanner(System.in);
-        char[] symbols = scanner.nextLine().toCharArray();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            symbols = bufferedReader.readLine().toCharArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         for (char ch : symbols) {
             if (Character.isDigit(ch)) {
                 sum += Character.getNumericValue(ch);
@@ -18,6 +25,4 @@ public class First {
         }
         System.out.println("Sum of numbers are: " + sum);
     }
-
-
 }
