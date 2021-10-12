@@ -1,7 +1,9 @@
 package ua.com.alevel;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class Second {
 
@@ -60,8 +62,13 @@ public class Second {
         Second second = new Second();
 
         System.out.print("Please enter a string: ");
-        Scanner scanner = new Scanner(System.in);
-        char[] symbols = scanner.nextLine().toLowerCase().toCharArray();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        char[] symbols = new char[0];
+        try {
+            symbols = bufferedReader.readLine().toLowerCase().toCharArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Arrays.sort(symbols);
         char[][] rsl = second.getLettersSequence(symbols);
         System.out.println("Char sequence:");
