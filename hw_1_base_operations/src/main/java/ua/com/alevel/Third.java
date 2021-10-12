@@ -1,6 +1,8 @@
 package ua.com.alevel;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Third {
 
@@ -8,10 +10,15 @@ public class Third {
 
         int dayStartedAt = 9 * 60;
         int lessonEndAt = 0;
+        int input = 0;
 
         System.out.print("Please enter number of lesson: ");
-        Scanner scanner = new Scanner(System.in);
-        int input = scanner.nextInt();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            input = Character.getNumericValue(bufferedReader.read());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         switch (input) {
             case 1:
