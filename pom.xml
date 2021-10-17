@@ -8,6 +8,7 @@
     <version>1.0</version>
     <modules>
         <module>hw_1_base_operations</module>
+        <module>hw_2_strings</module>
     </modules>
 
     <properties>
@@ -15,7 +16,7 @@
     </properties>
 
     <build>
-        <finalName>hw_1_base_operations</finalName>
+        <finalName>nix_9</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>

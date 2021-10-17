@@ -15,10 +15,10 @@
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
     </properties>
 
     <build>
+        <finalName>hw_1_base_operations</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -45,9 +45,6 @@
                     <version>3.2.4</version>
                     <configuration>
                         <transformers>
-                            <!--                            <transformer>-->
-                            <!--                                <mainClass>ua.com.alevel.App</mainClass>-->
-                            <!--                            </transformer>-->
                             <transformer
                                     implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                 <mainClass>ua.com.alevel.App</mainClass>
