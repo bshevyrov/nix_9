@@ -1,11 +1,12 @@
-package ua.com.alevel;
+package ua.com.alevel.second;
+
+import ua.com.alevel.TaskHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 
-public class Second {
+public class Second implements TaskHelper {
 
     public char[][] getLettersSequence(char[] symbols) {
 
@@ -57,15 +58,14 @@ public class Second {
         return rsl;
     }
 
-    public static void start() {
+    public void run(BufferedReader reader) {
 
         Second second = new Second();
 
         System.out.print("Please enter a string: ");
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         char[] symbols = new char[0];
         try {
-            symbols = bufferedReader.readLine().toLowerCase().toCharArray();
+            symbols = reader.readLine().toLowerCase().toCharArray();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,5 +74,7 @@ public class Second {
         System.out.println("Char sequence:");
         second.toString(rsl);
     }
+
+
 }
 

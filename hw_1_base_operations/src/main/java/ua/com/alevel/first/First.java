@@ -1,18 +1,19 @@
-package ua.com.alevel;
+package ua.com.alevel.first;
+
+import ua.com.alevel.TaskHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
-public class First {
 
-    public static void start() {
+public class First implements TaskHelper {
+
+    public void run(BufferedReader bufferedReader) {
 
         int sum = 0;
         char[] symbols = new char[0];
 
         System.out.print("Please enter a string: ");
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         try {
             symbols = bufferedReader.readLine().toCharArray();
         } catch (IOException e) {
@@ -25,4 +26,6 @@ public class First {
         }
         System.out.println("Sum of numbers are: " + sum);
     }
+
+
 }

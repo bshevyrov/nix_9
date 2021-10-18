@@ -1,21 +1,21 @@
-package ua.com.alevel;
+package ua.com.alevel.third;
+
+import ua.com.alevel.TaskHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
-public class Third {
+public class Third implements TaskHelper {
 
-    public static void start() {
+    public void run(BufferedReader reader) {
 
         int dayStartedAt = 9 * 60;
         int lessonEndAt = 0;
         int input = 0;
 
         System.out.print("Please enter number of lesson: ");
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         try {
-            input = Character.getNumericValue(bufferedReader.read());
+            input = Character.getNumericValue(reader.read());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,4 +55,6 @@ public class Third {
         }
         System.out.println(input + " Lesson will end at: " + lessonEndAt / 60 + ":" + ((lessonEndAt) - (lessonEndAt / 60) * 60));
     }
+
+
 }
