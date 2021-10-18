@@ -11,9 +11,19 @@
 
     <artifactId>console_helper</artifactId>
 
+    <packaging>jar</packaging>
+    <version>1.0</version>
+
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.release>17</maven.compiler.release>
         <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
+
+    <build>
+        <finalName>console_helper</finalName>
+    </build>
 
 </project>
