@@ -7,6 +7,9 @@ import java.util.ArrayList;
 
 public class ScreenMenu {
 
+    private ScreenMenu() {
+    }
+
     public static void run(ArrayList<TaskHelper> taskHelpers, ArrayList<String> descriptions) throws IOException {
        addExitTaskAndDescription(taskHelpers, descriptions);
 
