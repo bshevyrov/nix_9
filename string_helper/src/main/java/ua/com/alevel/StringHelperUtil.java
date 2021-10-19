@@ -1,16 +1,17 @@
 package ua.com.alevel;
 
-
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Logic {
-    public static String reverse(String src) {
-        StringBuilder stringBuilder = new StringBuilder();
+public class StringHelperUtil {
 
+    private StringHelperUtil(){}
+
+    public static String reverse(String src) {
+
+        StringBuilder stringBuilder = new StringBuilder();
         String[] words = stringToWords(src);
+
         for (int i = 0; i < words.length; i++) {
             words[i] = wordRevers(words[i]);
             stringBuilder.append(words[i]);
@@ -22,9 +23,10 @@ public class Logic {
     }
 
     public static String reverse(String src, String dest) {
-        StringBuilder stringBuilder = new StringBuilder();
 
+        StringBuilder stringBuilder = new StringBuilder();
         String[] words = stringToWords(src);
+
         for (int i = 0; i < words.length; i++) {
             if (words[i].contains(dest)) {
                 words[i] = wordRevers(words[i], words[i].lastIndexOf(dest),
@@ -39,10 +41,27 @@ public class Logic {
     }
 
     public static String reverse(String src, int firstIndex, int lastIndex) {
-       // StringUtils.
 
+        int whiteSpacePosition = src.indexOf(' ');
+        StringBuilder stringBuilder = new StringBuilder();
+        int second;
+        String[] words = stringToWords(src);
 
-        return " ";
+        //TODO for and  whitespacesposition
+
+        if ((firstIndex < whiteSpacePosition) && whiteSpacePosition != 1) {
+            words[0] = wordRevers(words[0], firstIndex, whiteSpacePosition);
+
+        }
+        if (lastIndex > whiteSpacePosition) {
+            second =(firstIndex+lastIndex) -(firstIndex + whiteSpacePosition) ;
+            words[1] = wordRevers(words[1], 0, second);
+        }
+        stringBuilder.append(words[0]);
+        stringBuilder.append(" ");
+        stringBuilder.append(words[1]);
+
+        return String.valueOf(stringBuilder);
 
     }
 
@@ -76,18 +95,12 @@ public class Logic {
         char tmpSwap;
         char[] str = string.toCharArray();
         int j = 1;
-        if (((start + finish) / 2) > 1) {
-            for (int i = start; i < start + (start + finish / 2); i++) {
+        for (int i = start; i < ((start + finish) / 2); i++) {
 
-                tmpSwap = str[i];
-                str[i] = str[finish - j];
-                str[finish - j] = tmpSwap;
-                j++;
-            }
-        } else {
-            tmpSwap = str[start];
-            str[start] = str[finish - j];
+            tmpSwap = str[i];
+            str[i] = str[finish - j];
             str[finish - j] = tmpSwap;
+            j++;
         }
 
 
