@@ -1,6 +1,8 @@
 package ua.com.alevel;
 
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -37,10 +39,10 @@ public class Logic {
     }
 
     public static String reverse(String src, int firstIndex, int lastIndex) {
+       // StringUtils.
 
 
-
-        return wordRevers(src, firstIndex, lastIndex);
+        return " ";
 
     }
 
