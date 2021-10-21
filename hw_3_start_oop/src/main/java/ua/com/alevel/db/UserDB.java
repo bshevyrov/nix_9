@@ -16,6 +16,9 @@ public final class UserDB {
     }
 
     public static UserDB getInstance() {
+        if (instance == null) {
+            instance = new UserDB();
+        }
         return instance;
     }
 
@@ -28,6 +31,7 @@ public final class UserDB {
         User current = findById(user.getId());
         if (current != null) {
             current.setAge(user.getAge());
+            //TODO if not found ADD NEW USER
         } else throw new NullPointerException(" User Not found in DB");
         current.setName(user.getName());
     }
