@@ -1,7 +1,11 @@
 package ua.com.alevel;
 
+import ua.com.alevel.controller.UserController;
+
 public class StartApp {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+
+        UserController userController = new UserController();
+        userController.run();
     }
 }
