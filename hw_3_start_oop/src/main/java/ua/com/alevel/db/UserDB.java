@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class UserDB {
+public final class UserDB {
 
     private final List<User> users;
     private static UserDB instance;
@@ -26,12 +26,13 @@ public class UserDB {
 
     public void update(User user) {
         User current = findById(user.getId());
-        current.setAge(user.getAge());
+        if (current != null) {
+            current.setAge(user.getAge());
+        } else throw new NullPointerException(" User Not found in DB");
         current.setName(user.getName());
     }
 
     public void delete(String id) {
-
         for (int i = 0; i < users.size(); i++) {
             if (id.equals(users.get(i).getId())) {
                 users.remove(i);
