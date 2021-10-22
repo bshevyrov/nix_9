@@ -17,7 +17,7 @@ public class First implements TaskHelper {
         System.out.print("Please enter a string: ");
         try {
             inputString = bufferedReader.readLine();
-            if (StringUtils.isNotBlank(inputString) && StringUtils.isNumericSpace(inputString)) {
+            if (StringUtils.isNotBlank(inputString)) {
                 symbols = inputString.toCharArray();
                 for (char ch : symbols) {
                     if (Character.isDigit(ch)) {
