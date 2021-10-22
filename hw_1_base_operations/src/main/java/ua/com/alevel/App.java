@@ -17,8 +17,11 @@ public class App {
         taskHelpers.add(new Second());
         descriptions.add("I can show you when 1 to 10 lesson is end");
         taskHelpers.add(new Third());
+        ScreenMenu.addExitTaskAndDescription(taskHelpers,descriptions);
         try {
-            ScreenMenu.run(taskHelpers, descriptions);
+            while(true) {
+                ScreenMenu.run(taskHelpers, descriptions);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
