@@ -27,7 +27,7 @@ public class Second implements TaskHelper {
         return Arrays.copyOf(letters, index);
     }
 
-    public void toString(char[][] arr) {
+    public void arrayToString(char[][] arr) {
 
         for (char[] chars : arr) {
             System.out.println(chars[0] + " - " + chars[1]);
@@ -63,16 +63,32 @@ public class Second implements TaskHelper {
         Second second = new Second();
 
         System.out.print("Please enter a string: ");
-        char[] symbols = new char[0];
+        char[] symbols;
+        String inputString;
+
         try {
-            symbols = reader.readLine().toLowerCase().toCharArray();
+            inputString = reader.readLine();
+            symbols = inputString.toLowerCase().toCharArray();
+            Arrays.sort(symbols);
+            char[][] rsl = second.getLettersSequence(symbols);
+            if (rsl.length != 0) {
+                System.out.println("Char sequence:");
+                second.arrayToString(rsl);
+            } else {
+                System.out.println("Input wrong, please try again..");
+                run(reader);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Arrays.sort(symbols);
-        char[][] rsl = second.getLettersSequence(symbols);
-        System.out.println("Char sequence:");
-        second.toString(rsl);
+
+//
+//                symbols = reader.readLine().toLowerCase().toCharArray();
+//
+//        Arrays.sort(symbols);
+//        char[][] rsl = second.getLettersSequence(symbols);
+//        System.out.println("Char sequence:");
+//        second.arrayToString(rsl);
     }
 
 
