@@ -1,5 +1,6 @@
 package ua.com.alevel.third;
 
+import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.TaskHelper;
 
 import java.io.BufferedReader;
@@ -7,18 +8,36 @@ import java.io.IOException;
 
 public class Third implements TaskHelper {
 
-    public void run(BufferedReader reader) {
+    private String inputString;
 
-        int dayStartedAt = 9 * 60;
-        int lessonEndAt = 0;
-        int input = 0;
+    public void run(BufferedReader reader) {
+        int input;
 
         System.out.print("Please enter number of lesson: ");
         try {
-            input = Character.getNumericValue(reader.read());
+            inputString = reader.readLine();
+
+            if (StringUtils.isNumeric(inputString)) {
+                input = Integer.parseInt(inputString);
+                if (input > 0 && input < 11) {
+                    getTime(input);
+                } else {
+                    System.out.println("Input wrong, please try again..");
+                    run(reader);
+                }
+            } else {
+                System.out.println("Input wrong, please try again..");
+                run(reader);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void getTime(int input) {
+
+        int dayStartedAt = 9 * 60;
+        int lessonEndAt = 0;
 
         switch (input) {
             case 1:
@@ -55,6 +74,4 @@ public class Third implements TaskHelper {
         }
         System.out.println(input + " Lesson will end at: " + lessonEndAt / 60 + ":" + ((lessonEndAt) - (lessonEndAt / 60) * 60));
     }
-
-
 }
