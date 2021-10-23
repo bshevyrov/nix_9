@@ -5,66 +5,89 @@ import java.util.Scanner;
 
 public class StringHelperUtil {
 
-    private StringHelperUtil(){}
+    private StringHelperUtil() {
+    }
 
     public static String reverse(String src) {
-
         StringBuilder stringBuilder = new StringBuilder();
-        String[] words = stringToWords(src);
-
-        for (int i = 0; i < words.length; i++) {
-            words[i] = wordRevers(words[i]);
-            stringBuilder.append(words[i]);
-            if (i != words.length - 1) {
-                stringBuilder.append(" ");
+        if (src.contains(" ")) {
+            String[] words = stringToWords(src);
+            for (int i = 0; i < words.length; i++) {
+                words[i] = wordRevers(words[i]);
+                stringBuilder.append(words[i]);
+                if (i != words.length - 1) {
+                    stringBuilder.append(" ");
+                }
             }
+        } else {
+            stringBuilder.append(wordRevers(src));
         }
+
+
         return String.valueOf(stringBuilder);
     }
 
-    public static String reverse(String src, String dest) {
-
-        StringBuilder stringBuilder = new StringBuilder();
-        String[] words = stringToWords(src);
-
-        for (int i = 0; i < words.length; i++) {
-            if (words[i].contains(dest)) {
-                words[i] = wordRevers(words[i], words[i].lastIndexOf(dest),
-                        words[i].lastIndexOf(dest) + dest.length());
-            }
-            stringBuilder.append(words[i]);
-            if (i != words.length - 1) {
-                stringBuilder.append(" ");
-            }
-        }
-        return String.valueOf(stringBuilder);
-    }
+//    public static String reverse(String src, String dest) {
+//
+//        StringBuilder stringBuilder = new StringBuilder();
+//        String[] words = stringToWords(src);
+//
+//        for (int i = 0; i < words.length; i++) {
+//            if (words[i].contains(dest)) {
+//                words[i] = wordRevers(words[i], words[i].lastIndexOf(dest),
+//                        words[i].lastIndexOf(dest) + dest.length());
+//            }
+//            stringBuilder.append(words[i]);
+//            if (i != words.length - 1) {
+//                stringBuilder.append(" ");
+//            }
+//        }
+//        return String.valueOf(stringBuilder);
+//    }
 
     public static String reverse(String src, int firstIndex, int lastIndex) {
+        String[] words;
+        //  StringBuilder stringBuilder = new StringBuilder();
+        int position = 0;
+        if (src.contains(" ")) {
+            words = stringToWords(src);
+            for (int i = 0; i < words.length; i++) {
 
-        int whiteSpacePosition = src.indexOf(' ');
-        StringBuilder stringBuilder = new StringBuilder();
-        int second;
-        String[] words = stringToWords(src);
-
-        //TODO for and  whitespacesposition
-
-        if ((firstIndex < whiteSpacePosition) && whiteSpacePosition != 1) {
-            words[0] = wordRevers(words[0], firstIndex, whiteSpacePosition);
-
+                if (position < lastIndex) {
+                    if (position < firstIndex) {
+                        if (position + words[i].length() < firstIndex) {
+                            position = position + words[i].length() + 1;
+                        } else {
+                            words[i] = wordRevers(words[i], firstIndex - position, words[i].length() - 1);
+                            position = position + words[i].length() + 1;
+                        }
+                    } else {
+                        if (position + words[i].length() < lastIndex) {
+                            words[i] = wordRevers(words[i], 0, words[i].length() - 1);
+                            position = position + words[i].length() + 1;
+                        } else {
+                            words[i] = wordRevers(words[i], 0, (lastIndex - position));
+                            break;
+                        }
+                    }
+                }
+            }
+            StringBuilder stringBuilder1 = new StringBuilder();
+            for (int i = 0; i < words.length; i++) {
+                stringBuilder1.append(words[i]);
+                if (i != words.length - 1) {
+                    stringBuilder1.append(" ");
+                }
+            }
+            src = stringBuilder1.toString();
+        } else {
+            src = wordRevers(src, firstIndex, lastIndex);
         }
-        if (lastIndex > whiteSpacePosition) {
-            second =(firstIndex+lastIndex) -(firstIndex + whiteSpacePosition) ;
-            words[1] = wordRevers(words[1], 0, second);
-        }
-        stringBuilder.append(words[0]);
-        stringBuilder.append(" ");
-        stringBuilder.append(words[1]);
 
-        return String.valueOf(stringBuilder);
-
+        return src;
     }
 
+    //todo delete
     private static String[] stringToWords(String string) {
         String[] words = new String[string.length() / 2];
         int index = 0;
@@ -92,18 +115,25 @@ public class StringHelperUtil {
     }
 
     private static String wordRevers(String string, int start, int finish) {
+
         char tmpSwap;
         char[] str = string.toCharArray();
-        int j = 1;
-        for (int i = start; i < ((start + finish) / 2); i++) {
+        int j = 0;
 
-            tmpSwap = str[i];
-            str[i] = str[finish - j];
-            str[finish - j] = tmpSwap;
-            j++;
+        if (finish - start == 1) {
+            tmpSwap = str[start];
+            str[start] = str[finish];
+            str[finish] = tmpSwap;
+
+        } else {
+            for (int i = start; i < finish - 1; i++) {
+                tmpSwap = str[i];
+                str[i] = str[finish - (j)];
+                str[finish - (j)] = tmpSwap;
+                j++;
+            }
+//
         }
-
-
         return String.copyValueOf(str);
     }
 }

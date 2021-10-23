@@ -19,8 +19,11 @@ public class StartApp {
         descriptions.add("I can revers  subString  from  word.");
         taskHelpers.add((new ThirdMethodStarter()));
         descriptions.add("I can revers part of words nearest to the diapason");
+        ScreenMenu.addExitTaskAndDescription(taskHelpers,descriptions);
         try {
-            ScreenMenu.run(taskHelpers, descriptions);
+            while (true) {
+                ScreenMenu.run(taskHelpers, descriptions);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
