@@ -41,7 +41,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>hw_2_strings</finalName>
+        <finalName>hw_3_start_oop</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
