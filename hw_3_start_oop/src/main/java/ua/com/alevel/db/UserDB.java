@@ -1,18 +1,19 @@
 package ua.com.alevel.db;
 
+import org.apache.commons.lang3.ArrayUtils;
 import ua.com.alevel.entity.User;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.UUID;
 
 public final class UserDB {
 
-    private final List<User> users;
+    private  User[] users;
     private static UserDB instance;
 
     private UserDB() {
-        users = new ArrayList<>();
+
+        users = new User[0];
     }
 
     public static UserDB getInstance() {
@@ -24,7 +25,11 @@ public final class UserDB {
 
     public void create(User user) {
         user.setId(generateId());
-        users.add(user);
+       // if(DBAdditionMethods.isFull(users)){
+          users = ArrayUtils.add(users,user);
+      //  } else {
+      //      users[DBAdditionMethods.getFirstEmptyCellIndex(users)] = user;
+      //  }
     }
 
     public void update(User user) {
@@ -37,9 +42,9 @@ public final class UserDB {
     }
 
     public void delete(String id) {
-        for (int i = 0; i < users.size(); i++) {
-            if (id.equals(users.get(i).getId())) {
-                users.remove(i);
+        for (int i = 0; i < users.length; i++) {
+            if (id.equals(users[i].getId())) {
+                users = ArrayUtils.remove(users,i);
                 break;
             }
         }
@@ -55,7 +60,7 @@ public final class UserDB {
         return null;
     }
 
-    public List<User> findAll() {
+    public User[] findAll() {
         return users;
     }
 
