@@ -22,37 +22,16 @@ public class StringHelperUtil {
         } else {
             stringBuilder.append(wordRevers(src));
         }
-
-
         return String.valueOf(stringBuilder);
     }
 
-//    public static String reverse(String src, String dest) {
-//
-//        StringBuilder stringBuilder = new StringBuilder();
-//        String[] words = stringToWords(src);
-//
-//        for (int i = 0; i < words.length; i++) {
-//            if (words[i].contains(dest)) {
-//                words[i] = wordRevers(words[i], words[i].lastIndexOf(dest),
-//                        words[i].lastIndexOf(dest) + dest.length());
-//            }
-//            stringBuilder.append(words[i]);
-//            if (i != words.length - 1) {
-//                stringBuilder.append(" ");
-//            }
-//        }
-//        return String.valueOf(stringBuilder);
-//    }
-
     public static String reverse(String src, int firstIndex, int lastIndex) {
         String[] words;
-        //  StringBuilder stringBuilder = new StringBuilder();
         int position = 0;
+
         if (src.contains(" ")) {
             words = stringToWords(src);
             for (int i = 0; i < words.length; i++) {
-
                 if (position < lastIndex) {
                     if (position < firstIndex) {
                         if (position + words[i].length() < firstIndex) {
@@ -83,7 +62,6 @@ public class StringHelperUtil {
         } else {
             src = wordRevers(src, firstIndex, lastIndex);
         }
-
         return src;
     }
 
@@ -124,7 +102,6 @@ public class StringHelperUtil {
             tmpSwap = str[start];
             str[start] = str[finish];
             str[finish] = tmpSwap;
-
         } else {
             for (int i = start; i < finish - 1; i++) {
                 tmpSwap = str[i];
@@ -132,7 +109,6 @@ public class StringHelperUtil {
                 str[finish - (j)] = tmpSwap;
                 j++;
             }
-//
         }
         return String.copyValueOf(str);
     }
