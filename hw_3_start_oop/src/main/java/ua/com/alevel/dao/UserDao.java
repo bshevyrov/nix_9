@@ -18,7 +18,7 @@ public class UserDao {
     }
 
     public User findById(String id) {
-        return UserDB.getInstance().findById(id);
+        return UserDB.getInstance().findByIdOrNull(id);
     }
 
     public User[] findAll() {

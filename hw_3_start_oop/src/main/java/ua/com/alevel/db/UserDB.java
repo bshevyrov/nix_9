@@ -8,11 +8,10 @@ import java.util.UUID;
 
 public final class UserDB {
 
-    private  User[] users;
+    private User[] users;
     private static UserDB instance;
 
     private UserDB() {
-
         users = new User[0];
     }
 
@@ -25,15 +24,11 @@ public final class UserDB {
 
     public void create(User user) {
         user.setId(generateId());
-       // if(DBAdditionMethods.isFull(users)){
-          users = ArrayUtils.add(users,user);
-      //  } else {
-      //      users[DBAdditionMethods.getFirstEmptyCellIndex(users)] = user;
-      //  }
-    }
+        users = ArrayUtils.add(users, user);
+       }
 
     public void update(User user) {
-        User current = findById(user.getId());
+        User current = findByIdOrNull(user.getId());
         if (current != null) {
             current.setAge(user.getAge());
             //TODO if not found ADD NEW USER
@@ -44,19 +39,18 @@ public final class UserDB {
     public void delete(String id) {
         for (int i = 0; i < users.length; i++) {
             if (id.equals(users[i].getId())) {
-                users = ArrayUtils.remove(users,i);
+               users = ArrayUtils.remove(users, i);
                 break;
             }
         }
     }
 
-    public User findById(String id) {
+    public User findByIdOrNull(String id) {
         for (User user : users) {
             if (id.equals(user.getId())) {
                 return user;
             }
         }
-        //todo какой НАЛЛ АЛЛЕЕ
         return null;
     }
 
