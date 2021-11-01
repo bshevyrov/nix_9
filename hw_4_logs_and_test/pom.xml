@@ -1,21 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>nix_9</artifactId>
+        <groupId>ua.com.alevel</groupId>
+        <version>1.0</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ua.com.alevel</groupId>
-    <artifactId>nix_9</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0</version>
-    <modules>
-        <module>hw_1_base_operations</module>
-        <module>hw_2_strings</module>
-        <module>console_helper</module>
-        <module>string_helper</module>
-        <module>hw_3_start_oop</module>
-        <module>module_1</module>
-        <module>hw_4_logs_and_test</module>
-    </modules>
-
+    <artifactId>hw_4_logs_and_test</artifactId>
 
     <properties>
         <java.version>17</java.version>
@@ -27,20 +21,26 @@
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.commons</groupId>-->
-<!--            <artifactId>commons-lang3</artifactId>-->
-<!--            <version>3.12.0</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
 
-        <!--        <dependency>-->
-<!--            <groupId>ua.com.alevel</groupId>-->
-<!--            <artifactId>console_helper</artifactId>-->
-<!--            <version>1.0</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>ua.com.alevel</groupId>
+            <artifactId>console_helper</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ua.com.alevel</groupId>
+            <artifactId>string_helper</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
     <build>
-<!--        <finalName>hw_2_strings</finalName>-->
+        <finalName>hw_4_logs_and_test</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -64,7 +64,8 @@
                         </goals>
                         <configuration>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>ua.com.alevel.StartApp</mainClass>
                                 </transformer>
                             </transformers>
