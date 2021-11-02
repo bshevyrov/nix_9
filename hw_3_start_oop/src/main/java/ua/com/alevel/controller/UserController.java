@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class UserController {
+
     private final UserService userService = new UserService();
 
     public void run() {
@@ -138,7 +139,6 @@ public class UserController {
 
 
     private void create(BufferedReader reader) {
-
         String name = "";
         String tempAge;
         int age = 0;
