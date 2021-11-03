@@ -1,6 +1,7 @@
 package ua.com.alevel;
 
 import ua.com.alevel.secondlevel.StringVerification;
+import ua.com.alevel.thirdlevel.GameOfLife;
 
 public class StartApp {
     public static void main(String[] args) {
@@ -15,7 +16,11 @@ public class StartApp {
         //        new KnightMove().addStartPointToChessField(4,'D');
         //        new KnightMove().addFinishPointToChessField(5,'B');
         //        new KnightMove().checkMove(4,'D',9,'B');
-       boolean rsl = new StringVerification().stringVerification("(");
-        System.out.println(rsl?"This string pass verification.":"Sorry this string have problem");
+
+//       boolean rsl = new StringVerification().stringVerification("(");
+//        System.out.println(rsl?"This string pass verification.":"Sorry this string have problem");
+
+         GameOfLife gameOfLife = new GameOfLife();;
+                 gameOfLife.initialize();
     }
 }
