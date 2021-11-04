@@ -5,27 +5,23 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.Arrays;
 
 public class KnightMove {
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    private static final String START_POINT_ICON = "♞";
-    private static final String FINISH_POINT_ICON = "♘";
-   static String[][] cell = new String[9][9];
 
+    private static final String START_POINT_ICON = "♘";
+    private static final String FINISH_POINT_ICON = "♞";
 
-    public void generateField() {
-        if (cell[cell.length - 1][cell.length - 1] == null) {
-            for (String[] strings : cell) {
+    static String[][] cell = new String[9][9];
+    public void start(){
+        if (cell[cell.length - 1][cell.length - 1] == null){
+                      for (String[] strings : cell) {
                 Arrays.fill(strings, " ");
             }
-           // Arrays.fill(cells, " ");
         }
-        System.out.println("♞");
-        System.out.println("♘");
+
         System.out.println();
         System.out.println("         A   B   C   D   E   F   G   H");
         System.out.println();
         System.out.println("       ╔═══════════════════════════════╗");
-        System.out.println("    8  ║ " + cell[8][1] + " │ " + cell[8][2] + " │ " + cell[8][4] + " │ " + cell[8][4] + " │ " + cell[8][5] + " │ " + cell[8][6]+ " │ " + cell[8][7] + " │ " + cell[8][8] + " ║  8   ");
+        System.out.println("    8  ║ " + cell[8][1] + " │ " + cell[8][2] + " │ " + cell[8][4] + " │ " + cell[8][4] + " │ " + cell[8][5] + " │ " + cell[8][6] + " │ " + cell[8][7] + " │ " + cell[8][8] + " ║  8   ");
         System.out.println("       ╟───┼───┼───┼───┼───┼───┼───┼───╢");
         System.out.println("    7  ║ " + cell[7][1] + " │ " + cell[7][2] + " │ " + cell[7][3] + " │ " + cell[7][4] + " │ " + cell[7][5] + " │ " + cell[7][6] + " │ " + cell[7][7] + " │ " + cell[7][8] + " ║  7");
         System.out.println("       ╟───┼───┼───┼───┼───┼───┼───┼───╢");
@@ -44,33 +40,32 @@ public class KnightMove {
         System.out.println();
         System.out.println("         A   B   C   D   E   F   G   H");
 
+
     }
 
-
-//    knigth move +-1 +-2 int char
-//    if (start point + knight move) in chess feld && legit move for knight
-public void checkMove(int numStart, char letterStart,int numFinish,char letterFinish){
-
-    if((Math.abs(numFinish-numStart)==1)&&(Math.abs(getNumFromLetter(letterFinish)-getNumFromLetter(letterStart))==2)){
-        System.out.println("GOOD Move");
-        generateField();
-    } else {
-        System.out.println("Sorry illigal move");
+    public boolean checkMove(int numStart, char letterStart, int numFinish, char letterFinish) {
+        return( (Math.abs(numFinish - numStart) == 2)
+                && (Math.abs(getNumFromLetter(letterFinish)
+                - getNumFromLetter(letterStart)) == 1))||((Math.abs(numFinish - numStart) == 1)
+                && (Math.abs(getNumFromLetter(letterFinish)
+                - getNumFromLetter(letterStart)) == 2));
     }
-}
 
- public void addStartPointToChessField(int num, char letter){
-        cell[num][getNumFromLetter(letter)]=START_POINT_ICON;
- }
- public void addFinishPointToChessField(int num, char letter){
-        cell[num][getNumFromLetter(letter)]=FINISH_POINT_ICON;
- }
+    public void addStartPointToChessField(int num, char letter) {
+        cell[num][getNumFromLetter(letter)] = START_POINT_ICON;
+    }
+
+    public void addFinishPointToChessField(int num, char letter) {
+        cell[num][getNumFromLetter(letter)] = FINISH_POINT_ICON;
+    }
+
     private int getNumFromLetter(char letter) {
         String[] lettersSynopsis = new String[]{" ", "A", "B", "C", "D", "E", "F", "G", "H"};
 
         return ArrayUtils.indexOf(
                 lettersSynopsis, Character.toString(letter));
-    }
 
+    }
 }
+
 

@@ -12,12 +12,11 @@ public class StringVerification {
         if (isAllNeededSymbolsHavePair(str)) {
             for (int i = 0; i < (str.length()) / 2; i++) {
                 if (str.charAt(i) != str.charAt((str.length()) / 2)) {
-                       return false;
-
+                    return false;
                 }
             }
         } else {
-               return false;
+            return false;
         }
         System.out.println(str);
         return true;

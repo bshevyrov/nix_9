@@ -7,6 +7,11 @@ import java.util.ArrayList;
 
 public class ScreenMenu {
 
+    public static void clearConsole() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
     private ScreenMenu() {
     }
 
@@ -20,9 +25,10 @@ public class ScreenMenu {
         taskHelpers.get(input).run(bufferedReader);
 
     }
+
     public static void addExitTaskAndDescription(ArrayList<TaskHelper> taskHelpers, ArrayList<String> descriptions) {
         descriptions.add(descriptions.size(), "Press me if you want to exit");
-        taskHelpers.add(taskHelpers.size() , reader -> {
+        taskHelpers.add(taskHelpers.size(), reader -> {
             System.out.println("Thank You and Good Bye");
             System.exit(0);
         });

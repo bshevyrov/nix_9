@@ -3,9 +3,6 @@ package ua.com.alevel.firstlevel;
 public class AreaOfATriangle {
 
     public void getArea(int[][] dots) {
-        //verification dots is triangle
-
-        //do in cicle
         int aX = dots[0][0];
         int aY = dots[0][1];
         int bX = dots[1][0];
@@ -17,8 +14,14 @@ public class AreaOfATriangle {
     }
 
     private void calculateAreaByGeronFormula(int aX, int aY, int bX, int bY, int cX, int cY) {
-        System.out.println(Math.abs(aX * (bY - cY)
+        System.out.println("Area is: "+Math.abs(aX * (bY - cY)
                 + bX * (cY - aY)
                 + cX * (aY - bY)) / 2);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
+
 }
