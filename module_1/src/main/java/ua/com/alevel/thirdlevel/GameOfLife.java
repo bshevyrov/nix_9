@@ -26,7 +26,7 @@ public class GameOfLife {
     }
 
     private int[][] useRule(int[][] spores) {
-        int[][] rsl = new int[spores.length][spores[1].length];
+        int[][] rsl = new int[spores.length][spores[spores.length-1].length];
         for (int i = 0; i < spores.length; i++) {
             for (int j = 0; j < spores[i].length; j++) {
                 int value = checkHowManyLiveNeighbor(i, j, spores);
@@ -48,7 +48,6 @@ public class GameOfLife {
             }
         }
         return rsl;
-
     }
 
     private int checkHowManyLiveNeighbor(int row, int cell, int[][] spores) {
@@ -79,27 +78,28 @@ public class GameOfLife {
             for (int j = 0; j < spores[spores.length - 1].length; j++) {
                 stringBuilder.append(spore[j]);
             }
-            String stringForUser;
-            stringForUser = StringUtils.replaceChars(stringBuilder.toString(), "0", "░");
-            stringForUser = StringUtils.replaceChars(stringForUser, "1", "█");
-            System.out.println(stringForUser);
+            System.out.println(makeUserFriendly(stringBuilder));
         }
         System.out.println();
+    }
+
+    private static String makeUserFriendly(StringBuilder stringBuilder) {
+        String stringForUser;
+        stringForUser = StringUtils.replaceChars(stringBuilder.toString(), "0", "░");
+        stringForUser = StringUtils.replaceChars(stringForUser, "1", "█");
+        return stringForUser;
     }
 
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
-
     }
 
     private boolean isInField(int row, int cell, int[][] spores) {
-        boolean rsl = false;
         int cellLength = spores[spores.length - 1].length;
         boolean rowInField = (row >= 0 && row < spores.length);
         boolean cellInField = (cell >= 0) && (cell < cellLength);
-        rsl = rowInField && cellInField;
-        return rsl;
+        return rowInField && cellInField;
     }
 
     private static void setLine(int[][] field) {

@@ -39,8 +39,6 @@ public class KnightMove {
         System.out.println("       ╚═══════════════════════════════╝");
         System.out.println();
         System.out.println("         A   B   C   D   E   F   G   H");
-
-
     }
 
     public boolean checkMove(int numStart, char letterStart, int numFinish, char letterFinish) {
@@ -64,7 +62,6 @@ public class KnightMove {
 
         return ArrayUtils.indexOf(
                 lettersSynopsis, Character.toString(letter));
-
     }
 }
 

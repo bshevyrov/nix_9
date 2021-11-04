@@ -10,11 +10,11 @@ public class AreaOfATriangle {
         int cX = dots[2][0];
         int cY = dots[2][1];
 
-        calculateAreaByGeronFormula(aX,aY,bX,bY,cX,cY);
+        calculateAreaByGeronFormula(aX, aY, bX, bY, cX, cY);
     }
 
     private void calculateAreaByGeronFormula(int aX, int aY, int bX, int bY, int cX, int cY) {
-        System.out.println("Area is: "+Math.abs(aX * (bY - cY)
+        System.out.println("Area is: " + Math.abs(aX * (bY - cY)
                 + bX * (cY - aY)
                 + cX * (aY - bY)) / 2);
         try {
@@ -23,5 +23,4 @@ public class AreaOfATriangle {
             e.printStackTrace();
         }
     }
-
 }
