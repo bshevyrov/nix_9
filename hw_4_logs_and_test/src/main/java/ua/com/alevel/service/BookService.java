@@ -1,47 +1,57 @@
 package ua.com.alevel.service;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.dao.AuthorDao;
 import ua.com.alevel.dao.BookDao;
-import ua.com.alevel.dao.PublisherDao;
 import ua.com.alevel.entity.Author;
 import ua.com.alevel.entity.Book;
-import ua.com.alevel.entity.Publisher;
+//import ua.com.alevel.entity.Publisher;
 
 public class BookService {
 
     private final BookDao bookDao = new BookDao();
-//    private final AuthorDao authorDao =  new AuthorDao();
+    private final AuthorDao authorDao = new AuthorDao();
 //    private final PublisherDao publisherDao = new PublisherDao();
 
     public void create(Book book) {
-
-       // Author[] authors = book.getAuthors();
-//        Publisher publisher = book.getPublisher();
-
         bookDao.create(book);
-//        publisherDao.create(publisher);
-//        for (Author author : authors) {
-//            authorDao.create(author);
-//        }
+        Author authorOfBook = new Author();
+        authorOfBook.setBooksName(new String[]{book.getName()});
+        authorOfBook.setName(book.getAuthorName());
+
+        if (authorDao.findByName(book.getAuthorName()) == null) {
+            authorDao.create(authorOfBook);
+        } else {
+            Author authorFromDb = authorDao.findByName(book.getAuthorName());
+            String[] books = authorFromDb.getBooksName();
+            books = ArrayUtils.add(books, book.getName());
+            authorFromDb.setBooksName(books);
+            authorDao.update(authorFromDb);
+        }
     }
 
     public void update(Book book) {
-
-//        Author[] authors = book.getAuthors();
-//        Publisher publisher =book.getPublisher();
-
         bookDao.update(book);
-//        publisherDao.update(publisher);
-//        for (Author author : authors) {
-//            authorDao.update(author);
-//        }
-            }
-    public void delete(String name) {
+    }
 
+    public void delete(String name) {
+        Book book = bookDao.findByName(name);
+        Author author = authorDao.findByName(book.getAuthorName());
+        String[] books = author.getBooksName();
         bookDao.delete(name);
-//       deleteBookFromPublisher(findById(id));
-//        deleteBookFromAuthors(findById(id));
+        if (books.length == 1) {
+            authorDao.delete(books[0]);
+        } else {
+            for (int i = 0; i < books.length; i++) {
+                if (StringUtils.equals(books[i], name)) {
+                    books = ArrayUtils.remove(books, i);
+                    break;
+                }
+            }
+            author.setBooksName(books);
+            authorDao.update(author);
+        }
     }
 
 
@@ -49,33 +59,7 @@ public class BookService {
         return bookDao.findByName(name);
     }
 
-    public Book[] findAll(){
+    public Book[] findAll() {
         return bookDao.findAll();
     }
-
-//    private void deleteBookFromPublisher(Book book) {
-//
-//        Publisher publisher = publisherDao.findByName(findById(book.getId()).getPublisher().getName());
-//
-//        if (publisher.getBooks().length == 1) {
-//            publisherDao.delete(publisher.getName());
-//        }
-//        //TODO refactor
-//        Book[] books = ArrayUtils.remove(findAll(), ArrayUtils.indexOf(findAll(), book));
-//        publisher.setBooks(books);
-//        publisherDao.update(publisher);
-//    }
-//
-//    private void deleteBookFromAuthors(Book book) {
-//        Author[] authors = authorDao.findAll();
-//        for (Author author : authors) {
-//            if(author.getBooks().length==1) {
-//                authorDao.delete(author.getEmail());
-//            }
-//            //TODO вынести в метод повторный код
-//            Book[] books= ArrayUtils.remove(findAll(), ArrayUtils.indexOf(findAll(),book));
-//            author.setBooks(books);
-//            authorDao.update(author);
-//        }
-//    }
 }

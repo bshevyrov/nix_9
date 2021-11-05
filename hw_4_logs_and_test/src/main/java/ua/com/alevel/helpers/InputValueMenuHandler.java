@@ -2,15 +2,15 @@ package ua.com.alevel.helpers;
 
 import ua.com.alevel.controller.AuthorController;
 import ua.com.alevel.controller.BookController;
-import ua.com.alevel.controller.PublisherController;
-
+//import ua.com.alevel.controller.PublisherController;
+//
 import java.io.BufferedReader;
 import java.io.IOException;
 
 public class InputValueMenuHandler {
     private static final BookController bookController = new BookController();
     private static final AuthorController authorController = new AuthorController();
-    private static final PublisherController publisherController = new PublisherController();
+//    private static final PublisherController publisherController = new PublisherController();
 
     public static void mainLevelHandler(BufferedReader reader) {
         while (true) {
@@ -47,7 +47,7 @@ public class InputValueMenuHandler {
             switch (inputMenuValue) {
                 case 1 -> bookController.findAll(reader);
                 case 2 -> authorController.findAll(reader);
-                case 3 -> publisherController.findAll(reader);
+//                case 3 -> publisherController.findAll(reader);
                 case 0 -> mainLevelHandler(reader);
             }
         }
@@ -64,9 +64,9 @@ public class InputValueMenuHandler {
             }
 
             switch (inputMenuValue) {
-                case 1 -> bookController.findById(reader);
+                case 1 -> bookController.findByName(reader);
                 case 2 -> authorController.findByName(reader);
-                case 3 -> publisherController.findByName(reader);
+//                case 3 -> publisherController.findByName(reader);
                 case 0 -> mainLevelHandler(reader);
             }
         }
@@ -85,7 +85,7 @@ public class InputValueMenuHandler {
             switch (inputMenuValue) {
                 case 1 -> bookController.delete(reader);
                 case 2 -> authorController.delete(reader);
-                case 3 -> publisherController.delete(reader);
+//                case 3 -> publisherController.delete(reader);
                 case 0 -> mainLevelHandler(reader);
             }
         }
@@ -104,7 +104,7 @@ public class InputValueMenuHandler {
             switch (inputMenuValue) {
                 case 1 -> bookController.update(reader);
                 case 2 -> authorController.update(reader);
-                case 3 -> publisherController.update(reader);
+                //case 3 -> publisherController.update(reader);
                 case 0 -> mainLevelHandler(reader);
             }
         }
@@ -122,7 +122,7 @@ public class InputValueMenuHandler {
             switch (inputMenuValue) {
                 case 1 -> bookController.create(reader);
                 case 2 -> authorController.create(reader);
-                case 3 -> publisherController.create(reader);
+//                case 3 -> publisherController.create(reader);
                 case 0 -> mainLevelHandler(reader);
             }
         }

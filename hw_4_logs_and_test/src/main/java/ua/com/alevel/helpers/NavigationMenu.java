@@ -40,8 +40,6 @@ public class NavigationMenu {
             System.out.print("Please make your choose: ");
 
            // inputValueMenuHandler.mainLevelHandler( reader);
-
-
     }
 
     public static void runNavigationUpdateLevel(BufferedReader reader) {
