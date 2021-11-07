@@ -122,6 +122,5 @@ public class GameOfLife {
         field[21][41] = 1;
         field[22][39] = 1;
         field[22][40] = 1;
-
     }
 }
