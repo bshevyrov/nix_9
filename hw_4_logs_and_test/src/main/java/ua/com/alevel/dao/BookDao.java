@@ -17,7 +17,7 @@ public class BookDao {
         BookDB.getInstance().delete(name);
     }
 
-    public Book findByName(String name) {
+    public Book findByNameOrNull(String name) {
         return BookDB.getInstance().findByNameOrNull(name);
     }
 

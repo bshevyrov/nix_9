@@ -3,7 +3,7 @@ package ua.com.alevel.service;
 import ua.com.alevel.dao.AuthorDao;
 import ua.com.alevel.dao.BookDao;
 import ua.com.alevel.entity.Author;
-import ua.com.alevel.entity.Book;
+import ua.com.alevel.helpers.NavigationMenu;
 
 public class AuthorService {
 
@@ -12,10 +12,9 @@ public class AuthorService {
 
     public void create(Author author) {
         authorDao.create(author);
-        Book book = new Book();
-        book.setName(author.getBooksName()[0]);
-        book.setAuthorName(author.getName());
-        bookDao.create(book);
+        if (bookDao.findByNameOrNull(author.getBooksName()[0]) == null) {
+            NavigationMenu.runNavigationAddAuthorFromBook();
+        }
     }
 
     public void update(Author author) {
@@ -23,12 +22,11 @@ public class AuthorService {
     }
 
     public void delete(String name) {
-
         Author author = findByName(name);
         authorDao.delete(name);
         String[] books = author.getBooksName();
-        for (int i = 0; i < books.length; i++) {
-            bookDao.delete(books[i]);
+        for (String book : books) {
+            bookDao.delete(book);
         }
     }
 

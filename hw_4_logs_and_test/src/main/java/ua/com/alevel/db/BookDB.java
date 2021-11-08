@@ -4,7 +4,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.entity.Book;
 
-import java.util.Arrays;
 import java.util.UUID;
 
 public final class BookDB {
@@ -24,23 +23,22 @@ public final class BookDB {
     }
 
     public void create(Book book) {
-        // String id = generateId();
-//        book.setName(id);
-       books = ArrayUtils.add(books, book);
+        books = ArrayUtils.add(books, book);
+    }
 //
-//    private String generateId() {
+//    private String generateIdIsbn() {
 //        String id = UUID.randomUUID().toString();
-//        if(!(findByIdOrNull(id)==null)){
-//            generateId();
+//        if(!(findByNameOrNull(id)==null)){
+//            generateIdIsbn();
 //        }
 //        return id;
 //    }
-    }
+
     public void update(Book book) {
         Book current = ArrayUtils.get(books, getIndexByName(book.getName()));
         current.setName(book.getName());
         current.setAuthorName(book.getAuthorName());
-        current.setPublisherName(book.getPublisherName());
+        current.setYear(book.getYear());
     }
 
     public void delete(String name) {

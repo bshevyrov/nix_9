@@ -34,6 +34,8 @@ public class InputValueMenuHandler {
         }
     }
 
+
+
     public static void findAllLevelHandler(BufferedReader reader) {
         while (true) {
             NavigationMenu.runNavigationFindAllLevel(reader);
@@ -43,11 +45,9 @@ public class InputValueMenuHandler {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             switch (inputMenuValue) {
                 case 1 -> bookController.findAll(reader);
                 case 2 -> authorController.findAll(reader);
-//                case 3 -> publisherController.findAll(reader);
                 case 0 -> mainLevelHandler(reader);
             }
         }
@@ -62,11 +62,9 @@ public class InputValueMenuHandler {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             switch (inputMenuValue) {
                 case 1 -> bookController.findByName(reader);
                 case 2 -> authorController.findByName(reader);
-//                case 3 -> publisherController.findByName(reader);
                 case 0 -> mainLevelHandler(reader);
             }
         }
@@ -81,11 +79,9 @@ public class InputValueMenuHandler {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             switch (inputMenuValue) {
                 case 1 -> bookController.delete(reader);
                 case 2 -> authorController.delete(reader);
-//                case 3 -> publisherController.delete(reader);
                 case 0 -> mainLevelHandler(reader);
             }
         }
@@ -104,7 +100,6 @@ public class InputValueMenuHandler {
             switch (inputMenuValue) {
                 case 1 -> bookController.update(reader);
                 case 2 -> authorController.update(reader);
-                //case 3 -> publisherController.update(reader);
                 case 0 -> mainLevelHandler(reader);
             }
         }
@@ -122,9 +117,27 @@ public class InputValueMenuHandler {
             switch (inputMenuValue) {
                 case 1 -> bookController.create(reader);
                 case 2 -> authorController.create(reader);
-//                case 3 -> publisherController.create(reader);
                 case 0 -> mainLevelHandler(reader);
             }
         }
     }
-}
+    public static void addBookFromAuthorHandler(BufferedReader reader){
+        while (true) {
+            NavigationMenu.runNavigationAddBookFromAuthor();
+
+                int inputMenuValue = 0;
+                try {
+                    inputMenuValue = Integer.parseInt(reader.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                switch (inputMenuValue) {
+                    case 1 -> bookController.create(reader);
+                    case 2 -> System.out.println();
+                }
+                break;
+            }
+        }
+    }
+
+

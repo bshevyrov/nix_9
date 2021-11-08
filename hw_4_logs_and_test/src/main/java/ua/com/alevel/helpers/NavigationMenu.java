@@ -72,14 +72,23 @@ public class NavigationMenu {
         clearScreen();
         System.out.println("This is Find all level");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("");
+        System.out.println();
         System.out.println("1. Find all Book");
         System.out.println("2. Find all Author");
         System.out.println("0. To Main level");
         System.out.println();
         System.out.print("Please make your choose: ");
     }
+ public static  void runNavigationAddBookFromAuthor(){
+        clearScreen();
+     System.out.println("This book not in DB. Create book in DB?");
+     System.out.println("1. Yes");
+     System.out.println("2. No");
+     System.out.println();
+     System.out.print("Please make your choose: ");
+ }
 
+ public static  void runNavigationAddAuthorFromBook(){}
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();

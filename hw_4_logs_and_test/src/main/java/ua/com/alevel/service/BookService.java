@@ -6,29 +6,18 @@ import ua.com.alevel.dao.AuthorDao;
 import ua.com.alevel.dao.BookDao;
 import ua.com.alevel.entity.Author;
 import ua.com.alevel.entity.Book;
-//import ua.com.alevel.entity.Publisher;
+import ua.com.alevel.helpers.NavigationMenu;
 
 public class BookService {
 
     private final BookDao bookDao = new BookDao();
     private final AuthorDao authorDao = new AuthorDao();
-//    private final PublisherDao publisherDao = new PublisherDao();
 
     public void create(Book book) {
         bookDao.create(book);
-        Author authorOfBook = new Author();
-        authorOfBook.setBooksName(new String[]{book.getName()});
-        authorOfBook.setName(book.getAuthorName());
-
-        if (authorDao.findByName(book.getAuthorName()) == null) {
-            authorDao.create(authorOfBook);
-        } else {
-            Author authorFromDb = authorDao.findByName(book.getAuthorName());
-            String[] books = authorFromDb.getBooksName();
-            books = ArrayUtils.add(books, book.getName());
-            authorFromDb.setBooksName(books);
-            authorDao.update(authorFromDb);
-        }
+       if(authorDao.findByNameOrNull(book.getAuthorName())==null){
+           NavigationMenu.runNavigationAddBookFromAuthor();
+       }
     }
 
     public void update(Book book) {
@@ -36,8 +25,8 @@ public class BookService {
     }
 
     public void delete(String name) {
-        Book book = bookDao.findByName(name);
-        Author author = authorDao.findByName(book.getAuthorName());
+        Book book = bookDao.findByNameOrNull(name);
+        Author author = authorDao.findByNameOrNull(book.getAuthorName());
         String[] books = author.getBooksName();
         bookDao.delete(name);
         if (books.length == 1) {
@@ -55,8 +44,8 @@ public class BookService {
     }
 
 
-    public Book findByName(String name) {
-        return bookDao.findByName(name);
+    public Book findByNameOrNull(String name) {
+        return bookDao.findByNameOrNull(name);
     }
 
     public Book[] findAll() {

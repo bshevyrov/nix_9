@@ -1,9 +1,10 @@
 package ua.com.alevel.entity;
 
 public class Book {
+
     String authorName;
-    String publisherName;
     String name;
+    int year;
 
     public String getAuthorName() {
         return authorName;
@@ -13,12 +14,12 @@ public class Book {
         this.authorName = authorName;
     }
 
-    public String getPublisherName() {
-        return publisherName;
+    public int getYear() {
+        return year;
     }
 
-    public void setPublisherName(String publisherName) {
-        this.publisherName = publisherName;
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public String getName() {
@@ -26,14 +27,13 @@ public class Book {
     }
 
     public void setName(String name) {
-                this.name = name;
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "Book{" +
                 " author=" + authorName +
-                ", publisher=" + publisherName +
                 ", name='" + name + '\'' +
                 '}';
     }
