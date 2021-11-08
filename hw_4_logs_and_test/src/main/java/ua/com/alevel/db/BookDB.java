@@ -4,8 +4,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.entity.Book;
 
-import java.util.UUID;
-
 public final class BookDB {
 
     private   Book[] books;
@@ -61,5 +59,4 @@ public final class BookDB {
     public Book[] findAll() {
         return books;
     }
-
 }

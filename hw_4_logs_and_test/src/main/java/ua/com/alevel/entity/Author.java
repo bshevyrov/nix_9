@@ -36,8 +36,9 @@ public class Author {
     public String toString() {
         return "Author{" +
                 "name='" + name + '\'' +
-               // ", email='" + email + '\'' +
-                ", books=" + Arrays.toString(booksName) +
+                ", age=" + age +
+                ", booksName=" + Arrays.toString(booksName) +
                 '}';
     }
 }
+

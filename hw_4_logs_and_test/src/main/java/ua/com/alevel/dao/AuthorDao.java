@@ -8,15 +8,19 @@ public class AuthorDao {
     public void create(Author author){
         AuthorDB.getInstance().create(author);
     }
+
     public void update(Author author) {
         AuthorDB.getInstance().update(author);
     }
+
     public void delete(String name) {
         AuthorDB.getInstance().delete(name);
     }
+
     public Author findByNameOrNull(String name) {
         return AuthorDB.getInstance().findByNameOrNull(name);
     }
+
     public Author[] findAll() {
         return AuthorDB.getInstance().findAll();
     }

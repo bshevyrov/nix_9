@@ -5,11 +5,10 @@ import ua.com.alevel.service.AuthorService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.Writer;
 
 public class AuthorController {
-    private final AuthorService authorService = new AuthorService();
 
+    private final AuthorService authorService = new AuthorService();
     private final Author author = new Author();
 
     public void create(BufferedReader reader) {

@@ -1,6 +1,5 @@
 package ua.com.alevel.controller;
 
-import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.entity.Author;
 import ua.com.alevel.entity.Book;
 import ua.com.alevel.service.AuthorService;
@@ -19,7 +18,7 @@ public class BookController {
         String bookName = null;
         try {
             bookName = reader.readLine();
-                    } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.print("Write author name:");
