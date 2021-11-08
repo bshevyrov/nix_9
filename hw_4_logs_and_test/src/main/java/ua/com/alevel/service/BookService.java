@@ -43,7 +43,6 @@ public class BookService {
         }
     }
 
-
     public Book findByNameOrNull(String name) {
         return bookDao.findByNameOrNull(name);
     }
