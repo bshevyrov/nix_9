@@ -3,8 +3,9 @@ package ua.com.alevel.entity;
 import java.util.Arrays;
 
 public class Author {
+
     String name;
-  //  String email;
+    int age;
     String[] booksName;
 
     public String getName() {
@@ -14,14 +15,6 @@ public class Author {
     public void setName(String name) {
         this.name = name;
     }
-//
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
 
     public String[] getBooksName() {
         return booksName;
@@ -29,18 +22,16 @@ public class Author {
 
     public void setBooksName(String[] booksName) {
         this.booksName = booksName;
-
     }
 
-//    public String arrayBooksToString(){
-//        StringBuilder builder = new StringBuilder();
-//        for (Book book : books) {
-//            builder.append(book.toString());
-//        }
-//        return builder.toString();
+    public int getAge() {
+        return age;
+    }
 
+    public void setAge(int age) {
+        this.age = age;
+    }
 
-    //  }
     @Override
     public String toString() {
         return "Author{" +

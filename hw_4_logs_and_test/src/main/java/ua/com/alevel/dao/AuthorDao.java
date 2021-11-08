@@ -14,7 +14,7 @@ public class AuthorDao {
     public void delete(String name) {
         AuthorDB.getInstance().delete(name);
     }
-    public Author findByName(String name) {
+    public Author findByNameOrNull(String name) {
         return AuthorDB.getInstance().findByNameOrNull(name);
     }
     public Author[] findAll() {

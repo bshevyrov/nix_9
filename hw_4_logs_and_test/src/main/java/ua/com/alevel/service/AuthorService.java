@@ -1,7 +1,5 @@
 package ua.com.alevel.service;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.dao.AuthorDao;
 import ua.com.alevel.dao.BookDao;
 import ua.com.alevel.entity.Author;
@@ -35,7 +33,7 @@ public class AuthorService {
     }
 
     public Author findByName(String name) {
-        return authorDao.findByName(name);
+        return authorDao.findByNameOrNull(name);
     }
 
     public Author[] findAll() {

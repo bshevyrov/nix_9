@@ -28,6 +28,7 @@ public final class AuthorDB {
         Author current = ArrayUtils.get(authors, findIndexByName(author.getName()));
         current.setName(author.getName());
         current.setBooksName(author.getBooksName());
+        current.setAge(author.getAge());
     }
 
     public void delete(String name) {
