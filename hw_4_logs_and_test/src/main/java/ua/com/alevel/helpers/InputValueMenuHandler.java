@@ -12,42 +12,42 @@ public class InputValueMenuHandler {
 
     private static final BookController bookController = new BookController();
     private static final AuthorController authorController = new AuthorController();
+
     public static final Logger LOGGER_INFO = LoggerFactory.getLogger("info");
 
     public static void mainLevelHandler(BufferedReader reader) {
         while (true) {
             NavigationMenu.runNavigationMainLevel();
-            int inputMenuValue = 0;
+            int inputMenuValue;
             try {
                 inputMenuValue = Integer.parseInt(reader.readLine());
+                switch (inputMenuValue) {
+                    case 1 -> createLevelHandler(reader);
+                    case 2 -> updateLevelHandler(reader);
+                    case 3 -> deleteLevelHandler(reader);
+                    case 4 -> findByKeyLevelHandler(reader);
+                    case 5 -> findAllLevelHandler(reader);
+                    case 0 -> System.exit(0);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            switch (inputMenuValue) {
-                case 1 -> createLevelHandler(reader);
-                case 2 -> updateLevelHandler(reader);
-                case 3 -> deleteLevelHandler(reader);
-                case 4 -> findByKeyLevelHandler(reader);
-                case 5 -> findAllLevelHandler(reader);
-                case 0 -> System.exit(0);
             }
         }
     }
 
-
     public static void findAllLevelHandler(BufferedReader reader) {
         while (true) {
             NavigationMenu.runNavigationFindAllLevel(reader);
-            int inputMenuValue = 0;
+            int inputMenuValue;
             try {
                 inputMenuValue = Integer.parseInt(reader.readLine());
+                switch (inputMenuValue) {
+                    case 1 -> bookController.findAll(reader);
+                    case 2 -> authorController.findAll(reader);
+                    case 0 -> mainLevelHandler(reader);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            switch (inputMenuValue) {
-                case 1 -> bookController.findAll(reader);
-                case 2 -> authorController.findAll(reader);
-                case 0 -> mainLevelHandler(reader);
             }
         }
     }
@@ -55,16 +55,16 @@ public class InputValueMenuHandler {
     public static void findByKeyLevelHandler(BufferedReader reader) {
         while (true) {
             NavigationMenu.runNavigationFindByKeyLevel(reader);
-            int inputMenuValue = 0;
+            int inputMenuValue;
             try {
                 inputMenuValue = Integer.parseInt(reader.readLine());
+                switch (inputMenuValue) {
+                    case 1 -> bookController.findByName(reader);
+                    case 2 -> authorController.findByName(reader);
+                    case 0 -> mainLevelHandler(reader);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            switch (inputMenuValue) {
-                case 1 -> bookController.findByName(reader);
-                case 2 -> authorController.findByName(reader);
-                case 0 -> mainLevelHandler(reader);
             }
         }
     }
@@ -72,16 +72,16 @@ public class InputValueMenuHandler {
     public static void deleteLevelHandler(BufferedReader reader) {
         while (true) {
             NavigationMenu.runNavigationDeleteLevel(reader);
-            int inputMenuValue = 0;
+            int inputMenuValue;
             try {
                 inputMenuValue = Integer.parseInt(reader.readLine());
+                switch (inputMenuValue) {
+                    case 1 -> bookController.delete(reader);
+                    case 2 -> authorController.delete(reader);
+                    case 0 -> mainLevelHandler(reader);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            switch (inputMenuValue) {
-                case 1 -> bookController.delete(reader);
-                case 2 -> authorController.delete(reader);
-                case 0 -> mainLevelHandler(reader);
             }
         }
     }
@@ -89,16 +89,16 @@ public class InputValueMenuHandler {
     public static void updateLevelHandler(BufferedReader reader) {
         while (true) {
             NavigationMenu.runNavigationUpdateLevel(reader);
-            int inputMenuValue = 0;
+            int inputMenuValue;
             try {
                 inputMenuValue = Integer.parseInt(reader.readLine());
+                switch (inputMenuValue) {
+                    case 1 -> bookController.update(reader);
+                    case 2 -> authorController.update(reader);
+                    case 0 -> mainLevelHandler(reader);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            switch (inputMenuValue) {
-                case 1 -> bookController.update(reader);
-                case 2 -> authorController.update(reader);
-                case 0 -> mainLevelHandler(reader);
             }
         }
     }
@@ -106,16 +106,16 @@ public class InputValueMenuHandler {
     public static void createLevelHandler(BufferedReader reader) {
         while (true) {
             NavigationMenu.runNavigationCreateLevel();
-            int inputMenuValue = 0;
+            int inputMenuValue;
             try {
                 inputMenuValue = Integer.parseInt(reader.readLine());
+                switch (inputMenuValue) {
+                    case 1 -> bookController.create(reader);
+                    case 2 -> authorController.create(reader);
+                    case 0 -> mainLevelHandler(reader);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            switch (inputMenuValue) {
-                case 1 -> bookController.create(reader);
-                case 2 -> authorController.create(reader);
-                case 0 -> mainLevelHandler(reader);
             }
         }
     }
@@ -123,17 +123,16 @@ public class InputValueMenuHandler {
     public static void addBookFromAuthorHandler(BufferedReader reader) {
         while (true) {
             NavigationMenu.runNavigationAddBookFromAuthor();
-            int inputMenuValue = 0;
+            int inputMenuValue;
             try {
                 inputMenuValue = Integer.parseInt(reader.readLine());
+                LOGGER_INFO.info(inputMenuValue == 2 ? "User dont wanna create Book in db. Just add Author" : "Start creating Book");
+                switch (inputMenuValue) {
+                    case 1 -> bookController.create(reader);
+                }
+                break;
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-            switch (inputMenuValue) {
-                case 1 -> bookController.create(reader);
-                case 2 -> {
-                    break;
-                }
             }
         }
     }
@@ -141,17 +140,18 @@ public class InputValueMenuHandler {
     public static void addAuthorFromBookHandler(BufferedReader reader) {
         while (true) {
             NavigationMenu.runNavigationAddAuthorFromBook();
-            int inputMenuValue = 0;
+            int inputMenuValue;
             try {
                 inputMenuValue = Integer.parseInt(reader.readLine());
+
+                LOGGER_INFO.info(inputMenuValue == 2 ? "User dont wanna create Author in db. Just add book" : "Start creating Author");
+                switch (inputMenuValue) {
+                    case 1 -> authorController.create(reader);
+                }
+                break;
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            LOGGER_INFO.info(inputMenuValue == 2 ? "User dont wanna create Author in db. Just add book" : "Start creating Author");
-            switch (inputMenuValue) {
-                case 1-> authorController.create(reader);
-            }
-            break;
         }
     }
 }

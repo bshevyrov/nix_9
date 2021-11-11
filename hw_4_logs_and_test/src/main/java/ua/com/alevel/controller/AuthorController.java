@@ -84,7 +84,7 @@ public class AuthorController {
                 System.out.print("Write name:");
                 String name = reader.readLine();
                 Author author = authorService.findByName(name);
-                System.out.println(author.toString());
+                System.out.println(author!=null?author.toString():"Sorry book not found");
                 while (true) {
                     System.out.print("Write 0 to exit:");
                     int rsl = Integer.parseInt(reader.readLine());

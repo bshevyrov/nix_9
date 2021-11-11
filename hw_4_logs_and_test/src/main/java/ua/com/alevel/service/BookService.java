@@ -33,7 +33,9 @@ public class BookService {
     }
 
     public void update(Book book) {
+        LOGGER_INFO.info("Start updating book '" + book.getName() + "'");
         bookDao.update(book);
+        LOGGER_INFO.info("Finish creating book '" + book.getName() + "'");
     }
 
     public void delete(String name) {
@@ -61,7 +63,6 @@ public class BookService {
 
     public Book findByNameOrNull(String name) {
         try {
-
             return bookDao.findByNameOrNull(name);
         } catch (NullPointerException e){
             LOGGER_ERROR.error("Book '" + name +"' not found by name");
@@ -70,6 +71,7 @@ public class BookService {
     }
 
     public Book[] findAll() {
+        LOGGER_INFO.info("Starting find all book");
         return bookDao.findAll();
     }
 }
