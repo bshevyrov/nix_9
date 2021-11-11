@@ -3,7 +3,11 @@ package ua.com.alevel.service;
 import ua.com.alevel.dao.AuthorDao;
 import ua.com.alevel.dao.BookDao;
 import ua.com.alevel.entity.Author;
+import ua.com.alevel.helpers.InputValueMenuHandler;
 import ua.com.alevel.helpers.NavigationMenu;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class AuthorService {
 
@@ -13,7 +17,7 @@ public class AuthorService {
     public void create(Author author) {
         authorDao.create(author);
         if (bookDao.findByNameOrNull(author.getBooksName()[0]) == null) {
-            NavigationMenu.runNavigationAddAuthorFromBook();
+            InputValueMenuHandler.addBookFromAuthorHandler(new BufferedReader(new InputStreamReader(System.in)));
         }
     }
 

@@ -1,5 +1,7 @@
 package ua.com.alevel.helpers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.com.alevel.controller.AuthorController;
 import ua.com.alevel.controller.BookController;
 
@@ -10,7 +12,7 @@ public class InputValueMenuHandler {
 
     private static final BookController bookController = new BookController();
     private static final AuthorController authorController = new AuthorController();
-
+    public static final Logger LOGGER_INFO = LoggerFactory.getLogger("info");
 
     public static void mainLevelHandler(BufferedReader reader) {
         while (true) {
@@ -21,9 +23,7 @@ public class InputValueMenuHandler {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             switch (inputMenuValue) {
-
                 case 1 -> createLevelHandler(reader);
                 case 2 -> updateLevelHandler(reader);
                 case 3 -> deleteLevelHandler(reader);
@@ -33,7 +33,6 @@ public class InputValueMenuHandler {
             }
         }
     }
-
 
 
     public static void findAllLevelHandler(BufferedReader reader) {
@@ -96,7 +95,6 @@ public class InputValueMenuHandler {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             switch (inputMenuValue) {
                 case 1 -> bookController.update(reader);
                 case 2 -> authorController.update(reader);
@@ -121,23 +119,42 @@ public class InputValueMenuHandler {
             }
         }
     }
-    public static void addBookFromAuthorHandler(BufferedReader reader){
+
+    public static void addBookFromAuthorHandler(BufferedReader reader) {
         while (true) {
             NavigationMenu.runNavigationAddBookFromAuthor();
-
-                int inputMenuValue = 0;
-                try {
-                    inputMenuValue = Integer.parseInt(reader.readLine());
-                } catch (IOException e) {
-                    e.printStackTrace();
+            int inputMenuValue = 0;
+            try {
+                inputMenuValue = Integer.parseInt(reader.readLine());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            switch (inputMenuValue) {
+                case 1 -> bookController.create(reader);
+                case 2 -> {
+                    break;
                 }
-                switch (inputMenuValue) {
-                    case 1 -> bookController.create(reader);
-                    case 2 -> System.out.println();
-                }
-                break;
             }
         }
     }
+
+    public static void addAuthorFromBookHandler(BufferedReader reader) {
+        while (true) {
+            NavigationMenu.runNavigationAddAuthorFromBook();
+            int inputMenuValue = 0;
+            try {
+                inputMenuValue = Integer.parseInt(reader.readLine());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            LOGGER_INFO.info(inputMenuValue == 2 ? "User dont wanna create Author in db. Just add book" : "Start creating Author");
+            switch (inputMenuValue) {
+                case 1-> authorController.create(reader);
+            }
+            break;
+        }
+    }
+}
+
 
 

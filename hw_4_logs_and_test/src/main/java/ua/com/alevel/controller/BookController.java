@@ -101,7 +101,7 @@ public class BookController {
                 System.out.print("Write name of book:");
                 String nameBook = reader.readLine();
                 Book book = bookService.findByNameOrNull(nameBook);
-                System.out.println(book.toString());
+                System.out.println(book!=null?book.toString():"Sorry book not found");
                 while (true) {
                     System.out.println("Write 0 to continue:");
                     int rsl = Integer.parseInt(reader.readLine());

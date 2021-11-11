@@ -79,16 +79,25 @@ public class NavigationMenu {
         System.out.println();
         System.out.print("Please make your choose: ");
     }
- public static  void runNavigationAddBookFromAuthor(){
-        clearScreen();
-     System.out.println("This book not in DB. Create book in DB?");
-     System.out.println("1. Yes");
-     System.out.println("2. No");
-     System.out.println();
-     System.out.print("Please make your choose: ");
- }
 
- public static  void runNavigationAddAuthorFromBook(){}
+    public static void runNavigationAddBookFromAuthor() {
+        clearScreen();
+        System.out.println("This book not in DB. Create book in DB?");
+        System.out.println("1. Yes");
+        System.out.println("2. No");
+        System.out.println();
+        System.out.print("Please make your choose: ");
+    }
+
+    public static void runNavigationAddAuthorFromBook() {
+        clearScreen();
+        System.out.println("This Author not in DB. Create Author in DB?");
+        System.out.println("1. Yes");
+        System.out.println("2. No");
+        System.out.println();
+        System.out.print("Please make your choose: ");
+    }
+
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
