@@ -41,6 +41,7 @@ public class AuthorController {
             String book = reader.readLine();
             author.setName(authorName);
             author.setBooksName(new String[]{book});
+            author.setAge(authorAge);
             authorService.update(author);
         } catch (IOException e) {
             e.printStackTrace();
@@ -83,7 +84,7 @@ public class AuthorController {
             try {
                 System.out.print("Write name:");
                 String name = reader.readLine();
-                Author author = authorService.findByName(name);
+                Author author = authorService.findByNameOrNull(name);
                 System.out.println(author!=null?author.toString():"Sorry book not found");
                 while (true) {
                     System.out.print("Write 0 to exit:");
