@@ -16,6 +16,7 @@ public class AuthorService {
     public void create(Author author) {
         LOGGER_INFO.info("Start creating author '" + author.getName() + "'");
         authorDao.create(author);
+        LOGGER_INFO.info("Finish creating Author '" + author.getName() + "'");
     }
 
     public void update(Author author) {
