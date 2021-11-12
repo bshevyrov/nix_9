@@ -1,5 +1,7 @@
 package ua.com.alevel.entity;
 
+import java.util.Objects;
+
 public class Book {
 
     String authorName;
@@ -37,5 +39,18 @@ public class Book {
                 ", name='" + name + '\'' +
                 ", year=" + year +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return year == book.year && Objects.equals(authorName, book.authorName) && Objects.equals(name, book.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(authorName, name, year);
     }
 }

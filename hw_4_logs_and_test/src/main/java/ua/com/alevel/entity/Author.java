@@ -1,6 +1,7 @@
 package ua.com.alevel.entity;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Author {
 
@@ -39,6 +40,21 @@ public class Author {
                 ", age=" + age +
                 ", booksName=" + Arrays.toString(booksName) +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Author author = (Author) o;
+        return age == author.age && Objects.equals(name, author.name) && Arrays.equals(booksName, author.booksName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(name, age);
+        result = 31 * result + Arrays.hashCode(booksName);
+        return result;
     }
 }
 
