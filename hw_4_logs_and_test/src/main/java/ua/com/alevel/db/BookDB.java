@@ -4,9 +4,11 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.entity.Book;
 
+import java.util.UUID;
+
 public final class BookDB {
 
-    private   Book[] books;
+    private Book[] books;
     private static BookDB instance;
 
     private BookDB() {
@@ -21,35 +23,36 @@ public final class BookDB {
     }
 
     public void create(Book book) {
+        book.setId(generateId());
         books = ArrayUtils.add(books, book);
     }
-//
-//    private String generateIdIsbn() {
-//        String id = UUID.randomUUID().toString();
-//        if(!(findByNameOrNull(id)==null)){
-//            generateIdIsbn();
-//        }
-//        return id;
-//    }
+
+    private String generateId() {
+        String id = UUID.randomUUID().toString();
+        if (!(findByIdOrNull(id) == null)) {
+            generateId();
+        }
+        return id;
+    }
 
     public void update(Book book) {
-        Book current = ArrayUtils.get(books, getIndexByName(book.getName()));
+        Book current = ArrayUtils.get(books, getIndexById(book.getId()));
         current.setName(book.getName());
-        current.setAuthorName(book.getAuthorName());
-        current.setYear(book.getYear());
+       // current.setAuthorName(book.getAuthorName());
+
     }
 
-    public void delete(String name) {
-       books= ArrayUtils.remove(books, getIndexByName(name));
+    public void delete(String id) {
+        books = ArrayUtils.remove(books, getIndexById(id));
     }
 
-    private int getIndexByName(String name) {
-        return ArrayUtils.indexOf(books, findByNameOrNull(name));
+    private int getIndexById(String id) {
+        return ArrayUtils.indexOf(books, findByIdOrNull(id));
     }
 
-    public Book findByNameOrNull(String name) {
+    public Book findByIdOrNull(String id) {
         for (Book book : books) {
-            if (StringUtils.equals(name, book.getName())) {
+            if (StringUtils.equals(id, book.getId())) {
                 return book;
             }
         }

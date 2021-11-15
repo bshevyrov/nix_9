@@ -13,12 +13,12 @@ public class AuthorDao {
         AuthorDB.getInstance().update(author);
     }
 
-    public void delete(String name) {
-        AuthorDB.getInstance().delete(name);
+    public void delete(String id) {
+        AuthorDB.getInstance().delete(id);
     }
 
-    public Author findByNameOrNull(String name) {
-        return AuthorDB.getInstance().findByNameOrNull(name);
+    public Author findByIdOrNull(String id) {
+        return AuthorDB.getInstance().findByIdOrNull(id);
     }
 
     public Author[] findAll() {

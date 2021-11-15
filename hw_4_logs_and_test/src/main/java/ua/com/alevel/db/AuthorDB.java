@@ -4,6 +4,8 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.entity.Author;
 
+import java.util.UUID;
+
 public final class AuthorDB {
 
     private static AuthorDB instance;
@@ -21,27 +23,27 @@ public final class AuthorDB {
     }
 
     public void create(Author author) {
+        author.setId(generateId());
         authors = ArrayUtils.add(authors, author);
     }
 
     public void update(Author author) {
-        Author current = ArrayUtils.get(authors, findIndexByName(author.getName()));
+        Author current = ArrayUtils.get(authors, findIndexById(author.getId()));
         current.setName(author.getName());
-        current.setBooksName(author.getBooksName());
-        current.setAge(author.getAge());
+       // current.setBooksName(author.getBooksName());
     }
 
-    public void delete(String name) {
-        authors = ArrayUtils.remove(authors, findIndexByName(name));
+    public void delete(String id) {
+        authors = ArrayUtils.remove(authors, findIndexById(id));
     }
 
-    private int findIndexByName(String name) {
-        return ArrayUtils.indexOf(authors, findByNameOrNull(name));
+    private int findIndexById(String id) {
+        return ArrayUtils.indexOf(authors, findByIdOrNull(id));
     }
 
-    public Author findByNameOrNull(String name) {
+    public Author findByIdOrNull(String id) {
         for (Author author : authors) {
-            if (StringUtils.equals(name, author.getName())) {
+            if (StringUtils.equals(id, author.getId())) {
                 return author;
             }
         }
@@ -52,4 +54,11 @@ public final class AuthorDB {
         return authors;
     }
 
+    private String generateId() {
+        String id = UUID.randomUUID().toString();
+        if(!(findByIdOrNull(id)==null)){
+            generateId();
+        }
+        return id;
+    }
 }

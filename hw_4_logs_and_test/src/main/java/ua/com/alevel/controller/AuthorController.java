@@ -16,13 +16,10 @@ public class AuthorController {
             try {
                 System.out.print("Write author name:");
                 String authorName = reader.readLine();
-                System.out.println("Write age of author:");
-                int authorAge = Integer.parseInt(reader.readLine());
                 System.out.print("Write book name:");
                 String book = reader.readLine();
                 author.setName(authorName);
-                author.setBooksName(new String[]{book});
-                author.setAge(authorAge);
+           //     author.setBooksName(new String[]{book});
                 authorService.create(author);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -35,13 +32,10 @@ public class AuthorController {
         try {
             System.out.print("Write author name:");
             String authorName = reader.readLine();
-            System.out.println("Write age of author:");
-            int authorAge = Integer.parseInt(reader.readLine());
             System.out.print("Write book name:");
             String book = reader.readLine();
             author.setName(authorName);
-            author.setBooksName(new String[]{book});
-            author.setAge(authorAge);
+          //  author.setBooksName(new String[]{book});
             authorService.update(author);
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,12 +73,12 @@ public class AuthorController {
         }
     }
 
-    public void findByName(BufferedReader reader) {
+    public void findById(BufferedReader reader) {
         while (true) {
             try {
-                System.out.print("Write name:");
-                String name = reader.readLine();
-                Author author = authorService.findByNameOrNull(name);
+                System.out.print("Write id:");
+                String id = reader.readLine();
+                Author author = authorService.findByIdOrNull(id);
                 System.out.println(author!=null?author.toString():"Sorry book not found");
                 while (true) {
                     System.out.print("Write 0 to exit:");

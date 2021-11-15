@@ -1,27 +1,29 @@
 package ua.com.alevel.entity;
 
+import ua.com.alevel.dao.AuthorBookDao;
+
 import java.util.Objects;
 
 public class Book {
 
-    String authorName;
-    String name;
-    int year;
+    private String id;
+    private String name;
+    private String authorId;
 
-    public String getAuthorName() {
-        return authorName;
+    public String getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 
-    public int getYear() {
-        return year;
+    public String getId() {
+        return id;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -35,22 +37,17 @@ public class Book {
     @Override
     public String toString() {
         return "Book{" +
-                "authorName='" + authorName + '\'' +
+                "id=" + id +
                 ", name='" + name + '\'' +
-                ", year=" + year +
+//                ", authorName='" + authorName + '\'' +
                 '}';
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
-        return year == book.year && Objects.equals(authorName, book.authorName) && Objects.equals(name, book.name);
+    public void findAllAuthor(String id){
+        AuthorBookDao authorBookDao = new AuthorBookDao();
+         Author[] authors = authorBookDao.findAuthorsByBookId(id);
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(authorName, name, year);
-    }
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(authorName, name, id);
+//    }
 }

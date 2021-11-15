@@ -59,8 +59,8 @@ public class InputValueMenuHandler {
             try {
                 inputMenuValue = Integer.parseInt(reader.readLine());
                 switch (inputMenuValue) {
-                    case 1 -> bookController.findByName(reader);
-                    case 2 -> authorController.findByName(reader);
+                    case 1 -> bookController.findById(reader);
+                    case 2 -> authorController.findById(reader);
                     case 0 -> mainLevelHandler(reader);
                 }
             } catch (IOException e) {

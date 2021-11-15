@@ -13,12 +13,12 @@ public class BookDao {
         BookDB.getInstance().update(book);
     }
 
-    public void delete(String name) {
-        BookDB.getInstance().delete(name);
+    public void delete(String id) {
+        BookDB.getInstance().delete(id);
     }
 
-    public Book findByNameOrNull(String name) {
-        return BookDB.getInstance().findByNameOrNull(name);
+    public Book findByIdOrNull(String id) {
+        return BookDB.getInstance().findByIdOrNull(id);
     }
 
     public Book[] findAll() {

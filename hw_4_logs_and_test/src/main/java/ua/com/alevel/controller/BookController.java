@@ -1,80 +1,106 @@
 package ua.com.alevel.controller;
 
-import ua.com.alevel.entity.Author;
+import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.entity.Book;
-import ua.com.alevel.service.AuthorService;
+import ua.com.alevel.helpers.NavigationMenu;
 import ua.com.alevel.service.BookService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
 public class BookController {
+
     private final BookService bookService = new BookService();
 
-    private final AuthorService authorService = new AuthorService();
-
     public void create(BufferedReader reader) {
-        System.out.print("Write name of the book:");
-        String bookName = null;
-        try {
-            bookName = reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.print("Write author name:");
-        String authorName = null;
-        try {
-            authorName = reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.print("Write Year of the book:");
-        int bookYear = 0;
-        try {
-            bookYear = Integer.parseInt(reader.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         Book newBook = new Book();
-        newBook.setName(bookName);
-        newBook.setAuthorName(authorName);
-        newBook.setYear(bookYear);
-        bookService.create(newBook);
+        while (true) {
+            try {
+                NavigationMenu.clearScreen();
+                System.out.print("Write name of the book:");
+                String bookName = reader.readLine();
+                if (StringUtils.isEmpty(bookName) || StringUtils.isBlank(bookName)) {
+                    System.out.println("There are blank or empty name. Please try again.");
+                    Thread.sleep(3000);
+                    continue;
+                }
+                newBook.setName(bookName);
+                while (true) {
+                    System.out.print("Write author name:");
+                    String authorName = reader.readLine();
+                    if (StringUtils.isEmpty(authorName) || StringUtils.isBlank(authorName)) {
+                        System.out.println("There are blank or empty name. Please try again.");
+                        Thread.sleep(3000);
+                        continue;
+                    }
+
+                    // newBook.setAuthorName(authorName);
+                    Book bookToService = new Book();
+                    bookToService.setName(newBook.getName());
+                    //  bookToService.setAuthorName(newBook.getAuthorName());
+                    bookService.create(bookToService);
+                    //    bookService.create(newBook);
+                    System.out.print("If you want to add another author of " + bookName + " please write 1:");
+                    String inputAnswer = reader.readLine();
+                    if (StringUtils.isNumeric(inputAnswer) && Integer.parseInt(inputAnswer) == 1) {
+                        continue;
+                    } else {
+                        break;
+                    }
+                }
+                break;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void update(BufferedReader reader) {
-        System.out.print("Write name of the book:");
-        String bookName = null;
-        try {
-            bookName = reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.print("Write author name:");
-        String authorName = null;
-        try {
-            authorName = reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         Book newBook = new Book();
-        newBook.setName(bookName);
-        bookService.update(newBook);
-        Author newAuthor = new Author();
-        newAuthor.setName(authorName);
-        newAuthor.setBooksName(new String[]{bookName});
-        authorService.update(newAuthor);
+        while (true) {
+            try {
+                NavigationMenu.clearScreen();
+                System.out.print("Write name of the book:");
+                String bookName = reader.readLine();
+                if (StringUtils.isEmpty(bookName) || StringUtils.isBlank(bookName)) {
+                    System.out.println("There are blank or empty name. Please try again.");
+                    Thread.sleep(3000);
+                    continue;
+                }
+                newBook.setName(bookName);
+                while (true) {
+                    System.out.print("Write author name:");
+                    String authorName = reader.readLine();
+                    if (StringUtils.isEmpty(authorName) || StringUtils.isBlank(authorName)) {
+                        System.out.println("There are blank or empty name. Please try again.");
+                        Thread.sleep(3000);
+                        continue;
+                    }
+                    // newBook.setAuthorName(authorName);
+                    bookService.update(newBook);
+                    System.out.print("If you want to add another author of " + bookName + " please write 1:");
+                    String inputAnswer = reader.readLine();
+                    if (StringUtils.isNumeric(inputAnswer) && Integer.parseInt(inputAnswer) == 1) {
+                        continue;
+                    } else {
+                        break;
+                    }
+                }
+                break;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void delete(BufferedReader reader) {
-        System.out.print("Write name of book to delete:");
-        String name = null;
+        System.out.print("Write id of book to delete:");
         try {
-            name = reader.readLine();
+            String name = reader.readLine();
+            bookService.delete(name);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        bookService.delete(name);
     }
 
     public void findAll(BufferedReader reader) {
@@ -95,13 +121,13 @@ public class BookController {
         }
     }
 
-    public void findByName(BufferedReader reader) {
+    public void findById(BufferedReader reader) {
         while (true) {
             try {
-                System.out.print("Write name of book:");
-                String nameBook = reader.readLine();
-                Book book = bookService.findByNameOrNull(nameBook);
-                System.out.println(book!=null?book.toString():"Sorry book not found");
+                System.out.print("Write id of book:");
+                String idBook = reader.readLine();
+                Book book = bookService.findByIdOrNull(idBook);
+                System.out.println(book != null ? book.toString() : "Sorry book not found");
                 while (true) {
                     System.out.println("Write 0 to continue:");
                     int rsl = Integer.parseInt(reader.readLine());
