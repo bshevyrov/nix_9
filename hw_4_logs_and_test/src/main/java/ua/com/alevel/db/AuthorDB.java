@@ -27,14 +27,13 @@ public final class AuthorDB {
         author.setId(generateId());
         authors = ArrayUtils.add(authors, author);
         AuthorBook authorBook = new AuthorBook();
-        authorBook.setAuthorId(author.getId());
+        authorBook.setAuthorId(new String[]{author.getId()});
         AuthorBookDB.getInstance().create(authorBook);
     }
 
     public void update(Author author) {
         Author current = ArrayUtils.get(authors, findIndexById(author.getId()));
         current.setName(author.getName());
-       // current.setBooksName(author.getBooksName());
     }
 
     public void delete(String id) {
@@ -60,7 +59,7 @@ public final class AuthorDB {
 
     private String generateId() {
         String id = UUID.randomUUID().toString();
-        if(!(findByIdOrNull(id)==null)){
+        if (!(findByIdOrNull(id) == null)) {
             generateId();
         }
         return id;

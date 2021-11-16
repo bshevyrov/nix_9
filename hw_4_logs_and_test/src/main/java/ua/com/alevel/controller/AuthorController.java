@@ -18,9 +18,6 @@ public class AuthorController {
     private final Author author = new Author();
 
     public void create(BufferedReader reader) {
-
-        Author newAuthor = new Author();
-
         while (true) {
             try {
                 NavigationMenu.clearScreen();
@@ -41,6 +38,8 @@ public class AuthorController {
                 Book book = new Book();
                 book.setName(bookName);
                 bookService.create(book);
+
+                Author newAuthor = new Author();
                 newAuthor.setName(authorName);
                 newAuthor.setBooksId(new String[]{bookService.findBookIdByName(bookName)});
                 authorService.create(newAuthor);

@@ -33,8 +33,11 @@ public class AuthorBookDB {
     public String[] findBooksIdByAuthorId(String authorId) {
         String[] rsl = new String[0];
         for (AuthorBook authorBook : authorBooks) {
-            if (StringUtils.equals(authorBook.getAuthorId(), authorId)) {
-                rsl = authorBook.getBookIds();
+            String[] bookAuthorIds = authorBook.getAuthorIds();
+            for (String bookAuthorId : bookAuthorIds) {
+                if (StringUtils.equals(bookAuthorId, authorId)) {
+                    rsl = authorBook.getBookIds();
+                }
             }
         }
         return rsl;
@@ -47,7 +50,6 @@ public class AuthorBookDB {
             for (String authorBookId : authorBookIds) {
                 if (StringUtils.equals(authorBookId, bookId)) {
                     rsl = ArrayUtils.add(rsl, authorBookId);
-                    break;
                 }
             }
         }
@@ -72,8 +74,7 @@ public class AuthorBookDB {
 //
 //    public Author[] findAll() {
 //        return authors;
-//    }
+    }
 
-}
 
 

@@ -2,6 +2,7 @@ package ua.com.alevel.db;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import ua.com.alevel.entity.AuthorBook;
 import ua.com.alevel.entity.Book;
 
 import java.util.UUID;
@@ -25,6 +26,9 @@ public final class BookDB {
     public void create(Book book) {
         book.setId(generateId());
         books = ArrayUtils.add(books, book);
+        AuthorBook authorBook = new AuthorBook();
+        authorBook.setAuthorId(new String[]{book.getId()});
+        AuthorBookDB.getInstance().create(authorBook);
     }
 
     private String generateId() {
@@ -38,8 +42,6 @@ public final class BookDB {
     public void update(Book book) {
         Book current = ArrayUtils.get(books, getIndexById(book.getId()));
         current.setName(book.getName());
-       // current.setAuthorName(book.getAuthorName());
-
     }
 
     public void delete(String id) {

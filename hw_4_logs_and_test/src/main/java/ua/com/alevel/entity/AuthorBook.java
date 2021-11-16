@@ -2,15 +2,15 @@ package ua.com.alevel.entity;
 
 public class AuthorBook {
 
-    private String authorId;
+    private String[] authorIds;
     private String[] bookIds;
 
-    public String getAuthorId() {
-        return authorId;
+    public String[] getAuthorIds() {
+        return authorIds;
     }
 
-    public void setAuthorId(String authorIds) {
-        this.authorId = authorId;
+    public void setAuthorId(String[] authorIds) {
+        this.authorIds = authorIds;
     }
 
     public String[] getBookIds() {

@@ -1,21 +1,24 @@
 package ua.com.alevel.entity;
 
-import ua.com.alevel.dao.AuthorBookDao;
+import org.apache.commons.lang3.ArrayUtils;
+import ua.com.alevel.service.AuthorService;
 
-import java.util.Objects;
+import java.util.Arrays;
 
 public class Book {
 
     private String id;
     private String name;
-    private String authorId;
+    private String[] authorsId = new String[0];
 
-    public String getAuthorId() {
-        return authorId;
+    AuthorService authorService = new AuthorService();
+
+    public String[] getAuthorId() {
+        return authorsId;
     }
 
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
+    public void setAuthorId(String[] authorsId) {
+        this.authorsId = authorsId;
     }
 
     public String getId() {
@@ -34,12 +37,20 @@ public class Book {
         this.name = name;
     }
 
+    private String[] getAuthorsOfTheBookById(){
+        String[] rsl = new String[0];
+        for (String s : authorsId) {
+            rsl = ArrayUtils.add(rsl, authorService.findByIdOrNull(s).getName());
+        }
+        return rsl;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-//                ", authorName='" + authorName + '\'' +
+                ", name='" + name +
+                ", author='" + Arrays.toString(getAuthorsOfTheBookById()) +
                 '}';
     }
 //    public void findAllAuthor(String id){

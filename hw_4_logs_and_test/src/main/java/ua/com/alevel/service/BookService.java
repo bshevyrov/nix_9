@@ -22,7 +22,6 @@ public class BookService {
         LOGGER_INFO.info("Finish creating book '" + book.getName() + "'");
         LOGGER_INFO.info("Start creating authorBook");
         AuthorBook authorBook = new AuthorBook();
-      //  authorBook.setBookId(book.getId());
         authorBookDao.create(authorBook);
         LOGGER_INFO.info("Finish creating authorBook");
     }

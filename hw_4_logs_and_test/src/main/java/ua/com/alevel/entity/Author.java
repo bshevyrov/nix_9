@@ -4,7 +4,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import ua.com.alevel.service.BookService;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class Author {
 
@@ -13,6 +12,7 @@ public class Author {
     private String[] booksId = new String[0];
 
     BookService bookService = new BookService();
+
     public String getName() {
         return name;
     }
@@ -37,14 +37,14 @@ public class Author {
         this.id = id;
     }
 
-
-    private String[] getBooksWroteByAuthorById(){
+    private String[] getBooksWroteByAuthorById() {
         String[] rsl = new String[0];
         for (String s : booksId) {
-           rsl = ArrayUtils.add(rsl, bookService.findByIdOrNull(s).getName());
+            rsl = ArrayUtils.add(rsl, bookService.findByIdOrNull(s).getName());
         }
         return rsl;
     }
+
     @Override
     public String toString() {
         return "Author{" +
