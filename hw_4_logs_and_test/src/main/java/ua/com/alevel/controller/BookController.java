@@ -1,5 +1,6 @@
 package ua.com.alevel.controller;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.entity.Author;
 import ua.com.alevel.entity.Book;
@@ -16,6 +17,7 @@ public class BookController {
     private final BookService bookService = new BookService();
 
     public void create(BufferedReader reader) {
+        String[] authorsOfThisBook= new String[0];
         while (true) {
             try {
                 NavigationMenu.clearScreen();
@@ -34,15 +36,7 @@ public class BookController {
                         Thread.sleep(3000);
                         continue;
                     }
-                    Author author = new Author();
-                    author.setName(authorName);
-                    authorService.create(author);
-
-                    Book newBook = new Book();
-                    newBook.setName(bookName);
-                    newBook.setAuthorId(new String[]{authorService.findAuthorIdByName(authorName)});
-                    bookService.create(newBook);
-
+                    authorsOfThisBook= ArrayUtils.add(authorsOfThisBook,authorName);
                     System.out.print("If you want to add another author of " + bookName + " please write 1:");
                     String inputAnswer = reader.readLine();
                     if (StringUtils.isNumeric(inputAnswer) && Integer.parseInt(inputAnswer) == 1) {
@@ -51,6 +45,21 @@ public class BookController {
                         break;
                     }
                 }
+                for (String s : authorsOfThisBook) {
+                    Author author = new Author();
+                    author.setName(s);
+                    authorService.create(author);
+                }
+
+
+                Book newBook = new Book();
+                newBook.setName(bookName);
+                String[] authorsId = new String[0];
+                for (String s : authorsOfThisBook) {
+                    authorsId = ArrayUtils.add(authorsId,authorService.findAuthorIdByName(s));
+                }
+                newBook.setAuthorId(authorsId);
+                bookService.create(newBook);
                 break;
             } catch (Exception e) {
                 e.printStackTrace();
