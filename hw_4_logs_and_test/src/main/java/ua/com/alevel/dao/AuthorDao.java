@@ -7,7 +7,7 @@ public class AuthorDao {
 
     public void create(Author author){
         AuthorDB.getInstance().create(author);
-    }
+            }
 
     public void update(Author author) {
         AuthorDB.getInstance().update(author);

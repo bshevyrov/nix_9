@@ -42,10 +42,10 @@ public class Book {
 //                ", authorName='" + authorName + '\'' +
                 '}';
     }
-    public void findAllAuthor(String id){
-        AuthorBookDao authorBookDao = new AuthorBookDao();
-         Author[] authors = authorBookDao.findAuthorsByBookId(id);
-    }
+//    public void findAllAuthor(String id){
+//        AuthorBookDao authorBookDao = new AuthorBookDao();
+//         Author[] authors = authorBookDao.findAuthorsByBookId(id);
+//    }
 //    @Override
 //    public int hashCode() {
 //        return Objects.hash(authorName, name, id);

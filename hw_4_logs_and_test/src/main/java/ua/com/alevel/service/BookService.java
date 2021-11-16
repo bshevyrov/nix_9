@@ -22,7 +22,7 @@ public class BookService {
         LOGGER_INFO.info("Finish creating book '" + book.getName() + "'");
         LOGGER_INFO.info("Start creating authorBook");
         AuthorBook authorBook = new AuthorBook();
-        authorBook.setBookId(book.getId());
+      //  authorBook.setBookId(book.getId());
         authorBookDao.create(authorBook);
         LOGGER_INFO.info("Finish creating authorBook");
     }
@@ -47,7 +47,9 @@ public class BookService {
         }
         return null;
     }
-
+  public String findBookIdByName(String name) {
+       return bookDao.findIdByName(name);
+  }
     public Book[] findAll() {
         LOGGER_INFO.info("Starting find all book");
         return bookDao.findAll();

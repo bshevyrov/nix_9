@@ -17,7 +17,7 @@ public class AuthorBook {
         return bookIds;
     }
 
-    public void setBookIds(String bookIds) {
+    public void setBookIds(String[] bookIds) {
         this.bookIds = bookIds;
     }
 }

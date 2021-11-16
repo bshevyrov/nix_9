@@ -33,13 +33,12 @@ public class BookController {
                         Thread.sleep(3000);
                         continue;
                     }
-
-                    // newBook.setAuthorName(authorName);
-                    Book bookToService = new Book();
-                    bookToService.setName(newBook.getName());
-                    //  bookToService.setAuthorName(newBook.getAuthorName());
-                    bookService.create(bookToService);
-                    //    bookService.create(newBook);
+                    //  newBook.setAuthorName(authorName);
+//                    Book bookToService = new Book();
+//                    bookToService.setName(newBook.getName());
+                    // bookToService.setAuthorName(newBook.getAuthorName());
+//                    bookService.create(bookToService);
+                    bookService.create(newBook);
                     System.out.print("If you want to add another author of " + bookName + " please write 1:");
                     String inputAnswer = reader.readLine();
                     if (StringUtils.isNumeric(inputAnswer) && Integer.parseInt(inputAnswer) == 1) {

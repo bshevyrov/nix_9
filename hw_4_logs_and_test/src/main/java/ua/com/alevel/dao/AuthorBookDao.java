@@ -1,7 +1,6 @@
 package ua.com.alevel.dao;
 
 import ua.com.alevel.db.AuthorBookDB;
-import ua.com.alevel.entity.Author;
 import ua.com.alevel.entity.AuthorBook;
 
 public class AuthorBookDao {
@@ -13,14 +12,12 @@ public class AuthorBookDao {
         AuthorBookDB.getInstance().update(authorBook);
     }
 
-    public void findBooksByAuthorId(String authorId) {
-
+    public String[] findAuthorsIdByBookId(String bookId) {
+        return AuthorBookDB.getInstance().findAuthorsIdByBookId(bookId);
     }
 
-    public Author findAuthorsByBookId(String bookId) {
-      AuthorBookDB.getInstance().findAuthorsByBookId(bookId);
-        return
+    public String[] findBooksIdByAuthorId(String authorId) {
+        return AuthorBookDB.getInstance().findBooksIdByAuthorId(authorId);
     }
-
 }
 
