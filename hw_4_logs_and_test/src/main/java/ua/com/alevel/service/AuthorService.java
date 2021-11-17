@@ -2,7 +2,6 @@ package ua.com.alevel.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import ua.com.alevel.dao.AuthorBookDao;
 import ua.com.alevel.dao.AuthorDao;
 import ua.com.alevel.entity.Author;
@@ -21,10 +20,8 @@ public class AuthorService {
         LOGGER_INFO.info("Start creating author '" + author.getName() + "'");
         authorDao.create(author);
         LOGGER_INFO.info("Finish creating Author '" + author.getName() + "'");
-        LOGGER_INFO.info("Start creating authorBook");
-        AuthorBook authorBook = new AuthorBook();
-        authorBookDao.create(authorBook);
-        LOGGER_INFO.info("Finish creating authorBook");
+//        AuthorBook authorBook = new AuthorBook();
+//        authorBookDao.create(authorBook);
     }
 
     public void update(Author author) {
@@ -47,11 +44,14 @@ public class AuthorService {
         }
         return null;
     }
+
     public String findAuthorIdByName(String name) {
         return authorDao.findAuthorIdByIdName(name);
     }
+
     public Author[] findAll() {
         LOGGER_INFO.info("Starting find all book");
         return authorDao.findAll();
     }
 }
+

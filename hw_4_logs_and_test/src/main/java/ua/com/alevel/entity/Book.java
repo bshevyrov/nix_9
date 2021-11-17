@@ -4,20 +4,21 @@ import org.apache.commons.lang3.ArrayUtils;
 import ua.com.alevel.service.AuthorService;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Book {
 
+    private static final AuthorService authorService = new AuthorService();
+
     private String id;
     private String name;
-    private String[] authorsId = new String[0];
-
-    AuthorService authorService = new AuthorService();
+    private String[] authorsId; // = new String [0];
 
     public String[] getAuthorId() {
         return authorsId;
     }
 
-    public void setAuthorId(String[] authorsId) {
+    public void setAuthorsId(String[] authorsId) {
         this.authorsId = authorsId;
     }
 
@@ -37,7 +38,7 @@ public class Book {
         this.name = name;
     }
 
-    private String[] getAuthorsOfTheBookById(){
+    private String[] getAuthorsOfTheBookById() {
         String[] rsl = new String[0];
         for (String s : authorsId) {
             rsl = ArrayUtils.add(rsl, authorService.findByIdOrNull(s).getName());
@@ -53,12 +54,19 @@ public class Book {
                 ", author='" + Arrays.toString(getAuthorsOfTheBookById()) +
                 '}';
     }
-//    public void findAllAuthor(String id){
-//        AuthorBookDao authorBookDao = new AuthorBookDao();
-//         Author[] authors = authorBookDao.findAuthorsByBookId(id);
-//    }
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(authorName, name, id);
-//    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(id, book.id) && Objects.equals(name, book.name) && Arrays.equals(authorsId, book.authorsId);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(id, name);
+        result = 31 * result + Arrays.hashCode(authorsId);
+        return result;
+    }
 }

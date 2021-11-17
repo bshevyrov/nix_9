@@ -20,11 +20,10 @@ public class BookService {
         LOGGER_INFO.info("Start creating book '" + book.getName() + "'");
         bookDao.create(book);
         LOGGER_INFO.info("Finish creating book '" + book.getName() + "'");
-        LOGGER_INFO.info("Start creating authorBook");
-        AuthorBook authorBook = new AuthorBook();
-        authorBookDao.create(authorBook);
-        LOGGER_INFO.info("Finish creating authorBook");
+//        AuthorBook authorBook = new AuthorBook();
+//        authorBookDao.create(authorBook);
     }
+
 
     public void update(Book book) {
         LOGGER_INFO.info("Start updating book '" + book.getName() + "'");

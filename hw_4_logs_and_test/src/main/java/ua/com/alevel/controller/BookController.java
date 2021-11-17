@@ -17,7 +17,7 @@ public class BookController {
     private final BookService bookService = new BookService();
 
     public void create(BufferedReader reader) {
-        String[] authorsOfThisBook= new String[0];
+        String[] authorsOfThisBook = new String[0];
         while (true) {
             try {
                 NavigationMenu.clearScreen();
@@ -36,7 +36,7 @@ public class BookController {
                         Thread.sleep(3000);
                         continue;
                     }
-                    authorsOfThisBook= ArrayUtils.add(authorsOfThisBook,authorName);
+                    authorsOfThisBook = ArrayUtils.add(authorsOfThisBook, authorName);
                     System.out.print("If you want to add another author of " + bookName + " please write 1:");
                     String inputAnswer = reader.readLine();
                     if (StringUtils.isNumeric(inputAnswer) && Integer.parseInt(inputAnswer) == 1) {
@@ -50,15 +50,13 @@ public class BookController {
                     author.setName(s);
                     authorService.create(author);
                 }
-
-
                 Book newBook = new Book();
                 newBook.setName(bookName);
                 String[] authorsId = new String[0];
                 for (String s : authorsOfThisBook) {
-                    authorsId = ArrayUtils.add(authorsId,authorService.findAuthorIdByName(s));
+                    authorsId = ArrayUtils.add(authorsId, authorService.findAuthorIdByName(s));
                 }
-                newBook.setAuthorId(authorsId);
+                newBook.setAuthorsId(authorsId);
                 bookService.create(newBook);
                 break;
             } catch (Exception e) {
@@ -68,10 +66,18 @@ public class BookController {
     }
 
     public void update(BufferedReader reader) {
-        Book newBook = new Book();
+        String[] authorsOfThisBook = new String[0];
+
         while (true) {
             try {
                 NavigationMenu.clearScreen();
+                System.out.print("Write Id of the book:");
+                String bookId = reader.readLine();
+                if (StringUtils.isEmpty(bookId) || StringUtils.isBlank(bookId)) {
+                    System.out.println("There are blank or empty name. Please try again.");
+                    Thread.sleep(3000);
+                    continue;
+                }
                 System.out.print("Write name of the book:");
                 String bookName = reader.readLine();
                 if (StringUtils.isEmpty(bookName) || StringUtils.isBlank(bookName)) {
@@ -79,7 +85,6 @@ public class BookController {
                     Thread.sleep(3000);
                     continue;
                 }
-                newBook.setName(bookName);
                 while (true) {
                     System.out.print("Write author name:");
                     String authorName = reader.readLine();
@@ -88,8 +93,7 @@ public class BookController {
                         Thread.sleep(3000);
                         continue;
                     }
-                    // newBook.setAuthorName(authorName);
-                    bookService.update(newBook);
+                    authorsOfThisBook = ArrayUtils.add(authorsOfThisBook, authorName);
                     System.out.print("If you want to add another author of " + bookName + " please write 1:");
                     String inputAnswer = reader.readLine();
                     if (StringUtils.isNumeric(inputAnswer) && Integer.parseInt(inputAnswer) == 1) {
@@ -98,6 +102,15 @@ public class BookController {
                         break;
                     }
                 }
+                String[] authorsId = new String[0];
+                for (String s : authorsOfThisBook) {
+                    authorsId = ArrayUtils.add(authorsId, authorService.findAuthorIdByName(s));
+                }
+                Book newBook = new Book();
+                newBook.setId(bookId);
+                newBook.setName(bookName);
+                newBook.setAuthorsId(authorsId);
+                bookService.update(newBook);
                 break;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -121,12 +134,10 @@ public class BookController {
             System.out.println(book.toString());
         }
         while (true) {
-            System.out.print("Type 0 to clear and continue: ");
+            System.out.print("Write any symbol clear and continue: ");
             try {
-                int rsl = Integer.parseInt(reader.readLine());
-                if (rsl == 0) {
-                    break;
-                }
+                String rsl = reader.readLine();
+                break;
             } catch (IOException e) {
                 e.printStackTrace();
             }

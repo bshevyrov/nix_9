@@ -9,14 +9,14 @@ public class AuthorBook {
         return authorIds;
     }
 
-    public void setAuthorId(String[] authorIds) {
+    public void setAuthorIds(String[] authorIds) {
         this.authorIds = authorIds;
     }
 
     public String[] getBookIds() {
         return bookIds;
     }
-
+//todo
     public void setBookIds(String[] bookIds) {
         this.bookIds = bookIds;
     }

@@ -4,14 +4,16 @@ import org.apache.commons.lang3.ArrayUtils;
 import ua.com.alevel.service.BookService;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Author {
+
+    private static final BookService bookService = new BookService();
 
     private String id;
     private String name;
     private String[] booksId = new String[0];
 
-    BookService bookService = new BookService();
 
     public String getName() {
         return name;
@@ -54,19 +56,19 @@ public class Author {
                 '}';
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Author author = (Author) o;
-//        return id == author.id && Objects.equals(name, author.name) && Arrays.equals(booksName, author.booksName);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        int result = Objects.hash(name, id);
-//        result = 31 * result + Arrays.hashCode(booksName);
-//        return result;
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Author author = (Author) o;
+        return Objects.equals(id, author.id) && Objects.equals(name, author.name) && Arrays.equals(booksId, author.booksId);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(id, name);
+        result = 31 * result + Arrays.hashCode(booksId);
+        return result;
+    }
 }
 

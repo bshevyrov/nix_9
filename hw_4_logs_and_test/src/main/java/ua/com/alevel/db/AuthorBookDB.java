@@ -24,11 +24,20 @@ public class AuthorBookDB {
         authorBooks = ArrayUtils.add(authorBooks, authorBook);
     }
 
-    public void update(AuthorBook authorBook) {
-//        AuthorBook current = ArrayUtils.get(authors, findIndexById(author.getId()));
-//        current.setName(author.getName());
-//        current.setBooksName(author.getBooksName());
-    }
+//    public void update(AuthorBook authorBook) {
+////        if (authorBook.getBookIds()!=null){
+////            AuthorBook current = ArrayUtils.get(authorBooks, findIndexById(authorBook.()));
+////            current.setName(author.getName());
+////            current.setBooksName(author.getBooksName());
+////        }
+////        if (authorBook.getAuthorIds()!=null){
+////
+////        }
+////
+////        AuthorBook current = ArrayUtils.get(authorBooks, findIndexById(author.getId()));
+////        current.setName(author.getName());
+////        current.setBooksName(author.getBooksName());
+//    }
 
     public String[] findBooksIdByAuthorId(String authorId) {
         String[] rsl = new String[0];
@@ -74,7 +83,7 @@ public class AuthorBookDB {
 //
 //    public Author[] findAll() {
 //        return authors;
-    }
+}
 
 
 
