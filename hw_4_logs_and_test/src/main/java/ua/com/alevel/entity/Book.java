@@ -38,20 +38,30 @@ public class Book {
         this.name = name;
     }
 
-    private String[] getAuthorsOfTheBookById() {
-        String[] rsl = new String[0];
-        for (String s : authorsId) {
-            rsl = ArrayUtils.add(rsl, authorService.findByIdOrNull(s).getName());
-        }
-        return rsl;
-    }
+//    private String[] getAuthorsOfTheBookById() {
+//        String[] rsl = new String[0];
+//        for (String s : authorsId) {
+//            rsl = ArrayUtils.add(rsl, authorService.findByIdOrNull(s).getName());
+//        }
+//        return rsl;
+//    }
+
+//    @Override
+//    public String toString() {
+//        return "Book{" +
+//                "id=" + id +
+//                ", name='" + name +
+//                ", author='" + Arrays.toString(getAuthorsOfTheBookById()) +
+//                '}';
+//    }
+
 
     @Override
     public String toString() {
         return "Book{" +
-                "id=" + id +
-                ", name='" + name +
-                ", author='" + Arrays.toString(getAuthorsOfTheBookById()) +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", authorsId=" + Arrays.toString(authorsId) +
                 '}';
     }
 

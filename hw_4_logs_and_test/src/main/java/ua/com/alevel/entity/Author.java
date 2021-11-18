@@ -39,20 +39,30 @@ public class Author {
         this.id = id;
     }
 
-    private String[] getBooksWroteByAuthorById() {
-        String[] rsl = new String[0];
-        for (String s : booksId) {
-            rsl = ArrayUtils.add(rsl, bookService.findByIdOrNull(s).getName());
-        }
-        return rsl;
-    }
+//    private String[] getBooksWroteByAuthorById() {
+//        String[] rsl = new String[0];
+//        for (String s : booksId) {
+//            rsl = ArrayUtils.add(rsl, bookService.findByIdOrNull(s).getName());
+//        }
+//        return rsl;
+//    }
+
+//    @Override
+//    public String toString() {
+//        return "Author{" +
+//                "id=" + id +
+//                ", name=" + name +
+//                ", books=" + Arrays.toString(getBooksWroteByAuthorById()) +
+//                '}';
+//    }
+
 
     @Override
     public String toString() {
         return "Author{" +
-                "id=" + id +
-                ", name=" + name +
-                ", books=" + Arrays.toString(getBooksWroteByAuthorById()) +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", booksId=" + Arrays.toString(booksId) +
                 '}';
     }
 

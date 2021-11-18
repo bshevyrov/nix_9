@@ -22,6 +22,7 @@ public class AuthorService {
         LOGGER_INFO.info("Finish creating Author '" + author.getName() + "'");
 //        AuthorBook authorBook = new AuthorBook();
 //        authorBookDao.create(authorBook);
+        authorBookDao.sync();
     }
 
     public void update(Author author) {

@@ -45,11 +45,11 @@ public class BookController {
                         break;
                     }
                 }
-                for (String s : authorsOfThisBook) {
-                    Author author = new Author();
-                    author.setName(s);
-                    authorService.create(author);
-                }
+//                for (String s : authorsOfThisBook) {
+//                    Author author = new Author();
+//                    author.setName(s);
+//                    authorService.create(author);
+//                }
                 Book newBook = new Book();
                 newBook.setName(bookName);
                 String[] authorsId = new String[0];
