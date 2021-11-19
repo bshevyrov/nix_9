@@ -2,7 +2,6 @@ package ua.com.alevel.db;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import ua.com.alevel.entity.AuthorBook;
 import ua.com.alevel.entity.Book;
 
 import java.util.UUID;

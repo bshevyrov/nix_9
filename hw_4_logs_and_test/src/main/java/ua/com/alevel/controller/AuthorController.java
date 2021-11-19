@@ -1,5 +1,6 @@
 package ua.com.alevel.controller;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.entity.Author;
 import ua.com.alevel.entity.Book;
@@ -36,10 +37,27 @@ public class AuthorController {
                 Book book = new Book();
                 book.setName(bookName);
                 bookService.create(book);
+
                 Author newAuthor = new Author();
                 newAuthor.setName(authorName);
                 newAuthor.setBooksId(new String[]{bookService.findBookIdByName(bookName)});
                 authorService.create(newAuthor);
+
+                Book newBook = bookService.findByIdOrNull(bookService.findBookIdByName(bookName));
+                String[] auId = new String[]{authorService.findAuthorIdByName(authorName)};
+                boolean inArr = false;
+                for (int i = 0; i < auId.length; i++) {
+                    if (StringUtils.equals(authorService.findAuthorIdByName(authorName), auId[i])) {
+                    inArr=true;
+//                    auId = ArrayUtils.add(auId, authorService.findAuthorIdByName(authorName));
+                    }
+                }
+                if (!inArr) {
+                    auId = ArrayUtils.add(auId, authorService.findAuthorIdByName(authorName));
+                }
+                newBook.setAuthorsId(auId);
+
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -77,7 +95,7 @@ public class AuthorController {
                 newAuthor.setName(authorName);
                 newAuthor.setId(authorId);
                 newAuthor.setBooksId(new String[]{bookService.findBookIdByName(bookName)});
-                authorService.create(newAuthor);
+                authorService.update(newAuthor);
             } catch (Exception e) {
                 e.printStackTrace();
             }

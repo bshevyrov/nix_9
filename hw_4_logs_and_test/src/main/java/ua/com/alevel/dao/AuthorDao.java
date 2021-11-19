@@ -33,7 +33,6 @@ public class AuthorDao {
         return rsl;
     }
 
-
     public Author[] findAll() {
         return AuthorDB.getInstance().findAll();
     }

@@ -1,11 +1,13 @@
 package ua.com.alevel.service;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ua.com.alevel.dao.AuthorBookDao;
 import ua.com.alevel.dao.AuthorDao;
+import ua.com.alevel.dao.BookDao;
 import ua.com.alevel.entity.Author;
-import ua.com.alevel.entity.AuthorBook;
+import ua.com.alevel.entity.Book;
 
 public class AuthorService {
 
@@ -14,15 +16,12 @@ public class AuthorService {
     public static final Logger LOGGER_ERROR = LoggerFactory.getLogger("error");
 
     private final AuthorDao authorDao = new AuthorDao();
-    private final AuthorBookDao authorBookDao = new AuthorBookDao();
 
     public void create(Author author) {
         LOGGER_INFO.info("Start creating author '" + author.getName() + "'");
         authorDao.create(author);
         LOGGER_INFO.info("Finish creating Author '" + author.getName() + "'");
-//        AuthorBook authorBook = new AuthorBook();
-//        authorBookDao.create(authorBook);
-        authorBookDao.sync();
+
     }
 
     public void update(Author author) {
@@ -34,6 +33,18 @@ public class AuthorService {
     public void delete(String id) {
         LOGGER_WARN.warn("Start author '" + id + "' delete");
         authorDao.delete(id);
+
+        BookDao bookDao = new BookDao();
+        Book[] books = bookDao.findAll();
+        for (int i = 0; i < books.length; i++) {
+            String[] aIds = books[i].getAuthorId();
+            for (int j = 0; j < aIds.length; j++) {
+                if (StringUtils.equals(aIds[j], id)) {
+                    aIds = ArrayUtils.remove(aIds, j);
+                    books[i].setAuthorsId(aIds);
+                }
+            }
+        }
         LOGGER_WARN.warn("Finish author '" + id + "' delete");
     }
 
@@ -53,6 +64,14 @@ public class AuthorService {
     public Author[] findAll() {
         LOGGER_INFO.info("Starting find all book");
         return authorDao.findAll();
+    }
+    public void fill(){
+        Author[] authors = authorDao.findAll();
+        BookDao bookDao = new BookDao();
+        Book[] books = bookDao.findAll();
+        for (int i = 0; i < authors.length; i++) {
+
+        }
     }
 }
 

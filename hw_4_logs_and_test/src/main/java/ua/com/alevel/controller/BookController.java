@@ -45,11 +45,11 @@ public class BookController {
                         break;
                     }
                 }
-//                for (String s : authorsOfThisBook) {
-//                    Author author = new Author();
-//                    author.setName(s);
-//                    authorService.create(author);
-//                }
+                for (String s : authorsOfThisBook) {
+                    Author author = new Author();
+                    author.setName(s);
+                    authorService.create(author);
+                }
                 Book newBook = new Book();
                 newBook.setName(bookName);
                 String[] authorsId = new String[0];
@@ -58,6 +58,22 @@ public class BookController {
                 }
                 newBook.setAuthorsId(authorsId);
                 bookService.create(newBook);
+                for (int i = 0; i < authorsOfThisBook.length; i++) {
+                    Author author = authorService.findByIdOrNull(authorService.findAuthorIdByName(authorsOfThisBook[i]));
+                    String[] booksId = author.getBooksId();
+                    boolean inArr = false;
+                    for (int j = 0; j < booksId.length; j++) {
+                        if (StringUtils.equals(booksId[j], bookService.findBookIdByName(bookName))) {
+                            inArr = true;
+                        }
+                    }
+                    if (!inArr) {
+                        booksId = ArrayUtils.add(booksId, bookService.findBookIdByName(bookName));
+                    }
+                    author.setBooksId(booksId);
+
+
+                }
                 break;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -93,7 +109,6 @@ public class BookController {
                         Thread.sleep(3000);
                         continue;
                     }
-                    authorsOfThisBook = ArrayUtils.add(authorsOfThisBook, authorName);
                     System.out.print("If you want to add another author of " + bookName + " please write 1:");
                     String inputAnswer = reader.readLine();
                     if (StringUtils.isNumeric(inputAnswer) && Integer.parseInt(inputAnswer) == 1) {
@@ -102,14 +117,11 @@ public class BookController {
                         break;
                     }
                 }
-                String[] authorsId = new String[0];
-                for (String s : authorsOfThisBook) {
-                    authorsId = ArrayUtils.add(authorsId, authorService.findAuthorIdByName(s));
-                }
+
                 Book newBook = new Book();
                 newBook.setId(bookId);
                 newBook.setName(bookName);
-                newBook.setAuthorsId(authorsId);
+//             newBook.setAuthorsId(authorsId);
                 bookService.update(newBook);
                 break;
             } catch (Exception e) {
