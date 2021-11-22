@@ -24,6 +24,7 @@ public class MathSet {
     }
 
     Number[] numbers;
+    boolean haveNull = false;
 
     public MathSet(int capacity) {
         //запрет расширения массива если он достиг капасити
@@ -240,11 +241,17 @@ public class MathSet {
 
     private Number[] sortAsc(Number[] numbers) {
         //возраст
+
+        if (checkForNull(numbers)) {
+            // haveNull = true;
+            numbers = removeNull(numbers);
+        }
+
         boolean sorted = false;
         while (!sorted) {
             sorted = true;
             for (int i = 1; i < numbers.length; i++) {
-                                if (new BigDecimal(numbers[i].toString()).compareTo(new BigDecimal(numbers[i - 1].toString())) < 0) {
+                if (new BigDecimal(numbers[i].toString()).compareTo(new BigDecimal(numbers[i - 1].toString())) < 0) {
                     swap(numbers, i, i - 1);
                     sorted = false;
                 }
@@ -260,9 +267,19 @@ public class MathSet {
     }
 
     private Number[] addToArr(Number[] numbers, Number number) {
-        Number[] temp = new Number[numbers.length + 1];
-        temp[numbers.length - 1] = number;
-        return temp;
+        Number[] tempNum = new Number[0];
+        if (numbers.length == 0) {
+            tempNum = new Number[1];
+            tempNum[tempNum.length - 1] = number;
+        }
+        if (numbers.length > 0) {
+            tempNum = new Number[numbers.length + 1];
+            for (int i = 0; i < numbers.length; i++) {
+                tempNum[i] = numbers[i];
+            }
+            tempNum[tempNum.length - 1] = number;
+        }
+        return tempNum;
     }
 
     private Number[] removeDuplicates(Number[] numbers) {
@@ -276,6 +293,49 @@ public class MathSet {
         }
         return copyOf(uniqNumber, index);
     }
+
+
+    private boolean checkForNull(Number[] numbers) {
+        boolean rsl = false;
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i] == null) {
+                rsl = true;
+                haveNull=true;
+                break;
+            }
+        }
+        return rsl;
+    }
+
+    //    private void keepOneNull(Number[] numbers){
+//        Number[] tempNumber = new Number[0];
+//        boolean haveNull = false;
+//        int count = 0;
+//        for (int i = 0; i < numbers.length; i++) {
+//            if(numbers[i]==null){
+//                haveNull = true;
+//                continue;
+//            }
+//            tempNumber = addToArr(tempNumber, numbers[i]);
+//            if(haveNull){
+//                tempNumber = addToArr(tempNumber, null);
+//                numbers= tempNumber;
+//            }
+//            numbers= tempNumber;
+//
+//        }
+//    }
+    private Number[] removeNull(Number[] numbers) {
+        Number[] tempNumber = new Number[0];
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i] == null) {
+                continue;
+            }
+            tempNumber = addToArr(tempNumber, numbers[i]);
+        }
+           return tempNumber;
+    }
+
 
     private int findIndex(Number number) {
         int index = -1;
