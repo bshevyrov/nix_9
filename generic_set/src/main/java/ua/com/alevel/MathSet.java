@@ -1,11 +1,9 @@
 package ua.com.alevel;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 public class MathSet {
+    //TODO разобраться с NULL
     //TODO проверить что втулил везде  АДД вместо АДДту аррей
     //11.03 в начале
     //запрет расширения массива если он достиг капасити
@@ -15,10 +13,10 @@ public class MathSet {
     //мб добавить метод капасити и Мас сет
     int capacity = -1;
 
-    // переделать в to string
+    /*// переделать в to string
     public Number[] getNumbers() {
         return this.numbers;
-    }
+    }*/
 
     //todo проверить что за рамки капасити не выходит
     public void setNumbers(Number[] numbers) {
@@ -52,13 +50,13 @@ public class MathSet {
     }
 
     public MathSet(MathSet numbers) {
-        this.numbers = numbers.getNumbers();
+        this.numbers = numbers.toArray();
     }
 
     public MathSet(MathSet... numbers) {
         //   Number[] temporaryNumberArr = new Number[0];
         for (MathSet number : numbers) {
-            Number[] tempNum = number.getNumbers();
+            Number[] tempNum = number.toArray();
             add(tempNum);
 //            for (Number number1 : tempNum) {
 //                temporaryNumberArr= ArrayUtils.add(temporaryNumberArr,number1);
@@ -80,14 +78,14 @@ public class MathSet {
     }
 
     void join(MathSet ms) {
-        Number[] tempNum = ms.getNumbers();
+        Number[] tempNum = ms.toArray();
         add(tempNum);
     }
 
     void join(MathSet... ms) {
         // ghfdbkmyj kb hf.,jnftn
         for (MathSet mathSet : ms) {
-            Number[] tempNum = mathSet.getNumbers();
+            Number[] tempNum = mathSet.toArray();
             add(tempNum);
         }
     }
@@ -95,8 +93,8 @@ public class MathSet {
     void intersection(MathSet ms) {
         Number[] temporaryNumberArr = new Number[0];
         // int index=0;
-        Number[] tempNum = ms.getNumbers();
-        for (Number number : tempNum) {
+//        Number[] tempNum = ;
+        for (Number number : ms.toArray()) {
             for (Number number1 : this.numbers) {
                 if (number.equals(number1)) {
                     temporaryNumberArr = addToArr(temporaryNumberArr, number1);
@@ -116,11 +114,17 @@ public class MathSet {
 
     public void sortDesc() {
         //убывание
+        sortDesc(0, this.numbers.length);
+    }
+
+    public void sortDesc(int firstIndex, int lastIndex) {
+        //убывание
+        //от фирст до ласт или включительно ласт
         Number[] currentNumbers = this.numbers;
         boolean sorted = false;
         while (!sorted) {
             sorted = true;
-            for (int i = 1; i < currentNumbers.length; i++) {
+            for (int i = firstIndex + 1; i < lastIndex; i++) {
                 if (new BigDecimal(numbers[i].toString()).compareTo(new BigDecimal(numbers[i - 1].toString())) > 0) {
                     swap(this.numbers, i, i - 1);
                     sorted = false;
@@ -129,13 +133,22 @@ public class MathSet {
         }
     }
 
+    public void sortDesc(Number value) {
+        sortDesc(findIndex(value), this.numbers.length);
+    }
+
     public void sortAsc() {
+        //убывание
+        sortAsc(0, this.numbers.length);
+    }
+
+    public void sortAsc(int firstIndex, int lastIndex) {
         //убывание
         Number[] currentNumbers = this.numbers;
         boolean sorted = false;
         while (!sorted) {
             sorted = true;
-            for (int i = 1; i < currentNumbers.length; i++) {
+            for (int i = firstIndex + 1; i < lastIndex; i++) {
                 if (new BigDecimal(numbers[i].toString()).compareTo(new BigDecimal(numbers[i - 1].toString())) < 0) {
                     swap(this.numbers, i, i - 1);
                     sorted = false;
@@ -144,19 +157,78 @@ public class MathSet {
         }
     }
 
-    public Number[] sortAsc(Number[] numbers) {
-        //возраст
-        boolean sorted = false;
-        while (!sorted) {
-            sorted = true;
-            for (int i = 1; i < numbers.length; i++) {
-                if (new BigDecimal(numbers[i].toString()).compareTo(new BigDecimal(numbers[i - 1].toString())) < 0) {
-                    swap(numbers, i, i - 1);
-                    sorted = false;
+    public void sortAsc(Number value) {
+        sortAsc(findIndex(value), this.numbers.length);
+    }
+
+    public Number get(int index) {
+        return this.numbers[index];
+
+    }
+
+    public Number getMax() {
+        sortDesc();
+        return this.numbers[0];
+    }
+
+    public Number getMin() {
+        sortAsc();
+        return this.numbers[0];
+    }
+
+    public Number getAverage() {
+        BigDecimal sum = new BigDecimal("0");
+        int count = 0;
+        for (Number number : this.numbers) {
+            sum.add(new BigDecimal(String.valueOf(number)));
+            count++;
+        }
+        return sum.divide(new BigDecimal(count));
+    }
+
+    public Number getMedian() {
+        Number tempNumber = null;
+        if (this.numbers.length % 2 == 0) {
+            tempNumber = (new BigDecimal(numbers[this.numbers.length / 2].toString())
+                    .add(new BigDecimal(numbers[(this.numbers.length / 2) + 1].toString())))
+                    .divide(new BigDecimal("2"));
+        } else {
+            tempNumber = numbers[((numbers.length - 1) / 2) + 1];
+        }
+        return tempNumber;
+    }
+
+    public Number[] toArray() {
+        return this.numbers;
+    }
+
+    public Number[] toArray(int firstIndex, int lastIndex) {
+        Number[] tempNumbers = new Number[0];
+        for (int i = firstIndex; i < lastIndex; i++) {
+            tempNumbers = addToArr(tempNumbers, numbers[i]);
+        }
+        return tempNumbers;
+    }
+
+
+    public MathSet cut(int firstIndex, int lastIndex) {
+        return new MathSet(toArray(firstIndex, lastIndex));
+    }
+
+    void clear() {
+        for (int i = 0; i < this.numbers.length; i++) {
+            this.numbers[i] = null;
+        }
+    }
+
+    void clear(Number[] numbers) {
+        for (Number number : numbers) {
+            for (int i = 0; i < this.numbers.length; i++) {
+                if (number.equals(this.numbers[i])) {
+                    this.numbers[i] = null;
                 }
             }
         }
-        return numbers;
     }
 
     private void swap(Number[] n, int first, int last) {
@@ -166,16 +238,33 @@ public class MathSet {
         n[last] = tempNumber;
     }
 
-    private Number[] copyOf(Number[] numbers, int size){
+    private Number[] sortAsc(Number[] numbers) {
+        //возраст
+        boolean sorted = false;
+        while (!sorted) {
+            sorted = true;
+            for (int i = 1; i < numbers.length; i++) {
+                                if (new BigDecimal(numbers[i].toString()).compareTo(new BigDecimal(numbers[i - 1].toString())) < 0) {
+                    swap(numbers, i, i - 1);
+                    sorted = false;
+                }
+            }
+        }
+        return numbers;
+    }
+
+    private Number[] copyOf(Number[] numbers, int size) {
         Number[] tempNumber = new Number[size];
-        System.arraycopy(numbers,0,tempNumber,0,size);
+        System.arraycopy(numbers, 0, tempNumber, 0, size);
         return tempNumber;
     }
-    private Number[] addToArr(Number[] numbers, Number number){
-      Number[] temp = new Number[numbers.length+1];
-      temp[numbers.length-1] =number;
+
+    private Number[] addToArr(Number[] numbers, Number number) {
+        Number[] temp = new Number[numbers.length + 1];
+        temp[numbers.length - 1] = number;
         return temp;
     }
+
     private Number[] removeDuplicates(Number[] numbers) {
         numbers = sortAsc(numbers);
         Number[] uniqNumber = new Number[numbers.length];
@@ -188,10 +277,16 @@ public class MathSet {
         return copyOf(uniqNumber, index);
     }
 
-    public void returnClass(Number n) {
-        System.out.println(n.getClass().getSimpleName());
-        System.out.println(new BigDecimal("1242365376657"));
+    private int findIndex(Number number) {
+        int index = -1;
+        for (int i = 0; i < this.numbers.length; i++) {
+            if (number.equals(numbers[i])) {
+                index = i;
+            }
+        }
+        return index;
     }
+
 
 }
 
