@@ -104,6 +104,17 @@
             <artifactId>logback-core</artifactId>
             <version>${logback.version}</version>
         </dependency>
+        <!-- MY LIB -->
+        <dependency>
+            <groupId>ua.com.alevel</groupId>
+            <artifactId>console_helper</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>ua.com.alevel</groupId>
+            <artifactId>string_helper</artifactId>
+            <version>1.0</version>
+        </dependency>
         <dependency>
             <groupId>ua.com.alevel</groupId>
             <artifactId>generic_set</artifactId>
@@ -148,7 +159,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>ua.com.alevel.StartCollectionAppApp</mainClass>
+                                    <mainClass>ua.com.alevel.StartCollectionApp</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
