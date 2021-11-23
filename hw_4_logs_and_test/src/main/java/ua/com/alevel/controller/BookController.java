@@ -28,6 +28,14 @@ public class BookController {
                     Thread.sleep(3000);
                     continue;
                 }
+                System.out.print("Write coutn of pages:");
+                String pages = reader.readLine();
+                if (!StringUtils.isNumeric(pages)) {
+                    System.out.println("There are no numbers. Please try again.");
+                    Thread.sleep(3000);
+                    continue;
+                }
+                int bookPages = Integer.parseInt(pages);
                 while (true) {
                     System.out.print("Write author name:");
                     String authorName = reader.readLine();
@@ -52,6 +60,7 @@ public class BookController {
                 }
                 Book newBook = new Book();
                 newBook.setName(bookName);
+                newBook.setPages(bookPages);
                 String[] authorsId = new String[0];
                 for (String s : authorsOfThisBook) {
                     authorsId = ArrayUtils.add(authorsId, authorService.findAuthorIdByName(s));
@@ -143,6 +152,9 @@ public class BookController {
     public void findAll(BufferedReader reader) {
         Book[] books = bookService.findAll();
         for (Book book : books) {
+            if(book.getPages()==0){
+                continue;
+            }
             System.out.println(book.toString());
         }
         while (true) {

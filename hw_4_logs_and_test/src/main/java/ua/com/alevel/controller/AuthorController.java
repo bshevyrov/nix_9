@@ -27,6 +27,13 @@ public class AuthorController {
                     Thread.sleep(3000);
                     continue;
                 }
+                System.out.print("Write author nickname:");
+                String nickName = reader.readLine();
+                if (StringUtils.isEmpty(authorName) || StringUtils.isBlank(authorName)) {
+                    System.out.println("There are blank or empty name. Please try again.");
+                    Thread.sleep(3000);
+                    continue;
+                }
                 System.out.print("Write book name:");
                 String bookName = reader.readLine();
                 if (StringUtils.isEmpty(bookName) || StringUtils.isBlank(bookName)) {
@@ -39,16 +46,29 @@ public class AuthorController {
                 bookService.create(book);
 
                 Author newAuthor = new Author();
-                newAuthor.setName(authorName);
-                newAuthor.setBooksId(new String[]{bookService.findBookIdByName(bookName)});
-                authorService.create(newAuthor);
+                //если автор уже в базе до добавим ему книгу
+                String findedIds =authorService.findAuthorIdByName(authorName);
+                 if (!StringUtils.equals(findedIds,"")){
+                     Author currentAuthor = authorService.findByIdOrNull(findedIds);
+                     String[] bIds = currentAuthor.getBooksId();
+                     bIds = ArrayUtils.add(bIds,(bookService.findBookIdByName(bookName)));
+                     currentAuthor.setBooksId(bIds);
+                     currentAuthor.setNickName(nickName);
 
+                 }
+                //
+                if(StringUtils.equals(findedIds,"")) {
+                    newAuthor.setName(authorName);
+                    newAuthor.setNickName(nickName);
+                    newAuthor.setBooksId(new String[]{bookService.findBookIdByName(bookName)});
+                    authorService.create(newAuthor);
+                }
                 Book newBook = bookService.findByIdOrNull(bookService.findBookIdByName(bookName));
                 String[] auId = new String[]{authorService.findAuthorIdByName(authorName)};
                 boolean inArr = false;
                 for (int i = 0; i < auId.length; i++) {
                     if (StringUtils.equals(authorService.findAuthorIdByName(authorName), auId[i])) {
-                    inArr=true;
+                        inArr = true;
 //                    auId = ArrayUtils.add(auId, authorService.findAuthorIdByName(authorName));
                     }
                 }
@@ -119,7 +139,9 @@ public class AuthorController {
     public void findAll(BufferedReader reader) {
         Author[] authors = authorService.findAll();
         for (Author author : authors) {
-            System.out.println(author.toString());
+            if(StringUtils.isNoneEmpty(author.getNickName())){
+                System.out.println(author.toString());
+            }
         }
         while (true) {
             System.out.print("Type 0 to clear and continue: ");
