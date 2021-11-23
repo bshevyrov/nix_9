@@ -1,8 +1,10 @@
 package ua.com.alevel;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class MathSet {
+    //todo проверить с оздание с нулл
     //TODO разобраться с NULL
     //TODO проверить что втулил везде  АДД вместо АДДту аррей
     //11.03 в начале
@@ -11,6 +13,7 @@ public class MathSet {
     //Если будет АДД не впускать или просить пересоздать
 
     //мб добавить метод капасити и Мас сет
+    //TODO ca[acity
     int capacity = -1;
 
     /*// переделать в to string
@@ -18,12 +21,13 @@ public class MathSet {
         return this.numbers;
     }*/
 
-    //todo проверить что за рамки капасити не выходит
+
+    Number[] numbers = new Number[0];
+
     public void setNumbers(Number[] numbers) {
         this.numbers = numbers;
     }
 
-    Number[] numbers;
     boolean haveNull = false;
 
     public MathSet(int capacity) {
@@ -35,15 +39,18 @@ public class MathSet {
     public MathSet() {
     }
 
+    private MathSet(long size) {
+        this.numbers = new Number[(int) size];
+    }
+
     public MathSet(Number[] numbers) {
         this.numbers = removeDuplicates(numbers);
     }
 
     public MathSet(Number[]... numbers) {
-        Number[] temporaryNumberArr = new Number[0];
         for (Number[] number : numbers) {
             add(number);
-           /* for (Number number1 : number) {
+                       /* for (Number number1 : number) {
                 temporaryNumberArr = ArrayUtils.add(temporaryNumberArr, number1);
             }*/
         }
@@ -55,27 +62,52 @@ public class MathSet {
     }
 
     public MathSet(MathSet... numbers) {
-        //   Number[] temporaryNumberArr = new Number[0];
+        Number[] temporaryNumberArr = new Number[0];
         for (MathSet number : numbers) {
-            Number[] tempNum = number.toArray();
-            add(tempNum);
-//            for (Number number1 : tempNum) {
-//                temporaryNumberArr= ArrayUtils.add(temporaryNumberArr,number1);
-//            }
-        }
+            // Number[] n = number.toArray();
+            for (Number number1 : number.toArray()) {
+                temporaryNumberArr = addToArr(temporaryNumberArr, number1);
+            }
+            add(temporaryNumberArr);
 //        this.numbers = removeDuplicates(temporaryNumberArr);
+        }
     }
 
     void add(Number n) {
-        this.numbers = addToArr(this.numbers, n);
-        this.numbers = removeDuplicates(this.numbers);
+        Number[] tempNumber = new Number[numbers.length + 1];
+        if (capacity == -1 || capacity > numbers.length) {
+            if (numbers.length == 0) {
+                numbers = new Number[]{n};
+            } else {
+
+//                = copyOf(numbers,numbers.length);
+                for (int i = 0; i < tempNumber.length - 1; i++) {
+                    tempNumber[i] = numbers[i];
+                }
+                tempNumber[tempNumber.length - 1] = n;
+                tempNumber = removeDuplicates(tempNumber);
+//                numbers=copyOf(numbers, numbers.length + 1);
+                numbers = tempNumber;
+            }
+//            this.numbers = addToArr(this.numbers, n);
+            //  this.numbers = removeDuplicates(this.numbers);
+        } else {
+            System.out.println("Множество заполнено. Необходимо изменить Capasity");
+        }
     }
 
     void add(Number... n) {
-        for (Number number : n) {
-            add(n);
+        if (capacity == -1 || capacity >= this.numbers.length + n.length) {
+            for (Number number : n) {
+
+                add(number);
+
+
+            }
+            this.numbers = removeDuplicates(this.numbers);
+        } else {
+            System.out.println("Множество заполнено. Необходимо изменить Capasity");
         }
-        this.numbers = removeDuplicates(this.numbers);
     }
 
     void join(MathSet ms) {
@@ -121,11 +153,11 @@ public class MathSet {
     public void sortDesc(int firstIndex, int lastIndex) {
         //убывание
         //от фирст до ласт или включительно ласт
-        Number[] currentNumbers = this.numbers;
+        // Number[] currentNumbers = this.numbers;
         boolean sorted = false;
         while (!sorted) {
             sorted = true;
-            for (int i = firstIndex + 1; i < lastIndex; i++) {
+            for (int i = firstIndex + 1; i <= lastIndex; i++) {
                 if (new BigDecimal(numbers[i].toString()).compareTo(new BigDecimal(numbers[i - 1].toString())) > 0) {
                     swap(this.numbers, i, i - 1);
                     sorted = false;
@@ -149,7 +181,7 @@ public class MathSet {
         boolean sorted = false;
         while (!sorted) {
             sorted = true;
-            for (int i = firstIndex + 1; i < lastIndex; i++) {
+            for (int i = firstIndex + 1; i <= lastIndex; i++) {
                 if (new BigDecimal(numbers[i].toString()).compareTo(new BigDecimal(numbers[i - 1].toString())) < 0) {
                     swap(this.numbers, i, i - 1);
                     sorted = false;
@@ -200,7 +232,7 @@ public class MathSet {
     }
 
     public Number[] toArray() {
-        return this.numbers;
+        return numbers;
     }
 
     public Number[] toArray(int firstIndex, int lastIndex) {
@@ -251,12 +283,14 @@ public class MathSet {
         while (!sorted) {
             sorted = true;
             for (int i = 1; i < numbers.length; i++) {
+
                 if (new BigDecimal(numbers[i].toString()).compareTo(new BigDecimal(numbers[i - 1].toString())) < 0) {
                     swap(numbers, i, i - 1);
                     sorted = false;
                 }
             }
         }
+
         return numbers;
     }
 
@@ -283,14 +317,23 @@ public class MathSet {
     }
 
     private Number[] removeDuplicates(Number[] numbers) {
+        normalizeDoubleToFloat(numbers);
         numbers = sortAsc(numbers);
         Number[] uniqNumber = new Number[numbers.length];
+        if (numbers.length == 0 || numbers.length == 1) {
+            return numbers;
+        }
         int index = 0;
-        for (int i = 1; i < numbers.length; i++) {
-            if (!numbers[i - 1].equals(numbers[i])) {
+        for (int i = 0; i < numbers.length - 1; i++) {
+            if (!Objects.equals(numbers[i], numbers[i + 1])) {
                 uniqNumber[index++] = numbers[i];
             }
         }
+        uniqNumber[index++] = numbers[numbers.length - 1];
+        for (int i = 0; i < index; i++) {
+            numbers[i] = uniqNumber[i];
+        }
+
         return copyOf(uniqNumber, index);
     }
 
@@ -300,7 +343,7 @@ public class MathSet {
         for (int i = 0; i < numbers.length; i++) {
             if (numbers[i] == null) {
                 rsl = true;
-                haveNull=true;
+                haveNull = true;
                 break;
             }
         }
@@ -333,9 +376,16 @@ public class MathSet {
             }
             tempNumber = addToArr(tempNumber, numbers[i]);
         }
-           return tempNumber;
+        return tempNumber;
     }
 
+    private void normalizeDoubleToFloat(Number[] n) {
+        for (int i = 0; i < n.length; i++) {
+            if (n[i] != null && n[i].getClass().getSimpleName().equals("Double")) {
+                n[i] = (float) n[i].doubleValue();
+            }
+        }
+    }
 
     private int findIndex(Number number) {
         int index = -1;
@@ -347,7 +397,25 @@ public class MathSet {
         return index;
     }
 
+    public String createString(Number[] n) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n.length; i++) {
+            sb.append(n[i]);
+            sb.append(" ");
+        }
+        return sb.toString();
+    }
 
+    public String createString(MathSet m) {
+        StringBuilder sb = new StringBuilder();
+        Number[] n = m.toArray();
+        for (int i = 0; i < n.length; i++) {
+            sb.append(n[i].toString());
+            sb.append(" ");
+        }
+        String rsl = sb.toString();
+        return rsl;
+    }
 }
 
 /*

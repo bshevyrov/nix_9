@@ -1,13 +1,25 @@
 package ua.com.alevel;
 
-import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class StartCollectionApp {
+
     public static void main(String[] args) {
-        MathSet m = new MathSet();
-        Number[] num = new Number[]{0,1,2,null,null,null};
-        MathSet m1 = new MathSet(num);
-        m1.sortDesc(0,4);
-        Arrays.toString(m1.toArray());
+        StartHelper sH = new StartHelper();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        // while (true) {
+        try {
+            sH.greetings();
+            String next = reader.readLine();
+
+            sH.constructors();
+            next = reader.readLine();
+            sH.constructorsAnswers();
+            // }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
