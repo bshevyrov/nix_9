@@ -50,78 +50,59 @@ public class BookController {
                     }
                 }
                 for (String s : authorsOfThisBook) {
-                    //Если автора нет то создать
                     String curAuthId = authorService.findAuthorIdByName(s);
                     if (StringUtils.equals(curAuthId, "")) {
                         Author author = new Author();
                         author.setName(s);
                         authorService.create(author);
                     }
-                    // если книги нет то создаем
-                    if (StringUtils.equals(bookService.findBookIdByName(bookName),"")){
-                        Book newBook = new Book();
-                        newBook.setName(bookName);
-                        newBook.setPages(bookPages);
-                        newBook.setAuthorsId(new String[]{authorService.findAuthorIdByName(s)});
-                        bookService.create(newBook);
-                    } else {
-                        //если есть обновляем
-
-                        Book currrentBook = bookService.findByIdOrNull(bookService.findBookIdByName(bookName));
-                        currrentBook.setName(bookName);
-                        currrentBook.setPages(bookPages);
-                       //TODOпадает ошибка
-                        String[] authIds = currrentBook.getAuthorId();
-
-                        //сравниваем список айди авторов из УЖЕ созданной книги с теми что только что ввели с консоли
-                        String[] newAuthorsId = authIds;
-                        for (String authId : authIds) {
-                            boolean alreadyInArr = false;
-                            for (String s1 : authorsOfThisBook) {
-                                if(StringUtils.equals(authId,authorService.findAuthorIdByName(s1))){
-                                alreadyInArr= true;
-                                }
-                                if(!alreadyInArr){
-                                    newAuthorsId = ArrayUtils.add(newAuthorsId,authorService.findAuthorIdByName(s1));
+                }
+                String[] curAuthsId = new String[0];
+                for (String s : authorsOfThisBook) {
+                    curAuthsId = ArrayUtils.add(curAuthsId, authorService.findAuthorIdByName(s));
+                }
+                if (StringUtils.equals(bookService.findBookIdByName(bookName), "")) {
+                    Book newBook = new Book();
+                    newBook.setName(bookName);
+                    newBook.setPages(bookPages);
+                    newBook.setAuthorsId(curAuthsId);
+                    bookService.create(newBook);
+                } else {
+                    Book currrentBook = bookService.findByIdOrNull(bookService.findBookIdByName(bookName));
+                    currrentBook.setName(bookName);
+                    currrentBook.setPages(bookPages);
+                    String[] authIds = new String[0];
+                    if (currrentBook.getAuthorId() == null) {
+                        Author[] authors = authorService.findAll();
+                        for (Author author : authors) {
+                            String[] authorBooksId = author.getBooksId();
+                            for (String s : authorBooksId) {
+                                if (s.equals(bookService.findBookIdByName(bookName))) {
+                                    authIds = ArrayUtils.add(authIds, author.getId());
                                 }
                             }
                         }
-                        currrentBook.setAuthorsId(newAuthorsId);
-                        bookService.update(currrentBook);
-
                     }
-
+                    if (currrentBook.getAuthorId() != null) {
+                        authIds = currrentBook.getAuthorId();
+                    }
+                    String[] newAuthorsId = authIds;
+                    for (String authId : authIds) {
+                        boolean alreadyInArr = false;
+                        String tmp = "";
+                        for (String s1 : authorsOfThisBook) {
+                            if (StringUtils.equals(authId, authorService.findAuthorIdByName(s1))) {
+                                alreadyInArr = true;
+                                tmp = s1;
+                            }
+                        }
+                        if (!alreadyInArr) {
+                            newAuthorsId = ArrayUtils.add(newAuthorsId, authorService.findAuthorIdByName(tmp));
+                        }
+                    }
+                    currrentBook.setAuthorsId(newAuthorsId);
+                    bookService.update(currrentBook);
                 }
-
-
-//                for (String s : authorsOfThisBook) {
-//                    Author author = new Author();
-//                    author.setName(s);
-//                    authorService.create(author);
-//                }
-//                Book newBook = new Book();
-//                newBook.setName(bookName);
-//                newBook.setPages(bookPages);
-//                String[] authorsId = new String[0];
-//                for (String s : authorsOfThisBook) {
-//                    authorsId = ArrayUtils.add(authorsId, authorService.findAuthorIdByName(s));
-//                }
-//                newBook.setAuthorsId(authorsId);
-//                bookService.create(newBook);
-//                for (int i = 0; i < authorsOfThisBook.length; i++) {
-//                    Author author = authorService.findByIdOrNull(authorService.findAuthorIdByName(authorsOfThisBook[i]));
-//                    String[] booksId = author.getBooksId();
-//                    boolean inArr = false;
-//                    for (int j = 0; j < booksId.length; j++) {
-//                        if (StringUtils.equals(booksId[j], bookService.findBookIdByName(bookName))) {
-//                            inArr = true;
-//                        }
-//                    }
-//                    if (!inArr) {
-//                        booksId = ArrayUtils.add(booksId, bookService.findBookIdByName(bookName));
-//                    }
-//                    author.setBooksId(booksId);
-//                }
                 break;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -130,8 +111,6 @@ public class BookController {
     }
 
     public void update(BufferedReader reader) {
-        String[] authorsOfThisBook = new String[0];
-
         while (true) {
             try {
                 NavigationMenu.clearScreen();
@@ -153,25 +132,11 @@ public class BookController {
                 if (!isStringOk(bookName)) {
                     continue;
                 }
-//                while (true) {
-//                    System.out.print("Write author name:");
-//                    String authorName = reader.readLine();
-//                    if (!isStringOk(id)) {
-//                        continue;
-//                    }
-//                    System.out.print("If you want to add another author of " + bookName + " please write 1:");
-//                    String inputAnswer = reader.readLine();
-//                    if (StringUtils.isNumeric(inputAnswer) && Integer.parseInt(inputAnswer) == 1) {
-//                        continue;
-//                    } else {
-//                        break;
-//                    }
-//                }
-                //todo set authors id?
                 Book newBook = new Book();
                 newBook.setId(bookId);
                 newBook.setName(bookName);
                 newBook.setPages(bookPages);
+                newBook.setAuthorsId(bookService.findByIdOrNull(bookId).getAuthorId());
                 bookService.update(newBook);
                 break;
             } catch (Exception e) {
@@ -205,6 +170,8 @@ public class BookController {
             System.out.println(book);
         }
         while (true) {
+            System.out.println("SAVE ID!!!!");
+            System.out.println("SCREEN WILL BE CLEANED");
             System.out.print("Type 0 to clear and continue: ");
             try {
                 int rsl = Integer.parseInt(reader.readLine());

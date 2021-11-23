@@ -36,20 +36,17 @@ public class AuthorController {
                 if (!isStringOk(bookName)) {
                     continue;
                 }
-                //Проверяем наличие книги в базе если ее нет то создаем
                 String newBookId = bookService.findBookIdByName(bookName);
                 if (StringUtils.equals(newBookId, "")) {
                     Book book = new Book();
                     book.setName(bookName);
                     bookService.create(book);
                 }
-                //если автор уже в базе до добавим ему книгу и никнейм
                 String findedId = authorService.findAuthorIdByName(authorName);
                 if (!StringUtils.equals(findedId, "")) {
                     Author currentAuthor = authorService.findByIdOrNull(findedId);
                     currentAuthor.setId(findedId);
                     currentAuthor.setNickName(nickName);
-                    //проверяем есть ли у автора эта книга и если нет о добавляем айди
                     String newAuthorsBookId = bookService.findBookIdByName(bookName);
                     boolean alreadyInArr = false;
                     for (String s : currentAuthor.getBooksId()) {
@@ -58,12 +55,9 @@ public class AuthorController {
                         }
                     }
                     if (!alreadyInArr) {
-                        Book book = new Book();
-                        book.setName(bookName);
-                        bookService.create(book);
                         currentAuthor.setBooksId(ArrayUtils.add(currentAuthor.getBooksId(), newAuthorsBookId));
                     }
-                    //
+
                     authorService.update(currentAuthor);
                 } else {
                     Author author = new Author();
@@ -98,18 +92,12 @@ public class AuthorController {
                 if (!isStringOk(nickName)) {
                     continue;
                 }
-                System.out.print("Write book name:");
-                String bookName = reader.readLine();
-                if (!isStringOk(bookName)) {
-                    continue;
-                }
 
                 Author newAuthor = new Author();
                 newAuthor.setName(authorName);
                 newAuthor.setId(authorId);
                 newAuthor.setNickName(nickName);
-                //todo boks id realy need?
-                newAuthor.setBooksId(new String[]{bookService.findBookIdByName(bookName)});
+                newAuthor.setBooksId(authorService.findByIdOrNull(authorId).getBooksId());
                 authorService.update(newAuthor);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -138,10 +126,12 @@ public class AuthorController {
         Author[] authors = authorService.findAll();
         for (Author author : authors) {
             if (StringUtils.isNoneEmpty(author.getNickName())) {
-                System.out.println(author.toString());
+                System.out.println(author);
             }
         }
         while (true) {
+            System.out.println("SAVE ID!!!!");
+            System.out.println("SCREEN WILL BE CLEANED");
             System.out.print("Type 0 to clear and continue: ");
             try {
                 int rsl = Integer.parseInt(reader.readLine());
