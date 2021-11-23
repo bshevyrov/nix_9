@@ -44,7 +44,6 @@ public class NavigationMenu {
     }
 
     public static void runNavigationDeleteLevel(BufferedReader reader) {
-
         clearScreen();
         System.out.println("This is Delete level");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -76,24 +75,6 @@ public class NavigationMenu {
         System.out.println("1. Find all Book");
         System.out.println("2. Find all Author");
         System.out.println("0. To Main level");
-        System.out.println();
-        System.out.print("Please make your choose: ");
-    }
-
-    public static void runNavigationAddBookFromAuthor() {
-        clearScreen();
-        System.out.println("This book not in DB. Create book in DB?");
-        System.out.println("1. Yes");
-        System.out.println("2. No");
-        System.out.println();
-        System.out.print("Please make your choose: ");
-    }
-
-    public static void runNavigationAddAuthorFromBook() {
-        clearScreen();
-        System.out.println("This Author not in DB. Create Author in DB?");
-        System.out.println("1. Yes");
-        System.out.println("2. No");
         System.out.println();
         System.out.print("Please make your choose: ");
     }

@@ -21,7 +21,6 @@ public class BookService {
         LOGGER_INFO.info("Start creating book '" + book.getName() + "'");
         bookDao.create(book);
         LOGGER_INFO.info("Finish creating book '" + book.getName() + "'");
-
     }
 
 

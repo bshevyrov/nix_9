@@ -119,42 +119,8 @@ public class InputValueMenuHandler {
             }
         }
     }
-
-    public static void addBookFromAuthorHandler(BufferedReader reader) {
-        while (true) {
-            NavigationMenu.runNavigationAddBookFromAuthor();
-            int inputMenuValue;
-            try {
-                inputMenuValue = Integer.parseInt(reader.readLine());
-                LOGGER_INFO.info(inputMenuValue == 2 ? "User dont wanna create Book in db. Just add Author" : "Start creating Book");
-                switch (inputMenuValue) {
-                    case 1 -> bookController.create(reader);
-                }
-                break;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static void addAuthorFromBookHandler(BufferedReader reader) {
-        while (true) {
-            NavigationMenu.runNavigationAddAuthorFromBook();
-            int inputMenuValue;
-            try {
-                inputMenuValue = Integer.parseInt(reader.readLine());
-
-                LOGGER_INFO.info(inputMenuValue == 2 ? "User dont wanna create Author in db. Just add book" : "Start creating Author");
-                switch (inputMenuValue) {
-                    case 1 -> authorController.create(reader);
-                }
-                break;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }
+
 
 
 

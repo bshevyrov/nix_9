@@ -25,9 +25,6 @@ public final class BookDB {
     public void create(Book book) {
         book.setId(generateId());
         books = ArrayUtils.add(books, book);
-//        AuthorBook authorBook = new AuthorBook();
-//        authorBook.setAuthorIds(new String[]{book.getId()});
-//        AuthorBookDB.getInstance().create(authorBook);
     }
 
     private String generateId() {
@@ -42,9 +39,6 @@ public final class BookDB {
         Book current = ArrayUtils.get(books, getIndexById(book.getId()));
         current.setName(book.getName());
         current.setAuthorsId(book.getAuthorId());
-//        AuthorBook authorBook = new AuthorBook();
-//        authorBook.setAuthorIds(new String[]{book.getId()});
-//        AuthorBookDB.getInstance().update(authorBook);
     }
 
     public void delete(String id) {

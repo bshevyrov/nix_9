@@ -23,12 +23,10 @@ public class BookController {
                 NavigationMenu.clearScreen();
                 System.out.print("Write name of the book:");
                 String bookName = reader.readLine();
-                if (StringUtils.isEmpty(bookName) || StringUtils.isBlank(bookName)) {
-                    System.out.println("There are blank or empty name. Please try again.");
-                    Thread.sleep(3000);
+                if (!isStringOk(bookName)) {
                     continue;
                 }
-                System.out.print("Write coutn of pages:");
+                System.out.print("Write count of pages:");
                 String pages = reader.readLine();
                 if (!StringUtils.isNumeric(pages)) {
                     System.out.println("There are no numbers. Please try again.");
@@ -39,9 +37,7 @@ public class BookController {
                 while (true) {
                     System.out.print("Write author name:");
                     String authorName = reader.readLine();
-                    if (StringUtils.isEmpty(authorName) || StringUtils.isBlank(authorName)) {
-                        System.out.println("There are blank or empty name. Please try again.");
-                        Thread.sleep(3000);
+                    if (!isStringOk(authorName)) {
                         continue;
                     }
                     authorsOfThisBook = ArrayUtils.add(authorsOfThisBook, authorName);
@@ -80,8 +76,6 @@ public class BookController {
                         booksId = ArrayUtils.add(booksId, bookService.findBookIdByName(bookName));
                     }
                     author.setBooksId(booksId);
-
-
                 }
                 break;
             } catch (Exception e) {
@@ -98,39 +92,41 @@ public class BookController {
                 NavigationMenu.clearScreen();
                 System.out.print("Write Id of the book:");
                 String bookId = reader.readLine();
-                if (StringUtils.isEmpty(bookId) || StringUtils.isBlank(bookId)) {
-                    System.out.println("There are blank or empty name. Please try again.");
+                if (!isStringOk(bookId)) {
+                    continue;
+                }
+                System.out.print("Write count of pages:");
+                String pages = reader.readLine();
+                if (!StringUtils.isNumeric(pages)) {
+                    System.out.println("There are no numbers. Please try again.");
                     Thread.sleep(3000);
                     continue;
                 }
+                int bookPages = Integer.parseInt(pages);
                 System.out.print("Write name of the book:");
                 String bookName = reader.readLine();
-                if (StringUtils.isEmpty(bookName) || StringUtils.isBlank(bookName)) {
-                    System.out.println("There are blank or empty name. Please try again.");
-                    Thread.sleep(3000);
+                if (!isStringOk(bookName)) {
                     continue;
                 }
-                while (true) {
-                    System.out.print("Write author name:");
-                    String authorName = reader.readLine();
-                    if (StringUtils.isEmpty(authorName) || StringUtils.isBlank(authorName)) {
-                        System.out.println("There are blank or empty name. Please try again.");
-                        Thread.sleep(3000);
-                        continue;
-                    }
-                    System.out.print("If you want to add another author of " + bookName + " please write 1:");
-                    String inputAnswer = reader.readLine();
-                    if (StringUtils.isNumeric(inputAnswer) && Integer.parseInt(inputAnswer) == 1) {
-                        continue;
-                    } else {
-                        break;
-                    }
-                }
-
+//                while (true) {
+//                    System.out.print("Write author name:");
+//                    String authorName = reader.readLine();
+//                    if (!isStringOk(id)) {
+//                        continue;
+//                    }
+//                    System.out.print("If you want to add another author of " + bookName + " please write 1:");
+//                    String inputAnswer = reader.readLine();
+//                    if (StringUtils.isNumeric(inputAnswer) && Integer.parseInt(inputAnswer) == 1) {
+//                        continue;
+//                    } else {
+//                        break;
+//                    }
+//                }
+                //todo set authors id?
                 Book newBook = new Book();
                 newBook.setId(bookId);
                 newBook.setName(bookName);
-//             newBook.setAuthorsId(authorsId);
+                newBook.setPages(bookPages);
                 bookService.update(newBook);
                 break;
             } catch (Exception e) {
@@ -140,28 +136,36 @@ public class BookController {
     }
 
     public void delete(BufferedReader reader) {
-        System.out.print("Write id of book to delete:");
-        try {
-            String name = reader.readLine();
-            bookService.delete(name);
-        } catch (IOException e) {
-            e.printStackTrace();
+        while (true) {
+            System.out.print("Write id of book to delete:");
+            try {
+                String name = reader.readLine();
+                if (!isStringOk(name)) {
+                    continue;
+                }
+                bookService.delete(name);
+                break;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void findAll(BufferedReader reader) {
         Book[] books = bookService.findAll();
         for (Book book : books) {
-            if(book.getPages()==0){
+            if (book.getPages() == 0) {
                 continue;
             }
-            System.out.println(book.toString());
+            System.out.println(book);
         }
         while (true) {
-            System.out.print("Write any symbol clear and continue: ");
+            System.out.print("Type 0 to clear and continue: ");
             try {
-                String rsl = reader.readLine();
-                break;
+                int rsl = Integer.parseInt(reader.readLine());
+                if (rsl == 0) {
+                    break;
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -173,6 +177,9 @@ public class BookController {
             try {
                 System.out.print("Write id of book:");
                 String idBook = reader.readLine();
+                if (!isStringOk(idBook)) {
+                    continue;
+                }
                 Book book = bookService.findByIdOrNull(idBook);
                 System.out.println(book != null ? book.toString() : "Sorry book not found");
                 while (true) {
@@ -187,5 +194,19 @@ public class BookController {
                 e.printStackTrace();
             }
         }
+    }
+
+    private boolean isStringOk(String s) {
+        boolean rsl = true;
+        if (StringUtils.isEmpty(s) || StringUtils.isBlank(s)) {
+            System.out.println("There are blank or empty name. Please try again.");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            rsl = false;
+        }
+        return rsl;
     }
 }

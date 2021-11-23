@@ -9,7 +9,4 @@ public class CrudMenu {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         InputValueMenuHandler.mainLevelHandler(reader);
     }
-
-
-
 }

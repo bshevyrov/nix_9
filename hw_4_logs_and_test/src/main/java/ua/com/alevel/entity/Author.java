@@ -1,6 +1,5 @@
 package ua.com.alevel.entity;
 
-import org.apache.commons.lang3.ArrayUtils;
 import ua.com.alevel.service.BookService;
 
 import java.util.Arrays;
@@ -48,24 +47,6 @@ public class Author {
     public void setId(String id) {
         this.id = id;
     }
-
-//    private String[] getBooksWroteByAuthorById() {
-//        String[] rsl = new String[0];
-//        for (String s : booksId) {
-//            rsl = ArrayUtils.add(rsl, bookService.findByIdOrNull(s).getName());
-//        }
-//        return rsl;
-//    }
-
-//    @Override
-//    public String toString() {
-//        return "Author{" +
-//                "id=" + id +
-//                ", name=" + name +
-//                ", books=" + Arrays.toString(getBooksWroteByAuthorById()) +
-//                '}';
-//    }
-
 
     @Override
     public String toString() {

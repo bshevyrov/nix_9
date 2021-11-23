@@ -25,16 +25,12 @@ public final class AuthorDB {
     public void create(Author author) {
         author.setId(generateId());
         authors = ArrayUtils.add(authors, author);
-
     }
 
     public void update(Author author) {
         Author current = ArrayUtils.get(authors, findIndexById(author.getId()));
         current.setName(author.getName());
         current.setBooksId(author.getBooksId());
-//        AuthorBook authorBook = new AuthorBook();
-//        authorBook.setAuthorIds(new String[]{author.getId()});
-//        AuthorBookDB.getInstance().update(authorBook);
     }
 
     public void delete(String id) {

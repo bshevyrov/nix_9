@@ -21,7 +21,6 @@ public class AuthorService {
         LOGGER_INFO.info("Start creating author '" + author.getName() + "'");
         authorDao.create(author);
         LOGGER_INFO.info("Finish creating Author '" + author.getName() + "'");
-
     }
 
     public void update(Author author) {
@@ -33,7 +32,6 @@ public class AuthorService {
     public void delete(String id) {
         LOGGER_WARN.warn("Start author '" + id + "' delete");
         authorDao.delete(id);
-
         BookDao bookDao = new BookDao();
         Book[] books = bookDao.findAll();
         for (int i = 0; i < books.length; i++) {
@@ -65,12 +63,12 @@ public class AuthorService {
         LOGGER_INFO.info("Starting find all book");
         return authorDao.findAll();
     }
-    public void fill(){
+
+    public void fill() {
         Author[] authors = authorDao.findAll();
         BookDao bookDao = new BookDao();
         Book[] books = bookDao.findAll();
         for (int i = 0; i < authors.length; i++) {
-
         }
     }
 }
