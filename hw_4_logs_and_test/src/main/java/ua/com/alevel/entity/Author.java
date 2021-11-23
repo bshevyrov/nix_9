@@ -14,6 +14,16 @@ public class Author {
     private String name;
     private String[] booksId = new String[0];
 
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    private String nickName;
+
 
     public String getName() {
         return name;
@@ -62,6 +72,7 @@ public class Author {
         return "Author{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
+                ", nickname='" + nickName + '\'' +
                 ", booksId=" + Arrays.toString(booksId) +
                 '}';
     }
