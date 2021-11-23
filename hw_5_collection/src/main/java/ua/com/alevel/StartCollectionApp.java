@@ -12,11 +12,26 @@ public class StartCollectionApp {
         // while (true) {
         try {
             sH.greetings();
-            String next = reader.readLine();
+            String next="";
+            next = reader.readLine();
 
             sH.constructors();
             next = reader.readLine();
             sH.constructorsAnswers();
+            next = reader.readLine();
+            sH.methods();
+            next = reader.readLine();
+            sH.methodsAnswer();
+            next = reader.readLine();
+            sH.methodPartTwo();
+            next = reader.readLine();
+            sH.methodPartTwoAnswer();
+            next = reader.readLine();
+            sH.methodLastPart();
+            next = reader.readLine();
+            sH.methodLastPartAnswer();
+            next = reader.readLine();
+
             // }
         } catch (IOException e) {
             e.printStackTrace();
