@@ -38,6 +38,7 @@ public final class BookDB {
     public void update(Book book) {
         Book current = ArrayUtils.get(books, getIndexById(book.getId()));
         current.setName(book.getName());
+        current.setPages(book.getPages());
         current.setAuthorsId(book.getAuthorId());
     }
 

@@ -10,7 +10,6 @@ public class Book {
     private String[] authorsId; // = new String [0];
     private int pages;
 
-
     public int getPages() {
         return pages;
     }
@@ -58,12 +57,12 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return Objects.equals(id, book.id) && Objects.equals(name, book.name) && Arrays.equals(authorsId, book.authorsId);
+        return pages == book.pages && Objects.equals(id, book.id) && Objects.equals(name, book.name) && Arrays.equals(authorsId, book.authorsId);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, name);
+        int result = Objects.hash(id, name, pages);
         result = 31 * result + Arrays.hashCode(authorsId);
         return result;
     }

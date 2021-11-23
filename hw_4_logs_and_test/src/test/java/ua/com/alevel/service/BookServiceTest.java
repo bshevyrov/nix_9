@@ -14,6 +14,7 @@ public class BookServiceTest {
         for (int i = 0; i < BOOKS_SIZE; i++) {
             Book book = new Book();
             book.setName("Name" + i);
+            book.setPages(i+1);
             bookService.create(book);
         }
         Assertions.assertEquals(BOOKS_SIZE, bookService.findAll().length);
@@ -24,6 +25,7 @@ public class BookServiceTest {
     public void whenCreateBookThenFindAllNotNull() {
         Book book = new Book();
         book.setName("Book Name");
+        book.setPages(99);
         bookService.create(book);
         verifyBookArrayIsNotEmpty();
     }
@@ -33,6 +35,7 @@ public class BookServiceTest {
     public void whenCreateBookWithSomeFieldsAreEmptyThenFindAllNotNull() {
         Book book = new Book();
         book.setName("");
+        book.setPages(99);
         bookService.create(book);
         verifyBookArrayIsNotEmpty();
     }
@@ -42,6 +45,7 @@ public class BookServiceTest {
     public void whenCreateBookWithNullNameThenFindAllNotNull() {
         Book book = new Book();
         book.setName(null);
+        book.setPages(99);
         bookService.create(book);
         verifyBookArrayIsNotEmpty();
     }
@@ -90,6 +94,7 @@ public class BookServiceTest {
         String id = books[books.length - 1].getId();
         Book newBook = new Book();
         newBook.setId(id);
+        newBook.setPages(99);
         newBook.setName("AUTHOR");
         bookService.update(newBook);
         Assertions.assertEquals(newBook, bookService.findByIdOrNull(id));

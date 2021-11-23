@@ -30,6 +30,7 @@ public final class AuthorDB {
     public void update(Author author) {
         Author current = ArrayUtils.get(authors, findIndexById(author.getId()));
         current.setName(author.getName());
+        current.setNickName(author.getNickName());
         current.setBooksId(author.getBooksId());
     }
 

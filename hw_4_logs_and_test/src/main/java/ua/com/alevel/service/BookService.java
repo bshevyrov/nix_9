@@ -33,17 +33,17 @@ public class BookService {
     public void delete(String id) {
         LOGGER_WARN.warn("Start book '" + id + "' delete");
         bookDao.delete(id);
-        AuthorDao authorDao = new AuthorDao();
-        Author[] author = authorDao.findAll();
-        for (int i = 0; i < author.length; i++) {
-            String[] bIds = author[i].getBooksId();
-            for (int j = 0; j < bIds.length; j++) {
-                if (StringUtils.equals(bIds[j], id)) {
-                    bIds = ArrayUtils.remove(bIds, j);
-                    author[i].setBooksId(bIds);
-                }
-            }
-        }
+//        AuthorDao authorDao = new AuthorDao();
+//        Author[] author = authorDao.findAll();
+//        for (int i = 0; i < author.length; i++) {
+//            String[] bIds = author[i].getBooksId();
+//            for (int j = 0; j < bIds.length; j++) {
+//                if (StringUtils.equals(bIds[j], id)) {
+//                    bIds = ArrayUtils.remove(bIds, j);
+//                    author[i].setBooksId(bIds);
+//                }
+//            }
+//        }
         LOGGER_WARN.warn("Finish book '" + id + "' delete");
     }
 

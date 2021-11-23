@@ -14,6 +14,7 @@ public class AuthorServiceTest {
         for (int i = 0; i < AUTHOR_SIZE; i++) {
             Author author = new Author();
             author.setName("Name" + i);
+            author.setNickName("NickName" + i);
             authorService.create(author);
         }
         Assertions.assertEquals(AUTHOR_SIZE, authorService.findAll().length);
@@ -24,6 +25,7 @@ public class AuthorServiceTest {
     public void whenCreateAuthorThenFindAllNotNull() {
         Author author = new Author();
         author.setName("Author Name");
+        author.setNickName("NickName" );
         authorService.create(author);
         verifyAuthorArrayIsNotEmpty();
     }
@@ -33,6 +35,7 @@ public class AuthorServiceTest {
     public void whenCreateAuthorWithSomeFieldsAreEmptyThenFindAllNotNull() {
         Author author = new Author();
         author.setName("");
+        author.setNickName("99");
         authorService.create(author);
         verifyAuthorArrayIsNotEmpty();
     }
@@ -42,6 +45,7 @@ public class AuthorServiceTest {
     public void whenCreateAuthorWithNullNameThenFindAllNotNull() {
         Author author = new Author();
         author.setName(null);
+        author.setNickName("678");
         authorService.create(author);
         verifyAuthorArrayIsNotEmpty();
     }
@@ -89,7 +93,7 @@ public class AuthorServiceTest {
         Author[] authors = authorService.findAll();
         String id = authors[authors.length - 1].getId();
         Author newAuthor = new Author();
-        newAuthor.setName("qqq");
+        newAuthor.setNickName("qqq");
         newAuthor.setId(id);
         authorService.update(newAuthor);
         Assertions.assertEquals(newAuthor, authorService.findByIdOrNull(id));

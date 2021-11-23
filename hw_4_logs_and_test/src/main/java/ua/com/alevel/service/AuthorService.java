@@ -32,17 +32,17 @@ public class AuthorService {
     public void delete(String id) {
         LOGGER_WARN.warn("Start author '" + id + "' delete");
         authorDao.delete(id);
-        BookDao bookDao = new BookDao();
-        Book[] books = bookDao.findAll();
-        for (int i = 0; i < books.length; i++) {
-            String[] aIds = books[i].getAuthorId();
-            for (int j = 0; j < aIds.length; j++) {
-                if (StringUtils.equals(aIds[j], id)) {
-                    aIds = ArrayUtils.remove(aIds, j);
-                    books[i].setAuthorsId(aIds);
-                }
-            }
-        }
+//        BookDao bookDao = new BookDao();
+//        Book[] books = bookDao.findAll();
+//        for (int i = 0; i < books.length; i++) {
+//            String[] aIds = books[i].getAuthorId();
+//            for (int j = 0; j < aIds.length; j++) {
+//                if (StringUtils.equals(aIds[j], id)) {
+//                    aIds = ArrayUtils.remove(aIds, j);
+//                    books[i].setAuthorsId(aIds);
+//                }
+//            }
+//        }
         LOGGER_WARN.warn("Finish author '" + id + "' delete");
     }
 
@@ -64,12 +64,5 @@ public class AuthorService {
         return authorDao.findAll();
     }
 
-    public void fill() {
-        Author[] authors = authorDao.findAll();
-        BookDao bookDao = new BookDao();
-        Book[] books = bookDao.findAll();
-        for (int i = 0; i < authors.length; i++) {
-        }
-    }
 }
 

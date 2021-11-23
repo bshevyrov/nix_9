@@ -12,6 +12,7 @@ public class Author {
     private String id;
     private String name;
     private String[] booksId = new String[0];
+    private String nickName;
 
     public String getNickName() {
         return nickName;
@@ -20,9 +21,6 @@ public class Author {
     public void setNickName(String nickName) {
         this.nickName = nickName;
     }
-
-    private String nickName;
-
 
     public String getName() {
         return name;
@@ -63,12 +61,12 @@ public class Author {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Author author = (Author) o;
-        return Objects.equals(id, author.id) && Objects.equals(name, author.name) && Arrays.equals(booksId, author.booksId);
+        return Objects.equals(id, author.id) && Objects.equals(name, author.name) && Arrays.equals(booksId, author.booksId) && Objects.equals(nickName, author.nickName);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, name);
+        int result = Objects.hash(id, name, nickName);
         result = 31 * result + Arrays.hashCode(booksId);
         return result;
     }

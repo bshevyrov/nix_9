@@ -34,45 +34,44 @@ public class AuthorController {
                 System.out.print("Write book name:");
                 String bookName = reader.readLine();
                 if (!isStringOk(bookName)) {
-
                     continue;
                 }
-                Book book = new Book();
-                book.setName(bookName);
-                bookService.create(book);
-
-                Author newAuthor = new Author();
+                //Проверяем наличие книги в базе если ее нет то создаем
+                String newBookId = bookService.findBookIdByName(bookName);
+                if (StringUtils.equals(newBookId, "")) {
+                    Book book = new Book();
+                    book.setName(bookName);
+                    bookService.create(book);
+                }
                 //если автор уже в базе до добавим ему книгу
-                String findedIds = authorService.findAuthorIdByName(authorName);
-                if (!StringUtils.equals(findedIds, "")) {
-                    Author currentAuthor = authorService.findByIdOrNull(findedIds);
-                    String[] bIds = currentAuthor.getBooksId();
-                    bIds = ArrayUtils.add(bIds, (bookService.findBookIdByName(bookName)));
-                    currentAuthor.setBooksId(bIds);
+                String findedId = authorService.findAuthorIdByName(authorName);
+                if (!StringUtils.equals(findedId, "")) {
+                    Author currentAuthor = authorService.findByIdOrNull(findedId);
+                    currentAuthor.setId(findedId);
                     currentAuthor.setNickName(nickName);
-
-                }
-                //
-                if (StringUtils.equals(findedIds, "")) {
-                    newAuthor.setName(authorName);
-                    newAuthor.setNickName(nickName);
-                    newAuthor.setBooksId(new String[]{bookService.findBookIdByName(bookName)});
-                    authorService.create(newAuthor);
-                }
-                Book newBook = bookService.findByIdOrNull(bookService.findBookIdByName(bookName));
-                String[] auId = new String[]{authorService.findAuthorIdByName(authorName)};
-                boolean inArr = false;
-                for (int i = 0; i < auId.length; i++) {
-                    if (StringUtils.equals(authorService.findAuthorIdByName(authorName), auId[i])) {
-                        inArr = true;
+                    //проверяем есть ли у автора эта книга и если нет о добавляем айди
+                    String newAuthorsBookId = bookService.findBookIdByName(bookName);
+                    boolean alreadyInArr = false;
+                    for (String s : currentAuthor.getBooksId()) {
+                        if (StringUtils.equals(newAuthorsBookId, s)) {
+                            alreadyInArr = true;
+                        }
                     }
+                    if (!alreadyInArr) {
+                        Book book = new Book();
+                        book.setName(bookName);
+                        bookService.create(book);
+                        currentAuthor.setBooksId(ArrayUtils.add(currentAuthor.getBooksId(), newAuthorsBookId));
+                    }
+                    //
+                    authorService.update(currentAuthor);
+                } else {
+                    Author author = new Author();
+                    author.setName(authorName);
+                    author.setNickName(nickName);
+                    author.setBooksId(new String[]{bookService.findBookIdByName(bookName)});
+                    authorService.create(author);
                 }
-                if (!inArr) {
-                    auId = ArrayUtils.add(auId, authorService.findAuthorIdByName(authorName));
-                }
-                newBook.setAuthorsId(auId);
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -161,7 +160,7 @@ public class AuthorController {
                 System.out.print("Write id:");
                 String id = reader.readLine();
                 if (!isStringOk(id)) {
-                continue;
+                    continue;
                 }
                 Author author = authorService.findByIdOrNull(id);
                 System.out.println(author != null ? author.toString() : "Sorry book not found");
