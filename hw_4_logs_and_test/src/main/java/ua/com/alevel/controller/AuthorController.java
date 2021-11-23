@@ -43,7 +43,7 @@ public class AuthorController {
                     book.setName(bookName);
                     bookService.create(book);
                 }
-                //если автор уже в базе до добавим ему книгу
+                //если автор уже в базе до добавим ему книгу и никнейм
                 String findedId = authorService.findAuthorIdByName(authorName);
                 if (!StringUtils.equals(findedId, "")) {
                     Author currentAuthor = authorService.findByIdOrNull(findedId);

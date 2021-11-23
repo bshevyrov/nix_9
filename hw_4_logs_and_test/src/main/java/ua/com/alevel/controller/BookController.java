@@ -50,33 +50,78 @@ public class BookController {
                     }
                 }
                 for (String s : authorsOfThisBook) {
-                    Author author = new Author();
-                    author.setName(s);
-                    authorService.create(author);
-                }
-                Book newBook = new Book();
-                newBook.setName(bookName);
-                newBook.setPages(bookPages);
-                String[] authorsId = new String[0];
-                for (String s : authorsOfThisBook) {
-                    authorsId = ArrayUtils.add(authorsId, authorService.findAuthorIdByName(s));
-                }
-                newBook.setAuthorsId(authorsId);
-                bookService.create(newBook);
-                for (int i = 0; i < authorsOfThisBook.length; i++) {
-                    Author author = authorService.findByIdOrNull(authorService.findAuthorIdByName(authorsOfThisBook[i]));
-                    String[] booksId = author.getBooksId();
-                    boolean inArr = false;
-                    for (int j = 0; j < booksId.length; j++) {
-                        if (StringUtils.equals(booksId[j], bookService.findBookIdByName(bookName))) {
-                            inArr = true;
+                    //Если автора нет то создать
+                    String curAuthId = authorService.findAuthorIdByName(s);
+                    if (StringUtils.equals(curAuthId, "")) {
+                        Author author = new Author();
+                        author.setName(s);
+                        authorService.create(author);
+                    }
+                    // если книги нет то создаем
+                    if (StringUtils.equals(bookService.findBookIdByName(bookName),"")){
+                        Book newBook = new Book();
+                        newBook.setName(bookName);
+                        newBook.setPages(bookPages);
+                        newBook.setAuthorsId(new String[]{authorService.findAuthorIdByName(s)});
+                        bookService.create(newBook);
+                    } else {
+                        //если есть обновляем
+
+                        Book currrentBook = bookService.findByIdOrNull(bookService.findBookIdByName(bookName));
+                        currrentBook.setName(bookName);
+                        currrentBook.setPages(bookPages);
+                       //TODOпадает ошибка
+                        String[] authIds = currrentBook.getAuthorId();
+
+                        //сравниваем список айди авторов из УЖЕ созданной книги с теми что только что ввели с консоли
+                        String[] newAuthorsId = authIds;
+                        for (String authId : authIds) {
+                            boolean alreadyInArr = false;
+                            for (String s1 : authorsOfThisBook) {
+                                if(StringUtils.equals(authId,authorService.findAuthorIdByName(s1))){
+                                alreadyInArr= true;
+                                }
+                                if(!alreadyInArr){
+                                    newAuthorsId = ArrayUtils.add(newAuthorsId,authorService.findAuthorIdByName(s1));
+                                }
+                            }
                         }
+                        currrentBook.setAuthorsId(newAuthorsId);
+                        bookService.update(currrentBook);
+
                     }
-                    if (!inArr) {
-                        booksId = ArrayUtils.add(booksId, bookService.findBookIdByName(bookName));
-                    }
-                    author.setBooksId(booksId);
+
                 }
+
+
+//                for (String s : authorsOfThisBook) {
+//                    Author author = new Author();
+//                    author.setName(s);
+//                    authorService.create(author);
+//                }
+//                Book newBook = new Book();
+//                newBook.setName(bookName);
+//                newBook.setPages(bookPages);
+//                String[] authorsId = new String[0];
+//                for (String s : authorsOfThisBook) {
+//                    authorsId = ArrayUtils.add(authorsId, authorService.findAuthorIdByName(s));
+//                }
+//                newBook.setAuthorsId(authorsId);
+//                bookService.create(newBook);
+//                for (int i = 0; i < authorsOfThisBook.length; i++) {
+//                    Author author = authorService.findByIdOrNull(authorService.findAuthorIdByName(authorsOfThisBook[i]));
+//                    String[] booksId = author.getBooksId();
+//                    boolean inArr = false;
+//                    for (int j = 0; j < booksId.length; j++) {
+//                        if (StringUtils.equals(booksId[j], bookService.findBookIdByName(bookName))) {
+//                            inArr = true;
+//                        }
+//                    }
+//                    if (!inArr) {
+//                        booksId = ArrayUtils.add(booksId, bookService.findBookIdByName(bookName));
+//                    }
+//                    author.setBooksId(booksId);
+//                }
                 break;
             } catch (Exception e) {
                 e.printStackTrace();
