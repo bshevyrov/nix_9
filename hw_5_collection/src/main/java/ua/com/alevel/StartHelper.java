@@ -1,13 +1,13 @@
 package ua.com.alevel;
 
 public class StartHelper {
+    
     MathSet mS = new MathSet();
 
     private Number n = -13.3;
     private Number[] n1 = new Number[]{0, -13.3, -13.3f, 99, 7, 6, 7, -666};
     private Number[] n2 = new Number[]{0, 99, 123, -66.6f, -99, 0};
     private Number[] n3 = new Number[]{6};
-    private MathSet m = new MathSet(new Number[]{66, 13.3, 13, -1});
     private MathSet m1 = new MathSet(new Number[]{66, 13.3, 13, -1, 0});
     private MathSet m2 = new MathSet(new Number[]{1, -1, 3});
     private MathSet m3 = new MathSet(new Number[]{2});
@@ -31,18 +31,15 @@ public class StartHelper {
     public void constructors() {
         ScreenMenu.clearConsole();
         System.out.println("Давай попробуем проверить конструкторы");
-        // System.out.println("2.MathSet(int capacity");
         System.out.println("1.MathSet(Number[] numbers) + {0,-13.3,-13.3f,99,7,6,7,-666}");
         System.out.println("2.MathSet(Number[] ... numbers) + {0,-13.3,-13.3f,99,7,6,7,-666}{0,99,123,-66.6f,-99,0},{6}");
-//        System.out.println("3.MathSet(MathSet numbers)");
         System.out.println("3.MathSet(MathSet ... numbers) + {66,13.3,13,-1,0}{1,-1,3}{2}");
         System.out.println("Жми Энтер и мы узнаем что получится.");
     }
 
     public void constructorsAnswers() {
-
         System.out.println("1. " + mS.createString(new MathSet(n1)));
-        mS= new MathSet((n1), (n2), (n3));
+        mS = new MathSet((n1), (n2), (n3));
         System.out.println("2. " + mS.createString(mS.toArray()));
         System.out.println("3. " + mS.createString(new MathSet((m1), (m2), (m3))));
         System.out.println("Жми Энтер и мы продолжим.");
@@ -90,21 +87,25 @@ public class StartHelper {
         System.out.println("Ты со мной, %ЮзерНейм%?");
         System.out.println("В этой части мы будем использовать множество {66, 13.3, 13, -1, 0}");
         System.out.println("Как насчёт ");
-        System.out.println("1. Number getMax() ?");
-        System.out.println("2. Number getMin() ?");
-        System.out.println("3. Number getAverage() ?");
-        System.out.println("4. Number getMedian() ?");
+        System.out.println("1. Number get(int index) + 3 ?");
+        System.out.println("2. Number getMax() ?");
+        System.out.println("3. Number getMin() ?");
+        System.out.println("4. Number getAverage() ?");
+        System.out.println("5. Number getMedian() ?");
+        System.out.println("6. MathSet cut(int firstIndex, int lastIndex) 2,4");
         System.out.println("A?");
         System.out.println("Думаю ты запомнил куда нажать чтобы продолжить?) (Энтер)");
-
     }
 
     public void methodPartTwoAnswer() {
         mS = new MathSet(m1);
-        System.out.println("1. " + mS.createString(new Number[]{mS.getMax()}));
-        System.out.println("2. " + mS.createString(new Number[]{mS.getMin()}));
-        System.out.println("3. " + mS.createString(new Number[]{mS.getAverage()}));
-        System.out.println("4. " + mS.createString(new Number[]{mS.getMedian()}));
+        System.out.println("1. " + mS.createString(new Number[]{mS.get(3)}));
+        System.out.println("2. " + mS.createString(new Number[]{mS.getMax()}));
+        System.out.println("3. " + mS.createString(new Number[]{mS.getMin()}));
+        System.out.println("4. " + mS.createString(new Number[]{mS.getAverage()}));
+        System.out.println("5. " + mS.createString(new Number[]{mS.getMedian()}));
+        mS = new MathSet(new Number[]{66, 13.3, 13, -1, 0});
+        System.out.println("6. " + mS.createString(mS.cut(2,4)));
         mS.clear();
         System.out.println("Жми Энтер и мы продолжим.");
     }
@@ -114,26 +115,53 @@ public class StartHelper {
         System.out.println("Как быстро пролетело время(");
         System.out.println("Мы уже подобрались к концу");
         System.out.println("В этой части мы в каждой операции будем  использовать множество {66, 13.3, 13, -1, 0}");
-        System.out.println("1.void sortDesc(Number value) + 13");
-        System.out.println("2.void sortAsc(int firstIndex, int lastIndex) + 0 , 4");
-        System.out.println("3.void intersection (MathSet … ms) + {1, -1, 3},{2}");
-        System.out.println("4.void join(MathSet … ms) +  {1, -1, 3},{2}");
+        System.out.println("1.void sortDesc()");
+        System.out.println("2.void sortDesc(int firstIndex, int lastIndex) + 1, 3");
+        System.out.println("3.void sortDesc(Number value) + 13");
+        System.out.println("4.void sortAsc()");
+        System.out.println("5.void sortAsc(int firstIndex, int lastIndex) + 0, 4");
+        System.out.println("6.void sortAsc(Number value) + 13");
+        System.out.println("7.void intersection (MathSet ms) + {1, -1, 3,13.3}");
+        System.out.println("8.void intersection (MathSet … ms) + {1, -1, 3},{2}");
+        System.out.println("9.void join(MathSet ms) +  {2}");
+        System.out.println("10.void join(MathSet … ms) +  {1, -1, 3},{2}");
         System.out.println("Жамкай большую кнопку.");
-
     }
 
     public void methodLastPartAnswer() {
         mS = new MathSet(new Number[]{66, 13.3, 13, -1, 0});
-        mS.sortDesc(13);
+        mS.sortDesc();
         System.out.println("1. " + mS.createString(mS.toArray()));
         mS = new MathSet(new Number[]{66, 13.3, 13, -1, 0});
-        mS.sortAsc(0, 3);
+        mS.sortDesc(1, 3);
         System.out.println("2. " + mS.createString(mS.toArray()));
         mS = new MathSet(new Number[]{66, 13.3, 13, -1, 0});
-        mS.intersection(m2, m3);
+        mS.sortDesc(13);
         System.out.println("3. " + mS.createString(mS.toArray()));
         mS = new MathSet(new Number[]{66, 13.3, 13, -1, 0});
-        mS.join(m2, m3);
+        mS.sortAsc();
         System.out.println("4. " + mS.createString(mS.toArray()));
+        mS = new MathSet(new Number[]{66, 13.3, 13, -1, 0});
+        mS.sortAsc(0, 4);
+        System.out.println("5. " + mS.createString(mS.toArray()));
+        mS = new MathSet(new Number[]{66, 13.3, 13, -1, 0});
+        mS.sortAsc(13);
+        System.out.println("6. " + mS.createString(mS.toArray()));
+        mS = new MathSet(new Number[]{66, 13.3, 13, -1, 0});
+        mS.intersection(new MathSet(new Number[]{1, -1, 3,13.3}));
+        System.out.println("7. " + mS.createString(mS.toArray()));
+        mS = new MathSet(new Number[]{66, 13.3, 13, -1, 0});
+        mS.intersection(m2, m3);
+        System.out.println("8. " + mS.createString(mS.toArray()));
+        mS = new MathSet(new Number[]{66, 13.3, 13, -1, 0});
+        mS.join(m3);
+        System.out.println("9. " + mS.createString(mS.toArray()));
+        mS = new MathSet(new Number[]{66, 13.3, 13, -1, 0});
+        mS.join(m2, m3);
+        System.out.println("10. " + mS.createString(mS.toArray()));
+
+
+        System.out.println("Это было здорово");
+        System.out.println("Хорошего дня!! Пока.");
     }
 }
