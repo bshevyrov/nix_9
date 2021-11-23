@@ -1,41 +1,20 @@
 package ua.com.alevel;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 public class MathSet {
-    //todo проверить с оздание с нулл
-    //TODO разобраться с NULL
-    //TODO проверить что втулил везде  АДД вместо АДДту аррей
-    //11.03 в начале
-    //запрет расширения массива если он достиг капасити
-    //вместимость
-    //Если будет АДД не впускать или просить пересоздать
 
-    //мб добавить метод капасити и Мас сет
-    //TODO ca[acity
     private int capacity = -1;
-
-    /*// переделать в to string
-    public Number[] getNumbers() {
-        return this.numbers;
-    }*/
-
-
     Number[] numbers = new Number[0];
-
-
+    //todo нужен ли
     boolean haveNull = false;
 
     public MathSet(int capacity) {
-        //запрет расширения массива если он достиг капасити
-
         this.capacity = capacity;
     }
 
     public MathSet() {
     }
-
 
     public MathSet(Number[] numbers) {
         this.numbers = removeDuplicates(numbers);
@@ -43,13 +22,8 @@ public class MathSet {
 
     public MathSet(Number[]... numbers) {
         for (Number[] number : numbers) {
-
             add(number);
-                       /* for (Number number1 : number) {
-                temporaryNumberArr = ArrayUtils.add(temporaryNumberArr, number1);
-            }*/
         }
-        //this.numbers = removeDuplicates(temporaryNumberArr);
     }
 
     public MathSet(MathSet numbers) {
@@ -59,12 +33,10 @@ public class MathSet {
     public MathSet(MathSet... numbers) {
         Number[] temporaryNumberArr = new Number[0];
         for (MathSet number : numbers) {
-            // Number[] n = number.toArray();
             for (Number number1 : number.toArray()) {
                 temporaryNumberArr = addToArr(temporaryNumberArr, number1);
             }
             add(temporaryNumberArr);
-//        this.numbers = removeDuplicates(temporaryNumberArr);
         }
     }
 
@@ -74,19 +46,12 @@ public class MathSet {
             if (numbers.length == 0) {
                 numbers = new Number[]{n};
             } else {
-
-//                = copyOf(numbers,numbers.length);
                 for (int i = 0; i < tempNumber.length - 1; i++) {
                     tempNumber[i] = numbers[i];
                 }
                 tempNumber[tempNumber.length - 1] = n;
-                tempNumber = removeDuplicates(tempNumber);
-//                numbers=copyOf(numbers, numbers.length + 1);
-                numbers = tempNumber;
-                numbers = removeDuplicates(numbers);
+                numbers = removeDuplicates(tempNumber);
             }
-//            this.numbers = addToArr(this.numbers, n);
-            //  this.numbers = removeDuplicates(this.numbers);
         } else {
             System.out.println("Множество заполнено. Необходимо изменить Capasity" + Thread.currentThread().getName());
         }
@@ -95,13 +60,9 @@ public class MathSet {
     void add(Number... n) {
         if (capacity == -1 || capacity >= this.numbers.length + n.length) {
             for (Number number : n) {
-
                 add(number);
-
-
             }
-
-            numbers = removeDuplicates(this.numbers);
+//            numbers = removeDuplicates(this.numbers);
         } else {
             System.out.println("Множество заполнено. Необходимо изменить Capasity");
         }
@@ -109,11 +70,10 @@ public class MathSet {
 
     void join(MathSet ms) {
         Number[] tempNum = ms.toArray();
-        add(tempNum);
+        add(ms.toArray());
     }
 
     void join(MathSet... ms) {
-        // ghfdbkmyj kb hf.,jnftn
         for (MathSet mathSet : ms) {
             Number[] tempNum = mathSet.toArray();
             add(tempNum);
@@ -122,8 +82,7 @@ public class MathSet {
 
     void intersection(MathSet ms) {
         Number[] temporaryNumberArr = new Number[0];
-        // int index=0;
-//        Number[] tempNum = ;
+
         for (Number number : ms.toArray()) {
             for (Number number1 : this.numbers) {
                 if (number.equals(number1)) {
@@ -135,11 +94,14 @@ public class MathSet {
     }
 
     void intersection(MathSet... ms) {
-        //Правильно ли работает?    персечение с первым МС или пересечение с результатом первого пересечения МС
         Number[] temporaryNumberArr = new Number[0];
         for (MathSet m : ms) {
-            intersection(m);
+            for (Number number : m.toArray()) {
+                temporaryNumberArr = addToArr(temporaryNumberArr, number);
+            }
         }
+        temporaryNumberArr = removeDuplicates(temporaryNumberArr);
+        intersection(new MathSet(temporaryNumberArr));
     }
 
     public void sortDesc() {
@@ -148,11 +110,7 @@ public class MathSet {
     }
 
     public void sortDesc(int firstIndex, int lastIndex) {
-//        if (checkForNull(numbers)) {
-//            // haveNull = true;
-//            numbers = removeNull(numbers);
-//        }
-
+//
         boolean sorted = false;
         while (!sorted) {
             sorted = true;
@@ -272,10 +230,7 @@ public class MathSet {
     }
 
     private Number[] sortAsc(Number[] numbers) {
-        //возраст
-
         if (checkForNull(numbers)) {
-            // haveNull = true;
             numbers = removeNull(numbers);
         }
 
@@ -320,11 +275,9 @@ public class MathSet {
         normalizeDoubleToFloat(numbers);
         // numbers = sortAsc(numbers);
         Number[] uniqNumber = new Number[numbers.length];
-        if (numbers.length == 0 || numbers.length == 1) {
-            return numbers;
-        }
-
-
+//        if (numbers.length == 0 || numbers.length == 1) {
+//            return numbers;
+//        }
         Number[] temp = new Number[numbers.length];
         int count = 0;
         for (int i = 0; i < numbers.length; i++) {
@@ -342,22 +295,6 @@ public class MathSet {
         for (int i = 0; i < count; i++) {
             tmp2[i] = temp[i];
         }
-//
-//
-//        int index = 0;
-//        for (int i = 0; i < numbers.length - 1; i++) {
-//            if (!Objects.equals(numbers[i], numbers[i + 1])) {
-//                uniqNumber[index++] = numbers[i];
-//            }
-//        }
-//        uniqNumber[index++] = numbers[numbers.length - 1];
-//        for (int i = 0; i < index; i++) {
-//            numbers[i] = uniqNumber[i];
-//        }
-//        for (Number number : numbers) {
-//            System.out.println(number);
-//        }
-//// Number[] tmp = copyOf(uniqNumber, index);
         return tmp2;
     }
 
@@ -373,24 +310,6 @@ public class MathSet {
         return rsl;
     }
 
-    //    private void keepOneNull(Number[] numbers){
-//        Number[] tempNumber = new Number[0];
-//        boolean haveNull = false;
-//        int count = 0;
-//        for (int i = 0; i < numbers.length; i++) {
-//            if(numbers[i]==null){
-//                haveNull = true;
-//                continue;
-//            }
-//            tempNumber = addToArr(tempNumber, numbers[i]);
-//            if(haveNull){
-//                tempNumber = addToArr(tempNumber, null);
-//                numbers= tempNumber;
-//            }
-//            numbers= tempNumber;
-//
-//        }
-//    }
     private Number[] removeNull(Number[] numbers) {
         Number[] tempNumber = new Number[0];
         for (int i = 0; i < numbers.length; i++) {
