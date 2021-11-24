@@ -174,9 +174,16 @@ public class BookController {
             System.out.println("SCREEN WILL BE CLEANED");
             System.out.print("Type 0 to clear and continue: ");
             try {
-                int rsl = Integer.parseInt(reader.readLine());
+                String input = reader.readLine();
+                if (!StringUtils.isNumeric(input)) {
+                    System.out.println("You write not number. Please try again");
+                    continue;
+                }
+                int rsl = Integer.parseInt(input);
                 if (rsl == 0) {
                     break;
+                } else {
+                    continue;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -196,9 +203,16 @@ public class BookController {
                 System.out.println(book != null ? book.toString() : "Sorry book not found");
                 while (true) {
                     System.out.println("Write 0 to continue:");
-                    int rsl = Integer.parseInt(reader.readLine());
+                    String input = reader.readLine();
+                    if (!StringUtils.isNumeric(input)) {
+                        System.out.println("You write not number. Please try again");
+                        continue;
+                    }
+                    int rsl = Integer.parseInt(input);
                     if (rsl == 0) {
                         break;
+                    } else {
+                        continue;
                     }
                 }
                 break;

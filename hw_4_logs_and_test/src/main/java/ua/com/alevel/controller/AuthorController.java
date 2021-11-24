@@ -130,13 +130,20 @@ public class AuthorController {
             }
         }
         while (true) {
-            System.out.println("SAVE ID!!!!");
-            System.out.println("SCREEN WILL BE CLEANED");
-            System.out.print("Type 0 to clear and continue: ");
             try {
-                int rsl = Integer.parseInt(reader.readLine());
+                System.out.println("SAVE ID!!!!");
+                System.out.println("SCREEN WILL BE CLEANED");
+                System.out.print("Type 0 to clear and continue: ");
+                String input = reader.readLine();
+                if (!StringUtils.isNumeric(input)) {
+                    System.out.println("You write not number. Please try again");
+                    continue;
+                }
+                int rsl = Integer.parseInt(input);
                 if (rsl == 0) {
                     break;
+                } else {
+                    continue;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -156,9 +163,16 @@ public class AuthorController {
                 System.out.println(author != null ? author.toString() : "Sorry book not found");
                 while (true) {
                     System.out.print("Write 0 to exit:");
-                    int rsl = Integer.parseInt(reader.readLine());
+                    String input = reader.readLine();
+                    if (!StringUtils.isNumeric(input)) {
+                        System.out.println("You write not number. Please try again");
+                        continue;
+                    }
+                    int rsl = Integer.parseInt(input);
                     if (rsl == 0) {
                         break;
+                    } else {
+                        continue;
                     }
                 }
                 break;
