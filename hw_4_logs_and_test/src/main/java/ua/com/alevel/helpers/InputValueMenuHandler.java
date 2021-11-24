@@ -1,5 +1,6 @@
 package ua.com.alevel.helpers;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.com.alevel.controller.AuthorController;
@@ -20,7 +21,16 @@ public class InputValueMenuHandler {
             NavigationMenu.runNavigationMainLevel();
             int inputMenuValue;
             try {
+                String input = reader.readLine();
+                if (!StringUtils.isNumeric(input)) {
+                    System.out.println("You write not number. Please try again");
+                    continue;
+                }
                 inputMenuValue = Integer.parseInt(reader.readLine());
+                if (inputMenuValue <0||inputMenuValue>5) {
+                    System.out.println("Please write correct number");
+                    continue;
+                }
                 switch (inputMenuValue) {
                     case 1 -> createLevelHandler(reader);
                     case 2 -> updateLevelHandler(reader);
@@ -40,7 +50,16 @@ public class InputValueMenuHandler {
             NavigationMenu.runNavigationFindAllLevel(reader);
             int inputMenuValue;
             try {
+                String input = reader.readLine();
+                if (!StringUtils.isNumeric(input)) {
+                    System.out.println("You write not number. Please try again");
+                    continue;
+                }
                 inputMenuValue = Integer.parseInt(reader.readLine());
+                if (inputMenuValue <0||inputMenuValue>2) {
+                    System.out.println("Please write correct number");
+                    continue;
+                }
                 switch (inputMenuValue) {
                     case 1 -> bookController.findAll(reader);
                     case 2 -> authorController.findAll(reader);
@@ -57,7 +76,16 @@ public class InputValueMenuHandler {
             NavigationMenu.runNavigationFindByKeyLevel(reader);
             int inputMenuValue;
             try {
+                String input = reader.readLine();
+                if (!StringUtils.isNumeric(input)) {
+                    System.out.println("You write not number. Please try again");
+                    continue;
+                }
                 inputMenuValue = Integer.parseInt(reader.readLine());
+                if (inputMenuValue <0||inputMenuValue>2) {
+                    System.out.println("Please write correct number");
+                    continue;
+                }
                 switch (inputMenuValue) {
                     case 1 -> bookController.findById(reader);
                     case 2 -> authorController.findById(reader);
@@ -74,7 +102,16 @@ public class InputValueMenuHandler {
             NavigationMenu.runNavigationDeleteLevel(reader);
             int inputMenuValue;
             try {
+                String input = reader.readLine();
+                if (!StringUtils.isNumeric(input)) {
+                    System.out.println("You write not number. Please try again");
+                    continue;
+                }
                 inputMenuValue = Integer.parseInt(reader.readLine());
+                if (inputMenuValue <0||inputMenuValue>2) {
+                    System.out.println("Please write correct number");
+                    continue;
+                }
                 switch (inputMenuValue) {
                     case 1 -> bookController.delete(reader);
                     case 2 -> authorController.delete(reader);
@@ -91,7 +128,16 @@ public class InputValueMenuHandler {
             NavigationMenu.runNavigationUpdateLevel(reader);
             int inputMenuValue;
             try {
+                String input = reader.readLine();
+                if (!StringUtils.isNumeric(input)) {
+                    System.out.println("You write not number. Please try again");
+                    continue;
+                }
                 inputMenuValue = Integer.parseInt(reader.readLine());
+                if (inputMenuValue <0||inputMenuValue>2) {
+                    System.out.println("Please write correct number");
+                    continue;
+                }
                 switch (inputMenuValue) {
                     case 1 -> bookController.update(reader);
                     case 2 -> authorController.update(reader);
@@ -108,7 +154,16 @@ public class InputValueMenuHandler {
             NavigationMenu.runNavigationCreateLevel();
             int inputMenuValue;
             try {
+                String input = reader.readLine();
+                if (!StringUtils.isNumeric(input)) {
+                    System.out.println("You write not number. Please try again");
+                    continue;
+                }
                 inputMenuValue = Integer.parseInt(reader.readLine());
+                if (inputMenuValue <0||inputMenuValue>2) {
+                    System.out.println("Please write correct number");
+                    continue;
+                }
                 switch (inputMenuValue) {
                     case 1 -> bookController.create(reader);
                     case 2 -> authorController.create(reader);
