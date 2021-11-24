@@ -26,7 +26,7 @@ public class InputValueMenuHandler {
                     System.out.println("You write not number. Please try again");
                     continue;
                 }
-                inputMenuValue = Integer.parseInt(reader.readLine());
+                inputMenuValue = Integer.parseInt(input);
                 if (inputMenuValue <0||inputMenuValue>5) {
                     System.out.println("Please write correct number");
                     continue;
@@ -55,7 +55,7 @@ public class InputValueMenuHandler {
                     System.out.println("You write not number. Please try again");
                     continue;
                 }
-                inputMenuValue = Integer.parseInt(reader.readLine());
+                inputMenuValue = Integer.parseInt(input);
                 if (inputMenuValue <0||inputMenuValue>2) {
                     System.out.println("Please write correct number");
                     continue;
@@ -81,7 +81,7 @@ public class InputValueMenuHandler {
                     System.out.println("You write not number. Please try again");
                     continue;
                 }
-                inputMenuValue = Integer.parseInt(reader.readLine());
+                inputMenuValue = Integer.parseInt(input);
                 if (inputMenuValue <0||inputMenuValue>2) {
                     System.out.println("Please write correct number");
                     continue;
@@ -107,7 +107,7 @@ public class InputValueMenuHandler {
                     System.out.println("You write not number. Please try again");
                     continue;
                 }
-                inputMenuValue = Integer.parseInt(reader.readLine());
+                inputMenuValue = Integer.parseInt(input);
                 if (inputMenuValue <0||inputMenuValue>2) {
                     System.out.println("Please write correct number");
                     continue;
@@ -133,7 +133,7 @@ public class InputValueMenuHandler {
                     System.out.println("You write not number. Please try again");
                     continue;
                 }
-                inputMenuValue = Integer.parseInt(reader.readLine());
+                inputMenuValue = Integer.parseInt(input);
                 if (inputMenuValue <0||inputMenuValue>2) {
                     System.out.println("Please write correct number");
                     continue;
@@ -159,7 +159,7 @@ public class InputValueMenuHandler {
                     System.out.println("You write not number. Please try again");
                     continue;
                 }
-                inputMenuValue = Integer.parseInt(reader.readLine());
+                inputMenuValue = Integer.parseInt(input);
                 if (inputMenuValue <0||inputMenuValue>2) {
                     System.out.println("Please write correct number");
                     continue;
