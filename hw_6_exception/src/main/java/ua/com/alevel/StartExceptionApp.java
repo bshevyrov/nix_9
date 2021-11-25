@@ -1,10 +1,19 @@
 package ua.com.alevel;
 
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 public class StartExceptionApp {
     public static void main(String[] args) {
-        System.out.println("Warrap, brooo!?!");
-        System.out.println(Long.MAX_VALUE / 31_536_000_000L);
-        System.out.println(new SomeClassThatIRenameLater().isDateWithString("09 april 789 45:23"));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        ConsoleHelper consoleHelper = new ConsoleHelper();
+        SomeClassThatIRenameLater sC = new SomeClassThatIRenameLater();
+        System.out.println(sC.isLeapYear(1));
+        System.out.println(sC.isLeapYear(2));
+        System.out.println(sC.isLeapYear(3));
+        System.out.println(sC.isLeapYear(4));
+        System.out.println(sC.dateFirstFormat("11/12/2222"));
+
     }
 }
