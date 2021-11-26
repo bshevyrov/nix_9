@@ -2,8 +2,6 @@ package ua.com.alevel;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Scanner;
-
 
 public class SomeClassThatIRenameLater {
 
@@ -16,7 +14,7 @@ public class SomeClassThatIRenameLater {
     //    private static final long MS_IN_YEAR = 31_536_000_000L;
 //    private static final long MS_IN_MONTH = 2_592_000_000L;
     private static final long MS_IN_DAY = 86_400_000L;
-    private static final long MS_IN_HOUR = 3_600_000L;
+    // private static final long MS_IN_HOUR = 3_600_000L;
     private static final long MS_IN_MINUTE = 60_000L;
     private static final long MS_IN_SEC = 1_000L;
 
@@ -69,42 +67,84 @@ public class SomeClassThatIRenameLater {
         return dateInMs;
     }
 
+    //TODO если StringUtils.INDEX_NOT_FOUND : то без времени
     public long stringMonthWithTimeFormat(String str) {
         int indexOfSpaceBetweenDateAndTime = StringUtils.lastIndexOf(str, " ");
-        String date = str.substring(0, indexOfSpaceBetweenDateAndTime);
-        String time = str.substring(indexOfSpaceBetweenDateAndTime + 1);
-        System.out.println(date);
-        System.out.println(time);
+        //если разделитель пробел 1 то это только год
+        if (StringUtils.indexOf(str, " ") == StringUtils.lastIndexOf(str, " ")) {
+            long date = yearInDays(Integer.parseInt(str.substring(0, indexOfSpaceBetweenDateAndTime))) * MS_IN_DAY;
+        } else { //если разделитель не один то это дата, месяц словом  и потом вркмя
+            String dateString = str.substring(0, indexOfSpaceBetweenDateAndTime);
+            String timeString = str.substring(indexOfSpaceBetweenDateAndTime + 1);
+            long rsl = dayStringMonthYear(dateString) + time(timeString);
+        }
+
         return 0;
     }
 
-    /*public long timeWithMillieSeconds(String time){
-        int countOfDelimiter= StringUtils.countMatches(time,":");
-        scanner.useDelimiter(":");
-        //минус 1 потому что мы еше не закончили этот день месяц год.
-        // и по факту 1 января 1 года в милисекундах есть только количество часов или минут или дней
-        int month = Integer.parseInt(scanner.next()) - 1;
-        int day = Integer.parseInt(scanner.next()) - 1;
-        int year = Integer.parseInt(scanner.next());
-        return (day + monthInDays(month, year) + yearInDays(year)) * MS_IN_DAY;
-    }*/
-//    public long timeWithSeconds(){
-//
-//    }
-//    public long timeWithMillieSeconds(){
-//
-//    }
-    public long dayStringMonthYear(String str) {
-        Scanner scanner = new Scanner(str);
-        scanner.useDelimiter(" ");
-        //минус 1 потому что мы еше не закончили этот день месяц год.
-        // и по факту 1 января 1 года в милисекундах есть только количество часов или минут или дней
-        int day = Integer.parseInt(scanner.next()) - 1;
-        String month = scanner.next();
-        int year = Integer.parseInt(scanner.next());
-        //минус 1 месяц тут. ибо от строки не отнимешь
-        return (day + monthInDays(stringMonthToNumberValue(month) - 1, year) + yearInDays(year)) * MS_IN_DAY;
+    public long time(String time) {
+        long timeInMillieSeconds = 0;
+        int countOfDelimiter = StringUtils.countMatches(time, ":");
+        switch (countOfDelimiter) {
+            case 1:
+                timeInMillieSeconds = hoursAndMinutes(time);
+                break;
+            case 2:
+                timeInMillieSeconds = hoursMinutAndSeconds(time);
+                break;
+            case 3:
+                timeInMillieSeconds = hoursMinutSecondAndMillieSeconds(time);
+        }
+        return timeInMillieSeconds;
+    }
 
+    private long hoursAndMinutes(String time) {
+        String hourStr = time.substring(0, StringUtils.indexOf(time, ":"));
+        String minuteStr = time.substring(StringUtils.indexOf(time, ":" + 1));
+        int hour = StringUtils.isBlank(hourStr) ? 0 : Integer.parseInt(hourStr);
+        int minute = StringUtils.isBlank(minuteStr) ? 0 : Integer.parseInt(minuteStr);
+        return (minute + (hour * 60L) * MS_IN_MINUTE);
+
+    }
+
+    public long hoursMinutAndSeconds(String time) {
+        //todo вызвать предыдущий метод. передать туда сабстринг от нуля до ластДелиметр
+        int firstDelimiter = StringUtils.indexOf(time, ":");
+        int secondDelimiter = StringUtils.indexOf(time.substring(firstDelimiter + 1), ":");
+        int lastDelimiter = StringUtils.lastIndexOf(time, ":");
+        String hourStr = time.substring(0, firstDelimiter);
+        String minuteStr = time.substring(secondDelimiter + 1, lastDelimiter);
+        String secondStr = time.substring(lastDelimiter + 1);
+
+        int hour = StringUtils.isBlank(hourStr) ? 0 : Integer.parseInt(hourStr);
+        int minute = StringUtils.isBlank(minuteStr) ? 0 : Integer.parseInt(minuteStr);
+        int second = StringUtils.isBlank(secondStr) ? 0 : Integer.parseInt(secondStr);
+        return (minute + (hour * 60L) * MS_IN_MINUTE) + second * MS_IN_SEC;
+
+    }
+
+    public long hoursMinutSecondAndMillieSeconds(String time) {
+        //todo вызвать предыдущий метод. передать туда сабстринг от нуля до ластДелиметр
+        int firstDelimiter = StringUtils.indexOf(time, ":");
+        int secondDelimiter = StringUtils.indexOf(time.substring(firstDelimiter + 1), ":");
+        int thirdDelimiter = StringUtils.indexOf(time.substring(secondDelimiter + 1), ":");
+        int lastDelimiter = StringUtils.lastIndexOf(time, ":");
+
+        String hourStr = time.substring(0, firstDelimiter);
+        String minuteStr = time.substring(secondDelimiter + 1, secondDelimiter);
+        String secondStr = time.substring(secondDelimiter + 1, lastDelimiter);
+        String millieSecondStr = time.substring(lastDelimiter + 1);
+
+        int hour = StringUtils.isBlank(hourStr) ? 0 : Integer.parseInt(hourStr);
+        int minute = StringUtils.isBlank(minuteStr) ? 0 : Integer.parseInt(minuteStr);
+        int second = StringUtils.isBlank(secondStr) ? 0 : Integer.parseInt(secondStr);
+        int millieSecond = StringUtils.isBlank(millieSecondStr) ? 0 : Integer.parseInt(millieSecondStr);
+
+        return (minute + (hour * 60L) * MS_IN_MINUTE) + second * MS_IN_SEC + millieSecond;
+    }
+
+    public long dayStringMonthYear(String str) {
+        return 0;
     }
 
     public long dateFirstFormat(String str) {
