@@ -69,40 +69,84 @@ public class SomeClassThatIRenameLater {
         return dateInMs;
     }
 
-    private long stringMonthWithTimeFormat(String str) {
+    public long stringMonthWithTimeFormat(String str) {
+        int indexOfSpaceBetweenDateAndTime = StringUtils.lastIndexOf(str, " ");
+        String date = str.substring(0, indexOfSpaceBetweenDateAndTime);
+        String time = str.substring(indexOfSpaceBetweenDateAndTime + 1);
+        System.out.println(date);
+        System.out.println(time);
+        return 0;
     }
 
-    public long stringMonthFirstFormat(String str) {
-        Scanner scanner = new Scanner(str);
-        scanner.useDelimiter(" ");
-        //минус 1 потому что мы еше не закончили этот день месяц год.
-        // и по факту 1 января 1 года в милисекундах есть только количество часов или минут или дней
-        String month = scanner.next();
-        int day = Integer.parseInt(scanner.next()) - 1;
-        int year = Integer.parseInt(scanner.next());
-        //минус 1 месяц тут. ибо от строки не отнимешь
-        return (day + monthInDays(stringMonthToNumberValue(month)-1, year) + yearInDays(year)) * MS_IN_DAY;
-    }
-
-    public long monthFirstFormat(String str) {
-        Scanner scanner = new Scanner(str);
-        scanner.useDelimiter("/");
+    /*public long timeWithMillieSeconds(String time){
+        int countOfDelimiter= StringUtils.countMatches(time,":");
+        scanner.useDelimiter(":");
         //минус 1 потому что мы еше не закончили этот день месяц год.
         // и по факту 1 января 1 года в милисекундах есть только количество часов или минут или дней
         int month = Integer.parseInt(scanner.next()) - 1;
         int day = Integer.parseInt(scanner.next()) - 1;
         int year = Integer.parseInt(scanner.next());
         return (day + monthInDays(month, year) + yearInDays(year)) * MS_IN_DAY;
-    }
-
-    public long dateFirstFormat(String str) {
+    }*/
+//    public long timeWithSeconds(){
+//
+//    }
+//    public long timeWithMillieSeconds(){
+//
+//    }
+    public long dayStringMonthYear(String str) {
         Scanner scanner = new Scanner(str);
-        scanner.useDelimiter("/");
+        scanner.useDelimiter(" ");
         //минус 1 потому что мы еше не закончили этот день месяц год.
         // и по факту 1 января 1 года в милисекундах есть только количество часов или минут или дней
         int day = Integer.parseInt(scanner.next()) - 1;
-        int month = Integer.parseInt(scanner.next()) - 1;
+        String month = scanner.next();
         int year = Integer.parseInt(scanner.next());
+        //минус 1 месяц тут. ибо от строки не отнимешь
+        return (day + monthInDays(stringMonthToNumberValue(month) - 1, year) + yearInDays(year)) * MS_IN_DAY;
+
+    }
+
+    public long dateFirstFormat(String str) {
+        int firstDelimiter = StringUtils.indexOf(str, "/");
+        int lastDelimiter = StringUtils.lastIndexOf(str, "/");
+        String dayStr = str.substring(0, firstDelimiter);
+        String monthStr = str.substring(firstDelimiter + 1, lastDelimiter);
+        String yearStr = str.substring(lastDelimiter + 1);
+        //минус 1 потому что мы еше не закончили этот день месяц год.
+        // и по факту 1 января 1 года в милисекундах есть только количество часов или минут или дней
+        int day = StringUtils.isBlank(dayStr) ? 0 : Integer.parseInt(dayStr) - 1;
+        int month = StringUtils.isBlank(monthStr) ? 0 : Integer.parseInt(monthStr) - 1;
+        int year = StringUtils.isBlank(yearStr) ? 0 : Integer.parseInt(yearStr);
+        return (day + monthInDays(month, year) + yearInDays(year)) * MS_IN_DAY;
+    }
+
+    public long monthFirstFormat(String str) {
+        int firstDelimiter = StringUtils.indexOf(str, "/");
+        int lastDelimiter = StringUtils.lastIndexOf(str, "/");
+        String dayStr = str.substring(firstDelimiter + 1, lastDelimiter);
+        String monthStr = str.substring(0, firstDelimiter);
+        String yearStr = str.substring(lastDelimiter + 1);
+        //минус 1 потому что мы еше не закончили этот день месяц год.
+        // и по факту 1 января 1 года в милисекундах есть только количество часов или минут или дней
+        int day = StringUtils.isBlank(dayStr) ? 0 : Integer.parseInt(dayStr) - 1;
+        int month = StringUtils.isBlank(monthStr) ? 0 : Integer.parseInt(monthStr) - 1;
+        int year = StringUtils.isBlank(yearStr) ? 0 : Integer.parseInt(yearStr);
+        return (day + monthInDays(month, year) + yearInDays(year)) * MS_IN_DAY;
+    }
+
+    public long stringMonthFirstFormat(String str) {
+        // Не полный ввод запрещен
+        int firstDelimiter = StringUtils.indexOf(str, " ");
+        int lastDelimiter = StringUtils.lastIndexOf(str, " ");
+        String dayStr = str.substring(firstDelimiter + 1, lastDelimiter);
+        String monthStr = str.substring(0, firstDelimiter);
+        String yearStr = str.substring(lastDelimiter + 1);
+        //минус 1 потому что мы еше не закончили этот день месяц год.
+        // и по факту 1 января 1 года в милисекундах есть только количество часов или минут или дней
+        int day = Integer.parseInt(dayStr) - 1;
+        int month = stringMonthToNumberValue(monthStr) - 1;
+        int year = Integer.parseInt(yearStr);
         return (day + monthInDays(month, year) + yearInDays(year)) * MS_IN_DAY;
     }
 
@@ -142,7 +186,7 @@ public class SomeClassThatIRenameLater {
     }
 
     private int stringMonthToNumberValue(String month) {
-        int rsl =0;
+        int rsl = 0;
         month = month.toLowerCase();
         switch (month) {
             case "январь":
@@ -184,15 +228,16 @@ public class SomeClassThatIRenameLater {
         }
         return rsl;
     }
+
     public boolean isCyrillic(String str) {
-        boolean rsl=true;
+        boolean rsl = true;
         for (char c : str.toCharArray()) {
             System.out.println(rsl);
-            if((int)c>1103||(int)c<1040) {
+            if ((int) c > 1103 || (int) c < 1040) {
                 rsl = false;
             }
         }
-      return rsl;
+        return rsl;
     }
 //    private int monthInDays(String month){
 //
