@@ -90,10 +90,10 @@ public class SomeClassThatIRenameLater {
                 timeInMillieSeconds = hoursAndMinutes(time);
                 break;
             case 2:
-                timeInMillieSeconds = hoursMinutAndSeconds(time);
+                timeInMillieSeconds = hoursMinuteAndSeconds(time);
                 break;
             case 3:
-                timeInMillieSeconds = hoursMinutSecondAndMillieSeconds(time);
+                timeInMillieSeconds = hoursMinuteSecondAndMillieSeconds(time);
         }
         return timeInMillieSeconds;
     }
@@ -107,40 +107,21 @@ public class SomeClassThatIRenameLater {
 
     }
 
-    public long hoursMinutAndSeconds(String time) {
-        //todo вызвать предыдущий метод. передать туда сабстринг от нуля до ластДелиметр
-        int firstDelimiter = StringUtils.indexOf(time, ":");
-        int secondDelimiter = StringUtils.indexOf(time.substring(firstDelimiter + 1), ":");
+    public long hoursMinuteAndSeconds(String time) {
         int lastDelimiter = StringUtils.lastIndexOf(time, ":");
-        String hourStr = time.substring(0, firstDelimiter);
-        String minuteStr = time.substring(secondDelimiter + 1, lastDelimiter);
+        String hoursAndMinutes = time.substring(0, lastDelimiter);
         String secondStr = time.substring(lastDelimiter + 1);
-
-        int hour = StringUtils.isBlank(hourStr) ? 0 : Integer.parseInt(hourStr);
-        int minute = StringUtils.isBlank(minuteStr) ? 0 : Integer.parseInt(minuteStr);
         int second = StringUtils.isBlank(secondStr) ? 0 : Integer.parseInt(secondStr);
-        return (minute + (hour * 60L) * MS_IN_MINUTE) + second * MS_IN_SEC;
+        return hoursAndMinutes(hoursAndMinutes) + second * MS_IN_SEC;
 
     }
 
-    public long hoursMinutSecondAndMillieSeconds(String time) {
-        //todo вызвать предыдущий метод. передать туда сабстринг от нуля до ластДелиметр
-        int firstDelimiter = StringUtils.indexOf(time, ":");
-        int secondDelimiter = StringUtils.indexOf(time.substring(firstDelimiter + 1), ":");
-        int thirdDelimiter = StringUtils.indexOf(time.substring(secondDelimiter + 1), ":");
+    public long hoursMinuteSecondAndMillieSeconds(String time) {
         int lastDelimiter = StringUtils.lastIndexOf(time, ":");
-
-        String hourStr = time.substring(0, firstDelimiter);
-        String minuteStr = time.substring(secondDelimiter + 1, secondDelimiter);
-        String secondStr = time.substring(secondDelimiter + 1, lastDelimiter);
+        String hoursMinuteAndSeconds = time.substring(0, lastDelimiter);
         String millieSecondStr = time.substring(lastDelimiter + 1);
-
-        int hour = StringUtils.isBlank(hourStr) ? 0 : Integer.parseInt(hourStr);
-        int minute = StringUtils.isBlank(minuteStr) ? 0 : Integer.parseInt(minuteStr);
-        int second = StringUtils.isBlank(secondStr) ? 0 : Integer.parseInt(secondStr);
         int millieSecond = StringUtils.isBlank(millieSecondStr) ? 0 : Integer.parseInt(millieSecondStr);
-
-        return (minute + (hour * 60L) * MS_IN_MINUTE) + second * MS_IN_SEC + millieSecond;
+        return hoursMinuteAndSeconds(hoursMinuteAndSeconds) + millieSecond;
     }
 
     public long dayStringMonthYear(String str) {
