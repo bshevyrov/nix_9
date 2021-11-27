@@ -69,18 +69,23 @@ public class SomeClassThatIRenameLater {
 
     //TODO если StringUtils.INDEX_NOT_FOUND : то без времени
     public long stringMonthWithTimeFormat(String str) {
-        int indexOfSpaceBetweenDateAndTime = StringUtils.lastIndexOf(str, " ");
+        int countOfSpaceBetweenDateAndTime = StringUtils.countMatches(str, " ");
         //если разделитель пробел 1 то это только год
-        if (StringUtils.indexOf(str, " ") == StringUtils.lastIndexOf(str, " ")) {
-            long date = yearInDays(Integer.parseInt(str.substring(0, indexOfSpaceBetweenDateAndTime))) * MS_IN_DAY;
+        long date;
+        if (countOfSpaceBetweenDateAndTime == 1) {
+            date = yearInDays(Integer.parseInt(str.substring(0, StringUtils.indexOf(str, " ")))) * MS_IN_DAY;
         } else { //если разделитель не один то это дата, месяц словом  и потом вркмя
-            String dateString = str.substring(0, indexOfSpaceBetweenDateAndTime);
-            String timeString = str.substring(indexOfSpaceBetweenDateAndTime + 1);
-            long rsl = dayStringMonthYear(dateString) + time(timeString);
+            String dateString = str.substring(0, StringUtils.lastIndexOf(str, " "));
+            date = dayStringMonthYear(dateString);
         }
 
-        return 0;
+        String timeString = str.substring(StringUtils.lastIndexOf(str, " ") + 1);
+
+        long rsl = date+time(timeString);
+        return rsl;
     }
+
+
 
     public long time(String time) {
         long timeInMillieSeconds = 0;
@@ -125,7 +130,19 @@ public class SomeClassThatIRenameLater {
     }
 
     public long dayStringMonthYear(String str) {
-        return 0;
+        //TODO Сделстьт если бусто но с разделителем
+
+        int firstDelimiter = StringUtils.indexOf(str, " ");
+        int lastDelimiter = StringUtils.lastIndexOf(str, " ");
+        String monthStr = str.substring(firstDelimiter + 1, lastDelimiter);
+        String dayStr = str.substring(0, firstDelimiter);
+        String yearStr = str.substring(lastDelimiter + 1);
+        //минус 1 потому что мы еше не закончили этот день месяц год.
+        // и по факту 1 января 1 года в милисекундах есть только количество часов или минут или дней
+        int day = Integer.parseInt(dayStr) - 1;
+        int month = stringMonthToNumberValue(monthStr) - 1;
+        int year = Integer.parseInt(yearStr);
+        return (day + monthInDays(month, year) + yearInDays(year)) * MS_IN_DAY;
     }
 
     public long dateFirstFormat(String str) {
@@ -158,6 +175,7 @@ public class SomeClassThatIRenameLater {
 
     public long stringMonthFirstFormat(String str) {
         // Не полный ввод запрещен
+        //TODO Сделстьт если бусто но с разделителем
         int firstDelimiter = StringUtils.indexOf(str, " ");
         int lastDelimiter = StringUtils.lastIndexOf(str, " ");
         String dayStr = str.substring(firstDelimiter + 1, lastDelimiter);
