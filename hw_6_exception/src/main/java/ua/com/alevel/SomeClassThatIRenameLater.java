@@ -2,156 +2,64 @@ package ua.com.alevel;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashMap;
-
 
 public class SomeClassThatIRenameLater {
     //TODO Проверка на пустые части ввода перед и аосле разделителя
     //    private static final long MS_IN_YEAR = 31_536_000_000L;
 //    private static final long MS_IN_MONTH = 2_592_000_000L;
+    //TODO вместо тайпа  енамчик в конверт формате
     private static final long MS_IN_DAY = 86_400_000L;
-    // private static final long MS_IN_HOUR = 3_600_000L;
+    private static final long MS_IN_HOUR = 3_600_000L;
     private static final long MS_IN_MINUTE = 60_000L;
     private static final long MS_IN_SEC = 1_000L;
 
-
-\
-
-    private HashMap<String, Integer> convertFromMillieSecondsToDate(long ms) {
-        if (ms >= MS_IN_DAY) {
-            long days = ms / MS_IN_DAY;
-          int  msHours = (int) (ms - (days * MS_IN_DAY));
-            if (days >= 365) {
-                HashMap<String, Integer> yearAndDay = daysInYear(days);
-            }
-        }
-
-
-    }
-
-
-   /* public long createLongDateFromStringAndType(String str, int type) {
-        long dateInMs = 0;
-        switch (type) {
-            case 1:
-                dateInMs = dateFirstFormat(str);
-                break;
-            case 2:
-                dateInMs = monthFirstFormat(str);
-                break;
-            case 3:
-                dateInMs = stringMonthFirstFormat(str);
-                break;
-            case 4:
-                dateInMs = stringMonthWithTimeFormat(str);
-                break;
-        }
-
-        return dateInMs;
-    }*/
-
-    //TODO если StringUtils.INDEX_NOT_FOUND : то без времени
-//    public long stringMonthWithTimeFormat(String str) {
-//        int countOfSpaceBetweenDateAndTime = StringUtils.countMatches(str, " ");
-//        //если разделитель пробел 1 то это только год
-//        long date;
-//        if (countOfSpaceBetweenDateAndTime == 1) {
-//            date = yearInDays(Integer.parseInt(str.substring(0, StringUtils.indexOf(str, " ")))) * MS_IN_DAY;
-//        } else { //если разделитель не один то это дата, месяц словом  и потом вркмя
-//            String dateString = str.substring(0, StringUtils.lastIndexOf(str, " "));
-//            date = dayStringMonthYear(dateString);
-//        }
-//
-//        String timeString = str.substring(StringUtils.lastIndexOf(str, " ") + 1);
-//
-//        long rsl = date+time(timeString);
-//        return rsl;
-//    }
-
-
-    public long monthIsNumber(String str, String whoFirst) {
+    public long dateToMillieSeconds(String str, String whoFirst) {
         long rsl = 0;
+        String dateStr = "";
         if (StringUtils.indexOf(str, ":") != StringUtils.INDEX_NOT_FOUND) {
             int indexOfTimeDelimiter = StringUtils.indexOf(str, ":");
             int indexOfDateDelimiter = StringUtils.indexOf(str, "/");
             if (indexOfTimeDelimiter < indexOfDateDelimiter) {
                 String timeStr = str.substring(0, StringUtils.indexOf(str, " "));
                 str = StringUtils.substring(str, StringUtils.indexOf(str, " ") + 1);
-                rsl = time(timeStr);
+                rsl = convertTimeToMillieSeconds(timeStr);
             }
             if (indexOfTimeDelimiter > indexOfDateDelimiter) {
                 String timeStr = str.substring(StringUtils.indexOf(str, " ") + 1);
-                str = StringUtils.substring(str, 0, StringUtils.indexOf(str, " "));
-                rsl = time(timeStr);
+                dateStr = StringUtils.substring(str, 0, StringUtils.indexOf(str, " "));
+                rsl = convertTimeToMillieSeconds(timeStr);
             }
         }
-        int firstDelimiter = StringUtils.indexOf(str, "/");
-        int lastDelimiter = StringUtils.lastIndexOf(str, "/");
+        int firstDelimiter = StringUtils.indexOf(dateStr, "/");
+        int lastDelimiter = StringUtils.lastIndexOf(dateStr, "/");
         String dayStr = "";
         String monthStr = "";
         if (StringUtils.equals(whoFirst, "date")) {
-            dayStr = str.substring(0, firstDelimiter);
-            monthStr = str.substring(firstDelimiter + 1, lastDelimiter);
+            dayStr = dateStr.substring(0, firstDelimiter);
+            monthStr = dateStr.substring(firstDelimiter + 1, lastDelimiter);
         }
         if (StringUtils.equals(whoFirst, "month")) {
-            dayStr = str.substring(firstDelimiter + 1, lastDelimiter);
-            monthStr = str.substring(0, firstDelimiter);
+            dayStr = dateStr.substring(firstDelimiter + 1, lastDelimiter);
+            monthStr = dateStr.substring(0, firstDelimiter);
         }
-        String yearStr = str.substring(lastDelimiter + 1);
+        if(!StringUtils.isNumeric(monthStr)){
+            monthStr=String.valueOf(stringMonthToNumberValue(monthStr));
+        }
+        String yearStr = dateStr.substring(lastDelimiter + 1);
         //минус 1 потому что мы еше не закончили этот день месяц год.
         // и по факту 1 января 1 года в милисекундах есть только количество часов или минут или дней
         int day = StringUtils.isBlank(dayStr) ? 0 : Integer.parseInt(dayStr) - 1;
-        int month = StringUtils.isBlank(monthStr) ? 0 : Integer.parseInt(monthStr) - 1;
+        int month = StringUtils.isBlank(monthStr) ? 0 : Integer.parseInt(monthStr);// - 1;
         int year = StringUtils.isBlank(yearStr) ? 0 : Integer.parseInt(yearStr);
-        return rsl + (day + monthInDays(month, year) + yearInDays(year)) * MS_IN_DAY;
+        return rsl + (day + sumOfDaysBeforeThisMonth(month, year) + yearInDays(year)) * MS_IN_DAY;
     }
 
-    public long monthIsString(String str, String whoFirst) {
-        long rsl = 0;
-        if (StringUtils.indexOf(str, ":") != StringUtils.INDEX_NOT_FOUND) {
-            int indexOfTimeDelimiter = StringUtils.indexOf(str, ":");
-            int indexOfDateDelimiter = StringUtils.indexOf(str, "/");
-            if (indexOfTimeDelimiter < indexOfDateDelimiter) {
-                String timeStr = str.substring(0, StringUtils.indexOf(str, " "));
-                str = StringUtils.substring(str, StringUtils.indexOf(str, " ") + 1);
-                rsl = time(timeStr);
-            }
-            if (indexOfTimeDelimiter > indexOfDateDelimiter) {
-                String timeStr = str.substring(StringUtils.indexOf(str, " ") + 1);
-                str = StringUtils.substring(str, 0, StringUtils.indexOf(str, " "));
-                rsl = time(timeStr);
-            }
-        }
-        int firstDelimiter = StringUtils.indexOf(str, " ");
-        int lastDelimiter = StringUtils.lastIndexOf(str, " ");
-        String dayStr = "";
-        String monthStr = "";
-        if (!(firstDelimiter == lastDelimiter && firstDelimiter == -1)) {
-            if (StringUtils.equals(whoFirst, "date")) {
-                dayStr = str.substring(0, firstDelimiter);
-                monthStr = str.substring(firstDelimiter + 1, lastDelimiter);
-            }
-            if (StringUtils.equals(whoFirst, "month")) {
-                dayStr = str.substring(firstDelimiter + 1, lastDelimiter);
-                monthStr = str.substring(0, firstDelimiter);
-            }
-        }
-        String yearStr = str.substring(lastDelimiter + 1);
-        //минус 1 потому что мы еше не закончили этот день месяц год.
-        // и по факту 1 января 1 года в милисекундах есть только количество часов или минут или дней
-
-        int day = StringUtils.isBlank(dayStr) ? 0 : Integer.parseInt(dayStr) - 1;
-        int month = StringUtils.isBlank(monthStr) ? 0 : stringMonthToNumberValue(monthStr) - 1;
-        int year = StringUtils.isBlank(yearStr) ? 0 : Integer.parseInt(yearStr);
-        return rsl + (day + monthInDays(month, year) + yearInDays(year)) * MS_IN_DAY;
-        //TODO Сделстьт если бусто но с разделителем
-    }
-
-    public boolean isLeapYear(int year) {
+   //TODO Сделстьт если бусто но с разделителем
+   public boolean isLeapYear(int year) {
         return (year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0));
     }
 
-    public long time(String time) {
+    public long convertTimeToMillieSeconds(String time) {
         long timeInMillieSeconds = 0;
         int countOfDelimiter = StringUtils.countMatches(time, ":");
         switch (countOfDelimiter) {
@@ -163,6 +71,7 @@ public class SomeClassThatIRenameLater {
                 break;
             case 3:
                 timeInMillieSeconds = hoursMinuteSecondAndMillieSeconds(time);
+                break;
         }
         return timeInMillieSeconds;
     }
@@ -172,7 +81,7 @@ public class SomeClassThatIRenameLater {
         String minuteStr = time.substring(StringUtils.indexOf(time, ":") + 1);
         int hour = StringUtils.isBlank(hourStr) ? 0 : Integer.parseInt(hourStr);
         int minute = StringUtils.isBlank(minuteStr) ? 0 : Integer.parseInt(minuteStr);
-        return (minute + (hour * 60L) * MS_IN_MINUTE);
+        return ((minute + (hour * 60L)) * MS_IN_MINUTE);
 
     }
 
@@ -181,7 +90,7 @@ public class SomeClassThatIRenameLater {
         String hoursAndMinutes = time.substring(0, lastDelimiter);
         String secondStr = time.substring(lastDelimiter + 1);
         int second = StringUtils.isBlank(secondStr) ? 0 : Integer.parseInt(secondStr);
-        return hoursAndMinutes(hoursAndMinutes) + second * MS_IN_SEC;
+        return (hoursAndMinutes(hoursAndMinutes) + second) * MS_IN_SEC;
 
     }
 
@@ -205,10 +114,9 @@ public class SomeClassThatIRenameLater {
         return sumOfDays;
     }
 
-    private HashMap<String, Integer> daysInYear(long days) {
+    private int daysInYear(long days) {
         int year = 0;
         while (true) {
-
             if (isLeapYear(year)) {
                 if (days - 366 < 0) {
                     break;
@@ -223,10 +131,10 @@ public class SomeClassThatIRenameLater {
                 year++;
             }
         }
-        HashMap<String, Integer> answer = new HashMap<>();
+        /*HashMap<String, Integer> answer = new HashMap<>();
         answer.put("years", year);
-        answer.put("days", (int) days);
-        return answer;
+        answer.put("days", (int) days);*/
+        return year;
     }
 
     private int monthInDays(int monthNum, int year) {
@@ -236,6 +144,29 @@ public class SomeClassThatIRenameLater {
             case 2 -> isLeapYear(year) ? 29 : 28;
             default -> 0;
         };
+    }
+
+    public int sumOfDaysBeforeThisMonth(int month, int year) {
+        int sumOfdays = 0;
+        for (int i = 1; i < month; i++) {
+            sumOfdays += monthInDays(i, year);
+        }
+        return sumOfdays;
+    }
+
+    public int numberOfFullMonthFromSumOfDays(int days, int year) {
+        int monthNum = 1;
+        if (days > 31) {
+            while (true) {
+                if (days - monthInDays(monthNum, year) > 0) {
+                    days -= monthInDays(monthNum, year);
+                    monthNum++;
+                } else {
+                    break;
+                }
+            }
+        }
+        return monthNum;
     }
 
     private int stringMonthToNumberValue(String month) {
@@ -279,6 +210,77 @@ public class SomeClassThatIRenameLater {
                 rsl = 12;
                 break;
         }
+        return rsl;
+    }
+
+    public String convertFromMillieSecondsToDate(long msTotal) {
+        int years = 0;
+        //TODO Это костыль тк отсчет идет от первого января. Вроде так
+        int days = 1;
+        int month = 1;
+        int msHours = 0;
+
+        if (msTotal >= MS_IN_DAY) {
+            days += (int) (msTotal / MS_IN_DAY);
+            msHours = (int) (msTotal - (days * MS_IN_DAY));
+            if (days >= 366) {
+                years = daysInYear(days);
+                days -= yearInDays(years);
+            }
+        }
+                String timeStr = convertMillieSecondsToTime(days);
+        int monthNum = numberOfFullMonthFromSumOfDays(days,years);
+        days-=monthInDays(monthNum,years);
+        String rsl = years + "/" +monthNum+ "/" +String.valueOf(days);
+        //return dateWithTime;
+        return rsl + " " + timeStr;
+    }
+
+    private String convertMillieSecondsToTime(long ms) {
+        String rsl = "";
+        int hours = 0;
+        int minutes = 0;
+        int seconds = 0;
+        int millieSeconds = 0;
+        int msHours = 0;
+        int msMinutes = 0;
+        int msSeconds = 0;
+        int msMillieSeconds = 0;
+        if (ms >= MS_IN_HOUR) {
+            hours = (int) (ms / MS_IN_HOUR);
+            ms -= hours * MS_IN_HOUR;
+        }
+        if (ms >= MS_IN_MINUTE) {
+            minutes = (int) (ms / MS_IN_MINUTE);
+            ms -= minutes * MS_IN_MINUTE;
+        }
+        if (ms >= MS_IN_SEC) {
+            seconds = (int) (ms / MS_IN_SEC);
+            ms -= seconds * MS_IN_SEC;
+        }
+        String msStr = "";
+        if (ms == 0) {
+            msStr = "000";
+        } else {
+
+            msStr = String.valueOf(ms);
+            int msStrNumOfDigits = msStr.length();
+            switch (msStrNumOfDigits) {
+                case 1:
+                    msStr = "00" + msStr;
+                    break;
+                case 2:
+                    msStr = "0" + msStr;
+                    break;
+            }
+        }
+        char[] msChars = msStr.toCharArray();
+        if (msChars[2] > 3) {
+            msChars[2] = 3;
+        } else {
+            msChars[2] = 3;
+        }
+        rsl = hours + ":" + minutes + ":" + seconds + ":" + msStr;
         return rsl;
     }
 
