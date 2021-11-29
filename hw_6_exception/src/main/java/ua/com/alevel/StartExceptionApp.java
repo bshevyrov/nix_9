@@ -2,39 +2,31 @@ package ua.com.alevel;
 
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class StartExceptionApp {
     public static void main(String[] args) {
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        ConsoleHelper consoleHelper = new ConsoleHelper();
-        SomeClassThatIRenameLater sC = new SomeClassThatIRenameLater();
-        long ms =sC.dateToMillieSeconds("1/1/0 00:10:00:000","date");
-        System.out.println(ms);
-        System.out.println(sC.convertFromMillieSecondsToDate(ms));
-        ms =sC.dateToMillieSeconds("1/январь/0 00:10:00:000","date");
-        System.out.println(ms);
-        /*System.out.println(sC.numberOfFullMonthFromSumOfDays(275,2024));
-
-        System.out.println(sC.convertFromMillieSecondsToDate(ms));*/
-
-       /* System.out.println(sC.monthIsString("1256 14:59","date"));
-        System.out.println(sC.monthIsNumber("11//2286","month"));
-        System.out.println(sC.monthIsNumber("11/1/2286","month"));
-
-        System.out.println(sC.monthIsNumber("/2/ :2","date"));
-        System.out.println(sC.monthIsNumber("1/11/2286","date"));
-        System.out.println(sC.monthIsNumber("11//2286","month"));
-        System.out.println(sC.monthIsNumber("11/1/2286","month"));*/
-//        System.out.println(sC.monthIsNumber("2//"));
-//        System.out.println(sC.monthIsNumber("2/1/0"));
-//        System.out.println(sC.monthIsNumber("1/2/0"));
-        System.out.println("~~~~~~~~");
-       /* System.out.println(sC.monthFirstFormat("11/20/2286"));
-        System.out.println(sC.dateFirstFormat("20/11/2286"));
-       System.out.println(sC.stringMonthFirstFormat("Ноябрь 20 2286"));*/
-
-//        System.out.println(sC.stringMonthWithTimeFormat("11 ноябрь 2286 00:00:00:000"));
+     public void chooseFormat(BufferedReader reader) {
+        while (true) {
+            ScreenMenu.clearConsole();
+            System.out.println("Привет, выбери формат ввода:");
+            System.out.println("1. dd/mm/yy - 01/12/21");
+            System.out.println("2. m/d/yyyy - 3/4/2021");
+            System.out.println("3. mmm-d-yy - Март 4 21");
+            System.out.println("4. dd-mmm-yyyy 00:00 - 09 Апрель 789 45:23");
+            System.out.print("Введи цифру:");
+            try {
+                int input = Integer.parseInt(reader.readLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Ты ввел не цифру повтори");
+            } catch (IOException e) {
+                System.out.println("Ошибка ввода вывода.");
+            }
+        }
+}
 
     }
 }
