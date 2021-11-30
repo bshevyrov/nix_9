@@ -5,9 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 
 
 public class SomeClassThatIRenameLater {
+
     //TODO Проверка на пустые части ввода перед и аосле разделителя
-    //    private static final long MS_IN_YEAR = 31_536_000_000L;
-//    private static final long MS_IN_MONTH = 2_592_000_000L;
     //TODO вместо тайпа  енамчик в конверт формате
     private static final long MS_IN_DAY = 86_400_000L;
     private static final long MS_IN_HOUR = 3_600_000L;
@@ -61,8 +60,8 @@ public class SomeClassThatIRenameLater {
         if (inputFormatNum == 3) {
             firstDelimiter = StringUtils.indexOf(dateStr, " ");
             lastDelimiter = StringUtils.lastIndexOf(dateStr, " ");
-            monthStr  = StringUtils.substring(dateStr, firstDelimiter + 1, lastDelimiter);
-             dayStr = StringUtils.substring(dateStr, 0, firstDelimiter);
+            monthStr = StringUtils.substring(dateStr, firstDelimiter + 1, lastDelimiter);
+            dayStr = StringUtils.substring(dateStr, 0, firstDelimiter);
         }
         if (!StringUtils.isNumeric(monthStr)) {
             monthStr = String.valueOf(stringMonthToNumberValue(monthStr));
@@ -104,7 +103,6 @@ public class SomeClassThatIRenameLater {
         int hour = StringUtils.isBlank(hourStr) ? 0 : Integer.parseInt(hourStr);
         int minute = StringUtils.isBlank(minuteStr) ? 0 : Integer.parseInt(minuteStr);
         return ((minute + (hour * 60L)) * MS_IN_MINUTE);
-
     }
 
     public long hoursMinuteAndSeconds(String time) {
@@ -113,7 +111,6 @@ public class SomeClassThatIRenameLater {
         String secondStr = StringUtils.substring(time, lastDelimiter + 1);
         int second = StringUtils.isBlank(secondStr) ? 0 : Integer.parseInt(secondStr);
         return hoursAndMinutes(hoursAndMinutes) + (second * MS_IN_SEC);
-
     }
 
     public long hoursMinuteSecondAndMillieSeconds(String time) {
@@ -153,9 +150,6 @@ public class SomeClassThatIRenameLater {
                 year++;
             }
         }
-        /*HashMap<String, Integer> answer = new HashMap<>();
-        answer.put("years", year);
-        answer.put("days", (int) days);*/
         return year;
     }
 
@@ -195,98 +189,47 @@ public class SomeClassThatIRenameLater {
         int rsl = 0;
         month = month.toLowerCase();
         switch (month) {
-            case "январь":
-                rsl = 1;
-                break;
-            case "февраль":
-                rsl = 2;
-                break;
-            case "март":
-                rsl = 3;
-                break;
-            case "апрель":
-                rsl = 4;
-                break;
-            case "май":
-                rsl = 5;
-                break;
-            case "июнь":
-                rsl = 6;
-                break;
-            case "июль":
-                rsl = 7;
-                break;
-            case "август":
-                rsl = 8;
-                break;
-            case "сентябрь":
-                rsl = 9;
-                break;
-            case "октябрь":
-                rsl = 10;
-                break;
-            case "ноябрь":
-                rsl = 11;
-                break;
-            case "декабрь":
-                rsl = 12;
-                break;
+            case "январь" -> rsl = 1;
+            case "февраль" -> rsl = 2;
+            case "март" -> rsl = 3;
+            case "апрель" -> rsl = 4;
+            case "май" -> rsl = 5;
+            case "июнь" -> rsl = 6;
+            case "июль" -> rsl = 7;
+            case "август" -> rsl = 8;
+            case "сентябрь" -> rsl = 9;
+            case "октябрь" -> rsl = 10;
+            case "ноябрь" -> rsl = 11;
+            case "декабрь" -> rsl = 12;
         }
         return rsl;
     }
 
     private String intMonthToStringMont(int month) {
-        String rsl = "";
-
-        switch (month) {
-            case 1:
-                rsl = "Январь";
-                break;
-            case 2:
-                rsl = "Февраль";
-                break;
-            case 3:
-                rsl = "Март";
-                break;
-            case 4:
-                rsl = "Апрель";
-                break;
-            case 5:
-                rsl = "Май";
-                break;
-            case 6:
-                rsl = "Июнь";
-                break;
-            case 7:
-                rsl = "Июль";
-                break;
-            case 8:
-                rsl = "Август";
-                break;
-            case 9:
-                rsl = "Сентябрь";
-                break;
-            case 10:
-                rsl = "Октябрь";
-                break;
-            case 11:
-                rsl = "Ноябрь";
-                break;
-            case 12:
-                rsl = "Декабрь";
-                break;
-        }
+        String rsl = switch (month) {
+            case 1 -> "Январь";
+            case 2 -> "Февраль";
+            case 3 -> "Март";
+            case 4 -> "Апрель";
+            case 5 -> "Май";
+            case 6 -> "Июнь";
+            case 7 -> "Июль";
+            case 8 -> "Август";
+            case 9 -> "Сентябрь";
+            case 10 -> "Октябрь";
+            case 11 -> "Ноябрь";
+            case 12 -> "Декабрь";
+            default -> "";
+        };
         return rsl;
     }
 
 
     public String convertFromMillieSecondsToDate(long msTotal, int type) {
+        String rsl = "";
         int years = 0;
         //TODO Это костыль тк отсчет идет от первого января. Вроде так
         int days = 1;//1
-//        int month = 1;
-//        int msHours = 0;
-
         if (msTotal >= MS_IN_DAY) {
             days += (msTotal / MS_IN_DAY);
             if (days >= 366) {
@@ -296,12 +239,13 @@ public class SomeClassThatIRenameLater {
         }
         long time = msTotal - ((yearInDays(years) * MS_IN_DAY) + (days - 1) * MS_IN_DAY);
         String timeStr = convertMillieSecondsToTime(time);
+        if (type == 0) {
+            rsl = "Разница " + years + " лет, " + days + " дней, " + timeStr;
+        }
         int monthNum = numberOfFullMonthFromSumOfDays(days, years);
-          days = days- monthInDays(monthNum-1, years) ;
-        String rsl = "";
+        days = days - monthInDays(monthNum - 1, years);
         switch (type) {
             case 0:
-                rsl = days + "/" + monthNum + "/" + years;
                 break;
             case 1:
                 rsl = monthNum + "/" + days + "/" + years;
@@ -312,11 +256,9 @@ public class SomeClassThatIRenameLater {
             case 3:
                 rsl = days + " " + intMonthToStringMont(monthNum) + " " + years;
                 break;
-
         }
-        // String rsl = days + "/" + monthNum + "/" + years;
-        //return dateWithTime;
-        if (time!=0){
+
+        if (time != 0) {
             rsl = rsl + " " + timeStr;
         }
         return rsl;
@@ -327,11 +269,6 @@ public class SomeClassThatIRenameLater {
         int hours = 0;
         int minutes = 0;
         int seconds = 0;
-        int millieSeconds = 0;
-        int msHours = 0;
-        int msMinutes = 0;
-        int msSeconds = 0;
-        int msMillieSeconds = 0;
         if (ms >= MS_IN_HOUR) {
             hours = (int) (ms / MS_IN_HOUR);
             ms -= hours * MS_IN_HOUR;
@@ -380,33 +317,23 @@ public class SomeClassThatIRenameLater {
     }
 
     public String getResult(long firstOperand, int numOfOperation, long[] secondOperand, int outPutType) {
-        String rsl = "";
-        switch (numOfOperation) {
-            case 0:
-                rsl = convertFromMillieSecondsToDate(Math.abs(firstOperand - secondOperand[0]),outPutType);
-                break;
+        return switch (numOfOperation) {
+            case 0 -> convertFromMillieSecondsToDate(Math.abs(firstOperand - secondOperand[0]), outPutType);
             //TODO ВТОРОЙ ОПЕРАНД  ВЫХОДИТ ЗА ПРЕДЕЛЫ
-            case 1:
-                rsl = convertFromMillieSecondsToDate(firstOperand + secondOperand[0],outPutType);
-                break;
+            case 1 -> convertFromMillieSecondsToDate(firstOperand + secondOperand[0], outPutType);
             //TODO exception 2 операнд больше первого
-            case 2:
-                rsl = convertFromMillieSecondsToDate(firstOperand - secondOperand[0],outPutType);
-                break;
-            case 3:
-                rsl = sort(ArrayUtils.add(secondOperand, firstOperand),outPutType);
-                break;
-        }
-        return rsl;
+            case 2 -> convertFromMillieSecondsToDate(firstOperand - secondOperand[0], outPutType);
+            case 3 -> sort(ArrayUtils.add(secondOperand, firstOperand), outPutType);
+            default -> "";
+        };
     }
 
     private String sort(long[] arr, int outPutType) {
         StringBuilder builder = new StringBuilder();
         sortAsc(arr);
-        String[] dateAsc = new String[arr.length];
         builder.append("Date to Asc: ");
         for (int i = 0; i < arr.length; i++) {
-            builder.append(convertFromMillieSecondsToDate(arr[i],outPutType));
+            builder.append(convertFromMillieSecondsToDate(arr[i], outPutType));
             if (i == arr.length - 1) {
                 builder.append(". \n");
             }
@@ -414,7 +341,7 @@ public class SomeClassThatIRenameLater {
         sortDesc(arr);
         builder.append("Date to Desc: ");
         for (int i = 0; i < arr.length; i++) {
-            builder.append(convertFromMillieSecondsToDate(arr[i],outPutType));
+            builder.append(convertFromMillieSecondsToDate(arr[i], outPutType));
             if (i == arr.length - 1) {
                 builder.append(". \n");
             }
@@ -454,6 +381,5 @@ public class SomeClassThatIRenameLater {
         n[first] = n[last];
         n[last] = tempLong;
     }
-
 }
 

@@ -9,6 +9,7 @@ import ua.com.alevel.exceptions.IllegalTimeNumbers;
 import java.util.Locale;
 
 public class InputChecker {
+
     //TODOпроверитьт на правильынй разедлитель
     //TODO рить что дата перед числом
     private static SomeClassThatIRenameLater sC = new SomeClassThatIRenameLater();
@@ -36,14 +37,14 @@ public class InputChecker {
         if (countOfSeparator < 1) {
             throw new IllegalDateType("Не верное количество разделителей между датой");
         }
-        String date="";
+        String date = "";
         String time = "";
-        if (dateTimeSeparator!=-1) {
-           date = StringUtils.substring(str, 0, StringUtils.lastIndexOf(str, " "));
+        if (dateTimeSeparator != -1) {
+            date = StringUtils.substring(str, 0, StringUtils.lastIndexOf(str, " "));
             time = StringUtils.substring(str, StringUtils.lastIndexOf(str, " ") + 1);
-        } else{
+        } else {
             date = str;
-                   }
+        }
         if (countOfSeparator < 2) {
             throw new IllegalDateType("В дате мало разделительных знаков");
         }
@@ -79,7 +80,6 @@ public class InputChecker {
                         Integer.parseInt(year))) {
             throw new IllegalDateNumbers("Неверное количество дней");
         }
-
         if (Integer.parseInt(year) < 0 || Integer.parseInt(year) > 9999) {
             throw new IllegalDateNumbers("Неверное количество месяцев");
         }
@@ -90,19 +90,10 @@ public class InputChecker {
 
     private void monthStringFormatCheck(String str) throws IllegalDateType, BlankDate, IllegalDateNumbers, IllegalTimeNumbers {
         int countOfSeparator = StringUtils.countMatches(str, " ");
-        // int dateTimeSeparatorIndex = StringUtils.indexOf(str, " ");
         if (countOfSeparator != 2) {
             throw new IllegalDateType("Не верное количество раделителей между датой");
         }
-//        String date = StringUtils.substring(str, 0, StringUtils.indexOf(str, " "));
         String date = str;
-        // String time = StringUtils.substring(str, StringUtils.indexOf(str, " ") + 1);
-//        if (countOfSeparator < 2) {
-//            throw new IllegalDateType("В дате мало разделительных знаков");
-//        }
-//        if (str.length() < 3) {
-//            throw new BlankDate("Дата не может быть пустая");
-//        }
         String month = StringUtils.substring(date, 0, StringUtils.indexOf(str, " "));
         String day = StringUtils.substring(date, StringUtils.indexOf(str, " ") + 1, StringUtils.lastIndexOf(str, " "));
         String year = StringUtils.substring(date, StringUtils.lastIndexOf(str, " ") + 1);
@@ -112,9 +103,7 @@ public class InputChecker {
             }
         }
         if (!sC.isCyrillic(month)) {
-
             throw new IllegalDateType("Месяц должен быть написан кириллицей");
-
         }
         if (!StringUtils.equalsAny(month.toLowerCase(Locale.ROOT), "январь", "февраль",
                 "март", "апрель", "май", "июнь", "июль", "август", "сентябрь",
@@ -132,13 +121,9 @@ public class InputChecker {
                         Integer.parseInt(year))) {
             throw new IllegalDateNumbers("Неверное количество дней");
         }
-
         if (Integer.parseInt(year) < 0 || Integer.parseInt(year) > 9999) {
             throw new IllegalDateNumbers("Неверное количество месяцев");
         }
-//        if (dateTimeSeparatorIndex == 1) {
-//            timeChecker(time);
-//        }
     }
 
     private void monthSlashFormatCheck(String str) throws IllegalDateType, BlankDate, IllegalDateNumbers, IllegalTimeNumbers {
@@ -193,7 +178,6 @@ public class InputChecker {
         }
     }
 
-
     private void dateSlashFormatCheck(String str) throws BlankDate, IllegalDateType, IllegalDateNumbers, IllegalTimeNumbers {
         int countOfSeparator = StringUtils.countMatches(str, "/");
         int dateTimeSeparatorIndex = StringUtils.indexOf(str, " ");
@@ -204,7 +188,6 @@ public class InputChecker {
         String time = " ";
         if (dateTimeSeparatorIndex == 1) {
             date = StringUtils.substring(str, 0, StringUtils.indexOf(str, " "));
-
             time = StringUtils.substring(str, StringUtils.indexOf(str, " ") + 1);
         }
         if (countOfSeparator < 2) {
@@ -249,7 +232,6 @@ public class InputChecker {
     }
 
     private void timeChecker(String time) throws IllegalTimeNumbers, IllegalDateType {
-        //
         int countOfSeparatorTime = StringUtils.countMatches(time, ":");
         if (countOfSeparatorTime > 3) {
             throw new IllegalDateType("Разделителей времени много");
@@ -257,14 +239,12 @@ public class InputChecker {
         if (countOfSeparatorTime == 1) {
             String hour = StringUtils.substring(time, 0, StringUtils.indexOf(time, ":"));
             String minute = StringUtils.substring(time, StringUtils.indexOf(time, ":") + 1);
-
             checkHourAndMinutes(hour, minute);
         }
         if (countOfSeparatorTime == 2) {
             String hour = StringUtils.substring(time, 0, StringUtils.indexOf(time, ":"));
             String minute = StringUtils.substring(time, StringUtils.indexOf(time, ":") + 1, StringUtils.lastIndexOf(time, ":"));
             String sec = StringUtils.substring(time, StringUtils.lastIndexOf(time, ":") + 1);
-
             checkHourAndMinutes(hour, minute);
             checkHourAndMinutesAndSec(sec);
         }
@@ -275,13 +255,10 @@ public class InputChecker {
             time = StringUtils.substring(time, StringUtils.indexOf(time, ":") + 1);
             String sec = StringUtils.substring(time, 0, StringUtils.indexOf(time, ":"));
             String ms = StringUtils.substring(time, StringUtils.lastIndexOf(time, ":") + 1);
-
             checkHourAndMinutes(hour, minute);
             checkHourAndMinutesAndSec(sec);
             checkHourAndMinutesAndSecAndMs(ms);
-
         }
-
     }
 
     private void checkHourAndMinutesAndSecAndMs(String ms) throws IllegalTimeNumbers {
@@ -320,7 +297,6 @@ public class InputChecker {
         }
         if (Integer.parseInt(minute) < 0 || Integer.parseInt(hour) > 59) {
             throw new IllegalTimeNumbers("Неверное количество минут");
-
         }
     }
 }

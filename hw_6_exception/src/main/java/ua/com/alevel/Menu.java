@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 public class Menu {
+
     private static final long MS_IN_DAY = 86_400_000L;
     private static final long MS_IN_HOUR = 3_600_000L;
     private static final long MS_IN_MINUTE = 60_000L;
@@ -22,13 +23,8 @@ public class Menu {
     public void chooseFormat(BufferedReader reader) {
         int inputFormatNum = -1;
         while (true) {
-            ScreenMenu.clearConsole();
-            System.out.println("Привет, выбери формат ввода:");
-            System.out.println("0. dd/mm/yy - 01/12/21");
-            System.out.println("1. m/d/yyyy - 3/4/2021");
-            System.out.println("2. mmm-d-yy - Март 4 21");
-            System.out.println("3. dd-mmm-yyyy 00:00 - 09 Апрель 789 45:23");
-            System.out.print("Введи цифру:");
+            System.out.println("Выберите формат ввода");
+            chooseInputType();
             try {
                 inputFormatNum = Integer.parseInt(reader.readLine());
             } catch (NumberFormatException e) {
@@ -45,7 +41,15 @@ public class Menu {
             break;
         }
         inputFistOperandInput(reader, inputFormatNum);
-        // return inputFormat;
+    }
+
+    private void chooseInputType() {
+        ScreenMenu.clearConsole();
+        System.out.println("0. dd/mm/yy - 01/12/21");
+        System.out.println("1. m/d/yyyy - 3/4/2021");
+        System.out.println("2. mmm-d-yy - Март 4 21");
+        System.out.println("3. dd-mmm-yyyy 00:00 - 09 Апрель 789 45:23");
+        System.out.print("Введи цифру:");
     }
 
     public void inputFistOperandInput(BufferedReader reader, int inputFormat) {
@@ -70,21 +74,17 @@ public class Menu {
             } catch (IllegalTimeNumbers e) {
                 System.out.println(e.getMessage());
                 continue;
-
             } catch (BlankDate e) {
                 System.out.println(e.getMessage());
                 continue;
-
             } catch (IllegalDateNumbers e) {
                 System.out.println(e.getMessage());
                 continue;
-
             }
             break;
         }
         firstOperand = sC.dateToMillieSeconds(input, inputFormat);
         operationWhatDo(reader, firstOperand);
-
     }
 
     public void operationWhatDo(BufferedReader reader, long firstOperand) {
@@ -122,11 +122,10 @@ public class Menu {
         String inputs = "";
         int inputFormatNum;
         String rsl = "";
-
+        int outPutType = -1;
         long[] secondOperand = new long[0];
         if (inputOperationNum == 1 || inputOperationNum == 2) {
             while (true) {
-
                 System.out.println("Что хотите добавить/вычесть?");
                 System.out.println("0. Годы");
                 System.out.println("1. Дни");
@@ -158,7 +157,6 @@ public class Menu {
                     System.out.println("Не верный ввод");
                     continue;
                 }
-
                 long localRsl = 0;
                 switch (inputFormatNum) {
                     case 0:
@@ -171,7 +169,7 @@ public class Menu {
                         localRsl = Integer.parseInt(localInput) * MS_IN_HOUR;
                         break;
                     case 3:
-                        localRsl = Integer.parseInt(localInput) * MS_IN_HOUR;
+                        localRsl = Integer.parseInt(localInput) * MS_IN_MINUTE;
                         break;
                     case 4:
                         localRsl = Integer.parseInt(localInput) * MS_IN_SEC;
@@ -184,105 +182,86 @@ public class Menu {
                 break;
             }
         } else {
-
-            while (true) {
-                ScreenMenu.clearConsole();
-                System.out.println("Выбери формат ввода:");
-                System.out.println("0. dd/mm/yy - 01/12/21");
-                System.out.println("1. m/d/yyyy - 3/4/2021");
-                System.out.println("2. mmm-d-yy - Март 4 21");
-                System.out.println("3. dd-mmm-yyyy 00:00 - 09 Апрель 789 45:23");
-                System.out.print("Введи цифру:");
-                try {
-                    inputFormatNum = Integer.parseInt(reader.readLine());
-                } catch (NumberFormatException e) {
-                    System.out.println("Ты ввел не цифру повтори");
-                    continue;
-                } catch (IOException e) {
-                    System.out.println("Ошибка ввода вывода.");
-                    continue;
-                }
-                if (inputFormatNum < 0 || inputFormatNum > 3) {
-                    System.out.println("Введена не верная цифра");
-                    continue;
-                }
-
-
-//        ScreenMenu.clearConsole();
+            if (inputOperationNum != 0) {
                 while (true) {
-                    System.out.print("Введи дату в формате " + types[inputFormatNum] + ":");
+                    System.out.println("Выберите формат ввода");
+                    chooseInputType();
                     try {
-                        inputs = reader.readLine();
+                        inputFormatNum = Integer.parseInt(reader.readLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Ты ввел не цифру повтори");
+                        continue;
                     } catch (IOException e) {
                         System.out.println("Ошибка ввода вывода.");
                         continue;
                     }
-
-                    try {
-                        ic.checkFormat(inputFormatNum, inputs);
-                    } catch (IllegalDateType e) {
-                        System.out.println(e.getMessage());
-                        continue;
-                    } catch (IllegalTimeNumbers e) {
-                        System.out.println(e.getMessage());
-                        continue;
-                    } catch (BlankDate e) {
-                        System.out.println(e.getMessage());
-                        continue;
-                    } catch (IllegalDateNumbers e) {
-                        System.out.println(e.getMessage());
+                    if (inputFormatNum < 0 || inputFormatNum > 3) {
+                        System.out.println("Введена не верная цифра");
                         continue;
                     }
-                    secondOperand = ArrayUtils.add(secondOperand, sC.dateToMillieSeconds(inputs, inputFormatNum));
-                    if (inputOperationNum != 3) {
+                    while (true) {
+                        System.out.print("Введи дату в формате " + types[inputFormatNum] + ":");
+                        try {
+                            inputs = reader.readLine();
+                        } catch (IOException e) {
+                            System.out.println("Ошибка ввода вывода.");
+                            continue;
+                        }
+                        try {
+                            ic.checkFormat(inputFormatNum, inputs);
+                        } catch (IllegalDateType e) {
+                            System.out.println(e.getMessage());
+                            continue;
+                        } catch (IllegalTimeNumbers e) {
+                            System.out.println(e.getMessage());
+                            continue;
+                        } catch (BlankDate e) {
+                            System.out.println(e.getMessage());
+                            continue;
+                        } catch (IllegalDateNumbers e) {
+                            System.out.println(e.getMessage());
+                            continue;
+                        }
+                        secondOperand = ArrayUtils.add(secondOperand, sC.dateToMillieSeconds(inputs, inputFormatNum));
+                        if (inputOperationNum != 3) {
+                            break;
+                        }
+                        //TODO вывести режим и если 4  то продолжаем
+                        System.out.println("Если хочешь ввести еще дату введи 0");
+                        try {
+                            inputMore = reader.readLine();
+                        } catch (IOException e) {
+                            System.out.println("Ошибка ввода вывода.");
+                            continue;
+                        }
+                        if (StringUtils.isNumeric(inputMore) && Integer.parseInt(inputMore) == 0) {
+                            continue;
+                        }
                         break;
                     }
-                    //TODO вывести режим и если 4  то продолжаем
-                    System.out.println("Если хочешь ввести еще дату введи 0");
+                    break;
+                }
+                while (true) {
+                    System.out.println("Выберите формат вывода");
+                    chooseInputType();
                     try {
-                        inputMore = reader.readLine();
+                        outPutType = Integer.parseInt(reader.readLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Ты ввел не цифру повтори");
+                        continue;
                     } catch (IOException e) {
                         System.out.println("Ошибка ввода вывода.");
                         continue;
                     }
-                    if (StringUtils.isNumeric(inputMore) && Integer.parseInt(inputMore) == 0) {
+                    if (outPutType < 0 || outPutType > 3) {
+                        System.out.println("Введена не верная цифра");
                         continue;
                     }
                     break;
                 }
-                break;
             }
         }
-        int outPutType=-1;
-        while (true) {
-            System.out.println("Выберите формат вывода");
-
-            System.out.println("Выбери формат ввода:");
-            System.out.println("0. dd/mm/yy - 01/12/21");
-            System.out.println("1. m/d/yyyy - 3/4/2021");
-            System.out.println("2. mmm-d-yy - Март 4 21");
-            System.out.println("3. dd-mmm-yyyy 00:00 - 09 Апрель 789 45:23");
-            System.out.print("Введи цифру:");
-            try {
-                outPutType = Integer.parseInt(reader.readLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Ты ввел не цифру повтори");
-                continue;
-            } catch (IOException e) {
-                System.out.println("Ошибка ввода вывода.");
-                continue;
-            }
-            if (outPutType < 0 || outPutType > 3) {
-                System.out.println("Введена не верная цифра");
-                continue;
-            }
-         break;
-        }
-
-              rsl = sC.getResult(firstOperand, inputOperationNum, secondOperand,outPutType);
-
+        rsl = sC.getResult(firstOperand, inputOperationNum, secondOperand, outPutType);
         System.out.println(rsl);
-
     }
-
 }
