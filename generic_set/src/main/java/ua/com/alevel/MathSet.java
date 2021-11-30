@@ -6,8 +6,6 @@ public class MathSet {
 
     private int capacity = -1;
     Number[] numbers = new Number[0];
-    //todo нужен ли
-//boolean haveNull = false;
 
     public MathSet(int capacity) {
         this.capacity = capacity;
@@ -53,7 +51,7 @@ public class MathSet {
                 numbers = removeDuplicates(tempNumber);
             }
         } else {
-            System.out.println("Множество заполнено. Необходимо изменить Capacity" + Thread.currentThread().getName());
+            System.out.println("Множество заполнено. Необходимо изменить Capacity");
         }
     }
 
@@ -104,7 +102,6 @@ public class MathSet {
     }
 
     public void sortDesc(int firstIndex, int lastIndex) {
-//
         boolean sorted = false;
         while (!sorted) {
             sorted = true;
