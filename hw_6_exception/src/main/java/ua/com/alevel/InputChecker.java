@@ -15,30 +15,35 @@ public class InputChecker {
 
     public void checkFormat(int type, String str) throws IllegalDateType, IllegalTimeNumbers, BlankDate, IllegalDateNumbers {
         switch (type) {
-
-//            dd/mm/yy
-            case 1:
+            case 0:
                 dateSlashFormatCheck(str);
                 break;
-            case 2:
+            case 1:
                 monthSlashFormatCheck(str);
                 break;
-            case 3:
-                monthStringSlashFormatCheck(str);
+            case 2:
+                monthStringFormatCheck(str);
                 break;
-            case 4:daySpaceMonthStringFormatChecker(str);
+            case 3:
+                daySpaceMonthStringFormatChecker(str);
                 break;
         }
     }
 
     private void daySpaceMonthStringFormatChecker(String str) throws IllegalDateType, IllegalDateNumbers, IllegalTimeNumbers, BlankDate {
         int countOfSeparator = StringUtils.countMatches(str, " ");
-         int dateTimeSeparator = StringUtils.indexOf(str, ":");
-        if (countOfSeparator  <1) {
-            throw new IllegalDateType("Не верное количество раделителей между датой");
+        int dateTimeSeparator = StringUtils.indexOf(str, ":");
+        if (countOfSeparator < 1) {
+            throw new IllegalDateType("Не верное количество разделителей между датой");
         }
-        String date = StringUtils.substring(str, 0, StringUtils.lastIndexOf(str, " "));
-         String time = StringUtils.substring(str, StringUtils.lastIndexOf(str, " ") + 1);
+        String date="";
+        String time = "";
+        if (dateTimeSeparator!=-1) {
+           date = StringUtils.substring(str, 0, StringUtils.lastIndexOf(str, " "));
+            time = StringUtils.substring(str, StringUtils.lastIndexOf(str, " ") + 1);
+        } else{
+            date = str;
+                   }
         if (countOfSeparator < 2) {
             throw new IllegalDateType("В дате мало разделительных знаков");
         }
@@ -46,7 +51,7 @@ public class InputChecker {
             throw new BlankDate("Дата не может быть пустая");
         }
         String day = StringUtils.substring(date, 0, StringUtils.indexOf(str, " "));
-        String month = StringUtils.substring(date, StringUtils.indexOf(str, " ") + 1, StringUtils.lastIndexOf(str, "/"));
+        String month = StringUtils.substring(date, StringUtils.indexOf(str, " ") + 1, StringUtils.lastIndexOf(str, " "));
         String year = StringUtils.substring(date, StringUtils.lastIndexOf(str, " ") + 1);
         if (!StringUtils.isBlank(day)) {
             if (!StringUtils.isNumeric(day)) {
@@ -60,8 +65,8 @@ public class InputChecker {
         }
         if (!StringUtils.equalsAny(month.toLowerCase(Locale.ROOT), "январь", "февраль",
                 "март", "апрель", "май", "июнь", "июль", "август", "сентябрь",
-                "октябрь", "ноябрь", "декабрь")){
-            throw new IllegalDateType("Название месяца введено не корректно");
+                "октябрь", "ноябрь", "декабрь")) {
+            throw new IllegalDateType("Название месяца введено не корректно.");
         }
         if (!StringUtils.isBlank(year)) {
             if (!StringUtils.isNumeric(year)) {
@@ -70,7 +75,7 @@ public class InputChecker {
         }
         if (Integer.parseInt(day) < 1
                 || Integer.parseInt(day) >
-                sC.monthInDays(Integer.parseInt(month),
+                sC.monthInDays(sC.stringMonthToNumberValue(month),
                         Integer.parseInt(year))) {
             throw new IllegalDateNumbers("Неверное количество дней");
         }
@@ -83,13 +88,14 @@ public class InputChecker {
         }
     }
 
-    private void monthStringSlashFormatCheck(String str) throws IllegalDateType, BlankDate, IllegalDateNumbers, IllegalTimeNumbers {
+    private void monthStringFormatCheck(String str) throws IllegalDateType, BlankDate, IllegalDateNumbers, IllegalTimeNumbers {
         int countOfSeparator = StringUtils.countMatches(str, " ");
-       // int dateTimeSeparatorIndex = StringUtils.indexOf(str, " ");
+        // int dateTimeSeparatorIndex = StringUtils.indexOf(str, " ");
         if (countOfSeparator != 2) {
             throw new IllegalDateType("Не верное количество раделителей между датой");
         }
-        String date = StringUtils.substring(str, 0, StringUtils.indexOf(str, " "));
+//        String date = StringUtils.substring(str, 0, StringUtils.indexOf(str, " "));
+        String date = str;
         // String time = StringUtils.substring(str, StringUtils.indexOf(str, " ") + 1);
 //        if (countOfSeparator < 2) {
 //            throw new IllegalDateType("В дате мало разделительных знаков");
@@ -98,7 +104,7 @@ public class InputChecker {
 //            throw new BlankDate("Дата не может быть пустая");
 //        }
         String month = StringUtils.substring(date, 0, StringUtils.indexOf(str, " "));
-        String day = StringUtils.substring(date, StringUtils.indexOf(str, " ") + 1, StringUtils.lastIndexOf(str, "/"));
+        String day = StringUtils.substring(date, StringUtils.indexOf(str, " ") + 1, StringUtils.lastIndexOf(str, " "));
         String year = StringUtils.substring(date, StringUtils.lastIndexOf(str, " ") + 1);
         if (!StringUtils.isBlank(day)) {
             if (!StringUtils.isNumeric(day)) {
@@ -112,17 +118,17 @@ public class InputChecker {
         }
         if (!StringUtils.equalsAny(month.toLowerCase(Locale.ROOT), "январь", "февраль",
                 "март", "апрель", "май", "июнь", "июль", "август", "сентябрь",
-                "октябрь", "ноябрь", "декабрь")){
+                "октябрь", "ноябрь", "декабрь")) {
             throw new IllegalDateType("Название месяца введено не корректно");
         }
-            if (!StringUtils.isBlank(year)) {
-                if (!StringUtils.isNumeric(year)) {
-                    throw new IllegalDateType("Год должен быть числом");
-                }
+        if (!StringUtils.isBlank(year)) {
+            if (!StringUtils.isNumeric(year)) {
+                throw new IllegalDateType("Год должен быть числом");
             }
+        }
         if (Integer.parseInt(day) < 1
                 || Integer.parseInt(day) >
-                sC.monthInDays(Integer.parseInt(month),
+                sC.monthInDays(sC.stringMonthToNumberValue(month),
                         Integer.parseInt(year))) {
             throw new IllegalDateNumbers("Неверное количество дней");
         }
@@ -142,7 +148,10 @@ public class InputChecker {
             throw new IllegalDateType("Пробелов больше чем надо");
         }
         String date = StringUtils.substring(str, 0, StringUtils.indexOf(str, " "));
-        String time = StringUtils.substring(str, StringUtils.indexOf(str, " ") + 1);
+        String time = " ";
+        if (dateTimeSeparatorIndex == 1) {
+            time = StringUtils.substring(str, StringUtils.indexOf(str, " ") + 1);
+        }
         if (countOfSeparator < 2) {
             throw new IllegalDateType("В дате мало разделительных знаков");
         }
@@ -152,14 +161,14 @@ public class InputChecker {
         String month = StringUtils.substring(date, 0, StringUtils.indexOf(str, "/"));
         String day = StringUtils.substring(date, StringUtils.indexOf(str, "/") + 1, StringUtils.lastIndexOf(str, "/"));
         String year = StringUtils.substring(date, StringUtils.lastIndexOf(str, "/") + 1);
-        if (!StringUtils.isBlank(day)) {
-            if (!StringUtils.isNumeric(day)) {
-                throw new IllegalDateType("День должен быть числом");
-            }
-        }
         if (!StringUtils.isBlank(month)) {
             if (!StringUtils.isNumeric(month)) {
                 throw new IllegalDateType("Месяц должен быть числом");
+            }
+        }
+        if (!StringUtils.isBlank(day)) {
+            if (!StringUtils.isNumeric(day)) {
+                throw new IllegalDateType("День должен быть числом");
             }
         }
         if (!StringUtils.isBlank(year)) {
@@ -191,8 +200,13 @@ public class InputChecker {
         if (dateTimeSeparatorIndex > 1) {
             throw new IllegalDateType("Пробелов больше чем надо");
         }
-        String date = StringUtils.substring(str, 0, StringUtils.indexOf(str, " "));
-        String time = StringUtils.substring(str, StringUtils.indexOf(str, " ") + 1);
+        String date = str;
+        String time = " ";
+        if (dateTimeSeparatorIndex == 1) {
+            date = StringUtils.substring(str, 0, StringUtils.indexOf(str, " "));
+
+            time = StringUtils.substring(str, StringUtils.indexOf(str, " ") + 1);
+        }
         if (countOfSeparator < 2) {
             throw new IllegalDateType("В дате мало разделительных знаков");
         }
@@ -217,14 +231,14 @@ public class InputChecker {
                 throw new IllegalDateType("Год должен быть числом");
             }
         }
+        if (Integer.parseInt(month) < 1 || Integer.parseInt(month) > 12) {
+            throw new IllegalDateNumbers("Неверное количество месяцев");
+        }
         if (Integer.parseInt(day) < 1
                 || Integer.parseInt(day) >
                 sC.monthInDays(Integer.parseInt(month),
                         Integer.parseInt(year))) {
             throw new IllegalDateNumbers("Неверное количество дней");
-        }
-        if (Integer.parseInt(month) < 1 || Integer.parseInt(month) > 12) {
-            throw new IllegalDateNumbers("Неверное количество месяцев");
         }
         if (Integer.parseInt(year) < 0 || Integer.parseInt(year) > 9999) {
             throw new IllegalDateNumbers("Неверное количество месяцев");

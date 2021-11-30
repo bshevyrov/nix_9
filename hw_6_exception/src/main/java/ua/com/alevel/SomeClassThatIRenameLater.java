@@ -1,5 +1,6 @@
 package ua.com.alevel;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 
@@ -13,12 +14,14 @@ public class SomeClassThatIRenameLater {
     private static final long MS_IN_MINUTE = 60_000L;
     private static final long MS_IN_SEC = 1_000L;
 
-    public long dateToMillieSeconds(String str, String whoFirst) {
+    public long dateToMillieSeconds(String str, int inputFormatNum) {
         long rsl = 0;
         String dateStr = "";
         if (StringUtils.indexOf(str, ":") != StringUtils.INDEX_NOT_FOUND) {
             int indexOfTimeDelimiter = StringUtils.indexOf(str, ":");
-            int indexOfDateDelimiter = StringUtils.indexOf(str, "/");
+            int indexOfDateDelimiterSlash = StringUtils.indexOf(str, "/");
+            int indexOfDateDelimiterSpace = StringUtils.indexOf(str, " ");
+            int indexOfDateDelimiter = Math.max(indexOfDateDelimiterSlash, indexOfDateDelimiterSpace);
             if (indexOfTimeDelimiter < indexOfDateDelimiter) {
                 String timeStr = StringUtils.substring(str, 0, StringUtils.indexOf(str, " "));
                 dateStr = StringUtils.substring(str, StringUtils.indexOf(str, " ") + 1);
@@ -32,17 +35,34 @@ public class SomeClassThatIRenameLater {
         } else {
             dateStr = str;
         }
-        int firstDelimiter = StringUtils.indexOf(dateStr, "/");
-        int lastDelimiter = StringUtils.lastIndexOf(dateStr, "/");
+        int firstDelimiter = 0;
+        int lastDelimiter = 0;
         String dayStr = "";
         String monthStr = "";
-        if (StringUtils.equals(whoFirst, "date")) {
+        if (inputFormatNum == 0) {
+            firstDelimiter = StringUtils.indexOf(dateStr, "/");
+            lastDelimiter = StringUtils.lastIndexOf(dateStr, "/");
             dayStr = StringUtils.substring(dateStr, 0, firstDelimiter);
             monthStr = StringUtils.substring(dateStr, firstDelimiter + 1, lastDelimiter);
         }
-        if (StringUtils.equals(whoFirst, "month")) {
+        if (inputFormatNum == 1) {
+            firstDelimiter = StringUtils.indexOf(dateStr, "/");
+            lastDelimiter = StringUtils.lastIndexOf(dateStr, "/");
             dayStr = StringUtils.substring(dateStr, firstDelimiter + 1, lastDelimiter);
             monthStr = StringUtils.substring(dateStr, 0, firstDelimiter);
+        }
+
+        if (inputFormatNum == 2) {
+            firstDelimiter = StringUtils.indexOf(dateStr, " ");
+            lastDelimiter = StringUtils.lastIndexOf(dateStr, " ");
+            dayStr = StringUtils.substring(dateStr, firstDelimiter + 1, lastDelimiter);
+            monthStr = StringUtils.substring(dateStr, 0, firstDelimiter);
+        }
+        if (inputFormatNum == 3) {
+            firstDelimiter = StringUtils.indexOf(dateStr, " ");
+            lastDelimiter = StringUtils.lastIndexOf(dateStr, " ");
+            monthStr  = StringUtils.substring(dateStr, firstDelimiter + 1, lastDelimiter);
+             dayStr = StringUtils.substring(dateStr, 0, firstDelimiter);
         }
         if (!StringUtils.isNumeric(monthStr)) {
             monthStr = String.valueOf(stringMonthToNumberValue(monthStr));
@@ -139,15 +159,6 @@ public class SomeClassThatIRenameLater {
         return year;
     }
 
-    public int monthInDays(int monthNum, int year) {
-        return switch (monthNum) {
-            case 1, 3, 5, 7, 8, 10, 12 -> 31;
-            case 4, 6, 9, 11 -> 30;
-            case 2 -> isLeapYear(year) ? 29 : 28;
-            default -> 0;
-        };
-    }
-
     public int sumOfDaysBeforeThisMonth(int month, int year) {
         int sumOfdays = 0;
         for (int i = 1; i < month; i++) {
@@ -171,7 +182,16 @@ public class SomeClassThatIRenameLater {
         return monthNum;
     }
 
-    private int stringMonthToNumberValue(String month) {
+    public int monthInDays(int monthNum, int year) {
+        return switch (monthNum) {
+            case 1, 3, 5, 7, 8, 10, 12 -> 31;
+            case 4, 6, 9, 11 -> 30;
+            case 2 -> isLeapYear(year) ? 29 : 28;
+            default -> 0;
+        };
+    }
+
+    public int stringMonthToNumberValue(String month) {
         int rsl = 0;
         month = month.toLowerCase();
         switch (month) {
@@ -215,7 +235,52 @@ public class SomeClassThatIRenameLater {
         return rsl;
     }
 
-    public String convertFromMillieSecondsToDate(long msTotal) {
+    private String intMonthToStringMont(int month) {
+        String rsl = "";
+
+        switch (month) {
+            case 1:
+                rsl = "Январь";
+                break;
+            case 2:
+                rsl = "Февраль";
+                break;
+            case 3:
+                rsl = "Март";
+                break;
+            case 4:
+                rsl = "Апрель";
+                break;
+            case 5:
+                rsl = "Май";
+                break;
+            case 6:
+                rsl = "Июнь";
+                break;
+            case 7:
+                rsl = "Июль";
+                break;
+            case 8:
+                rsl = "Август";
+                break;
+            case 9:
+                rsl = "Сентябрь";
+                break;
+            case 10:
+                rsl = "Октябрь";
+                break;
+            case 11:
+                rsl = "Ноябрь";
+                break;
+            case 12:
+                rsl = "Декабрь";
+                break;
+        }
+        return rsl;
+    }
+
+
+    public String convertFromMillieSecondsToDate(long msTotal, int type) {
         int years = 0;
         //TODO Это костыль тк отсчет идет от первого января. Вроде так
         int days = 1;//1
@@ -232,10 +297,29 @@ public class SomeClassThatIRenameLater {
         long time = msTotal - ((yearInDays(years) * MS_IN_DAY) + (days - 1) * MS_IN_DAY);
         String timeStr = convertMillieSecondsToTime(time);
         int monthNum = numberOfFullMonthFromSumOfDays(days, years);
-        //  days = days- monthInDays(monthNum, years) ;
-        String rsl = days + "/" + monthNum + "/" + years;
+          days = days- monthInDays(monthNum-1, years) ;
+        String rsl = "";
+        switch (type) {
+            case 0:
+                rsl = days + "/" + monthNum + "/" + years;
+                break;
+            case 1:
+                rsl = monthNum + "/" + days + "/" + years;
+                break;
+            case 2:
+                rsl = intMonthToStringMont(monthNum) + " " + days + " " + years;
+                break;
+            case 3:
+                rsl = days + " " + intMonthToStringMont(monthNum) + " " + years;
+                break;
+
+        }
+        // String rsl = days + "/" + monthNum + "/" + years;
         //return dateWithTime;
-        return rsl + " " + timeStr;
+        if (time!=0){
+            rsl = rsl + " " + timeStr;
+        }
+        return rsl;
     }
 
     private String convertMillieSecondsToTime(long ms) {
@@ -288,12 +372,87 @@ public class SomeClassThatIRenameLater {
     public boolean isCyrillic(String str) {
         boolean rsl = true;
         for (char c : str.toCharArray()) {
-            System.out.println(rsl);
             if ((int) c > 1103 || (int) c < 1040) {
                 rsl = false;
             }
         }
         return rsl;
+    }
+
+    public String getResult(long firstOperand, int numOfOperation, long[] secondOperand, int outPutType) {
+        String rsl = "";
+        switch (numOfOperation) {
+            case 0:
+                rsl = convertFromMillieSecondsToDate(Math.abs(firstOperand - secondOperand[0]),outPutType);
+                break;
+            //TODO ВТОРОЙ ОПЕРАНД  ВЫХОДИТ ЗА ПРЕДЕЛЫ
+            case 1:
+                rsl = convertFromMillieSecondsToDate(firstOperand + secondOperand[0],outPutType);
+                break;
+            //TODO exception 2 операнд больше первого
+            case 2:
+                rsl = convertFromMillieSecondsToDate(firstOperand - secondOperand[0],outPutType);
+                break;
+            case 3:
+                rsl = sort(ArrayUtils.add(secondOperand, firstOperand),outPutType);
+                break;
+        }
+        return rsl;
+    }
+
+    private String sort(long[] arr, int outPutType) {
+        StringBuilder builder = new StringBuilder();
+        sortAsc(arr);
+        String[] dateAsc = new String[arr.length];
+        builder.append("Date to Asc: ");
+        for (int i = 0; i < arr.length; i++) {
+            builder.append(convertFromMillieSecondsToDate(arr[i],outPutType));
+            if (i == arr.length - 1) {
+                builder.append(". \n");
+            }
+        }
+        sortDesc(arr);
+        builder.append("Date to Desc: ");
+        for (int i = 0; i < arr.length; i++) {
+            builder.append(convertFromMillieSecondsToDate(arr[i],outPutType));
+            if (i == arr.length - 1) {
+                builder.append(". \n");
+            }
+        }
+        return builder.toString();
+    }
+
+    private void sortAsc(long[] arr) {
+        boolean sorted = false;
+        while (!sorted) {
+            sorted = true;
+            for (int i = 1; i < arr.length; i++) {
+                if (arr[i] < arr[i - 1]) {
+                    swap(arr, i, i - 1);
+                    sorted = false;
+                }
+            }
+        }
+    }
+
+    private void sortDesc(long[] arr) {
+        boolean sorted = false;
+        while (!sorted) {
+            sorted = true;
+            for (int i = 1; i < arr.length; i++) {
+                if (arr[i] > arr[i - 1]) {
+                    swap(arr, i, i - 1);
+                    sorted = false;
+                }
+            }
+        }
+    }
+
+    private void swap(long[] n, int first, int last) {
+        long tempLong;
+        tempLong = n[first];
+        n[first] = n[last];
+        n[last] = tempLong;
     }
 
 }

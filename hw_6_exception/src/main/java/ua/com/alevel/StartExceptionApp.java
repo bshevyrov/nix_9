@@ -9,6 +9,8 @@ public class StartExceptionApp {
     public static void main(String[] args) {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        Menu menu = new Menu();
+        menu.chooseFormat(reader);
 //     public void chooseFormat(BufferedReader reader) {
 //        while (true) {
 //            ScreenMenu.clearConsole();
