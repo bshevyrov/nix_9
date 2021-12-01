@@ -4,10 +4,8 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 
-public class SomeClassThatIRenameLater {
+public class Calendar {
 
-    //TODO Проверка на пустые части ввода перед и аосле разделителя
-    //TODO вместо тайпа  енамчик в конверт формате
     private static final long MS_IN_DAY = 86_400_000L;
     private static final long MS_IN_HOUR = 3_600_000L;
     private static final long MS_IN_MINUTE = 60_000L;
@@ -27,14 +25,14 @@ public class SomeClassThatIRenameLater {
                 rsl = convertTimeToMillieSeconds(timeStr);
             }
             if (indexOfTimeDelimiter > indexOfDateDelimiter) {
-                String timeStr = StringUtils.substring(str, StringUtils.indexOf(str, " ") + 1);
-                dateStr = StringUtils.substring(str, 0, StringUtils.indexOf(str, " "));
+                String timeStr = StringUtils.substring(str, StringUtils.lastIndexOf(str, " ") + 1);
+                dateStr = StringUtils.substring(str, 0, StringUtils.lastIndexOf(str, " "));
                 rsl = convertTimeToMillieSeconds(timeStr);
             }
         } else {
             dateStr = str;
         }
-        int firstDelimiter = 0;
+        int firstDelimiter;
         int lastDelimiter = 0;
         String dayStr = "";
         String monthStr = "";
@@ -67,15 +65,12 @@ public class SomeClassThatIRenameLater {
             monthStr = String.valueOf(stringMonthToNumberValue(monthStr));
         }
         String yearStr = StringUtils.substring(dateStr, lastDelimiter + 1);
-        //минус 1 потому что мы еше не закончили этот день месяц год.
-        // и по факту 1 января 1 года в милисекундах есть только количество часов или минут или дней
         int day = StringUtils.isBlank(dayStr) ? 0 : Integer.parseInt(dayStr) - 1;
         int month = StringUtils.isBlank(monthStr) ? 0 : Integer.parseInt(monthStr);// - 1;
         int year = StringUtils.isBlank(yearStr) ? 0 : Integer.parseInt(yearStr);
         return rsl + (day + sumOfDaysBeforeThisMonth(month, year) + yearInDays(year)) * MS_IN_DAY;
     }
 
-    //TODO Сделстьт если бусто но с разделителем
     public boolean isLeapYear(int year) {
         return (year % 400 == 0) || ((year % 4 == 0) && (year % 100 != 0));
     }
@@ -84,15 +79,9 @@ public class SomeClassThatIRenameLater {
         long timeInMillieSeconds = 0;
         int countOfDelimiter = StringUtils.countMatches(time, ":");
         switch (countOfDelimiter) {
-            case 1:
-                timeInMillieSeconds = hoursAndMinutes(time);
-                break;
-            case 2:
-                timeInMillieSeconds = hoursMinuteAndSeconds(time);
-                break;
-            case 3:
-                timeInMillieSeconds = hoursMinuteSecondAndMillieSeconds(time);
-                break;
+            case 1 -> timeInMillieSeconds = hoursAndMinutes(time);
+            case 2 -> timeInMillieSeconds = hoursMinuteAndSeconds(time);
+            case 3 -> timeInMillieSeconds = hoursMinuteSecondAndMillieSeconds(time);
         }
         return timeInMillieSeconds;
     }
@@ -141,14 +130,13 @@ public class SomeClassThatIRenameLater {
                     break;
                 }
                 days -= 366;
-                year++;
             } else {
                 if (days - 365 < 0) {
                     break;
                 }
                 days -= 365;
-                year++;
             }
+            year++;
         }
         return year;
     }
@@ -206,7 +194,7 @@ public class SomeClassThatIRenameLater {
     }
 
     private String intMonthToStringMont(int month) {
-        String rsl = switch (month) {
+        return switch (month) {
             case 1 -> "Январь";
             case 2 -> "Февраль";
             case 3 -> "Март";
@@ -221,7 +209,6 @@ public class SomeClassThatIRenameLater {
             case 12 -> "Декабрь";
             default -> "";
         };
-        return rsl;
     }
 
 
@@ -239,13 +226,12 @@ public class SomeClassThatIRenameLater {
         }
         long time = msTotal - ((yearInDays(years) * MS_IN_DAY) + (days - 1) * MS_IN_DAY);
         String timeStr = convertMillieSecondsToTime(time);
-        if (type == 0) {
-            rsl = "Разница " + years + " лет, " + days + " дней, " + timeStr;
-        }
+
         int monthNum = numberOfFullMonthFromSumOfDays(days, years);
-        days = days - monthInDays(monthNum - 1, years);
+        days = days - sumOfDaysBeforeThisMonth(monthNum, years);
         switch (type) {
             case 0:
+                rsl = days + "/" + monthNum + "/" + years;
                 break;
             case 1:
                 rsl = monthNum + "/" + days + "/" + years;
@@ -265,7 +251,7 @@ public class SomeClassThatIRenameLater {
     }
 
     private String convertMillieSecondsToTime(long ms) {
-        String rsl = "";
+        String rsl;
         int hours = 0;
         int minutes = 0;
         int seconds = 0;
@@ -281,20 +267,17 @@ public class SomeClassThatIRenameLater {
             seconds = (int) (ms / MS_IN_SEC);
             ms -= seconds * MS_IN_SEC;
         }
-        String msStr = "";
+        String msStr;
         if (ms == 0) {
             msStr = "000";
         } else {
             msStr = String.valueOf(ms);
             int msStrNumOfDigits = msStr.length();
-            switch (msStrNumOfDigits) {
-                case 1:
-                    msStr = "00" + msStr;
-                    break;
-                case 2:
-                    msStr = "0" + msStr;
-                    break;
-            }
+            msStr = switch (msStrNumOfDigits) {
+                case 1 -> "00" + msStr;
+                case 2 -> "0" + msStr;
+                default -> msStr;
+            };
         }
         char[] msChars = msStr.toCharArray();
         if (msChars[2] > '2') {
@@ -311,6 +294,7 @@ public class SomeClassThatIRenameLater {
         for (char c : str.toCharArray()) {
             if ((int) c > 1103 || (int) c < 1040) {
                 rsl = false;
+                break;
             }
         }
         return rsl;
@@ -336,6 +320,8 @@ public class SomeClassThatIRenameLater {
             builder.append(convertFromMillieSecondsToDate(arr[i], outPutType));
             if (i == arr.length - 1) {
                 builder.append(". \n");
+            } else {
+                builder.append(", ");
             }
         }
         sortDesc(arr);
@@ -344,6 +330,8 @@ public class SomeClassThatIRenameLater {
             builder.append(convertFromMillieSecondsToDate(arr[i], outPutType));
             if (i == arr.length - 1) {
                 builder.append(". \n");
+            } else {
+                builder.append(", ");
             }
         }
         return builder.toString();

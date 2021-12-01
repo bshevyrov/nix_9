@@ -12,7 +12,7 @@ public class InputChecker {
 
     //TODOпроверитьт на правильынй разедлитель
     //TODO рить что дата перед числом
-    private static SomeClassThatIRenameLater sC = new SomeClassThatIRenameLater();
+    private static Calendar sC = new Calendar();
 
     public void checkFormat(int type, String str) throws IllegalDateType, IllegalTimeNumbers, BlankDate, IllegalDateNumbers {
         switch (type) {

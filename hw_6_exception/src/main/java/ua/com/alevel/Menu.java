@@ -18,10 +18,10 @@ public class Menu {
     private static final long MS_IN_SEC = 1_000L;
     String[] types = new String[]{"dd/mm/yy", "m/d/yyyy", "mmm-d-yy", "dd-mmm-yyyy 00:00"};
     InputChecker ic = new InputChecker();
-    SomeClassThatIRenameLater sC = new SomeClassThatIRenameLater();
+    Calendar sC = new Calendar();
 
     public void chooseFormat(BufferedReader reader) {
-        int inputFormatNum = -1;
+        int inputFormatNum;
         while (true) {
             System.out.println("Выберите формат ввода");
             chooseInputType();
@@ -53,8 +53,8 @@ public class Menu {
     }
 
     public void inputFistOperandInput(BufferedReader reader, int inputFormat) {
-        String input = "";
-        long firstOperand = 0;
+        String input;
+        long firstOperand;
         while (true) {
             ScreenMenu.clearConsole();
             System.out.println("Введи первую дату в указанном формате");
@@ -68,16 +68,7 @@ public class Menu {
             }
             try {
                 ic.checkFormat(inputFormat, input);
-            } catch (IllegalDateType e) {
-                System.out.println(e.getMessage());
-                continue;
-            } catch (IllegalTimeNumbers e) {
-                System.out.println(e.getMessage());
-                continue;
-            } catch (BlankDate e) {
-                System.out.println(e.getMessage());
-                continue;
-            } catch (IllegalDateNumbers e) {
+            } catch (IllegalDateType | IllegalTimeNumbers | BlankDate | IllegalDateNumbers e) {
                 System.out.println(e.getMessage());
                 continue;
             }
@@ -88,7 +79,7 @@ public class Menu {
     }
 
     public void operationWhatDo(BufferedReader reader, long firstOperand) {
-        int input = -1;
+        int input;
         while (true) {
             ScreenMenu.clearConsole();
             System.out.println("Выбери операцию какую хочешь сделать");
@@ -119,9 +110,9 @@ public class Menu {
     secondOperandsInput(BufferedReader reader, long firstOperand, int inputOperationNum) {
         //TODO если второе число больше чем 9999 год и месяц то попросить переввести
         String inputMore;
-        String inputs = "";
+        String inputs;
         int inputFormatNum;
-        String rsl = "";
+        String rsl;
         int outPutType = -1;
         long[] secondOperand = new long[0];
         if (inputOperationNum == 1 || inputOperationNum == 2) {
@@ -157,27 +148,15 @@ public class Menu {
                     System.out.println("Не верный ввод");
                     continue;
                 }
-                long localRsl = 0;
-                switch (inputFormatNum) {
-                    case 0:
-                        localRsl = sC.yearInDays(Integer.parseInt(localInput)) * MS_IN_DAY;
-                        break;
-                    case 1:
-                        localRsl = Integer.parseInt(localInput) * MS_IN_DAY;
-                        break;
-                    case 2:
-                        localRsl = Integer.parseInt(localInput) * MS_IN_HOUR;
-                        break;
-                    case 3:
-                        localRsl = Integer.parseInt(localInput) * MS_IN_MINUTE;
-                        break;
-                    case 4:
-                        localRsl = Integer.parseInt(localInput) * MS_IN_SEC;
-                        break;
-                    case 5:
-                        localRsl = Integer.parseInt(localInput);
-                        break;
-                }
+                long localRsl = switch (inputFormatNum) {
+                    case 0 -> sC.yearInDays(Integer.parseInt(localInput)) * MS_IN_DAY;
+                    case 1 -> Integer.parseInt(localInput) * MS_IN_DAY;
+                    case 2 -> Integer.parseInt(localInput) * MS_IN_HOUR;
+                    case 3 -> Integer.parseInt(localInput) * MS_IN_MINUTE;
+                    case 4 -> Integer.parseInt(localInput) * MS_IN_SEC;
+                    case 5 -> Integer.parseInt(localInput);
+                    default -> 0;
+                };
                 secondOperand = ArrayUtils.add(secondOperand, localRsl);
                 break;
             }
@@ -199,45 +178,34 @@ public class Menu {
                         System.out.println("Введена не верная цифра");
                         continue;
                     }
-                    while (true) {
-                        System.out.print("Введи дату в формате " + types[inputFormatNum] + ":");
-                        try {
-                            inputs = reader.readLine();
-                        } catch (IOException e) {
-                            System.out.println("Ошибка ввода вывода.");
-                            continue;
-                        }
-                        try {
-                            ic.checkFormat(inputFormatNum, inputs);
-                        } catch (IllegalDateType e) {
-                            System.out.println(e.getMessage());
-                            continue;
-                        } catch (IllegalTimeNumbers e) {
-                            System.out.println(e.getMessage());
-                            continue;
-                        } catch (BlankDate e) {
-                            System.out.println(e.getMessage());
-                            continue;
-                        } catch (IllegalDateNumbers e) {
-                            System.out.println(e.getMessage());
-                            continue;
-                        }
-                        secondOperand = ArrayUtils.add(secondOperand, sC.dateToMillieSeconds(inputs, inputFormatNum));
-                        if (inputOperationNum != 3) {
-                            break;
-                        }
-                        //TODO вывести режим и если 4  то продолжаем
-                        System.out.println("Если хочешь ввести еще дату введи 0");
-                        try {
-                            inputMore = reader.readLine();
-                        } catch (IOException e) {
-                            System.out.println("Ошибка ввода вывода.");
-                            continue;
-                        }
-                        if (StringUtils.isNumeric(inputMore) && Integer.parseInt(inputMore) == 0) {
-                            continue;
-                        }
+
+                    System.out.print("Введи дату в формате " + types[inputFormatNum] + ":");
+                    try {
+                        inputs = reader.readLine();
+                    } catch (IOException e) {
+                        System.out.println("Ошибка ввода вывода.");
+                        continue;
+                    }
+                    try {
+                        ic.checkFormat(inputFormatNum, inputs);
+                    } catch (IllegalDateType | IllegalTimeNumbers | BlankDate | IllegalDateNumbers e) {
+                        System.out.println(e.getMessage());
+                        continue;
+                    }
+                    secondOperand = ArrayUtils.add(secondOperand, sC.dateToMillieSeconds(inputs, inputFormatNum));
+                    if (inputOperationNum != 3) {
                         break;
+                    }
+                    //TODO вывести режим и если 4  то продолжаем
+                    System.out.println("Если хочешь ввести еще дату введи 0");
+                    try {
+                        inputMore = reader.readLine();
+                    } catch (IOException e) {
+                        System.out.println("Ошибка ввода вывода.");
+                        continue;
+                    }
+                    if (StringUtils.isNumeric(inputMore) && Integer.parseInt(inputMore) == 0) {
+                        continue;
                     }
                     break;
                 }
