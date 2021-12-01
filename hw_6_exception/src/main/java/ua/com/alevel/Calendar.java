@@ -226,7 +226,6 @@ public class Calendar {
         }
         long time = msTotal - ((yearInDays(years) * MS_IN_DAY) + (days - 1) * MS_IN_DAY);
         String timeStr = convertMillieSecondsToTime(time);
-
         int monthNum = numberOfFullMonthFromSumOfDays(days, years);
         days = days - sumOfDaysBeforeThisMonth(monthNum, years);
         switch (type) {
@@ -301,15 +300,18 @@ public class Calendar {
     }
 
     public String getResult(long firstOperand, int numOfOperation, long[] secondOperand, int outPutType) {
-        return switch (numOfOperation) {
-            case 0 -> convertFromMillieSecondsToDate(Math.abs(firstOperand - secondOperand[0]), outPutType);
-            //TODO ВТОРОЙ ОПЕРАНД  ВЫХОДИТ ЗА ПРЕДЕЛЫ
-            case 1 -> convertFromMillieSecondsToDate(firstOperand + secondOperand[0], outPutType);
-            //TODO exception 2 операнд больше первого
-            case 2 -> convertFromMillieSecondsToDate(firstOperand - secondOperand[0], outPutType);
-            case 3 -> sort(ArrayUtils.add(secondOperand, firstOperand), outPutType);
-            default -> "";
-        };
+        String rsl = "";
+         switch (numOfOperation) {
+            case 0 :  rsl = convertFromMillieSecondsToDate(Math.abs(firstOperand - secondOperand[0]), outPutType);
+            break;
+            case 1 : rsl =convertFromMillieSecondsToDate(firstOperand + secondOperand[0], outPutType);
+            break;
+            case 2 :rsl = convertFromMillieSecondsToDate(firstOperand - secondOperand[0], outPutType);
+            break;
+            case 3 : rsl =sort(ArrayUtils.add(secondOperand, firstOperand), outPutType);
+            break;
+        }
+        return rsl;
     }
 
     private String sort(long[] arr, int outPutType) {
