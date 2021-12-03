@@ -2,9 +2,7 @@ package ua.com.alevel;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 
 public class FileHandler {
 
@@ -20,6 +18,12 @@ public class FileHandler {
         }
         return input;
     }
+     public static void writeToFile(File file, String str){
+         BufferedWriter writer = new BufferedWriter(new FileWriter(file,str));
+     }
+
+
+
     public static void arrToString(String[] str){
         for (String separatedString : str) {
             System.out.println(separatedString);
