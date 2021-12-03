@@ -1,8 +1,10 @@
-package ua.com.alevel;
+package ua.com.alevel.handlers;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.*;
+import java.util.LinkedList;
 
 public class FileHandler {
 
@@ -18,11 +20,13 @@ public class FileHandler {
         }
         return input;
     }
-     public static void writeToFile(File file, String str){
-         BufferedWriter writer = new BufferedWriter(new FileWriter(file,str));
+     public static void writeToFile(File file, LinkedList<String> str){
+         try {
+             FileUtils.writeLines(file,str);
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
      }
-
-
 
     public static void arrToString(String[] str){
         for (String separatedString : str) {

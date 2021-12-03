@@ -2,11 +2,12 @@ package ua.com.alevel.firstlevel;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import ua.com.alevel.FileHandler;
+import ua.com.alevel.handlers.FileHandler;
 
 public class DatesList {
     //1.22
     public void separateStringByOneEntry(String[] inputStr) {
+        System.out.println("");
         System.out.println("Input: ");
         FileHandler.arrToString(inputStr);
         String[] separatedStrings = new String[0];
@@ -46,6 +47,7 @@ public class DatesList {
                 }
             }
         }
+        System.out.println("");
         System.out.println("Output: ");
         FileHandler.arrToString(separatedStrings);
     }

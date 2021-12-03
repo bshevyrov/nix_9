@@ -4,13 +4,14 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class Logic {
 
     City[] cities;
     String[] ways;
 
-    public int[] findEasyWay(String[] input) {
+    public LinkedList<String> findEasyWay(String[] input) {
         initCities(input);
         return doMath(createMatrix(cities));
     }
@@ -51,9 +52,9 @@ public class Logic {
         return matrix;
     }
 
-    private String[] doMath(int[][] matrix) {
+    private LinkedList<String> doMath(int[][] matrix) {
         //Флойд-Уоршел
-        String[] rsl = new String[ways.length];
+        LinkedList<String> rsl = new LinkedList<>();
         int maxCost = 200000;
         int vNum = cities.length;
         for (int i = 0; i < vNum; i++) {
@@ -72,7 +73,6 @@ public class Logic {
         }
         int[][] whatToFind = new int[ways.length][2];
         for (int i = 0; i < ways.length; i++) {
-            System.out.println(ways[i]);
             for (City city : cities) {
                 if (StringUtils.equals(city.getName(), ways[i].substring(0, ways[i].indexOf(' ')))) {
                     whatToFind[i][0] = city.getId();
@@ -83,7 +83,7 @@ public class Logic {
             }
         }
         for (int i = 0; i < ways.length; i++) {
-            rsl = ArrayUtils.add(rsl, String.valueOf(matrix[whatToFind[i][0]][whatToFind[i][1]]));
+            rsl.add(String.valueOf(matrix[whatToFind[i][0]][whatToFind[i][1]]));
         }
         return rsl;
     }
