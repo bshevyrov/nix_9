@@ -3,30 +3,12 @@ package ua.com.alevel;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-
 public class DatesList {
     //1.22
-    private static final File file = new File("src/main/resources/dates.txt");
-
-    public String[] readStringsFromFile() {
-        String[] input = new String[0];
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            while (reader.ready()) {
-                input = ArrayUtils.add(input, reader.readLine());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return input;
-    }
-
-    public String[] separateStringByOneEntry(String[] inputStr) {
+    public void separateStringByOneEntry(String[] inputStr) {
+        System.out.println("Input: ");
+        FileHandler.arrToString(inputStr);
         String[] separatedStrings = new String[0];
-        String tmpStr = "";
         StringBuilder builder = new StringBuilder();
         for (String s : inputStr) {
             for (int i = 0; i < s.length() - 10; i++) {
@@ -63,10 +45,8 @@ public class DatesList {
                 }
             }
         }
-        System.out.println(separatedStrings.length);
-        for (String separatedString : separatedStrings) {
-            System.out.println(separatedString);
-        }
-        return separatedStrings;
+        System.out.println("Output: ");
+        FileHandler.arrToString(separatedStrings);
     }
+
 }
