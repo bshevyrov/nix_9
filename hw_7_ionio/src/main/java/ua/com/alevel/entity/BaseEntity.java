@@ -2,14 +2,14 @@ package ua.com.alevel.entity;
 
 public abstract class BaseEntity {
 
-    long id;
+    Long id;
     boolean visible;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
