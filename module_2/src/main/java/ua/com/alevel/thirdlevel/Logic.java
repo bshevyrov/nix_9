@@ -45,8 +45,8 @@ public class Logic {
         int[][] matrix = new int[cities.length][cities.length];
         for (City city : cities) {
             int[][] pathToNeighbours = city.getPathToNeighbours();
-            for (int i = 0; i < pathToNeighbours.length; i++) {
-                matrix[city.getId()][pathToNeighbours[i][0]] = pathToNeighbours[i][1];
+            for (int[] pathToNeighbour : pathToNeighbours) {
+                matrix[city.getId()][pathToNeighbour[0]] = pathToNeighbour[1];
             }
         }
         return matrix;
