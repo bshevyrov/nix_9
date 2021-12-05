@@ -9,7 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>hw_7_ionio</artifactId>
+    <artifactId>jsonier</artifactId>
+
 
     <properties>
         <java.version>17</java.version>
@@ -56,21 +57,13 @@
     </profiles>
 
     <dependencies>
-
-        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.9</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.reflections/reflections -->
         <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
             <version>${refletcions.version}</version>
         </dependency>
-        
+
         <!-- APACHE-->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -142,16 +135,10 @@
             <artifactId>generic_set</artifactId>
             <version>1.0</version>
         </dependency>
-        <dependency>
-            <groupId>ua.com.alevel</groupId>
-            <artifactId>jsonier</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
     <build>
-        <finalName>hw_7_ionio</finalName>
+        <finalName>jsonier</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -184,13 +171,13 @@
                         <goals>
                             <goal>shade</goal>
                         </goals>
-                        <configuration>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>ua.com.alevel.StartIoNioCrudApp</mainClass>
-                                </transformer>
-                            </transformers>
-                        </configuration>
+<!--                        <configuration>-->
+<!--                            <transformers>-->
+<!--                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
+<!--                                    <mainClass>ua.com.alevel.StartIoNioCrudApp</mainClass>-->
+<!--                                </transformer>-->
+<!--                            </transformers>-->
+<!--                        </configuration>-->
                     </execution>
                 </executions>
             </plugin>
