@@ -9,28 +9,30 @@ public class Convertor {
 
     public static String objectToJson(Object object) {
 //        {"name":"asd","booksId":["1","2"],"visible":false}
-        String rsl;
+        StringBuilder stringBuilder = new StringBuilder();
         Class clss = null;
-
         try {
             clss = Class.forName(object.getClass().getSuperclass().getName());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         Field[] fields = clss.getDeclaredFields();
-        rsl = classFieldsToString(fields,object);
-
+        stringBuilder.append("{");
+        stringBuilder.append(classFieldsToString(fields, object));
         try {
-             clss = Class.forName(object.getClass().getName());
+            clss = Class.forName(object.getClass().getName());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-         fields = clss.getDeclaredFields();
-           rsl += classFieldsToString(fields,object);
+        fields = clss.getDeclaredFields();
+        stringBuilder.append(classFieldsToString(fields, object));
 
-        //обработать исключение илигал класс каст
-
-        return rsl;
+        if (stringBuilder.lastIndexOf(",") == stringBuilder.length() - 1) {
+            stringBuilder.replace(stringBuilder.length() - 1, stringBuilder.length() - 1, "}");
+        } else {
+            stringBuilder.append("}");
+        }
+        return stringBuilder.toString();
     }
 
     private static String classFieldsToString(Field[] fields, Object object) {
@@ -41,7 +43,8 @@ public class Convertor {
                 stringBuilder.append("\"").append(field.getName()).append("\":");
                 field.setAccessible(true);
                 if (StringUtils.equals(field.getType().getTypeName(), "boolean")) {
-                    stringBuilder.append(field.get(object));
+                    stringBuilder.append(field.get(object))
+                            .append("\",");
                 }
                 if (field.getType().isArray()) {
                     Object array = field.get(object);
@@ -55,9 +58,12 @@ public class Convertor {
                             stringBuilder.append(",");
                         }
                     }
-                    stringBuilder.append("]");
+                    stringBuilder.append("]")
+                            .append(",");
                 } else {
-                    stringBuilder.append(field.get(object));
+                    stringBuilder.append("\"")
+                            .append(field.get(object))
+                            .append("\",");
                 }
             }
         } catch (IllegalAccessException e) {
