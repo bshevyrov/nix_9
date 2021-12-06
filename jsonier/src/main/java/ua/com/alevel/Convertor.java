@@ -1,10 +1,11 @@
 package ua.com.alevel;
 
 import org.apache.commons.lang3.StringUtils;
+import ua.com.alevel.exceptions.JsonException;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
-import java.util.stream.Stream;
+import java.util.HashMap;
 
 public class Convertor {
 
@@ -41,27 +42,84 @@ public class Convertor {
         return stringBuilder.toString();
     }
 
-    public static Object fromJsonToObject(String json, Class clss) {
+    public static Object fromJsonToObject(String json, Class clss) throws JsonException {
         //1 строка
         StringBuilder builder = new StringBuilder();
-        json=StringUtils.removeStart(json,"{");
-        json=StringUtils.removeEnd(json,"}");
-//        "booksId":["1","2"],
-// в метод выделение масивов
-        int arraysNum = StringUtils.countMatches(json,"[");
-         int indexOpenSquareBrasers = StringUtils.indexOf(json,"[");
-         int indexCloseSquareBrasers= StringUtils.indexOf(json,"]");
-         int indexCloseComas = StringUtils.lastIndexOf(StringUtils.substring(json,0,indexOpenSquareBrasers),"\"");
-         int indexOpenComas = StringUtils.lastIndexOf(StringUtils.substring(json,0,indexCloseComas),"\"");
-        builder.append(StringUtils.substring(json,indexOpenComas,indexCloseSquareBrasers+1));
-        System.out.println(builder.toString());
+        int numOfPairs = StringUtils.countMatches(json, ":");
+//
+//        json = StringUtils.removeStart(json, "{");
+//        json = StringUtils.removeEnd(json, "}");
+        json = StringUtils.deleteWhitespace(json);
+
+        if (JsonVerification.stringVerification(json)) {
+            System.out.println(json);
+            throw new JsonException("Скобки в не правильном порядке");
+        }
+        char[] jsonByChars = json.toCharArray();
+        int currentIndex = 0;
+        int indexStartKey = 0;
+        int indexFinishKey = 0;
+        int indexStartValue = 0;
+        int indexFinishValue = 0;
+        int indexDelimiterKeyValue = 0;
+        HashMap<String, HashMap<String, String>> entities = new HashMap<>();
+        HashMap<String, String> jsonKeyValue = new HashMap<>();
+        for (int i = 1; i < jsonByChars.length - 2; i++) {
+            // скип открывающей и закрывающей скобки
+            if (!StringUtils.equals(String.valueOf(json.charAt(i)), "\"")) {
+                throw new JsonException("Битый Json не хватает \"\"\"  в начале файла");
+            }
+
+            indexStartKey = i;
+            indexFinishKey = StringUtils.indexOf(json, "\"", indexStartKey + 1);
+            //имеет ли смысл эта проверка по стандарту Джсон
+            if (!StringUtils.equals(String.valueOf(json.charAt(indexFinishKey + 1)), ":")) {
+                System.out.println(json);
+                System.out.println(json.charAt(indexFinishKey));
+                System.out.println(json.charAt(indexFinishKey + 1));
+                throw new JsonException("Битый Json не хватает \":\" ");
+            }
+            indexDelimiterKeyValue = indexFinishKey + 1;
+            indexStartValue = indexDelimiterKeyValue + 1;
+            if (StringUtils.equals(String.valueOf(json.charAt(indexStartValue)), "[")) {
+                indexFinishValue = StringUtils.indexOf(json, "]");
+                //TODO Порешать биду
+                if (StringUtils.contains(json.substring(indexStartValue, indexFinishValue), "{") || StringUtils.contains(json.substring(indexStartValue, indexFinishValue), "[")) {
+                    if (StringUtils.countMatches(json.substring(indexStartValue, indexFinishValue), "{") != StringUtils.countMatches(json.substring(indexStartValue, indexFinishValue), "}")) {
+                        System.out.println("Бида в массиве, ты не так его опредлил в Джсоне");
+                    }//минус один потому что массив САм начинается и заканчивается со скобок
+                    if (StringUtils.countMatches(json.substring(indexStartValue + 1, indexFinishValue - 1), "[") != StringUtils.countMatches(json.substring(indexStartValue, indexFinishValue), "]")) {
+                        System.out.println("Бида в массиве, ты не так его опредлил в Джсоне");
+                    }
+                }
+            } else {
+                if ((StringUtils.equals(String.valueOf(json.charAt(indexStartValue)), "\""))) {
+                    indexFinishValue = json.indexOf("\"", indexStartValue);
+                } else {
+                    if (StringUtils.contains(json.substring(indexStartValue), ',')) {
+                        indexFinishValue = StringUtils.indexOf(json,',',indexStartValue);
+                    } else {
+                        indexFinishValue = json.substring(indexStartValue).indexOf('}');
+                    }
+                }
+            }
 
 
-        Field[] fields = clss.getDeclaredFields();
-        System.out.println(fields.length);
-//        for (Field field : fields) {
-//            field.getType().is
-//        }
+            System.out.println(json.substring(indexStartKey+1, indexFinishKey));
+            System.out.println(json.substring(indexStartValue, indexFinishValue));
+            if (json.charAt(indexFinishValue + 1) == ',') {
+                json = json.substring(0, indexFinishValue + 2);
+            } else {
+                json =StringUtils.removeStart(json,json.substring(0, indexFinishValue + 1)) ;
+            }
+            System.out.println(json);
+break;
+
+//            {"name":"asd","booksId":["1","2"],"visible":false}
+
+
+        }
+
         return new Object();
     }
 
@@ -121,6 +179,26 @@ public class Convertor {
         return StringUtils.containsAny(
                 field.getType().getTypeName(),
                 "int", "long", "double", "float", "boolean", "byte", "char",
-                "Long","Integer");//etc
+                "Long", "Integer");//etc
+    }
+
+
+    private static String getArrayAndRemoveItFromJson(String json) {
+        StringBuilder builder = new StringBuilder();
+
+        int arraysNum = StringUtils.countMatches(json, "[");
+        int indexOpenSquareBrasers = StringUtils.indexOf(json, "[");
+        int indexCloseSquareBrasers = StringUtils.indexOf(json, "]");
+        int indexCloseComas = StringUtils.lastIndexOf(StringUtils.substring(json, 0, indexOpenSquareBrasers), "\"");
+        int indexOpenComas = StringUtils.lastIndexOf(StringUtils.substring(json, 0, indexCloseComas), "\"");
+        builder.append(StringUtils.substring(json, indexOpenComas, indexCloseSquareBrasers + 1));
+//        if (StringUtils.equals(String.valueOf(json.charAt(indexCloseSquareBrasers + 2)), ",")) {
+//            json = StringUtils.remove(json, builder.append(",").toString());
+//        } else {
+//            json = StringUtils.remove(json, builder.toString());
+//        }
+        return builder.toString();
+
+
     }
 }

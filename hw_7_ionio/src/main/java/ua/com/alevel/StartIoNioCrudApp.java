@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import ua.com.alevel.entity.Author;
 import ua.com.alevel.entity.Book;
 import ua.com.alevel.entity.TestE;
+import ua.com.alevel.exceptions.JsonException;
 
 public class StartIoNioCrudApp {
     public static void main(String[] args) {
@@ -16,8 +17,12 @@ public class StartIoNioCrudApp {
         author.setName("asd");
         author.setBooksId(new String[]{"1","2"});
 
-        Convertor.fromJsonToObject("{\"id\":null,\"visible\":false,\"name\":\"asd\",\"booksId\":[\"1\",\"2\"],\"nickName\":\"null\"}",
-                Author.class);
+        try {
+            Convertor.fromJsonToObject("{\"id\":null,\"visible\":false,\"name\":\"asd\",\"booksId\":[\"1\",\"2\"],\"nickName\":\"null\"}",
+                    Author.class);
+        } catch (JsonException e) {
+            e.printStackTrace();
+        }
 
 //        gson.fromJson()
 //        {"name":"asd","booksId":["1","2"],"visible":false}
