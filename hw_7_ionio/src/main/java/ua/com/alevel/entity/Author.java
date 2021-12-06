@@ -2,8 +2,8 @@ package ua.com.alevel.entity;
 
 public class Author extends BaseEntity {
 
-    private String name;
     private String[] booksId;
+    private String name;
     private String nickName;
 
     public Author() {

@@ -14,11 +14,13 @@ public class StartIoNioCrudApp {
         book.setId(1234L);
 
         Author author = new Author();
-        author.setName("asd");
         author.setBooksId(new String[]{"1","2"});
+        author.setName("asd");
 
         try {
-            Convertor.fromJsonToObject("{\"id\":null,\"visible\":false,\"name\":\"asd\",\"booksId\":[\"1\",\"2\"],\"nickName\":\"null\"}",
+//            Convertor.fromJsonToObject("{\"id\":null,\"visible\":false,\"name\":\"asd\",\"booksId\":[\"1\",\"2\"],\"nickName\":\"null\"}",
+//                    Author.class);
+            Convertor.fromJsonToObject("{\"visible\":false,\"booksId\":[\"1\",\"2\"],\"id\":null,\"name\":\"asd\",\"nickName\":\"null\"}",
                     Author.class);
         } catch (JsonException e) {
             e.printStackTrace();

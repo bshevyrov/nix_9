@@ -5,6 +5,7 @@ import ua.com.alevel.exceptions.JsonException;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Convertor {
@@ -56,21 +57,21 @@ public class Convertor {
             throw new JsonException("Скобки в не правильном порядке");
         }
         char[] jsonByChars = json.toCharArray();
-        int currentIndex = 0;
-        int indexStartKey = 0;
-        int indexFinishKey = 0;
-        int indexStartValue = 0;
-        int indexFinishValue = 0;
-        int indexDelimiterKeyValue = 0;
-        HashMap<String, HashMap<String, String>> entities = new HashMap<>();
+        ArrayList<HashMap<String, String>> jsonArray = new ArrayList<>();
         HashMap<String, String> jsonKeyValue = new HashMap<>();
-        for (int i = 1; i < jsonByChars.length - 2; i++) {
+        for (int i = 1; i < json.length() - 2; i++) {
+            int currentIndex = 0;
+            int indexStartKey = 0;
+            int indexFinishKey = 0;
+            int indexStartValue = 0;
+            int indexFinishValue = 0;
+            int indexDelimiterKeyValue = 0;
             // скип открывающей и закрывающей скобки
-            if (!StringUtils.equals(String.valueOf(json.charAt(i)), "\"")) {
-                throw new JsonException("Битый Json не хватает \"\"\"  в начале файла");
-            }
+//            if (!StringUtils.equals(String.valueOf(json.charAt(i)), "\"")) {
+//                throw new JsonException("Битый Json не хватает \"\"\"  в начале файла");
+//            }
 
-            indexStartKey = i;
+            indexStartKey = StringUtils.indexOf(json, "\"");
             indexFinishKey = StringUtils.indexOf(json, "\"", indexStartKey + 1);
             //имеет ли смысл эта проверка по стандарту Джсон
             if (!StringUtils.equals(String.valueOf(json.charAt(indexFinishKey + 1)), ":")) {
@@ -94,32 +95,48 @@ public class Convertor {
                 }
             } else {
                 if ((StringUtils.equals(String.valueOf(json.charAt(indexStartValue)), "\""))) {
-                    indexFinishValue = json.indexOf("\"", indexStartValue);
+                    indexFinishValue = StringUtils.indexOf(json,"\"", indexStartValue+1);
                 } else {
                     if (StringUtils.contains(json.substring(indexStartValue), ',')) {
-                        indexFinishValue = StringUtils.indexOf(json,',',indexStartValue);
+                        indexFinishValue = StringUtils.indexOf(json, ',', indexStartValue);
                     } else {
                         indexFinishValue = json.substring(indexStartValue).indexOf('}');
                     }
                 }
             }
 
+            String key = StringUtils.substring(json, indexStartKey + 1, indexFinishKey);
+            if (json.charAt(indexFinishValue) == ']') {
+                indexFinishValue += 1;
+            }
+            if(json.charAt(indexStartValue)=='\"'){
+                indexStartValue+=1;
 
-            System.out.println(json.substring(indexStartKey+1, indexFinishKey));
-            System.out.println(json.substring(indexStartValue, indexFinishValue));
-            if (json.charAt(indexFinishValue + 1) == ',') {
-                json = json.substring(0, indexFinishValue + 2);
+            }
+            String value = StringUtils.substring(json, indexStartValue, indexFinishValue);
+            if (json.charAt(indexFinishValue + 1) == '}'&&indexFinishValue + 1==json.length()) {
+                break;
+                //json = StringUtils.removeStart(json, json.substring(0, indexFinishValue + 2));
             } else {
-                json =StringUtils.removeStart(json,json.substring(0, indexFinishValue + 1)) ;
+                json = StringUtils.removeStart(json, json.substring(0, indexFinishValue + 1));
             }
             System.out.println(json);
-break;
+            System.out.println(value);
+            i = indexFinishValue + 1;
+            if (!StringUtils.contains(value,"null")) {
+                jsonKeyValue.put(key, value);
+            }
+//            continue;
+
+
+//            break;
 
 //            {"name":"asd","booksId":["1","2"],"visible":false}
 
 
         }
-
+        System.out.println(jsonKeyValue.size());
+        System.out.println(jsonKeyValue.toString());
         return new Object();
     }
 
