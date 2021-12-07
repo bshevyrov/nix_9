@@ -81,7 +81,7 @@ public class StartIoNioCrudApp {
         author.setNickName("NikName");
 
         authorDB.create(author);
-
+        authorDB.create(author);
         List<Author> authorLinkedList = authorDB.findAll();
 
         for (Author author1 : authorLinkedList) {

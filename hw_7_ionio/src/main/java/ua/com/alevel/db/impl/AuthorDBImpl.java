@@ -16,10 +16,9 @@ public class AuthorDBImpl implements AuthorDB {
 
     public static final Convertor convertor = new Convertor();
     private static final File authorDBFile = new File("src/main/resources/authorDB.txt");
-    private static  AuthorDBImpl Instance;
+    private static AuthorDBImpl Instance;
 
     public static AuthorDBImpl getInstance() {
-
         if (Instance == null) {
             return new AuthorDBImpl();
         } else {
@@ -32,8 +31,12 @@ public class AuthorDBImpl implements AuthorDB {
 
     @Override
     public void create(Author author) {
-//        LinkedList<Author> authorLinkedList = (LinkedList<Author>) findAll();
-        LinkedList<Author> authorLinkedList = new LinkedList<>();
+        LinkedList<Author> authorLinkedList;
+        if (authorDBFile.exists()) {
+            authorLinkedList = (LinkedList<Author>) findAll();
+        } else {
+            authorLinkedList = new LinkedList<>();
+        }
         authorLinkedList.add(author);
         String json = convertor.objectsToJson(authorLinkedList);
         try {
@@ -58,20 +61,27 @@ public class AuthorDBImpl implements AuthorDB {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
-    public void delete(Author author) {
+    public void delete(Long id) {
         LinkedList<Author> list = convertor.fromJsonToObjects(FileHandler.readStringsFromFile(authorDBFile), new Author());
-        list.remove(author);
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getId() == id) {
+                list.remove(i);
+                break;
+            }
+        }
         String json = convertor.objectsToJson(list);
+
+
         try {
+            FileUtils.deleteQuietly(authorDBFile);
+
             FileUtils.writeLines(authorDBFile, Collections.singleton(json));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
