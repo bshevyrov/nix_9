@@ -46,4 +46,5 @@ public class Author extends BaseEntity {
                 ", visible=" + visible +
                 '}';
     }
+
 }

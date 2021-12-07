@@ -4,14 +4,13 @@ import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.exceptions.JsonException;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 
-public class Convertor {
+public class Convertor<T> {
 
     public static String objectToJson(Object object) {
 //        {"name":"asd","booksId":["1","2"],"visible":false}
@@ -46,33 +45,36 @@ public class Convertor {
         return stringBuilder.toString();
     }
 
-    public static ArrayList<Object>  fromJsonToObject(String json, Object obj) throws JsonException {
-        ArrayList<Object> list = new ArrayList();
+    public LinkedList<T> fromJsonToObject(String json, T t) throws JsonException {
+        LinkedList<T> list = new LinkedList<>();
 
         LinkedList<HashMap<String, String>> jsonArray = convertFromJsonToParameters(json);
-//        Field[] fields = clss.getDeclaredFields();
-//        Field[] fields1 = clss.getSuperclass().getDeclaredFields();
         String fieldName;
-        Class clssCurrent = null;
+
+
 
         for (HashMap<String, String> stringStringHashMap : jsonArray) {
-            clssCurrent = obj.getClass();
-//            System.out.println(obj.getClass().getName());
+            Object obj = null;
+            try {
+                Class<?> cl = Class.forName(t.getClass().getName());
+                Constructor<?> cons = cl.getDeclaredConstructor();
 
+               obj = cons.newInstance();
+
+                System.out.println(  obj.getClass().getTypeName());
+            } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+            Class clssCurrent = obj.getClass();
 
             Field[] fields = clssCurrent.getDeclaredFields();
             Field[] fields1 = clssCurrent.getSuperclass().getDeclaredFields();
-
-
             for (Field field : fields) {
                 field.setAccessible(true);
                 fieldName = field.getName();
                 try {
-//                    System.out.println(field.getType().getSimpleName());
-//                    System.out.println(stringStringHashMap.get(fieldName));
                     //todo проверка типа массива и такой вот метод сделать/переделать
-
-
                     if (field.getType().isArray()) {
 
                         int length = stringToArrayString(stringStringHashMap.get(fieldName)).length;
@@ -80,14 +82,10 @@ public class Convertor {
                         for (int i = 0; i < length; i++) {
                             Array.set(array, i, (stringToArrayString(stringStringHashMap.get(fieldName))[i]));
                         }
-                        // field.set(new Test(), array);
-//                    if(StringUtils.contains(field.getType().getSimpleName(),"[]")){
-//                        field.set(field.getType().getSimpleName(), stringToArrayString(stringStringHashMap.get(fieldName)));
                         field.set(obj, array);
 
                     } else {
                         field.set(obj, stringStringHashMap.get(fieldName));
-
                     }
 
                 } catch (IllegalAccessException e) {
@@ -98,16 +96,28 @@ public class Convertor {
                 field.setAccessible(true);
                 fieldName = field.getName();
                 try {
-                    if (StringUtils.equals(field.getType().getSimpleName(),"boolean")){
+                    if (StringUtils.equals(field.getType().getSimpleName(), "boolean")) {
                         field.set(obj, Boolean.getBoolean(stringStringHashMap.get(fieldName)));
                     } else {
-                        field.set(obj, stringStringHashMap.get(fieldName));
+                        if (isPrimitive(field)) {
+                            switch (field.getType().getTypeName()) {
+                                //Todo приведение к другим типам
+                                case "long":
+                                    field.set(obj, Long.valueOf(stringStringHashMap.get(fieldName)));
+                                    break;
+                                case "boolean":
+                                    field.set(obj, Boolean.valueOf(stringStringHashMap.get(fieldName)));
+                                    break;
+                            }
+                        } else {
+                            field.set(obj, stringStringHashMap.get(fieldName));
+                        }
                     }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
             }
-            list.add(clssCurrent);
+            list.add((T)obj);
         }
         return list;
     }
@@ -203,10 +213,12 @@ public class Convertor {
 
         }
         LinkedList<HashMap<String, String>> jsonArray = new LinkedList<>();
-        HashMap<String, String> jsonKeyValue = new HashMap<>();
+//        HashMap<String, String> jsonKeyValue = new HashMap<>();
         for (String jsonStr : jsonArr) {
-            jsonKeyValue.clear();
-            for (int i = 1; i < jsonStr.length() - 2; i++) {
+            HashMap<String, String> jsonKeyValue = new HashMap<>();
+
+            // jsonKeyValue.clear();
+            while (jsonStr.length() > 1) {
                 int indexStartKey = 0;
                 int indexFinishKey = 0;
                 int indexStartValue = 0;
@@ -261,7 +273,7 @@ public class Convertor {
                     jsonStr = StringUtils.removeStart(jsonStr, jsonStr.substring(0, indexFinishValue + 1));
                 }
 
-                i = indexFinishValue + 1;
+                //i = indexFinishValue + 1;
                 if (!StringUtils.contains(value, "null")) {
                     jsonKeyValue.put(key, value);
                 }
@@ -270,23 +282,5 @@ public class Convertor {
         }
         return jsonArray;
     }
-/*
-    private static String getArrayAndRemoveItFromJson(String json) {
-        StringBuilder builder = new StringBuilder();
 
-        int arraysNum = StringUtils.countMatches(json, "[");
-        int indexOpenSquareBrasers = StringUtils.indexOf(json, "[");
-        int indexCloseSquareBrasers = StringUtils.indexOf(json, "]");
-        int indexCloseComas = StringUtils.lastIndexOf(StringUtils.substring(json, 0, indexOpenSquareBrasers), "\"");
-        int indexOpenComas = StringUtils.lastIndexOf(StringUtils.substring(json, 0, indexCloseComas), "\"");
-        builder.append(StringUtils.substring(json, indexOpenComas, indexCloseSquareBrasers + 1));
-//        if (StringUtils.equals(String.valueOf(json.charAt(indexCloseSquareBrasers + 2)), ",")) {
-//            json = StringUtils.remove(json, builder.append(",").toString());
-//        } else {
-//            json = StringUtils.remove(json, builder.toString());
-//        }
-        return builder.toString();
-
-
-    }*/
 }

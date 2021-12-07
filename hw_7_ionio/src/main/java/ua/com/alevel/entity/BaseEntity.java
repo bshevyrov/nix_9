@@ -2,7 +2,7 @@ package ua.com.alevel.entity;
 
 public abstract class BaseEntity {
 
-    Long id;
+    long id;
     boolean visible;
 
     public Long getId() {

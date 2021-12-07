@@ -9,6 +9,7 @@ import ua.com.alevel.exceptions.JsonException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class StartIoNioCrudApp {
@@ -28,12 +29,14 @@ public class StartIoNioCrudApp {
         aL.add(author1);
          Gson gson = new Gson();
         String ggsn= gson.toJson(aL);
-        System.out.println("!!!");
-        System.out.println(ggsn);
-        System.out.println("!!!");
-        ArrayList<Object> arrA = new ArrayList<>();
+//        System.out.println("!!!");
+//        System.out.println(ggsn);
+//        System.out.println("!!!");
+        LinkedList<Author> arrA = new LinkedList<>();
+        Convertor convertor = new Convertor();
+        System.out.println("[{\"booksId\":[\"1\",\"2\"],\"name\":\"111\",\"visible\":false,\"id\":\"1\"},{\"booksId\":[\"3\",\"4\"],\"name\":\"222\",\"visible\":false,\"id\":\"2\"},{\"booksId\":[\"5\",\"6\"],\"name\":\"333\",\"visible\":false,\"id\":\"3\"}]");
         try {
-            arrA=Convertor.fromJsonToObject("[{\"booksId\":[\"1\",\"2\"],\"name\":\"asd\",\"visible\":false,\"name\":\"222\"},{\"booksId\":[\"3\",\"4\"],\"name\":\"222\",\"visible\":false,\"name\":\"222\"},{\"booksId\":[\"3\",\"4\"],\"name\":\"222\",\"visible\":false,\"name\":\"222\"}]",
+            arrA= convertor.fromJsonToObject("[{\"booksId\":[\"1\",\"2\"],\"name\":\"111\",\"visible\":false,\"id\":\"1\"},{\"booksId\":[\"3\",\"4\"],\"name\":\"222\",\"visible\":false,\"id\":\"2\"},{\"booksId\":[\"5\",\"6\"],\"name\":\"333\",\"visible\":false,\"id\":\"3\"}]",
                     new Author());
         } catch (JsonException e) {
             e.printStackTrace();
@@ -41,8 +44,11 @@ public class StartIoNioCrudApp {
 
 
 
-        System.out.println(arrA.size());
 
+        System.out.println(arrA.size());
+        for (Author author2 : arrA) {
+            System.out.println(author2.toString());
+        }
 
 
 //        gson.fromJson()
