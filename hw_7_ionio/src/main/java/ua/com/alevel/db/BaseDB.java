@@ -10,9 +10,9 @@ public interface BaseDB<E extends BaseEntity> {
 
     void update(E e);
 
-    void delete(Long id);
+    void delete(String id);
 
-    E findById(Long id);
+    E findById(String id);
 
     List<E> findAll();
 }

@@ -54,13 +54,13 @@ public class StartIoNioCrudApp {
 */
         LinkedList<Book> books = new LinkedList<>();
         Book book = new Book();
-        book.setId(1l);
+        book.setId("1l");
         book.setName("b1");
         book.setPages(1);
         book.setAuthorsId(new String[]{"3", "2"});
         books.add(book);
         Book book1 = new Book();
-        book1.setId(2l);
+        book1.setId("123");
         book1.setName("b2");
         book1.setAuthorsId(new String[]{"3", "2"});
         books.add(book1);
@@ -76,7 +76,7 @@ public class StartIoNioCrudApp {
 
         AuthorDB authorDB = AuthorDBImpl.getInstance();
         Author author = new Author();
-        author.setId(1l);
+        author.setId("1l");
         author.setName("Name");
         author.setNickName("NikName");
 

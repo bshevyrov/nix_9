@@ -1,6 +1,7 @@
 package ua.com.alevel.db.impl;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.Convertor;
 import ua.com.alevel.db.BaseDB;
 import ua.com.alevel.entity.Book;
@@ -66,10 +67,10 @@ public class BookDBImpl implements BaseDB<Book> {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
         LinkedList<Book> list = convertor.fromJsonToObjects(FileHandler.readStringsFromFile(bookDBFile), new Book());
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getId() == id) {
+            if (StringUtils.equals(list.get(i).getId(), id)) {
                 list.remove(i);
                 break;
             }
@@ -84,7 +85,7 @@ public class BookDBImpl implements BaseDB<Book> {
     }
 
     @Override
-    public Book findById(Long id) {
+    public Book findById(String id) {
         return findAll().stream().filter(book -> id.equals(book.getId())).findAny().get();
     }
 

@@ -10,11 +10,13 @@ public interface BaseDao<E extends BaseEntity> {
 
     void update(E e);
 
-    void delete(Long id);
+    void delete(String id);
 
-    boolean isExistById(Long id);
+    boolean isExistById(String id);
 
-    E findById(Long id);
+    String findIdByName(String name);
+
+    E findById(String id);
 
     List<E> findAll();
 }

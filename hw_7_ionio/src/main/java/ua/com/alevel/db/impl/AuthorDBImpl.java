@@ -1,6 +1,7 @@
 package ua.com.alevel.db.impl;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.Convertor;
 import ua.com.alevel.db.AuthorDB;
 import ua.com.alevel.entity.Author;
@@ -64,10 +65,10 @@ public class AuthorDBImpl implements AuthorDB {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
         LinkedList<Author> list = convertor.fromJsonToObjects(FileHandler.readStringsFromFile(authorDBFile), new Author());
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getId() == id) {
+            if (StringUtils.equals(list.get(i).getId(),id)) {
                 list.remove(i);
                 break;
             }
@@ -84,8 +85,9 @@ public class AuthorDBImpl implements AuthorDB {
         }
     }
 
+
     @Override
-    public Author findById(Long id) {
+    public Author findById(String id) {
         return findAll().stream().filter(author -> id.equals(author.getId())).findAny().get();
     }
 

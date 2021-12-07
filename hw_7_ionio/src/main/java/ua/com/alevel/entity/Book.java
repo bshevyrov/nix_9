@@ -20,20 +20,20 @@ public class Book extends BaseEntity {
         this.name = name;
     }
 
-    public String[] getAuthorsId() {
-        return authorsId;
-    }
-
-    public void setAuthorsId(String[] authorsId) {
-        this.authorsId = authorsId;
-    }
-
     public int getPages() {
         return pages;
     }
 
     public void setPages(int pages) {
         this.pages = pages;
+    }
+
+    public String[] getAuthorsId() {
+        return authorsId;
+    }
+
+    public void setAuthorsId(String[] authorsId) {
+        this.authorsId = authorsId;
     }
 
     @Override

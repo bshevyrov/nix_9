@@ -1,7 +1,10 @@
 package ua.com.alevel.dao.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.dao.BookDao;
+import ua.com.alevel.db.impl.AuthorDBImpl;
 import ua.com.alevel.db.impl.BookDBImpl;
+import ua.com.alevel.entity.Author;
 import ua.com.alevel.entity.Book;
 
 import java.util.List;
@@ -21,12 +24,12 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
         BookDBImpl.getInstance().delete(id);
     }
 
     @Override
-    public boolean isExistById(Long id) {
+    public boolean isExistById(String id) {
         boolean rsl = true;
         try {
             BookDBImpl.getInstance().findById(id);
@@ -37,8 +40,19 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public Book findById(Long id) {
+    public Book findById(String id) {
         return BookDBImpl.getInstance().findById(id);
+    }
+
+    public String findIdByName(String name) {
+       String rsl = "";
+        List<Author> authors = AuthorDBImpl.getInstance().findAll();
+        for (Author author : authors) {
+            if (StringUtils.equals(author.getName(), name)) {
+                rsl = author.getId();
+            }
+        }
+        return rsl;
     }
 
     @Override

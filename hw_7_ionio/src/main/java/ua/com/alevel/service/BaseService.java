@@ -10,9 +10,11 @@ public interface BaseService<E extends BaseEntity> {
 
     void update(E e);
 
-    void delete(E e);
+    void delete(String id);
 
-    E findById(Long id);
+    E findById(String id);
+
+    String findIdByName(String name);
 
     List<E> findAll();
 }

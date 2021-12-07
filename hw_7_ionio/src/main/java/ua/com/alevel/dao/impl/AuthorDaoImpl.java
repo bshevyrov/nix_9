@@ -1,6 +1,8 @@
 package ua.com.alevel.dao.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.dao.AuthorDao;
+import ua.com.alevel.db.AuthorDB;
 import ua.com.alevel.db.impl.AuthorDBImpl;
 import ua.com.alevel.entity.Author;
 
@@ -21,12 +23,12 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
         AuthorDBImpl.getInstance().delete(id);
     }
 
     @Override
-    public boolean isExistById(Long id) {
+    public boolean isExistById(String id) {
 
         boolean rsl = true;
         try {
@@ -37,8 +39,18 @@ public class AuthorDaoImpl implements AuthorDao {
         return rsl;
     }
 
+    public String findIdByName(String name) {
+        String rsl ="";
+        List<Author> authors = AuthorDBImpl.getInstance().findAll();
+        for (Author author : authors) {
+            if (StringUtils.equals(author.getName(), name)) {
+                rsl = author.getId();
+            }
+        }
+        return rsl;
+    }
     @Override
-    public Author findById(Long id) {
+    public Author findById(String id) {
         return AuthorDBImpl.getInstance().findById(id);
     }
 
