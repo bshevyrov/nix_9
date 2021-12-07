@@ -261,9 +261,9 @@ public class Convertor<T> {
                         if (StringUtils.countMatches(jsonStr.substring(indexStartValue, indexFinishValue), "{") != StringUtils.countMatches(jsonStr.substring(indexStartValue, indexFinishValue), "}")) {
                             System.out.println("Бида в массиве, ты не так его опредлил в Джсоне");
                         }//минус один потому что массив САм начинается и заканчивается со скобок
-                        if (StringUtils.countMatches(jsonStr.substring(indexStartValue + 1, indexFinishValue - 1), "[") != StringUtils.countMatches(jsonStr.substring(indexStartValue, indexFinishValue), "]")) {
-                            System.out.println("Бида в массиве, ты не так его опредлил в Джсоне");
-                        }
+//                        if (StringUtils.countMatches(jsonStr.substring(indexStartValue + 1, indexFinishValue - 1), "[") != StringUtils.countMatches(jsonStr.substring(indexStartValue, indexFinishValue), "]")) {
+//                            System.out.println("Бида в массиве, ты не так его опредлил в Джсоне");
+//                        }
                     }
                 } else {
                     if ((StringUtils.equals(String.valueOf(jsonStr.charAt(indexStartValue)), "\""))) {

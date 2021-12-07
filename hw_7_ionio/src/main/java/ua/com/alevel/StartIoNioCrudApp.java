@@ -1,9 +1,13 @@
 package ua.com.alevel;
 
 
+import ua.com.alevel.db.AuthorDB;
+import ua.com.alevel.db.impl.AuthorDBImpl;
+import ua.com.alevel.entity.Author;
 import ua.com.alevel.entity.Book;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class StartIoNioCrudApp {
     public static void main(String[] args) {
@@ -68,6 +72,20 @@ public class StartIoNioCrudApp {
         System.out.println(bookLinkedList.size());
         for (Book book2 : bookLinkedList) {
             System.out.println(   book2.toString());
+        }
+
+        AuthorDB authorDB = AuthorDBImpl.getInstance();
+        Author author = new Author();
+        author.setId(1l);
+        author.setName("Name");
+        author.setNickName("NikName");
+
+        authorDB.create(author);
+
+        List<Author> authorLinkedList = authorDB.findAll();
+
+        for (Author author1 : authorLinkedList) {
+            System.out.println(author1.toString());
         }
 
     }
