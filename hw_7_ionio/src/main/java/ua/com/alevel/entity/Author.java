@@ -4,9 +4,9 @@ import java.util.Arrays;
 
 public class Author extends BaseEntity {
 
-    private String[] booksId;
     private String name;
     private String nickName;
+    private String[] booksId;
 
     public Author() {
         super();

@@ -1,20 +1,13 @@
 package ua.com.alevel;
 
 
-import com.google.gson.Gson;
-import ua.com.alevel.entity.Author;
-import ua.com.alevel.entity.BaseEntity;
 import ua.com.alevel.entity.Book;
-import ua.com.alevel.exceptions.JsonException;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 public class StartIoNioCrudApp {
     public static void main(String[] args) {
-        Book book = new Book();
+       /* Book book = new Book();
         book.setPages(123);
         book.setId(1234L);
 
@@ -36,7 +29,7 @@ public class StartIoNioCrudApp {
         Convertor convertor = new Convertor();
         System.out.println("[{\"booksId\":[\"1\",\"2\"],\"name\":\"111\",\"visible\":false,\"id\":\"1\"},{\"booksId\":[\"3\",\"4\"],\"name\":\"222\",\"visible\":false,\"id\":\"2\"},{\"booksId\":[\"5\",\"6\"],\"name\":\"333\",\"visible\":false,\"id\":\"3\"}]");
         try {
-            arrA= convertor.fromJsonToObject("[{\"booksId\":[\"1\",\"2\"],\"name\":\"111\",\"visible\":false,\"id\":\"1\"},{\"booksId\":[\"3\",\"4\"],\"name\":\"222\",\"visible\":false,\"id\":\"2\"},{\"booksId\":[\"5\",\"6\"],\"name\":\"333\",\"visible\":false,\"id\":\"3\"}]",
+            arrA= convertor.fromJsonToObjects("[{\"booksId\":[\"1\",\"2\"],\"name\":\"111\",\"visible\":false,\"id\":\"1\"},{\"booksId\":[\"3\",\"4\"],\"name\":\"222\",\"visible\":false,\"id\":\"2\"},{\"booksId\":[\"5\",\"6\"],\"name\":\"333\",\"visible\":false,\"id\":\"3\"}]",
                     new Author());
         } catch (JsonException e) {
             e.printStackTrace();
@@ -54,6 +47,28 @@ public class StartIoNioCrudApp {
 //        gson.fromJson()
 //        {"name":"asd","booksId":["1","2"],"visible":false}
 
+*/
+        LinkedList<Book> books = new LinkedList<>();
+        Book book = new Book();
+        book.setId(1l);
+        book.setName("b1");
+        book.setPages(1);
+        book.setAuthorsId(new String[]{"3", "2"});
+        books.add(book);
+        Book book1 = new Book();
+        book1.setId(2l);
+        book1.setName("b2");
+        book1.setAuthorsId(new String[]{"3", "2"});
+        books.add(book1);
+        Convertor convertor = new Convertor();
+        String json = convertor.objectsToJson(books);
+       LinkedList<Book> bookLinkedList = new LinkedList<>();
+       bookLinkedList = convertor.fromJsonToObjects(json, new Book());
+
+        System.out.println(bookLinkedList.size());
+        for (Book book2 : bookLinkedList) {
+            System.out.println(   book2.toString());
+        }
 
     }
 }

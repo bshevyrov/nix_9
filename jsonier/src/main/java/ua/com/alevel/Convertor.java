@@ -1,7 +1,6 @@
 package ua.com.alevel;
 
 import org.apache.commons.lang3.StringUtils;
-import ua.com.alevel.exceptions.JsonException;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -12,46 +11,58 @@ import java.util.LinkedList;
 
 public class Convertor<T> {
 
-    public static String objectToJson(Object object) {
+    public String objectsToJson(LinkedList<Object> objects) {
 //        {"name":"asd","booksId":["1","2"],"visible":false}
         StringBuilder stringBuilder = new StringBuilder();
+        if(objects.size()>1){
+            stringBuilder.append("[");
+        }
         Class clss = null;
-        try {
-            clss = Class.forName(object.getClass().getSuperclass().getName());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        Field[] fields = clss.getDeclaredFields();
-        stringBuilder.append("{");
-        stringBuilder.append(classFieldsToString(fields, object));
-        try {
-            clss = Class.forName(object.getClass().getName());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        fields = clss.getDeclaredFields();
-        stringBuilder.append(classFieldsToString(fields, object));
+        for (int i = 0; i < objects.size(); i++) {
 
-        if (stringBuilder.lastIndexOf(",") == stringBuilder.length() - 1) {
-            stringBuilder.replace(stringBuilder.length() - 1, stringBuilder.length() - 1, "}");
-        } else {
-            stringBuilder.append("}");
+
+            try {
+                clss = Class.forName(objects.get(i).getClass().getSuperclass().getName());
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            Field[] fields = clss.getDeclaredFields();
+            stringBuilder.append("{");
+            stringBuilder.append(classFieldsToString(fields, objects.get(i)));
+            try {
+                clss = Class.forName(objects.get(i).getClass().getName());
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            fields = clss.getDeclaredFields();
+            stringBuilder.append(classFieldsToString(fields, objects.get(i)));
+
+            if (stringBuilder.lastIndexOf(",") == stringBuilder.length() - 1) {
+                stringBuilder.replace(stringBuilder.length() - 1, stringBuilder.length() - 1, "}");
+            } else {
+                stringBuilder.append("}");
+            }
+            if ((stringBuilder.charAt(stringBuilder.length() - 1) == ',')
+                    && (stringBuilder.charAt(stringBuilder.length() - 2) == '}')) {
+                stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            }
+            if (i < objects.size() - 1) {
+                stringBuilder.append(",");
+            }
         }
-        if ((stringBuilder.charAt(stringBuilder.length() - 1) == ',')
-                && (stringBuilder.charAt(stringBuilder.length() - 2) == '}')) {
-            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        if(objects.size()>1){
+            stringBuilder.append("]");
         }
 //            stringBuilder.replace(stringBuilder.length() - 1, stringBuilder.length() - 1, "}");
         return stringBuilder.toString();
     }
 
-    public LinkedList<T> fromJsonToObject(String json, T t) throws JsonException {
+    public LinkedList<T> fromJsonToObjects(String json, T t) {
         LinkedList<T> list = new LinkedList<>();
 
         LinkedList<HashMap<String, String>> jsonArray = convertFromJsonToParameters(json);
         String fieldName;
-
-
+//        System.out.println(jsonArray.size());
 
         for (HashMap<String, String> stringStringHashMap : jsonArray) {
             Object obj = null;
@@ -59,9 +70,8 @@ public class Convertor<T> {
                 Class<?> cl = Class.forName(t.getClass().getName());
                 Constructor<?> cons = cl.getDeclaredConstructor();
 
-               obj = cons.newInstance();
+                obj = cons.newInstance();
 
-                System.out.println(  obj.getClass().getTypeName());
             } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -76,16 +86,27 @@ public class Convertor<T> {
                 try {
                     //todo проверка типа массива и такой вот метод сделать/переделать
                     if (field.getType().isArray()) {
-
+//                        System.out.println(fieldName);
+//                        System.out.println(stringStringHashMap.get(fieldName)+"~~~");
                         int length = stringToArrayString(stringStringHashMap.get(fieldName)).length;
                         Object array = Array.newInstance(field.getType().getComponentType(), length);
                         for (int i = 0; i < length; i++) {
                             Array.set(array, i, (stringToArrayString(stringStringHashMap.get(fieldName))[i]));
                         }
+
                         field.set(obj, array);
 
                     } else {
-                        field.set(obj, stringStringHashMap.get(fieldName));
+
+                        //Todo проверка на другие типы
+                        if (StringUtils.equals(field.getType().getSimpleName(), "int")) {
+//                          if (StringUtils.equals(stringStringHashMap.get(fieldName),"null")){
+//                              continue;
+//                            }
+                            field.set(obj, Integer.parseInt(stringStringHashMap.get(fieldName)));
+                        } else {
+                            field.set(obj, stringStringHashMap.get(fieldName));
+                        }
                     }
 
                 } catch (IllegalAccessException e) {
@@ -117,12 +138,12 @@ public class Convertor<T> {
                     e.printStackTrace();
                 }
             }
-            list.add((T)obj);
+            list.add((T) obj);
         }
         return list;
     }
 
-    private static String classFieldsToString(Field[] fields, Object object) {
+    private String classFieldsToString(Field[] fields, Object object) {
         StringBuilder stringBuilder = new StringBuilder();
         boolean primitive = false; //String и ENUM только стринги??
         try {
@@ -174,21 +195,21 @@ public class Convertor<T> {
         return stringBuilder.toString();
     }
 
-    private static String[] stringToArrayString(String str) {
+    private String[] stringToArrayString(String str) {
         str = StringUtils.remove(str, '[');
         str = StringUtils.remove(str, ']');
         return StringUtils.split(str, ',');
 
     }
 
-    private static boolean isPrimitive(Field field) {
+    private boolean isPrimitive(Field field) {
         return StringUtils.containsAny(
                 field.getType().getTypeName(),
                 "int", "long", "double", "float", "boolean", "byte", "char",
                 "Long", "Integer");//etc
     }
 
-    private static LinkedList<HashMap<String, String>> convertFromJsonToParameters(String json) {
+    private LinkedList<HashMap<String, String>> convertFromJsonToParameters(String json) {
 
         String[] jsonArr = new String[]{json};
         if (json.charAt(0) == '[') {
@@ -207,7 +228,6 @@ public class Convertor<T> {
 
             json = StringUtils.deleteWhitespace(json);
             if (JsonVerification.stringVerification(json)) {
-                System.out.println(json);
 //                throw new JsonException("Скобки в не правильном порядке");
             }
 
@@ -266,7 +286,7 @@ public class Convertor<T> {
 
                 }
                 String value = StringUtils.remove(StringUtils.substring(jsonStr, indexStartValue, indexFinishValue), '"');
-                if (jsonStr.charAt(indexFinishValue + 1) == '}' && indexFinishValue + 1 == jsonStr.length()) {
+                if (jsonStr.charAt(indexFinishValue) == '}' && indexFinishValue  == jsonStr.length()) {
                     break;
                     //jsonStr = StringUtils.removeStart(jsonStr, jsonStr.substring(0, indexFinishValue + 2));
                 } else {
