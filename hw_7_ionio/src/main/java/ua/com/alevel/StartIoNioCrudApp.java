@@ -3,10 +3,11 @@ package ua.com.alevel;
 
 import com.google.gson.Gson;
 import ua.com.alevel.entity.Author;
+import ua.com.alevel.entity.BaseEntity;
 import ua.com.alevel.entity.Book;
-import ua.com.alevel.entity.TestE;
 import ua.com.alevel.exceptions.JsonException;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,14 +31,19 @@ public class StartIoNioCrudApp {
         System.out.println("!!!");
         System.out.println(ggsn);
         System.out.println("!!!");
+        ArrayList<Object> arrA = new ArrayList<>();
         try {
-//            Convertor.fromJsonToObject("{\"id\":null,\"visible\":false,\"name\":\"asd\",\"booksId\":[\"1\",\"2\"],\"nickName\":\"null\"}",
-//                    Author.class);
-            Convertor.fromJsonToObject("[{\"booksId\":[\"1\",\"2\"],\"name\":\"asd\",\"visible\":false,\"name\":\"222\"},{\"booksId\":[\"3\",\"4\"],\"name\":\"222\",\"visible\":false,\"name\":\"222\"},{\"booksId\":[\"3\",\"4\"],\"name\":\"222\",\"visible\":false,\"name\":\"222\"}]",
-                    Author.class);
+            arrA=Convertor.fromJsonToObject("[{\"booksId\":[\"1\",\"2\"],\"name\":\"asd\",\"visible\":false,\"name\":\"222\"},{\"booksId\":[\"3\",\"4\"],\"name\":\"222\",\"visible\":false,\"name\":\"222\"},{\"booksId\":[\"3\",\"4\"],\"name\":\"222\",\"visible\":false,\"name\":\"222\"}]",
+                    new Author());
         } catch (JsonException e) {
             e.printStackTrace();
         }
+
+
+
+        System.out.println(arrA.size());
+
+
 
 //        gson.fromJson()
 //        {"name":"asd","booksId":["1","2"],"visible":false}

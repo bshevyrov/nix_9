@@ -1,5 +1,7 @@
 package ua.com.alevel.entity;
 
+import java.util.Arrays;
+
 public class Author extends BaseEntity {
 
     private String[] booksId;
@@ -32,5 +34,16 @@ public class Author extends BaseEntity {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "booksId=" + Arrays.toString(booksId) +
+                ", name='" + name + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", id=" + id +
+                ", visible=" + visible +
+                '}';
     }
 }
