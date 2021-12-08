@@ -1,11 +1,15 @@
 package ua.com.alevel.dao.impl;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.dao.AuthorDao;
 import ua.com.alevel.db.AuthorDB;
 import ua.com.alevel.db.impl.AuthorDBImpl;
+import ua.com.alevel.db.impl.BookDBImpl;
 import ua.com.alevel.entity.Author;
+import ua.com.alevel.entity.Book;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -41,12 +45,16 @@ public class AuthorDaoImpl implements AuthorDao {
 
     public String findIdByName(String name) {
         String rsl ="";
-        List<Author> authors = AuthorDBImpl.getInstance().findAll();
-        for (Author author : authors) {
-            if (StringUtils.equals(author.getName(), name)) {
-                rsl = author.getId();
+
+//            List<Author> authors = AuthorDBImpl.getInstance().findAll();
+        Collection<Author> authors = AuthorDBImpl.getInstance().findAll();
+        authors= CollectionUtils.emptyIfNull(authors);
+            for (Author author : authors) {
+                if (StringUtils.equals(author.getName(), name)) {
+                    rsl = author.getId();
+                }
             }
-        }
+
         return rsl;
     }
     @Override

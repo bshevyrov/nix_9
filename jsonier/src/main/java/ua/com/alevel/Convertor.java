@@ -1,6 +1,7 @@
 package ua.com.alevel;
 
 import org.apache.commons.lang3.StringUtils;
+import ua.com.alevel.exceptions.JsonException;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -57,7 +58,7 @@ public class Convertor<T> {
         return stringBuilder.toString();
     }
 
-    public LinkedList<T> fromJsonToObjects(String json, T t) {
+    public LinkedList<T> fromJsonToObjects(String json, T t)  {
         LinkedList<T> list = new LinkedList<>();
 
         LinkedList<HashMap<String, String>> jsonArray = convertFromJsonToParameters(json);
@@ -212,6 +213,9 @@ public class Convertor<T> {
     private LinkedList<HashMap<String, String>> convertFromJsonToParameters(String json) {
 
         String[] jsonArr = new String[]{json};
+//        if(json.length()==0){
+//                throw new JsonException("Json File пуст");
+//        }
         if (json.charAt(0) == '[') {
             jsonArr = StringUtils.splitByWholeSeparator(json, "},{");
             for (int i = 0; i < jsonArr.length; i++) {
@@ -272,14 +276,14 @@ public class Convertor<T> {
                         if (StringUtils.contains(jsonStr.substring(indexStartValue), ',')) {
                             indexFinishValue = StringUtils.indexOf(jsonStr, ',', indexStartValue);
                         } else {
-                            indexFinishValue = jsonStr.substring(indexStartValue).indexOf('}');
+                            indexFinishValue = StringUtils.indexOf(jsonStr,'}',indexStartValue);
                         }
                     }
                 }
 
                 String key = StringUtils.remove(StringUtils.substring(jsonStr, indexStartKey + 1, indexFinishKey), '"');
                 if (jsonStr.charAt(indexFinishValue) == ']') {
-                    indexFinishValue += 1;
+//                    indexFinishValue += 1;
                 }
                 if (jsonStr.charAt(indexStartValue) == '\"') {
                     indexStartValue += 1;

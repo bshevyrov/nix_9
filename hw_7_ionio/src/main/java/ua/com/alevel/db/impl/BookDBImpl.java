@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 public class BookDBImpl implements BaseDB<Book> {
 
@@ -30,16 +31,24 @@ public class BookDBImpl implements BaseDB<Book> {
     }
 
     private BookDBImpl() {
+        if (!bookDBFile.exists()) {
+            try {
+                FileUtils.touch(bookDBFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void create(Book book) {
-        LinkedList<Book> bookLinkedList;
-        if (bookDBFile.exists()) {
+        LinkedList<Book> bookLinkedList = new LinkedList<>();
+        if (bookDBFile.exists()&&bookDBFile.length()>0) {
             bookLinkedList = (LinkedList<Book>) findAll();
         } else {
             bookLinkedList = new LinkedList<>();
         }
+        book.setId(generateId());
         bookLinkedList.add(book);
         String json = convertor.objectsToJson(bookLinkedList);
         try {
@@ -86,11 +95,30 @@ public class BookDBImpl implements BaseDB<Book> {
 
     @Override
     public Book findById(String id) {
-        return findAll().stream().filter(book -> id.equals(book.getId())).findAny().get();
+        Book book = null;
+        try{
+           book= findAll().stream().filter(book1 -> id.equals(book1.getId())).findAny().get();
+        } catch (NullPointerException e){
+
+        }
+
+
+
+        return book;
     }
 
     @Override
     public List<Book> findAll() {
+        if(FileUtils.sizeOf(bookDBFile)==0){
+            return null;
+        }
         return convertor.fromJsonToObjects(FileHandler.readStringsFromFile(bookDBFile), new Book());
+    }
+    private String generateId() {
+        String id = UUID.randomUUID().toString();
+        if (!(findById(id) == null)) {
+            generateId();
+        }
+        return id;
     }
 }

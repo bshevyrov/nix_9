@@ -9,9 +9,7 @@ import ua.com.alevel.utils.FileHandler;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class AuthorDBImpl implements AuthorDB {
 
@@ -28,16 +26,24 @@ public class AuthorDBImpl implements AuthorDB {
     }
 
     private AuthorDBImpl() {
+        if (!authorDBFile.exists()) {
+            try {
+                FileUtils.touch(authorDBFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void create(Author author) {
-        LinkedList<Author> authorLinkedList;
-        if (authorDBFile.exists()) {
+        LinkedList<Author> authorLinkedList = new LinkedList<>();
+        if (authorDBFile.exists()&&authorDBFile.length()>0) {
             authorLinkedList = (LinkedList<Author>) findAll();
         } else {
             authorLinkedList = new LinkedList<>();
         }
+        author.setId(generateId());
         authorLinkedList.add(author);
         String json = convertor.objectsToJson(authorLinkedList);
         try {
@@ -88,11 +94,29 @@ public class AuthorDBImpl implements AuthorDB {
 
     @Override
     public Author findById(String id) {
-        return findAll().stream().filter(author -> id.equals(author.getId())).findAny().get();
+        Author author= null;
+
+try {
+    author = findAll().stream().filter(author1 -> id.equals(author1.getId())).findFirst().get();
+} catch (NoSuchElementException | NullPointerException e ){
+    return null;
+}
+
+        return author;
     }
 
     @Override
     public List<Author> findAll() {
+        if(FileUtils.sizeOf(authorDBFile)==0){
+            return null;
+        }
         return convertor.fromJsonToObjects(FileHandler.readStringsFromFile(authorDBFile), new Author());
+    }
+    private String generateId() {
+        String id = UUID.randomUUID().toString();
+        if (!(findById(id) == null)) {
+            generateId();
+        }
+        return id;
     }
 }

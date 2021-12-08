@@ -15,4 +15,5 @@ public interface BaseDB<E extends BaseEntity> {
     E findById(String id);
 
     List<E> findAll();
+
 }
