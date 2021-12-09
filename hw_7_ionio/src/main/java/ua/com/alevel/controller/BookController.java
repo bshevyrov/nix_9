@@ -83,7 +83,12 @@ public class BookController {
                     //берем список айдишников авторов у текущей книги
                     // если их нет
                     if (currrentBook.getAuthorsId() == null || currrentBook.getAuthorsId().length == 0) {
-                        //Достаем всех авторов
+                        String [] auId = new String[0];
+                        for (String s : authorsOfThisBook) {
+                            authIds = ArrayUtils.add(authIds,authorService.findIdByName(s));
+                        }
+
+                      /*  //Достаем всех авторов
                         List<Author> authors = authorService.findAll();
                         for (Author author : authors) {
                             //Доставем у автора все айдишники книг
@@ -98,8 +103,8 @@ public class BookController {
                         }
 //                        if (currrentBook.getAuthorsId() != null) {
 //                            authIds = currrentBook.getAuthorsId();
-//                        }
-                    } else {
+//                        }*/
+                    } /*else {
                         // если у текущей книги есть автора то делаем из них список айдиавторов текущей книги
                         authIds = currrentBook.getAuthorsId();
                     }
@@ -123,8 +128,8 @@ public class BookController {
                             newAuthorsId = ArrayUtils.add(newAuthorsId, authorService.findIdByName(tmp));
                         }
                     }
-                    //сетим Новый список текущих авторов
-                    currrentBook.setAuthorsId(newAuthorsId);
+                    //сетим Новый список текущих авторов*/
+                    currrentBook.setAuthorsId(authIds);
                     bookService.update(currrentBook);
                 }
                 break;

@@ -39,10 +39,10 @@ public class Author extends BaseEntity {
     @Override
     public String toString() {
         return "Author{" +
-                "booksId=" + Arrays.toString(booksId) +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", nickName='" + nickName + '\'' +
-                ", id=" + id +
+                ", booksId=" + Arrays.toString(booksId) +
                 ", visible=" + visible +
                 '}';
     }

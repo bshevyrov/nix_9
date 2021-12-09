@@ -40,10 +40,10 @@ public class Book extends BaseEntity {
     public String toString() {
         return "Book{" +
                 "id=" + id +
-                ", visible=" + visible +
                 ", name='" + name + '\'' +
-                ", authorsId=" + Arrays.toString(authorsId) +
                 ", pages=" + pages +
+                ", authorsId=" + Arrays.toString(authorsId) +
+                ", visible=" + visible +
                 '}';
     }
 }
