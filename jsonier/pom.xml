@@ -32,30 +32,6 @@
         <logs.life.folder>life</logs.life.folder>
     </properties>
 
-    <profiles>
-        <profile>
-            <id>test</id>
-            <properties>
-                <log.path>${logs.folder}/${logs.test.folder}</log.path>
-                <log.info>${log.path}/info.log</log.info>
-                <log.warn>${log.path}/warn.log</log.warn>
-                <log.error>${log.path}/error.log</log.error>
-            </properties>
-        </profile>
-        <profile>
-            <id>life</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <log.path>${logs.folder}/${logs.life.folder}</log.path>
-                <log.info>${log.path}/info.log</log.info>
-                <log.warn>${log.path}/warn.log</log.warn>
-                <log.error>${log.path}/error.log</log.error>
-            </properties>
-        </profile>
-    </profiles>
-
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.reflections/reflections -->
         <dependency>
@@ -82,59 +58,7 @@
             <version>${commons.io.version}</version>
         </dependency>
 
-        <!-- JUNIT -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
 
-        <!-- LOGS -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>${logback.version}</version>
-        </dependency>
-        <!-- MY LIB -->
-        <dependency>
-            <groupId>ua.com.alevel</groupId>
-            <artifactId>console_helper</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>ua.com.alevel</groupId>
-            <artifactId>string_helper</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>ua.com.alevel</groupId>
-            <artifactId>generic_set</artifactId>
-            <version>1.0</version>
-        </dependency>
     </dependencies>
 
     <build>
