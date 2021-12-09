@@ -57,13 +57,15 @@ public class AuthorDBImpl implements AuthorDB {
     public void update(Author author) {
         LinkedList<Author> list = convertor.fromJsonToObjects(FileHandler.readStringsFromFile(authorDBFile), new Author());
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getId() == author.getId()) {
-                list.add(i, author);
+            if (StringUtils.equals(list.get(i).getId(), author.getId())) {
+                //list.remove(i);
+                list.set(i,author);
                 break;
             }
         }
         String json = convertor.objectsToJson(list);
         try {
+            FileUtils.deleteQuietly(authorDBFile);
             FileUtils.writeLines(authorDBFile, Collections.singleton(json));
         } catch (IOException e) {
             e.printStackTrace();

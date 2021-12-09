@@ -250,6 +250,9 @@ public class Convertor<T> {
                 int indexDelimiterKeyValue = 0;
 
                 indexStartKey = StringUtils.indexOf(jsonStr, "\"");
+                if(indexStartKey==-1){//костылик  если в строке не осталось кавычек(символов которые обрамляют ключ), то строка уэже обработана
+                    break;
+                }
                 indexFinishKey = StringUtils.indexOf(jsonStr, "\"", indexStartKey + 1);
                 //имеет ли смысл эта проверка по стандарту Джсон
                 if (!StringUtils.equals(String.valueOf(jsonStr.charAt(indexFinishKey + 1)), ":")) {
@@ -282,6 +285,9 @@ public class Convertor<T> {
                 }
 
                 String key = StringUtils.remove(StringUtils.substring(jsonStr, indexStartKey + 1, indexFinishKey), '"');
+                if(indexFinishValue==-1){//костылик на коонец строки
+                    break;
+                }
                 if (jsonStr.charAt(indexFinishValue) == ']') {
 //                    indexFinishValue += 1;
                 }

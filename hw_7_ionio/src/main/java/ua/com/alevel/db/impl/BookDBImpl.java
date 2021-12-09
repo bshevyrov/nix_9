@@ -10,14 +10,11 @@ import ua.com.alevel.utils.FileHandler;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class BookDBImpl implements BaseDB<Book> {
 
-    public static final Convertor convertor = new Convertor();
+    private static final Convertor convertor = new Convertor();
     private static final File bookDBFile = new File("src/main/resources/bookDB.txt");
     private static BookDBImpl Instance;
 
@@ -62,13 +59,14 @@ public class BookDBImpl implements BaseDB<Book> {
     public void update(Book book) {
         LinkedList<Book> list = convertor.fromJsonToObjects(FileHandler.readStringsFromFile(bookDBFile), new Book());
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getId() == book.getId()) {
-                list.add(i, book);
+            if (StringUtils.equals(list.get(i).getId(), book.getId())) {
+                list.set(i, book);
                 break;
             }
         }
         String json = convertor.objectsToJson(list);
         try {
+            FileUtils.deleteQuietly(bookDBFile);
             FileUtils.writeLines(bookDBFile, Collections.singleton(json));
         } catch (IOException e) {
             e.printStackTrace();
@@ -95,11 +93,11 @@ public class BookDBImpl implements BaseDB<Book> {
 
     @Override
     public Book findById(String id) {
-        Book book = null;
+        Book book;
         try{
            book= findAll().stream().filter(book1 -> id.equals(book1.getId())).findAny().get();
-        } catch (NullPointerException e){
-
+        } catch (NoSuchElementException | NullPointerException e ){
+            return null;
         }
 
 

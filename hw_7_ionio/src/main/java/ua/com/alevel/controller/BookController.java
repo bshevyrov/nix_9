@@ -53,6 +53,8 @@ public class BookController {
                     }
                 }
                 for (String s : authorsOfThisBook) {
+                    //Поиск авторов у текущей созданой книги в базе авторов
+                    //Если автор ненайден, то создаем базовую сушьность автора
                     String curAuthId = authorService.findIdByName(s);
                     if (StringUtils.equals(curAuthId, "")) {
                         Author author = new Author();
@@ -61,9 +63,11 @@ public class BookController {
                     }
                 }
                 String[] curAuthsId = new String[0];
+                //Создаем список айдишников  авторов этой книги
                 for (String s : authorsOfThisBook) {
                     curAuthsId = ArrayUtils.add(curAuthsId, authorService.findIdByName(s));
                 }
+                //Если книга не найдена в базе то добавляем
                 if (StringUtils.equals(bookService.findIdByName(bookName), "")) {
                     Book newBook = new Book();
                     newBook.setName(bookName);
@@ -71,38 +75,55 @@ public class BookController {
                     newBook.setAuthorsId(curAuthsId);
                     bookService.create(newBook);
                 } else {
+                    //если  книга найдена в базе // то кней надо присетитть авторов
                     Book currrentBook = bookService.findById(bookService.findIdByName(bookName));
                     currrentBook.setName(bookName);
                     currrentBook.setPages(bookPages);
                     String[] authIds = new String[0];
-                    if (currrentBook.getAuthorsId() == null) {
+                    //берем список айдишников авторов у текущей книги
+                    // если их нет
+                    if (currrentBook.getAuthorsId() == null || currrentBook.getAuthorsId().length == 0) {
+                        //Достаем всех авторов
                         List<Author> authors = authorService.findAll();
                         for (Author author : authors) {
+                            //Доставем у автора все айдишники книг
                             String[] authorBooksId = author.getBooksId();
                             for (String s : authorBooksId) {
+                                //Если айдишник книги у автора совпадает с айди текущей книги
+                                //То добавляем в список айдиавторов ТЕКУЩЕЙ книги, айди автора из базы
                                 if (s.equals(bookService.findIdByName(bookName))) {
                                     authIds = ArrayUtils.add(authIds, author.getId());
                                 }
                             }
                         }
-                    }
-                    if (currrentBook.getAuthorsId() != null) {
+//                        if (currrentBook.getAuthorsId() != null) {
+//                            authIds = currrentBook.getAuthorsId();
+//                        }
+                    } else {
+                        // если у текущей книги есть автора то делаем из них список айдиавторов текущей книги
                         authIds = currrentBook.getAuthorsId();
                     }
+                    //что это??
+                    // создаем список Новых айди авторов текущей книги  из айдиавторов текущей книги
                     String[] newAuthorsId = authIds;
+                    //проходим по списку айдиавторов текущей книги
                     for (String authId : authIds) {
                         boolean alreadyInArr = false;
                         String tmp = "";
+                        //ПРоходим по списку имен текущей книги
                         for (String s1 : authorsOfThisBook) {
+                            //если айдиавторов текущей книги совпадает с айдиавтора  из базы
                             if (StringUtils.equals(authId, authorService.findIdByName(s1))) {
-                                alreadyInArr = true;
-                                tmp = s1;
+                                alreadyInArr = true;//получается что последний совпадающий элемент сохраняется, первые затираются
+                                tmp = s1;//ЧТО ЭТО ЗА МУВ??
+                                //Если автора совпадают, то сохранить имя
                             }
-                        }
-                        if (!alreadyInArr) {
+                        }                   //Мув века блять
+                        if (!alreadyInArr) {//если не в базе, то добавить в список Новых айди авторов текущей книги ПУСТОЕ ПОЛЕ
                             newAuthorsId = ArrayUtils.add(newAuthorsId, authorService.findIdByName(tmp));
                         }
                     }
+                    //сетим Новый список текущих авторов
                     currrentBook.setAuthorsId(newAuthorsId);
                     bookService.update(currrentBook);
                 }
