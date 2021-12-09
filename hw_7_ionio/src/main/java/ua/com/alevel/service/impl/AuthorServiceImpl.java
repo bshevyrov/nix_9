@@ -16,12 +16,12 @@ public class AuthorServiceImpl implements AuthorService {
     public static final Logger LOGGER_ERROR = LoggerFactory.getLogger("error");
 
     private final AuthorDao authorDao = new AuthorDaoImpl();
+
     @Override
     public void create(Author author) {
         LOGGER_INFO.info("Start creating author '" + author.getName() + "'");
         authorDao.create(author);
         LOGGER_INFO.info("Finish creating Author '" + author.getName() + "'");
-
     }
 
     @Override
@@ -29,16 +29,13 @@ public class AuthorServiceImpl implements AuthorService {
         LOGGER_INFO.info("Start updating Author '" + author.getName() + "'");
         authorDao.update(author);
         LOGGER_INFO.info("Finish updating Author '" + author.getName() + "'");
-
     }
 
     @Override
     public void delete(String id) {
         LOGGER_WARN.warn("Start author '" + id + "' delete");
         authorDao.delete(id);
-
         LOGGER_WARN.warn("Finish author '" + id + "' delete");
-
     }
 
     @Override

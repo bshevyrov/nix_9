@@ -22,7 +22,6 @@ public class BookServiceImpl implements BookService {
         LOGGER_INFO.info("Start creating book '" + book.getName() + "'");
         bookDao.create(book);
         LOGGER_INFO.info("Finish creating book '" + book.getName() + "'");
-
     }
 
     @Override
@@ -30,21 +29,17 @@ public class BookServiceImpl implements BookService {
         LOGGER_INFO.info("Start updating book '" + book.getName() + "'");
         bookDao.update(book);
         LOGGER_INFO.info("Finish creating book '" + book.getName() + "'");
-
     }
 
     @Override
     public void delete(String id) {
         LOGGER_WARN.warn("Start book '" + id + "' delete");
         bookDao.delete(id);
-
         LOGGER_WARN.warn("Finish book '" + id + "' delete");
-
     }
 
     @Override
     public Book findById(String id) {
-
         try {
             return bookDao.findById(id);
         } catch (NullPointerException e) {
@@ -56,7 +51,6 @@ public class BookServiceImpl implements BookService {
     @Override
     public String findIdByName(String name) {
         return bookDao.findIdByName(name);
-
     }
 
     @Override

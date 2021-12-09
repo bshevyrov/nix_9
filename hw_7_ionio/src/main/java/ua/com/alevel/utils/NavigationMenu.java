@@ -5,7 +5,12 @@ import java.io.BufferedReader;
 public class NavigationMenu {
 
     public static void runNavigationMainLevel() {
-        clearScreen();
+//        clearScreen();
+        System.out.println("Фичи из новой версии");
+        System.out.println("- Меню не будет чиститься");
+        System.out.println("- Джсон дб файл в ресурсах");
+        System.out.println("- Используется либа Jsonier, которая на минималках обьект обьект конвертирует в Джсон и обратно");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("This is main level");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("");
@@ -20,7 +25,7 @@ public class NavigationMenu {
     }
 
     public static void runNavigationCreateLevel() {
-        clearScreen();
+//        clearScreen();
         System.out.println("This is Create level");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("");
@@ -32,7 +37,7 @@ public class NavigationMenu {
     }
 
     public static void runNavigationUpdateLevel(BufferedReader reader) {
-        clearScreen();
+//        clearScreen();
         System.out.println("This is Update level");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("");
@@ -44,7 +49,7 @@ public class NavigationMenu {
     }
 
     public static void runNavigationDeleteLevel(BufferedReader reader) {
-        clearScreen();
+//        clearScreen();
         System.out.println("This is Delete level");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("");
@@ -56,7 +61,7 @@ public class NavigationMenu {
     }
 
     public static void runNavigationFindByKeyLevel(BufferedReader reader) {
-        clearScreen();
+//        clearScreen();
         System.out.println("This is Find by name level");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("");
@@ -68,7 +73,7 @@ public class NavigationMenu {
     }
 
     public static void runNavigationFindAllLevel(BufferedReader reader) {
-        clearScreen();
+//        clearScreen();
         System.out.println("This is Find all level");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println();
@@ -79,8 +84,8 @@ public class NavigationMenu {
         System.out.print("Please make your choose: ");
     }
 
-    public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
+//    public static void clearScreen() {
+//        System.out.print("\033[H\033[2J");
+//        System.out.flush();
+//    }
 }

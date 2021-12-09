@@ -1,8 +1,6 @@
 package ua.com.alevel.utils;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ua.com.alevel.controller.AuthorController;
 import ua.com.alevel.controller.BookController;
 
@@ -13,8 +11,6 @@ public class InputValueMenuHandler {
 
     private static final BookController bookController = new BookController();
     private static final AuthorController authorController = new AuthorController();
-
-    public static final Logger LOGGER_INFO = LoggerFactory.getLogger("info");
 
     public static void mainLevelHandler(BufferedReader reader) {
         while (true) {
@@ -27,7 +23,7 @@ public class InputValueMenuHandler {
                     continue;
                 }
                 inputMenuValue = Integer.parseInt(input);
-                if (inputMenuValue <0||inputMenuValue>5) {
+                if (inputMenuValue < 0 || inputMenuValue > 5) {
                     System.out.println("Please write correct number");
                     continue;
                 }
@@ -56,7 +52,7 @@ public class InputValueMenuHandler {
                     continue;
                 }
                 inputMenuValue = Integer.parseInt(input);
-                if (inputMenuValue <0||inputMenuValue>2) {
+                if (inputMenuValue < 0 || inputMenuValue > 2) {
                     System.out.println("Please write correct number");
                     continue;
                 }
@@ -82,7 +78,7 @@ public class InputValueMenuHandler {
                     continue;
                 }
                 inputMenuValue = Integer.parseInt(input);
-                if (inputMenuValue <0||inputMenuValue>2) {
+                if (inputMenuValue < 0 || inputMenuValue > 2) {
                     System.out.println("Please write correct number");
                     continue;
                 }
@@ -108,7 +104,7 @@ public class InputValueMenuHandler {
                     continue;
                 }
                 inputMenuValue = Integer.parseInt(input);
-                if (inputMenuValue <0||inputMenuValue>2) {
+                if (inputMenuValue < 0 || inputMenuValue > 2) {
                     System.out.println("Please write correct number");
                     continue;
                 }
@@ -134,7 +130,7 @@ public class InputValueMenuHandler {
                     continue;
                 }
                 inputMenuValue = Integer.parseInt(input);
-                if (inputMenuValue <0||inputMenuValue>2) {
+                if (inputMenuValue < 0 || inputMenuValue > 2) {
                     System.out.println("Please write correct number");
                     continue;
                 }
@@ -160,7 +156,7 @@ public class InputValueMenuHandler {
                     continue;
                 }
                 inputMenuValue = Integer.parseInt(input);
-                if (inputMenuValue <0||inputMenuValue>2) {
+                if (inputMenuValue < 0 || inputMenuValue > 2) {
                     System.out.println("Please write correct number");
                     continue;
                 }

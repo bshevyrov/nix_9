@@ -1,22 +1,16 @@
 package ua.com.alevel.dao.impl;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.dao.BookDao;
-import ua.com.alevel.db.impl.AuthorDBImpl;
 import ua.com.alevel.db.impl.BookDBImpl;
-import ua.com.alevel.entity.Author;
 import ua.com.alevel.entity.Book;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public class BookDaoImpl implements BookDao {
-
 
     @Override
     public void create(Book book) {
@@ -50,9 +44,9 @@ public class BookDaoImpl implements BookDao {
     }
 
     public String findIdByName(String name) {
-       String rsl = "";
+        String rsl = "";
         Collection<Book> books = BookDBImpl.getInstance().findAll();
-        books= CollectionUtils.emptyIfNull(books);
+        books = CollectionUtils.emptyIfNull(books);
         for (Book book : books) {
             if (StringUtils.equals(book.getName(), name)) {
                 rsl = book.getId();

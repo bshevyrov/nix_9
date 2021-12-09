@@ -16,13 +16,13 @@ import java.util.List;
 
 public class AuthorController {
 
-        private final BookService bookService = new BookServiceImpl();
-        private final AuthorService authorService = new AuthorServiceImpl();
+    private final BookService bookService = new BookServiceImpl();
+    private final AuthorService authorService = new AuthorServiceImpl();
 
     public void create(BufferedReader reader) {
         while (true) {
             try {
-                NavigationMenu.clearScreen();
+//                NavigationMenu.clearScreen();
                 System.out.print("Write author name:");
                 String authorName = reader.readLine();
                 if (!isStringOk(authorName)) {
@@ -59,7 +59,6 @@ public class AuthorController {
                     if (!alreadyInArr) {
                         currentAuthor.setBooksId(ArrayUtils.add(currentAuthor.getBooksId(), newAuthorsBookId));
                     }
-
                     authorService.update(currentAuthor);
                 } else {
                     Author author = new Author();
@@ -78,7 +77,7 @@ public class AuthorController {
     public void update(BufferedReader reader) {
         while (true) {
             try {
-                NavigationMenu.clearScreen();
+//                NavigationMenu.clearScreen();
                 System.out.print("Write author id:");
                 String authorId = reader.readLine();
                 if (!isStringOk(authorId)) {

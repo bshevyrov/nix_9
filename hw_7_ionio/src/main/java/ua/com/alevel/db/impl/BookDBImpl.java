@@ -7,7 +7,6 @@ import ua.com.alevel.db.BaseDB;
 import ua.com.alevel.entity.Book;
 import ua.com.alevel.utils.FileHandler;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -22,7 +21,7 @@ public class BookDBImpl implements BaseDB<Book> {
         if (Instance == null) {
             return new BookDBImpl();
 
-        }else{
+        } else {
             return Instance;
         }
     }
@@ -40,7 +39,7 @@ public class BookDBImpl implements BaseDB<Book> {
     @Override
     public void create(Book book) {
         LinkedList<Book> bookLinkedList = new LinkedList<>();
-        if (bookDBFile.exists()&&bookDBFile.length()>0) {
+        if (bookDBFile.exists() && bookDBFile.length() > 0) {
             bookLinkedList = (LinkedList<Book>) findAll();
         } else {
             bookLinkedList = new LinkedList<>();
@@ -94,24 +93,22 @@ public class BookDBImpl implements BaseDB<Book> {
     @Override
     public Book findById(String id) {
         Book book;
-        try{
-           book= findAll().stream().filter(book1 -> id.equals(book1.getId())).findAny().get();
-        } catch (NoSuchElementException | NullPointerException e ){
+        try {
+            book = findAll().stream().filter(book1 -> id.equals(book1.getId())).findAny().get();
+        } catch (NoSuchElementException | NullPointerException e) {
             return null;
         }
-
-
-
         return book;
     }
 
     @Override
     public List<Book> findAll() {
-        if(FileUtils.sizeOf(bookDBFile)==0){
+        if (FileUtils.sizeOf(bookDBFile) == 0) {
             return null;
         }
         return convertor.fromJsonToObjects(FileHandler.readStringsFromFile(bookDBFile), new Book());
     }
+
     private String generateId() {
         String id = UUID.randomUUID().toString();
         if (!(findById(id) == null)) {

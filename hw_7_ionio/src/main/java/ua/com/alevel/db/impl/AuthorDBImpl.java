@@ -37,8 +37,8 @@ public class AuthorDBImpl implements AuthorDB {
 
     @Override
     public void create(Author author) {
-        LinkedList<Author> authorLinkedList = new LinkedList<>();
-        if (authorDBFile.exists()&&authorDBFile.length()>0) {
+        LinkedList<Author> authorLinkedList;
+        if (authorDBFile.exists() && authorDBFile.length() > 0) {
             authorLinkedList = (LinkedList<Author>) findAll();
         } else {
             authorLinkedList = new LinkedList<>();
@@ -58,8 +58,7 @@ public class AuthorDBImpl implements AuthorDB {
         LinkedList<Author> list = convertor.fromJsonToObjects(FileHandler.readStringsFromFile(authorDBFile), new Author());
         for (int i = 0; i < list.size(); i++) {
             if (StringUtils.equals(list.get(i).getId(), author.getId())) {
-                //list.remove(i);
-                list.set(i,author);
+                list.set(i, author);
                 break;
             }
         }
@@ -76,44 +75,39 @@ public class AuthorDBImpl implements AuthorDB {
     public void delete(String id) {
         LinkedList<Author> list = convertor.fromJsonToObjects(FileHandler.readStringsFromFile(authorDBFile), new Author());
         for (int i = 0; i < list.size(); i++) {
-            if (StringUtils.equals(list.get(i).getId(),id)) {
+            if (StringUtils.equals(list.get(i).getId(), id)) {
                 list.remove(i);
                 break;
             }
         }
         String json = convertor.objectsToJson(list);
-
-
         try {
             FileUtils.deleteQuietly(authorDBFile);
-
             FileUtils.writeLines(authorDBFile, Collections.singleton(json));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
     @Override
     public Author findById(String id) {
-        Author author= null;
-
-try {
-    author = findAll().stream().filter(author1 -> id.equals(author1.getId())).findFirst().get();
-} catch (NoSuchElementException | NullPointerException e ){
-    return null;
-}
-
+        Author author;
+        try {
+            author = findAll().stream().filter(author1 -> id.equals(author1.getId())).findFirst().get();
+        } catch (NoSuchElementException | NullPointerException e) {
+            return null;
+        }
         return author;
     }
 
     @Override
     public List<Author> findAll() {
-        if(FileUtils.sizeOf(authorDBFile)==0){
+        if (FileUtils.sizeOf(authorDBFile) == 0) {
             return null;
         }
         return convertor.fromJsonToObjects(FileHandler.readStringsFromFile(authorDBFile), new Author());
     }
+
     private String generateId() {
         String id = UUID.randomUUID().toString();
         if (!(findById(id) == null)) {
