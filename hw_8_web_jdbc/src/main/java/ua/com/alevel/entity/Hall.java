@@ -4,19 +4,19 @@ public class Hall extends BaseEntity {
 
     private String name;
     private int numOfSeats;
-    private Movie movie;
+//    private Movie movie;
 
     public Hall() {
         super();
     }
 
-    public Movie getMovie() {
+   /* public Movie getMovie() {
         return movie;
     }
 
     public void setMovie(Movie movie) {
         this.movie = movie;
-    }
+    }*/
 
     public String getName() {
         return name;
