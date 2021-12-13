@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ua.com.alevel.dao.MovieDao;
 import ua.com.alevel.entity.Movie;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -36,7 +37,7 @@ public class MovieDaoImpl implements MovieDao {
 
     @Override
     public List<Movie> findAll() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -46,6 +47,6 @@ public class MovieDaoImpl implements MovieDao {
 
     @Override
     public List<Movie> findAllByHallId(Long hallId) {
-        return null;
+        return Collections.emptyList();
     }
 }
