@@ -12,7 +12,7 @@ public final class JpaQueryUtil {
     public static final String EXIST_HALL_BY_ID_QUERY="SELECT COUNT(*) FROM students WHERE id = ";
 
     public static final String CREATE_MOVIE_QUERY="INSERT INTO movies VALUES(default,?,?,?)";
-    public static final String UPDATE_MOVIE_QUERY="UPDATE movies SET name = ?, description = ?, hall_id = ? WHERE id = ?";
+    public static final String UPDATE_MOVIE_QUERY="UPDATE movies SET name = ?, description = ?, hall_id = ? WHERE id =";
     public static final String DELETE_MOVIE_BY_ID_QUERY="DELETE FROM movies WHERE id = ";
     public static final String DELETE_MOVIE_BY_HALL_ID_QUERY="DELETE FROM movies WHERE hall_id = ";
 
