@@ -57,9 +57,8 @@ public class HallDaoImpl implements HallDao {
 
     @Override
     public boolean existById(Long id) {
-        Long count = 0L;
-        try {
-            ResultSet resultSet = jpaConfig.getStatement().executeQuery(EXIST_HALL_BY_ID_QUERY + id);
+        long count = 0L;
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(EXIST_HALL_BY_ID_QUERY + id)) {
             while (resultSet.next()) {
                 count = resultSet.getLong("COUNT(*)");
             }
@@ -74,8 +73,7 @@ public class HallDaoImpl implements HallDao {
         // НОРМ??
         Hall hall = new Hall();
         if (existById(id)) {
-            try {
-                ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_HALL_QUERY);
+            try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_HALL_BY_ID_QUERY + id)) {
                 while (resultSet.next()) {
                     hall = initHallByResultSet(resultSet);
                 }
@@ -84,14 +82,12 @@ public class HallDaoImpl implements HallDao {
             }
         }
         return hall;
-
     }
 
     @Override
     public List<Hall> findAll() {
         List<Hall> halls = new ArrayList<>();
-        try {
-            ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_HALL_QUERY);
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_HALL_QUERY)) {
             while (resultSet.next()) {
                 halls.add(initHallByResultSet(resultSet));
             }
@@ -112,3 +108,4 @@ public class HallDaoImpl implements HallDao {
         return hall;
     }
 }
+//TODO sub method
