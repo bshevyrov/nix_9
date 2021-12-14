@@ -21,27 +21,31 @@
                     <table class="table table-sm table-hover">
                         <thead>
                         <tr>
-<!--                            Названия колонок-->
+                            <!--                            Названия колонок-->
                             <th>#</th>
+                            <th>id</th>
                             <th>name</th>
                             <th>numbers of seats</th>
-<!--                            <th>details</th>-->
-<!--                            <th>delete</th>-->
+                            <!--                            <th>details</th>-->
+                            <!--                            <th>delete</th>-->
                         </tr>
                         </thead>
                         <tbody>
-<!--                        Содержимое колонок-->
+                        <!--                        Содержимое колонок-->
                         <tr th:each="hall,iter : ${halls}">
                             <td th:text="${iter.count}"></td>
+                            <td><a th:href="@{'/hall/details/' + ${hall.getId()}}" th:text="${hall.getId()}"></a></td>
                             <td th:text="${hall.getName()}"></td>
                             <td th:text="${hall.getNumOfSeats()}"></td>
-<!--                            <td th:text="${#calendars.format(department.getCreated(),'dd MMMM yyyy')}"></td>-->
-<!--                            <td>-->
-<!--                                <a th:href="@{'/departments/details/' + ${department.getId()}}" type="button" class="btn btn-primary">details</a>-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                <a th:href="@{'/departments/delete/' + ${department.getId()}}" type="button" class="btn btn-danger">delete</a>-->
-<!--                            </td>-->
+                            <!--                            <td th:text="${#calendars.format(department.getCreated(),'dd MMMM yyyy')}"></td>-->
+                            <td>
+                                <a th:href="@{'/hall/details/' + ${hall.getId()}}" type="button"
+                                   class="btn btn-primary">details</a>
+                            </td>
+                            <td>
+                                <a th:href="@{'/hall/delete/' + ${hall.getId()}}" type="button"
+                                   class="btn btn-danger">delete</a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
