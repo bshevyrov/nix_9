@@ -28,15 +28,19 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void delete(long id) {
-        if (movieDao.existById(id)) {
+        //is exist&&
+//        if (movieDao.existById(id)) {
             movieDao.delete(id);
-        }
+//        }
     }
 
     @Override
     public Movie findById(long id) {
-        //movieDao.existById(id)
-        return movieDao.findById(id);
+        Movie movie = new Movie();
+//        if (movieDao.existById(id)) {
+            movie = movieDao.findById(id);
+//        }
+        return movie;
     }
 
     @Override

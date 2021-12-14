@@ -34,16 +34,16 @@
                         <!--                        Содержимое колонок-->
                         <tr th:each="hall,iter : ${halls}">
                             <td th:text="${iter.count}"></td>
-                            <td><a th:href="@{'/hall/details/' + ${hall.getId()}}" th:text="${hall.getId()}"></a></td>
+                            <td><a th:href="@{'/halls/details/' + ${hall.getId()}}" th:text="${hall.getId()}"></a></td>
                             <td th:text="${hall.getName()}"></td>
                             <td th:text="${hall.getNumOfSeats()}"></td>
                             <!--                            <td th:text="${#calendars.format(department.getCreated(),'dd MMMM yyyy')}"></td>-->
                             <td>
-                                <a th:href="@{'/hall/details/' + ${hall.getId()}}" type="button"
+                                <a th:href="@{'/halls/details/' + ${hall.getId()}}" type="button"
                                    class="btn btn-primary">details</a>
                             </td>
                             <td>
-                                <a th:href="@{'/hall/delete/' + ${hall.getId()}}" type="button"
+                                <a th:href="@{'/halls/delete/' + ${hall.getId()}}" type="button"
                                    class="btn btn-danger">delete</a>
                             </td>
                         </tr>

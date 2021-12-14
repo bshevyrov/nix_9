@@ -31,17 +31,20 @@ public class HallServiceImpl implements HallService {
 
     @Override
     public void delete(long id) {
-        if (hallDao.existById(id)) {
+//        if (hallDao.existById(id)) {
             hallDao.delete(id);
             movieDao.deleteAllByHallId(id);
-        }
+//        }
     }
 
     @Override
     public Hall findById(long id) {
+        Hall hall = new Hall();
         //TODO придуматьь что выдавать если нет
-        //hallDao.existById(id);
-        return hallDao.findById(id);
+       // if (hallDao.existById(id)){
+            hall =hallDao.findById(id);
+       // }
+        return hall;
     }
 
     @Override
