@@ -2,10 +2,7 @@ package ua.com.alevel.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ua.com.alevel.dto.hall.HallRequestDto;
 import ua.com.alevel.dto.hall.HallResponseDto;
 import ua.com.alevel.facade.HallFacade;
@@ -21,6 +18,7 @@ public class HallController {
     public HallController(HallFacade hallFacade) {
         this.hallFacade = hallFacade;
     }
+
     @GetMapping
     public String findAll(Model model) {
         List<HallResponseDto> halls = hallFacade.findAll();
@@ -38,6 +36,18 @@ public class HallController {
     @PostMapping("/new")
     public String CreateNewHall(@ModelAttribute("hall") HallRequestDto hallRequestDto) {
         hallFacade.create(hallRequestDto);
+        return "redirect:/halls";
+    }
+
+    @GetMapping("/details/{id}")
+    public String findById(@PathVariable Long id, Model model){
+        model.addAttribute("hall", hallFacade.findById(id));
+        return "pages/hall/hall_details";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteById(@PathVariable Long id){
+        hallFacade.delete(id);
         return "redirect:/halls";
     }
 }
