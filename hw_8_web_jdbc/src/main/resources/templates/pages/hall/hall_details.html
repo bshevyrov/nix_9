@@ -38,8 +38,9 @@
                             <th>number of seats</th>
                             <td th:text="${hall.getNumOfSeats()}"></td>
                         </tr>
-
                     </table>
+                    <hr>
+                    <a th:href="@{'/movies/new/' + ${hall.getId()}}" type="button" class="btn btn-primary">Add new movie</a>
                 </div>
             </div>
         </div>

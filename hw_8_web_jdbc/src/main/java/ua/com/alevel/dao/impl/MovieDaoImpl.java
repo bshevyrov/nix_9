@@ -90,7 +90,9 @@ public class MovieDaoImpl implements MovieDao {
     public List<Movie> findAll() {
         List<Movie> movies = new ArrayList<>();
         try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_MOVIE_QUERY)) {
-            movies.add(initMovieByResultSet(resultSet));
+           while (resultSet.next()) {
+               movies.add(initMovieByResultSet(resultSet));
+           }
         } catch (SQLException throwables) {
             System.out.println("SQL problem " + throwables.getMessage());
         }

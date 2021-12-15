@@ -5,7 +5,7 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="utf-8">
-    <title>Halls</title>
+    <title>Movies</title>
 </head>
 <body>
 
@@ -15,7 +15,7 @@
         <div class="col-12">
             <div class="card mb-2 mt-2">
                 <div class="card-header">
-                    All Halls
+                    All Movies
                 </div>
                 <div class="card-body">
                     <table class="table table-sm table-hover">
@@ -25,25 +25,28 @@
                             <th>#</th>
                             <th>id</th>
                             <th>name</th>
-                            <th>numbers of seats</th>
-                            <!--                            <th>details</th>-->
-                            <!--                            <th>delete</th>-->
+                            <th>description</th>
+                            <th>hall id</th>
+                            <th>details</th>
+                            <th>delete</th>
                         </tr>
                         </thead>
                         <tbody>
                         <!--                        Содержимое колонок-->
-                        <tr th:each="hall,iter : ${halls}">
+                        <tr th:each="movie,iter : ${movies}">
                             <td th:text="${iter.count}"></td>
-                            <td><a th:href="@{'/halls/details/' + ${hall.getId()}}" th:text="${hall.getId()}"></a></td>
-                            <td th:text="${hall.getName()}"></td>
-                            <td th:text="${hall.getNumOfSeats()}"></td>
+                            <td th:text="${movie.getId()}"></td>
+                            <td th:text="${movie.getName()}"></td>
+                            <td th:text="${movie.getDescription()}"></td>
+                            <td th:text="${movie.getHall().getId()}"></td>
+                            <!--                            <td th:text="${movie.getDescription()}"></td>-->
                             <!--                            <td th:text="${#calendars.format(department.getCreated(),'dd MMMM yyyy')}"></td>-->
-                            <!--                            <td>-->
-                            <!--                                <a th:href="@{'/halls/details/' + ${hall.getId()}}" type="button"-->
-                            <!--                                   class="btn btn-primary">details</a>-->
-                            <!--                            </td>-->
                             <td>
-                                <a th:href="@{'/halls/delete/' + ${hall.getId()}}" type="button"
+                                <a th:href="@{'/movies/details/' + ${movie.getId()}}" type="button"
+                                   class="btn btn-primary">details</a>
+                            </td>
+                            <td>
+                                <a th:href="@{'/movies/delete/' + ${movie.getId()}}" type="button"
                                    class="btn btn-danger">delete</a>
                             </td>
                         </tr>
