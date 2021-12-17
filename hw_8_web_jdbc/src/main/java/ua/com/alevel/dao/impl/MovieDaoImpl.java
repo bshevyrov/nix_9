@@ -62,7 +62,7 @@ public class MovieDaoImpl implements MovieDao {
 
         try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(EXIST_MOVIE_BY_ID_QUERY + id)) {
             while (resultSet.next()) {
-                count = resultSet.getLong("COUNT (*)");
+                count = resultSet.getLong("COUNT(*)");
             }
         } catch (SQLException e) {
             System.out.println("SQL problem " + e.getMessage());
@@ -112,7 +112,9 @@ public class MovieDaoImpl implements MovieDao {
     public List<Movie> findAllByHallId(Long hallId) {
         List<Movie> movies = new ArrayList<>();
         try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_MOVIE_BY_HALL_ID_QUERY + hallId)) {
-            movies.add(initMovieByResultSet(resultSet));
+            while (resultSet.next()) {
+                movies.add(initMovieByResultSet(resultSet));
+            }
         } catch (SQLException throwables) {
             System.out.println("SQL problem " + throwables.getMessage());
         }

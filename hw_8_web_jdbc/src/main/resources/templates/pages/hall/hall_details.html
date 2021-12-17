@@ -7,11 +7,11 @@
     <meta charset="utf-8">
     <title>Detail Hall</title>
 
-    <!--<style type="text/css">
+    <style type="text/css">
         .like-dislike-section {
             cursor: pointer;
         }
-    </style>-->
+    </style>
 
 </head>
 <body>
@@ -40,7 +40,17 @@
                         </tr>
                     </table>
                     <hr>
-                    <a th:href="@{'/movies/new/' + ${hall.getId()}}" type="button" class="btn btn-primary">Add new movie</a>
+
+                    <div class="btn-group btn-group">
+                        <a th:href="@{'/movies/new/' + ${hall.getId()}}" type="button" class="btn btn-success">add new movie</a>
+                        <a th:href="@{'/movies/halls/' + ${hall.getId()}}" type="button" class="btn btn-warning">show all movies in this hall</a>
+                        <a th:href="@{'/halls/delete/' + ${hall.getId()}}"  type="button" class="btn btn-danger">Delete</a>
+                    </div>
+
+
+
+
+                    <!--                    <a th:href="@{'/movies/new/' + ${hall.getId()}}" type="button" class="btn btn-primary"></a>-->
                 </div>
             </div>
         </div>

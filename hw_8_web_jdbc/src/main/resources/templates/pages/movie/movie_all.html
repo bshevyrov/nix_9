@@ -27,7 +27,7 @@
                             <th>name</th>
                             <th>description</th>
                             <th>hall id</th>
-                            <th>details</th>
+<!--                            <th>details</th>-->
                             <th>delete</th>
                         </tr>
                         </thead>
@@ -35,16 +35,18 @@
                         <!--                        Содержимое колонок-->
                         <tr th:each="movie,iter : ${movies}">
                             <td th:text="${iter.count}"></td>
-                            <td th:text="${movie.getId()}"></td>
+                            <td> <a th:href="@{'/movies/details/' + ${movie.getId()}}" th:text="${movie.getId()}"></a></td>
                             <td th:text="${movie.getName()}"></td>
                             <td th:text="${movie.getDescription()}"></td>
-                            <td th:text="${movie.getHall().getId()}"></td>
+                            <td><a th:href="@{'/halls/details/' + ${movie.getHall().getId()}}" th:text="${movie.getHall().getId()}"></a></td>
+
+<!--                            <td th:text="${movie.getHall().getId()}"></td>-->
                             <!--                            <td th:text="${movie.getDescription()}"></td>-->
                             <!--                            <td th:text="${#calendars.format(department.getCreated(),'dd MMMM yyyy')}"></td>-->
-                            <td>
-                                <a th:href="@{'/movies/details/' + ${movie.getId()}}" type="button"
-                                   class="btn btn-primary">details</a>
-                            </td>
+<!--                            <td>-->
+<!--                                <a th:href="@{'/movies/details/' + ${movie.getId()}}" type="button"-->
+<!--                                   class="btn btn-primary">details</a>-->
+<!--                            </td>-->
                             <td>
                                 <a th:href="@{'/movies/delete/' + ${movie.getId()}}" type="button"
                                    class="btn btn-danger">delete</a>

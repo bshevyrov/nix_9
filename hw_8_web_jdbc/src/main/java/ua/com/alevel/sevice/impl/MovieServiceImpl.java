@@ -2,6 +2,7 @@ package ua.com.alevel.sevice.impl;
 
 import org.springframework.stereotype.Service;
 import ua.com.alevel.dao.MovieDao;
+import ua.com.alevel.entity.Hall;
 import ua.com.alevel.entity.Movie;
 import ua.com.alevel.sevice.MovieService;
 
@@ -36,15 +37,21 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Movie findById(long id) {
-        Movie movie = new Movie();
-//        if (movieDao.existById(id)) {
-            movie = movieDao.findById(id);
-//        }
-        return movie;
+//        Movie movie = new Movie();
+////        if (movieDao.existById(id)) {
+//            movie = movieDao.findById(id);
+////        }
+//        return movie;
+        return movieDao.findById(id);
     }
 
     @Override
     public List<Movie> findAll() {
         return movieDao.findAll();
+    }
+
+    @Override
+    public List<Movie> findAllByHall(Hall hall) {
+        return movieDao.findAllByHallId(hall.getId());
     }
 }

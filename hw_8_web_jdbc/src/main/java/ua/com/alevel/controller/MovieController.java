@@ -19,13 +19,19 @@ public class MovieController {
         this.movieFacade = movieFacade;
     }
 
-    @GetMapping
+    @GetMapping()
     public String findAll(Model model) {
         List<MovieResponseDto> movies = movieFacade.findAll();
         model.addAttribute("movies", movies);
         return "pages/movie/movie_all";
     }
 
+    @GetMapping( "/halls/{hallId}")
+    public String findAllByHallId( @PathVariable Long hallId, Model model) {
+        List<MovieResponseDto> movies = movieFacade.findAllByHall(hallId);
+        model.addAttribute("movies", movies);
+        return "pages/movie/movie_all";
+    }
     @GetMapping("/new/{hallId}")
     public String redirectToNewMoviePage(@PathVariable Long hallId, Model model) {
         MovieRequestDto movieRequestDto = new MovieRequestDto();
@@ -39,6 +45,18 @@ public class MovieController {
     @PostMapping("/new")
     public String createNewMovie(@ModelAttribute("movie") MovieRequestDto movieRequestDto) {
         movieFacade.create(movieRequestDto);
+        return "redirect:/movies";
+    }
+
+    @GetMapping("/details/{id}")
+    public String findById(@PathVariable Long id, Model model) {
+        model.addAttribute("movie", movieFacade.findById(id));
+        return "pages/movie/movie_details";
+    }
+
+    @GetMapping("/detlete/{id}")
+    public String deleteById(@PathVariable Long id) {
+        movieFacade.delete(id);
         return "redirect:/movies";
     }
 

@@ -56,6 +56,18 @@ public class MovieFacadeImpl implements MovieFacade {
 
     @Override
     public List<MovieResponseDto> findAll() {
-        return movieService.findAll().stream().map(MovieResponseDto::new).collect(Collectors.toList());
+        return convertToDtoByEntity(movieService.findAll());
+
+    }
+
+    @Override
+    public List<MovieResponseDto> findAllByHall(Long hallId) {
+        return convertToDtoByEntity(movieService.findAllByHall(hallService.findById(hallId)));
+    }
+
+    private List<MovieResponseDto> convertToDtoByEntity(List<Movie> movies) {
+        return movies.stream()
+                .map(MovieResponseDto::new)
+                .collect(Collectors.toList());
     }
 }
