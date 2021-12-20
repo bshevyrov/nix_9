@@ -3,8 +3,8 @@ package ua.com.alevel.dao.impl;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.dao.AuthorDao;
-import ua.com.alevel.db.impl.AuthorDBImpl;
 import ua.com.alevel.entity.Author;
+import ua.com.alevel.db.impl.AuthorDBImpl;
 
 import java.util.Collection;
 import java.util.List;

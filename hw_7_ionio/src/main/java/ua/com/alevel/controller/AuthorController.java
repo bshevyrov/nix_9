@@ -8,7 +8,6 @@ import ua.com.alevel.service.AuthorService;
 import ua.com.alevel.service.BookService;
 import ua.com.alevel.service.impl.AuthorServiceImpl;
 import ua.com.alevel.service.impl.BookServiceImpl;
-import ua.com.alevel.utils.NavigationMenu;
 
 import java.io.BufferedReader;
 import java.io.IOException;
