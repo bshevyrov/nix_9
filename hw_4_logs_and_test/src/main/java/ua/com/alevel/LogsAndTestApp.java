@@ -8,5 +8,3 @@ public class LogsAndTestApp {
         new CrudMenu().run();
     }
 }
-//todo But not work update
-//And del from aurhorBook

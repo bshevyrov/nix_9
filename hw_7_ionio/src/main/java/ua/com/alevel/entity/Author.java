@@ -43,7 +43,6 @@ public class Author extends BaseEntity {
                 ", name='" + name + '\'' +
                 ", nickName='" + nickName + '\'' +
                 ", booksId=" + Arrays.toString(booksId) +
-//                ", visible=" + visible +
                 '}';
     }
 }

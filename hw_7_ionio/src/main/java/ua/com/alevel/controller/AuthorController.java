@@ -21,7 +21,6 @@ public class AuthorController {
     public void create(BufferedReader reader) {
         while (true) {
             try {
-//                NavigationMenu.clearScreen();
                 System.out.print("Write author name:");
                 String authorName = reader.readLine();
                 if (!isStringOk(authorName)) {
@@ -76,7 +75,6 @@ public class AuthorController {
     public void update(BufferedReader reader) {
         while (true) {
             try {
-//                NavigationMenu.clearScreen();
                 System.out.print("Write author id:");
                 String authorId = reader.readLine();
                 if (!isStringOk(authorId)) {

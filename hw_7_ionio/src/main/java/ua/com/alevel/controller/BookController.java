@@ -22,7 +22,6 @@ public class BookController {
         String[] authorsOfThisBook = new String[0];
         while (true) {
             try {
-//                NavigationMenu.clearScreen();
                 System.out.print("Write name of the book:");
                 String bookName = reader.readLine();
                 if (!isStringOk(bookName)) {
@@ -93,7 +92,6 @@ public class BookController {
     public void update(BufferedReader reader) {
         while (true) {
             try {
-//                NavigationMenu.clearScreen();
                 System.out.print("Write Id of the book:");
                 String bookId = reader.readLine();
                 if (!isStringOk(bookId)) {
