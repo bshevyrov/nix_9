@@ -2,8 +2,8 @@ package ua.com.alevel.facade.impl;
 
 
 import org.springframework.stereotype.Service;
-import ua.com.alevel.dto.movie.MovieRequestDto;
-import ua.com.alevel.dto.movie.MovieResponseDto;
+import ua.com.alevel.view.dto.movie.MovieRequestDto;
+import ua.com.alevel.view.dto.movie.MovieResponseDto;
 import ua.com.alevel.persistence.entity.Hall;
 import ua.com.alevel.persistence.entity.Movie;
 import ua.com.alevel.facade.MovieFacade;

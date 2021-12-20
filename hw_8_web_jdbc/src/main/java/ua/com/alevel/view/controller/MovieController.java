@@ -1,10 +1,10 @@
-package ua.com.alevel.controller;
+package ua.com.alevel.view.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ua.com.alevel.dto.movie.MovieRequestDto;
-import ua.com.alevel.dto.movie.MovieResponseDto;
+import ua.com.alevel.view.dto.movie.MovieRequestDto;
+import ua.com.alevel.view.dto.movie.MovieResponseDto;
 import ua.com.alevel.facade.MovieFacade;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package ua.com.alevel.dto;
+package ua.com.alevel.view.dto.response;
 
 public abstract class ResponseDto {
 

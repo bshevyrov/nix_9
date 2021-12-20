@@ -1,9 +1,9 @@
 package ua.com.alevel.facade;
 
-import ua.com.alevel.dto.RequestDto;
-import ua.com.alevel.dto.ResponseDto;
-
-import java.util.List;
+import org.springframework.web.context.request.WebRequest;
+import ua.com.alevel.view.dto.RequestDto;
+import ua.com.alevel.view.dto.response.PageDataResponse;
+import ua.com.alevel.view.dto.response.ResponseDto;
 
 public interface BaseFacade<REQ extends RequestDto, RES extends ResponseDto> {
 
@@ -15,6 +15,8 @@ public interface BaseFacade<REQ extends RequestDto, RES extends ResponseDto> {
 
     RES findById(Long id);
 
-    List<RES> findAll();
+//    PageDataResponse<RES> findAll();
+
+    PageDataResponse<RES> findAll(WebRequest webRequest);
 
 }

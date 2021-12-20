@@ -1,10 +1,10 @@
-package ua.com.alevel.controller;
+package ua.com.alevel.view.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ua.com.alevel.dto.hall.HallRequestDto;
-import ua.com.alevel.dto.hall.HallResponseDto;
+import ua.com.alevel.view.dto.hall.HallRequestDto;
+import ua.com.alevel.view.dto.hall.HallResponseDto;
 import ua.com.alevel.facade.HallFacade;
 
 import java.util.List;

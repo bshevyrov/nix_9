@@ -1,13 +1,12 @@
-package ua.com.alevel.dto.movie;
+package ua.com.alevel.view.dto.movie;
 
-import ua.com.alevel.dto.RequestDto;
+import ua.com.alevel.view.dto.RequestDto;
 
 public class MovieRequestDto extends RequestDto {
 
 
     private String name;
     private String description;
-    private Long hallId;
 
     public String getName() {
         return name;
@@ -24,12 +23,12 @@ public class MovieRequestDto extends RequestDto {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public Long getHallId() {
-        return hallId;
-    }
-
-    public void setHallId(Long hallId) {
-        this.hallId = hallId;
-    }
+//
+//    public Long getHallId() {
+//        return hallId;
+//    }
+//
+//    public void setHallId(Long hallId) {
+//        this.hallId = hallId;
+//    }
 }

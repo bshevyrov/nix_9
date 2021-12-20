@@ -1,20 +1,21 @@
-package ua.com.alevel.dto.hall;
+package ua.com.alevel.view.dto.hall;
 
-import ua.com.alevel.dto.ResponseDto;
+import ua.com.alevel.view.dto.response.ResponseDto;
 import ua.com.alevel.persistence.entity.Hall;
 
 public class HallResponseDto extends ResponseDto {
 
     private String name;
     private int numOfSeats;
+    private Integer movieCount;
 
     public HallResponseDto() {
     }
 
     public HallResponseDto(Hall hall){
-        this.name = hall.getName();
-        this.numOfSeats = hall.getNumOfSeats();
-        super.setId(hall.getId());
+        setName(hall.getName());
+        setNumOfSeats(hall.getNumOfSeats());
+        setId(hall.getId());
     }
 
     public String getName() {
@@ -31,5 +32,13 @@ public class HallResponseDto extends ResponseDto {
 
     public void setNumOfSeats(int numOfSeats) {
         this.numOfSeats = numOfSeats;
+    }
+
+    public Integer getMovieCount() {
+        return movieCount;
+    }
+
+    public void setMovieCount(Integer movieCount) {
+        this.movieCount = movieCount;
     }
 }
