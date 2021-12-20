@@ -1,1 +1,0 @@
-INSERT INTO minimal_cinema.halls (id, name, num_of_seat) VALUES (1, 'green', 12);
