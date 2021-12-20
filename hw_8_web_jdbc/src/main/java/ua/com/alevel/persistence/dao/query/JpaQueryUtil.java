@@ -1,4 +1,4 @@
-package ua.com.alevel.dao.query;
+package ua.com.alevel.persistence.dao.query;
 
 public final class JpaQueryUtil {
 

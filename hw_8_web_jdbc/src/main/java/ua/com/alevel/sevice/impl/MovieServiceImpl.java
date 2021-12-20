@@ -1,9 +1,9 @@
 package ua.com.alevel.sevice.impl;
 
 import org.springframework.stereotype.Service;
-import ua.com.alevel.dao.MovieDao;
-import ua.com.alevel.entity.Hall;
-import ua.com.alevel.entity.Movie;
+import ua.com.alevel.persistence.dao.MovieDao;
+import ua.com.alevel.persistence.entity.Hall;
+import ua.com.alevel.persistence.entity.Movie;
 import ua.com.alevel.sevice.MovieService;
 
 import java.util.List;

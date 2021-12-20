@@ -1,8 +1,8 @@
 package ua.com.alevel.dto.movie;
 
 import ua.com.alevel.dto.ResponseDto;
-import ua.com.alevel.entity.Hall;
-import ua.com.alevel.entity.Movie;
+import ua.com.alevel.persistence.entity.Hall;
+import ua.com.alevel.persistence.entity.Movie;
 
 public class MovieResponseDto extends ResponseDto {
 

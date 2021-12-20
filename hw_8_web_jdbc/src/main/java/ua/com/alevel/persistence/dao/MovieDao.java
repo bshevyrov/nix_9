@@ -1,6 +1,6 @@
-package ua.com.alevel.dao;
+package ua.com.alevel.persistence.dao;
 
-import ua.com.alevel.entity.Movie;
+import ua.com.alevel.persistence.entity.Movie;
 
 import java.util.List;
 

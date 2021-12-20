@@ -1,10 +1,10 @@
-package ua.com.alevel.dao.impl;
+package ua.com.alevel.persistence.dao.impl;
 
 import org.springframework.stereotype.Service;
 import ua.com.alevel.config.jpa.JpaConfig;
-import ua.com.alevel.dao.MovieDao;
-import ua.com.alevel.entity.Hall;
-import ua.com.alevel.entity.Movie;
+import ua.com.alevel.persistence.dao.MovieDao;
+import ua.com.alevel.persistence.entity.Hall;
+import ua.com.alevel.persistence.entity.Movie;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.com.alevel.dao.query.JpaQueryUtil.*;
+import static ua.com.alevel.persistence.dao.query.JpaQueryUtil.*;
 
 @Service
 public class MovieDaoImpl implements MovieDao {

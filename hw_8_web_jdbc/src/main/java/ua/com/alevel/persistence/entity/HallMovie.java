@@ -1,6 +1,6 @@
-package ua.com.alevel.entity;
+package ua.com.alevel.persistence.entity;
 
-public class HallMovie extends BaseEntity{
+public class HallMovie {
 
     Long hallId;
     Long movieId;

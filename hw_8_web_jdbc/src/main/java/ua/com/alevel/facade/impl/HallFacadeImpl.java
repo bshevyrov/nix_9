@@ -3,7 +3,7 @@ package ua.com.alevel.facade.impl;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.dto.hall.HallRequestDto;
 import ua.com.alevel.dto.hall.HallResponseDto;
-import ua.com.alevel.entity.Hall;
+import ua.com.alevel.persistence.entity.Hall;
 import ua.com.alevel.facade.HallFacade;
 import ua.com.alevel.sevice.HallService;
 

@@ -1,6 +1,6 @@
 package ua.com.alevel.sevice;
 
-import ua.com.alevel.entity.BaseEntity;
+import ua.com.alevel.persistence.entity.BaseEntity;
 
 import java.util.List;
 

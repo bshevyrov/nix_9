@@ -1,7 +1,7 @@
 package ua.com.alevel.sevice;
 
-import ua.com.alevel.entity.Hall;
-import ua.com.alevel.entity.Movie;
+import ua.com.alevel.persistence.entity.Hall;
+import ua.com.alevel.persistence.entity.Movie;
 
 import java.util.List;
 

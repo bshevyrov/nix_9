@@ -1,7 +1,7 @@
 package ua.com.alevel.dto.hall;
 
 import ua.com.alevel.dto.ResponseDto;
-import ua.com.alevel.entity.Hall;
+import ua.com.alevel.persistence.entity.Hall;
 
 public class HallResponseDto extends ResponseDto {
 
