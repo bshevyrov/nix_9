@@ -1,4 +1,4 @@
-package ua.com.alevel.view.dto.movie;
+package ua.com.alevel.view.dto.response;
 
 import ua.com.alevel.view.dto.response.ResponseDto;
 import ua.com.alevel.persistence.entity.Hall;

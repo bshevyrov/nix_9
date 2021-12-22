@@ -1,17 +1,23 @@
 package ua.com.alevel.view.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ua.com.alevel.view.dto.movie.MovieRequestDto;
-import ua.com.alevel.view.dto.movie.MovieResponseDto;
+import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.MovieFacade;
+import ua.com.alevel.view.dto.request.MovieRequestDto;
+import ua.com.alevel.view.dto.response.MovieResponseDto;
+import ua.com.alevel.view.dto.response.PageDataResponse;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static ua.com.alevel.util.WebRequestUtil.DEFAULT_ORDER_PARAM_VALUE;
 
 @Controller
 @RequestMapping("/movies")
-public class MovieController {
+public class MovieController extends AbstractController {
 
     private final MovieFacade movieFacade;
 
@@ -20,22 +26,54 @@ public class MovieController {
     }
 
     @GetMapping()
-    public String findAll(Model model) {
-        List<MovieResponseDto> movies = movieFacade.findAll();
-        model.addAttribute("movies", movies);
+    public String findAll(Model model, WebRequest request) {
+        HeaderName[] columnNames = new HeaderName[]{
+                new HeaderName("#", null, null),
+                new HeaderName("name", "name", "name"),
+                new HeaderName("description", "description", "description"),
+                new HeaderName("movie count", "movieCount", "movieCount"),
+                new HeaderName("details", null, null),
+                new HeaderName("delete", null, null)
+        };
+        PageDataResponse<MovieResponseDto> response = movieFacade.findAll(request);
+        response.initPaginationState(response.getCurrentPage());
+        List<HeaderData> headerDataList = new ArrayList<>();
+        for (HeaderName headerName : columnNames) {
+            HeaderData data = new HeaderData();
+            data.setHeaderName(headerName.getColumnName());
+            if (StringUtils.isBlank(headerName.getTableName())) {
+                data.setSortable(false);
+            } else {
+                data.setSortable(true);
+                data.setSort(headerName.getTableName());
+                if (response.getSort().equals(headerName.getTableName())) {
+                    data.setActive(true);
+                    data.setOrder(response.getOrder());
+                } else {
+                    data.setActive(false);
+                    data.setOrder(DEFAULT_ORDER_PARAM_VALUE);
+                }
+            }
+            headerDataList.add(data);
+        }
+        model.addAttribute("headerDataList", headerDataList);
+        model.addAttribute("createUrl", "/movies/all");
+        model.addAttribute("pageData", response);
+        model.addAttribute("cardHeader", "All Movies");
         return "pages/movie/movie_all";
     }
 
-    @GetMapping( "/halls/{hallId}")
-    public String findAllByHallId( @PathVariable Long hallId, Model model) {
+    @GetMapping("/halls/{hallId}")
+    public String findAllByHallId(@PathVariable Long hallId, Model model) {
         List<MovieResponseDto> movies = movieFacade.findAllByHall(hallId);
         model.addAttribute("movies", movies);
         return "pages/movie/movie_all";
     }
+
     @GetMapping("/new/{hallId}")
     public String redirectToNewMoviePage(@PathVariable Long hallId, Model model) {
         MovieRequestDto movieRequestDto = new MovieRequestDto();
-        movieRequestDto.setHallId(hallId);
+//        movieRequestDto.setHallId(hallId);
         model.addAttribute("movie", movieRequestDto);
         model.addAttribute("hallId", hallId);
         //Какаято переброска далее

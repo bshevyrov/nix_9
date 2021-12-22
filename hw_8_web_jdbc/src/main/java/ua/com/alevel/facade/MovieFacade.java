@@ -1,7 +1,7 @@
 package ua.com.alevel.facade;
 
-import ua.com.alevel.view.dto.movie.MovieRequestDto;
-import ua.com.alevel.view.dto.movie.MovieResponseDto;
+import ua.com.alevel.view.dto.request.MovieRequestDto;
+import ua.com.alevel.view.dto.response.MovieResponseDto;
 
 import java.util.List;
 

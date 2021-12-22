@@ -1,6 +1,4 @@
-package ua.com.alevel.view.dto.movie;
-
-import ua.com.alevel.view.dto.RequestDto;
+package ua.com.alevel.view.dto.request;
 
 public class MovieRequestDto extends RequestDto {
 

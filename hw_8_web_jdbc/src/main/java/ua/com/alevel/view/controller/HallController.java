@@ -3,11 +3,12 @@ package ua.com.alevel.view.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ua.com.alevel.view.dto.hall.HallRequestDto;
-import ua.com.alevel.view.dto.hall.HallResponseDto;
+import org.springframework.web.context.request.WebRequest;
+import ua.com.alevel.view.dto.request.HallRequestDto;
+import ua.com.alevel.view.dto.response.HallResponseDto;
 import ua.com.alevel.facade.HallFacade;
+import ua.com.alevel.view.dto.response.PageDataResponse;
 
-import java.util.List;
 
 @Controller
 @RequestMapping("/halls")
@@ -20,9 +21,9 @@ public class HallController {
     }
 
     @GetMapping
-    public String findAll(Model model) {
-        List<HallResponseDto> halls = hallFacade.findAll();
-        model.addAttribute("halls", halls);
+    public String findAll(Model model, WebRequest request) {
+        PageDataResponse<HallResponseDto> response = hallFacade.findAll(request);
+        model.addAttribute("pageData", response);
         return "pages/hall/hall_all";
     }
 
