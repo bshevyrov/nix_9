@@ -45,6 +45,7 @@ public class PageDataResponse<REQ extends ResponseDto> {
         return currentPage;
     }
 
+
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
     }

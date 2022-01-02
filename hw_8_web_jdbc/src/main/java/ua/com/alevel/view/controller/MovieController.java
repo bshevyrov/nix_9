@@ -1,10 +1,13 @@
 package ua.com.alevel.view.controller;
 
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.MovieFacade;
 import ua.com.alevel.view.dto.request.MovieRequestDto;
 import ua.com.alevel.view.dto.response.MovieResponseDto;
@@ -12,6 +15,7 @@ import ua.com.alevel.view.dto.response.PageDataResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static ua.com.alevel.util.WebRequestUtil.DEFAULT_ORDER_PARAM_VALUE;
 
@@ -31,7 +35,7 @@ public class MovieController extends AbstractController {
                 new HeaderName("#", null, null),
                 new HeaderName("name", "name", "name"),
                 new HeaderName("description", "description", "description"),
-                new HeaderName("movie count", "movieCount", "movieCount"),
+//                new HeaderName("movie count", "movieCount", "movieCount"),
                 new HeaderName("details", null, null),
                 new HeaderName("delete", null, null)
         };
@@ -58,7 +62,7 @@ public class MovieController extends AbstractController {
         }
         model.addAttribute("headerDataList", headerDataList);
         model.addAttribute("createUrl", "/movies/all");
-        model.addAttribute("pageData", response);
+        model.addAttribute("pageDataResponse", response);
         model.addAttribute("cardHeader", "All Movies");
         return "pages/movie/movie_all";
     }
@@ -96,6 +100,15 @@ public class MovieController extends AbstractController {
     public String deleteById(@PathVariable Long id) {
         movieFacade.delete(id);
         return "redirect:/movies";
+    }
+
+    @PostMapping("/all")
+    public ModelAndView findAllRedirect(WebRequest request, ModelMap model) {
+        Map<String,String[]> paremetrMap = request.getParameterMap();
+        if(MapUtils.isNotEmpty(paremetrMap)){
+            paremetrMap.forEach(model::addAttribute);
+        }
+        return  new ModelAndView("redirect/movies", model);
     }
 
 }

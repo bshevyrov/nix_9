@@ -2,65 +2,29 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+      layout:decorate="~{fragments/data_table}">
 <head>
     <meta charset="utf-8">
-    <title>Movies</title>
+    <title>movies</title>
 </head>
 <body>
 
-<div layout:fragment="content">
+<div layout:fragment="data_table_content">
 
-    <div class="row">
-        <div class="col-12">
-            <div class="card mb-2 mt-2">
-                <div class="card-header">
-                    All Movies
-                </div>
-                <div class="card-body">
-                    <table class="table table-sm table-hover">
-                        <thead>
-                        <tr>
-                            <!--                            Названия колонок-->
-                            <th>#</th>
-                            <th>id</th>
-                            <th>name</th>
-                            <th>description</th>
-                            <th>hall id</th>
-<!--                            <th>details</th>-->
-                            <th>delete</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!--                        Содержимое колонок-->
-                        <tr th:each="movie,iter : ${movies}">
-                            <td th:text="${iter.count}"></td>
-                            <td> <a th:href="@{'/movies/details/' + ${movie.getId()}}" th:text="${movie.getId()}"></a></td>
-                            <td th:text="${movie.getName()}"></td>
-                            <td th:text="${movie.getDescription()}"></td>
-                            <td><a th:href="@{'/halls/details/' + ${movie.getHall().getId()}}" th:text="${movie.getHall().getId()}"></a></td>
-
-<!--                            <td th:text="${movie.getHall().getId()}"></td>-->
-                            <!--                            <td th:text="${movie.getDescription()}"></td>-->
-                            <!--                            <td th:text="${#calendars.format(department.getCreated(),'dd MMMM yyyy')}"></td>-->
-<!--                            <td>-->
-<!--                                <a th:href="@{'/movies/details/' + ${movie.getId()}}" type="button"-->
-<!--                                   class="btn btn-primary">details</a>-->
-<!--                            </td>-->
-                            <td>
-                                <a th:href="@{'/movies/delete/' + ${movie.getId()}}" type="button"
-                                   class="btn btn-danger">delete</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+    <tr th:each="movies,iter : ${pageDataResponse.getItems()}">
+        <td th:text="${iter.count}"></td>
+        <td th:text="${movies.getName()}"></td>
+        <td th:text="${movies.getDescription()}"></td>
+<!--        <td th:text="${movies.getBookCount()}"></td>-->
+        <td>
+            <a th:href="@{'/movies/details/' + ${movies.getId()}}" type="button" class="btn btn-primary">details</a>
+        </td>
+        <td>
+            <a th:href="@{'/movies/delete/' + ${movies.getId()}}" type="button" class="btn btn-danger">delete</a>
+        </td>
+    </tr>
 
 </div>
 
 </body>
 </html>
-

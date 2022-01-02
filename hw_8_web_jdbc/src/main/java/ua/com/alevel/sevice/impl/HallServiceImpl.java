@@ -3,6 +3,8 @@ package ua.com.alevel.sevice.impl;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.persistence.dao.HallDao;
 import ua.com.alevel.persistence.dao.MovieDao;
+import ua.com.alevel.persistence.datatable.DataTableRequest;
+import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Hall;
 import ua.com.alevel.sevice.HallService;
 
@@ -33,7 +35,7 @@ public class HallServiceImpl implements HallService {
     public void delete(long id) {
 //        if (hallDao.existById(id)) {
             hallDao.delete(id);
-            movieDao.deleteAllByHallId(id);
+//            movieDao.deleteAllByHallId(id);
 //        }
     }
 
@@ -48,7 +50,9 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    public List<Hall> findAll() {
-        return hallDao.findAll();
+    public DataTableResponse<Hall> findAll(DataTableRequest request) {
+        return null;
     }
+
+
 }

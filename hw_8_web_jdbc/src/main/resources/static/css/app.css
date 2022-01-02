@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
-html, body {
-    background: url("https://wallpaper.dog/large/5486351.jpg");
+html,body {
+    background: url("https://wallpaper.dog/large/5486351.jpg") no-repeat center center fixed;
     background-size: cover;
     height: 100%;
     font-family: 'Numans', sans-serif;
@@ -16,5 +16,5 @@ a.nav-item.nav-link {
 
 .sort {
     cursor: pointer;
-    margin-right: 2mm;
+    margin-right: 2em;
 }

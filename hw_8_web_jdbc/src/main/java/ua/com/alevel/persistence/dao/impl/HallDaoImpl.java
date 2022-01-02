@@ -3,6 +3,8 @@ package ua.com.alevel.persistence.dao.impl;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.config.jpa.JpaConfig;
 import ua.com.alevel.persistence.dao.HallDao;
+import ua.com.alevel.persistence.datatable.DataTableRequest;
+import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Hall;
 
 import java.sql.PreparedStatement;
@@ -85,17 +87,27 @@ public class HallDaoImpl implements HallDao {
     }
 
     @Override
-    public List<Hall> findAll() {
-        List<Hall> halls = new ArrayList<>();
-        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_HALL_QUERY)) {
-            while (resultSet.next()) {
-                halls.add(initHallByResultSet(resultSet));
-            }
-        } catch (SQLException e) {
-            System.out.println("Sql problem " + e.getMessage());
-        }
-        return halls;
+    public DataTableResponse<Hall> findAll(DataTableRequest request) {
+        return null;
     }
+
+    @Override
+    public Long count() {
+        return null;
+    }
+
+//    @Override
+//    public List<Hall> findAll() {
+//        List<Hall> halls = new ArrayList<>();
+//        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_HALL_QUERY)) {
+//            while (resultSet.next()) {
+//                halls.add(initHallByResultSet(resultSet));
+//            }
+//        } catch (SQLException e) {
+//            System.out.println("Sql problem " + e.getMessage());
+//        }
+//        return halls;
+//    }
 
     private Hall initHallByResultSet(ResultSet resultSet) throws SQLException {
         long id = resultSet.getLong("id");

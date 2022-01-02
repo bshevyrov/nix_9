@@ -1,7 +1,10 @@
 package ua.com.alevel.sevice;
 
+import ua.com.alevel.persistence.datatable.DataTableRequest;
+import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.BaseEntity;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 
 public interface BaseService<E extends BaseEntity> {
@@ -14,5 +17,5 @@ public interface BaseService<E extends BaseEntity> {
 
     E findById(long id);
 
-    List<E> findAll();
+    DataTableResponse<E> findAll(DataTableRequest request);
 }

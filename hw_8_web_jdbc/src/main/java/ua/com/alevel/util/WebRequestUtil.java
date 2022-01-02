@@ -31,11 +31,11 @@ public final class WebRequestUtil {
         return new PageAndSizeData(page, size);
     }
 
-    public static PageAndSizeData defaultPageAndSortData() {
+    public static PageAndSizeData defaultPageAndSizeData() {
         return new PageAndSizeData(DEFAULT_PAGE_PARAM_VALUE, DEFAULT_SIZE_PARAM_VALUE);
     }
 
-    public static SortData defaultSortData(WebRequest webRequest) {
+    public static SortData generateSortData(WebRequest webRequest) {
         String sort = webRequest.getParameter(SORT_PARAM) != null
                 ? Objects.requireNonNull(webRequest.getParameter(SORT_PARAM))
                 : DEFAULT_SORT_PARAM_VALUE;

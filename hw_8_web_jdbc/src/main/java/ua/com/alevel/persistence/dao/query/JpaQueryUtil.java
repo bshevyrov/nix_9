@@ -16,7 +16,9 @@ public final class JpaQueryUtil {
     public static final String DELETE_MOVIE_BY_ID_QUERY="DELETE FROM movies WHERE id = ";
     public static final String DELETE_MOVIE_BY_HALL_ID_QUERY="DELETE FROM movies WHERE hall_id = ";
     public static final String FIND_MOVIE_BY_ID_QUERY="SELECT * FROM  movies  AS m JOIN halls AS h ON m.hall_id = h.id WHERE m.id = ";
-    public static final String FIND_ALL_MOVIE_QUERY="SELECT * FROM  movies AS m JOIN halls AS h ON  m.hall_id = h.id";
+//    public static final String FIND_ALL_MOVIE_QUERY="SELECT * FROM  movies AS m JOIN halls AS h ON  m.hall_id = h.id";
+    public static final String FIND_ALL_MOVIE_QUERY="SELECT * FROM  movies";
+
     public static final String FIND_ALL_MOVIE_BY_HALL_ID_QUERY="SELECT * FROM  movies AS m JOIN halls AS h ON  m.hall_id = h.id WHERE m.hall_id = ";
     public static final String EXIST_MOVIE_BY_ID_QUERY="SELECT COUNT(*) FROM movies WHERE id = ";
 }

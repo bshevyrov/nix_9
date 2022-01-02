@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface MovieService extends BaseService<Movie> {
 
-    List<Movie> findAllByHall(Hall hall);
+//    List<Movie> findAllByHall(Hall hall);
 }

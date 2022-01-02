@@ -2,6 +2,8 @@ package ua.com.alevel.sevice.impl;
 
 import org.springframework.stereotype.Service;
 import ua.com.alevel.persistence.dao.MovieDao;
+import ua.com.alevel.persistence.datatable.DataTableRequest;
+import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Hall;
 import ua.com.alevel.persistence.entity.Movie;
 import ua.com.alevel.sevice.MovieService;
@@ -46,12 +48,17 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Movie> findAll() {
-        return movieDao.findAll();
+    public DataTableResponse<Movie> findAll(DataTableRequest request) {
+        return movieDao.findAll(request);
     }
+//
+//    @Override
+//    public List<Movie> findAllByHall(Hall hall) {
+//        return null;
+//    }
 
-    @Override
-    public List<Movie> findAllByHall(Hall hall) {
-        return movieDao.findAllByHallId(hall.getId());
-    }
+//    @Override
+//    public List<Movie> findAllByHall(Hall hall) {
+//        return movieDao.findAllByHallId(hall.getId());
+//    }
 }
