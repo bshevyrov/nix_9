@@ -1,22 +1,16 @@
 package ua.com.alevel.persistence.entity;
 
-public class Movie extends BaseEntity {
+import ua.com.alevel.persistence.type.CourseType;
+
+public class Student extends BaseEntity{
 
     private String name;
     private String description;
-//    private Hall hall;
+    private CourseType courseType;
 
-    public Movie() {
+    public Student() {
         super();
     }
-
-//    public Hall getHall() {
-//        return hall;
-//    }
-
-//    public void setHall(Hall hall) {
-//        this.hall = hall;
-//    }
 
     public String getName() {
         return name;
@@ -32,5 +26,13 @@ public class Movie extends BaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public CourseType getCourseType() {
+        return courseType;
+    }
+
+    public void setCourseType(CourseType courseType) {
+        this.courseType = courseType;
     }
 }
