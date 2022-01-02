@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Detail Hall</title>
+
+    <style type="text/css">
+        .like-dislike-section {
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header">
+                    Details Halls
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>id</th>
+                            <td th:text="${hall.getId()}"></td>
+                        </tr>
+                        <tr>
+                            <th>name</th>
+                            <td th:text="${hall.getName()}"></td>
+                        </tr>
+                        <tr>
+                            <th>number of seats</th>
+                            <td th:text="${hall.getNumOfSeats()}"></td>
+                        </tr>
+                    </table>
+                    <hr>
+
+                    <div class="btn-group btn-group">
+                        <a th:href="@{'/movies/new/' + ${hall.getId()}}" type="button" class="btn btn-success">add new movie</a>
+                        <a th:href="@{'/movies/halls/' + ${hall.getId()}}" type="button" class="btn btn-warning">show all movies in this hall</a>
+                        <a th:href="@{'/halls/delete/' + ${hall.getId()}}"  type="button" class="btn btn-danger">Delete</a>
+                    </div>
+
+
+
+
+                    <!--                    <a th:href="@{'/movies/new/' + ${hall.getId()}}" type="button" class="btn btn-primary"></a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
