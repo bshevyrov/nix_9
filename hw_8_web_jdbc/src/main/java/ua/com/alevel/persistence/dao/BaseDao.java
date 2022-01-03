@@ -18,7 +18,7 @@ public interface BaseDao<E extends BaseEntity> {
 
     E findById(long id);
 
-    DataTableResponse findAll(DataTableRequest request);
+    DataTableResponse<E> findAll(DataTableRequest request);
 
     long count();
 

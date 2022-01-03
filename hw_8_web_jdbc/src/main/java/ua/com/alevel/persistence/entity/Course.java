@@ -1,56 +1,38 @@
 package ua.com.alevel.persistence.entity;
 
-import java.util.Date;
+import ua.com.alevel.persistence.type.CourseType;
 
 public class Course extends BaseEntity{
 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private Date birthDate;
+    private String name;
+    private String description;
+    private CourseType courseType;
 
     public Course() {
         super();
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getDescription() {
+        return description;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getEmail() {
-        return email;
+    public CourseType getCourseType() {
+        return courseType;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setCourseType(CourseType courseType) {
+        this.courseType = courseType;
     }
 }

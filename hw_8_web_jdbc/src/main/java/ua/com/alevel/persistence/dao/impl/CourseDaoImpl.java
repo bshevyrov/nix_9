@@ -34,7 +34,7 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
-    public DataTableResponse findAll(DataTableRequest request) {
+    public DataTableResponse<Course> findAll(DataTableRequest request) {
         return null;
     }
 
