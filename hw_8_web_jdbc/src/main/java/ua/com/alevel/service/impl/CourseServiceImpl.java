@@ -1,22 +1,22 @@
-package ua.com.alevel.persistence.dao.impl;
+package ua.com.alevel.service.impl;
 
 import org.springframework.stereotype.Service;
-import ua.com.alevel.persistence.dao.CourseDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
+import ua.com.alevel.persistence.entity.BaseEntity;
 import ua.com.alevel.persistence.entity.Course;
+import ua.com.alevel.service.CourseService;
 
 @Service
-public class CourseDaoImpl implements CourseDao {
-
+public class CourseServiceImpl implements CourseService {
 
     @Override
-    public void create(Course course) {
+    public void create(BaseEntity baseEntity) {
 
     }
 
     @Override
-    public void update(Course course) {
+    public void update(BaseEntity baseEntity) {
 
     }
 
@@ -25,13 +25,9 @@ public class CourseDaoImpl implements CourseDao {
 
     }
 
-    @Override
-    public boolean existById(long id) {
-        return false;
-    }
 
     @Override
-    public Course findById(long id) {
+    public BaseEntity findById(long id) {
         return null;
     }
 
@@ -40,9 +36,4 @@ public class CourseDaoImpl implements CourseDao {
         return null;
     }
 
-    @Override
-    public long count() {
-        return 0;
-    }
 }
-

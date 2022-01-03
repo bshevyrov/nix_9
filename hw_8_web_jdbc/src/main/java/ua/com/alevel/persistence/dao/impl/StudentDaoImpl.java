@@ -1,5 +1,6 @@
 package ua.com.alevel.persistence.dao.impl;
 
+import org.springframework.stereotype.Service;
 import ua.com.alevel.config.jpa.JpaConfig;
 import ua.com.alevel.persistence.dao.StudentDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
@@ -16,6 +17,7 @@ import java.util.List;
 import static ua.com.alevel.persistence.dao.query.JpaQueryUtil.CREATE_STUDENT_QUERY;
 import static ua.com.alevel.persistence.dao.query.JpaQueryUtil.FIND_ALL_STUDENT_QUERY;
 
+@Service
 public class StudentDaoImpl implements StudentDao {
 
     public StudentDaoImpl(JpaConfig jpaConfig) {
