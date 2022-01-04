@@ -7,6 +7,10 @@ public class DataTableRequest {
     private int currentPage;
     private int pageSize;
 
+    public DataTableRequest() {
+        //
+    }
+
     public String getSort() {
         return sort;
     }

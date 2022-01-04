@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>New Hall</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <form>
+        <div class="form-group">
+            <label for="exampleFormControlInput2">First name</label>
+            <input type="email" class="form-control" id="exampleFormControlInput2" placeholder="Ivan">
+        </div> <div class="form-group">
+            <label for="exampleFormControlInput3">Last name</label>
+            <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="Ivanov">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Email address</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div><div class="form-group">
+            <label for="exampleFormControlInput4">Phone number</label>
+            <input type="email" class="form-control" id="exampleFormControlInput4" placeholder="+380">
+        </div>
+        <form action="/action_page.php">
+            <label for="birthday">Birthday:</label>
+            <input type="date" id="birthday" name="birthday">
+            <input type="submit">
+        </form>
+
+    </form>
+</div>
+</body>
+</html>

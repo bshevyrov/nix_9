@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Halls</title>
+</head>
+<body>
+
+<div >
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header">
+                    All Halls
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                        <tr>
+                            <!--                            Названия колонок-->
+                            <th>#</th>
+                            <th>id</th>
+                            <th>name</th>
+                            <th>numbers of seats</th>
+                            <!--                            <th>details</th>-->
+                            <th>delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--                        Содержимое колонок-->
+                        <tr th:each="hall,iter : ${halls}">
+                            <td th:text="${iter.count}"></td>
+                            <td><a th:href="@{'/halls/details/' + ${hall.getId()}}" th:text="${hall.getId()}"></a></td>
+                            <td th:text="${hall.getName()}"></td>
+                            <td th:text="${hall.getNumOfSeats()}"></td>
+                            <!--                            <td th:text="${#calendars.format(department.getCreated(),'dd MMMM yyyy')}"></td>-->
+                            <!--                            <td>-->
+                            <!--                                <a th:href="@{'/halls/details/' + ${hall.getId()}}" type="button"-->
+                            <!--                                   class="btn btn-primary">details</a>-->
+                            <!--                            </td>-->
+                            <td>
+                                <a th:href="@{'/halls/delete/' + ${hall.getId()}}" type="button"
+                                   class="btn btn-danger">delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div layout:fragment="content"></div>
+
+</body>
+</html>
+
