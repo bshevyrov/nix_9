@@ -3,7 +3,8 @@ package ua.com.alevel.veiw.dto.response;
 import java.sql.Date;
 
 public class StudentResponseDto extends ResponseDto{
-
+    private long id;
+    private Date createDate;
     private String email;
     private String phone;
     private Date birthDate;
@@ -48,5 +49,21 @@ public class StudentResponseDto extends ResponseDto{
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 }

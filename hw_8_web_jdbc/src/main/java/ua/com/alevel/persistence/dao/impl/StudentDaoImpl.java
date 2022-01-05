@@ -70,6 +70,8 @@ public class StudentDaoImpl implements StudentDao {
         List<Student> studentList = new ArrayList<>();
         long size = 0L;
 
+
+
         try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_STUDENT_QUERY)) {
             while (resultSet.next()) {
                 Student student = new Student();
@@ -77,7 +79,8 @@ public class StudentDaoImpl implements StudentDao {
                 student.setLastName(resultSet.getString("last_name"));
                 student.setBirthDate(resultSet.getDate("birth_date"));
                 student.setEmail(resultSet.getString("email"));
-                student.setEmail(resultSet.getString("phone"));
+                student.setPhone(resultSet.getString("phone"));
+                student.setCreateDate(resultSet.getDate("create_date"));
                 student.setId(resultSet.getLong("id"));
                 studentList.add(student);
                 ++size;

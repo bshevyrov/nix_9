@@ -1,38 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
+
+
 <head>
     <meta charset="utf-8">
     <title>New Hall</title>
+
 </head>
 <body>
 
 <div layout:fragment="content">
 
-    <form>
-        <div class="form-group">
-            <label for="exampleFormControlInput2">First name</label>
-            <input type="email" class="form-control" id="exampleFormControlInput2" placeholder="Ivan">
-        </div> <div class="form-group">
-            <label for="exampleFormControlInput3">Last name</label>
-            <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="Ivanov">
-        </div>
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Email address</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-        </div><div class="form-group">
-            <label for="exampleFormControlInput4">Phone number</label>
-            <input type="email" class="form-control" id="exampleFormControlInput4" placeholder="+380">
-        </div>
-        <form action="/action_page.php">
-            <label for="birthday">Birthday:</label>
-            <input type="date" id="birthday" name="birthday">
-            <input type="submit">
-        </form>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">First name</span>
+        <input type="text" class="form-control" placeholder="Username" aria-label="Ivan"
+               aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon2">Last name</span>
+        <input type="text" class="form-control" placeholder="Username" aria-label="Ivanov"
+               aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3">E-mail</span>
+        <input type="text" class="form-control" placeholder="Username" aria-label="mail@example.com"
+               aria-describedby="basic-addon1">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon4">Phone</span>
+        <input type="text" class="form-control" placeholder="Username" aria-label="+380"
+               aria-describedby="basic-addon1">
+    </div>
 
-    </form>
+
+    <div class="input-group mb-3">
+        <form action="/dateTest">
+        <span class="input-group-text" id="basic-addon00">Date Time:         <input type="date" id="date" name="date"
+                                                                                    class="form-control"
+                                                                                    aria-describedby="basic-addon1"
+                                                                                    placeholder="Username"
+                                                                                    aria-label="+380"/>
+</span>
+            <input type="submit" value="Submit"/>
+            <!--    <input type="hidden" name="_csrf" value="437b30dc-a103-44d0-b4e9-791d8de62986"/></form>-->
+        </form>
+    </div>
+
 </div>
+
 </body>
 </html>

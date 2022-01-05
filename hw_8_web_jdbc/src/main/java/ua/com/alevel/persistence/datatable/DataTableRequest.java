@@ -8,7 +8,10 @@ public class DataTableRequest {
     private int pageSize;
 
     public DataTableRequest() {
-        //
+        this.sort = "";
+        this.order = "";
+        this.currentPage = 1;
+        this.pageSize = 10;
     }
 
     public String getSort() {

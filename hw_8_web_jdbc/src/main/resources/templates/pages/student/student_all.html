@@ -5,17 +5,17 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="utf-8">
-    <title>Halls</title>
+    <title>Students</title>
 </head>
 <body>
 
-<div >
+<div layout:fragment="content">
 
     <div class="row">
         <div class="col-12">
             <div class="card mb-2 mt-2">
                 <div class="card-header">
-                    All Halls
+                    All Students
                 </div>
                 <div class="card-body">
                     <table class="table table-sm table-hover">
@@ -24,28 +24,36 @@
                             <!--                            Названия колонок-->
                             <th>#</th>
                             <th>id</th>
-                            <th>name</th>
-                            <th>numbers of seats</th>
+                            <th>first name</th>
+                            <th>last name</th>
+                            <th>email</th>
+                            <th>phone</th>
+                            <th>birthday</th>
                             <!--                            <th>details</th>-->
-                            <th>delete</th>
+<!--                            <th>delete</th>-->
                         </tr>
                         </thead>
                         <tbody>
                         <!--                        Содержимое колонок-->
-                        <tr th:each="hall,iter : ${halls}">
+                        <tr th:each="student,iter : ${students}">
                             <td th:text="${iter.count}"></td>
-                            <td><a th:href="@{'/halls/details/' + ${hall.getId()}}" th:text="${hall.getId()}"></a></td>
-                            <td th:text="${hall.getName()}"></td>
-                            <td th:text="${hall.getNumOfSeats()}"></td>
+<!--                            <td><a th:href="@{'/halls/details/' + ${hall.getId()}}" th:text="${hall.getId()}"></a></td>-->
+                            <td th:text="${student.getId()}"></td>
+                            <td th:text="${student.getFirstName()}"></td>
+                            <td th:text="${student.getLastName()}"></td>
+                            <td th:text="${student.getEmail()}"></td>
+                            <td th:text="${student.getPhone()}"></td>
+                            <td th:text="${student.getBirthDate()}"></td>
+<!--                            <td th:text="${hall.getNumOfSeats()}"></td>-->
                             <!--                            <td th:text="${#calendars.format(department.getCreated(),'dd MMMM yyyy')}"></td>-->
                             <!--                            <td>-->
                             <!--                                <a th:href="@{'/halls/details/' + ${hall.getId()}}" type="button"-->
                             <!--                                   class="btn btn-primary">details</a>-->
                             <!--                            </td>-->
-                            <td>
-                                <a th:href="@{'/halls/delete/' + ${hall.getId()}}" type="button"
-                                   class="btn btn-danger">delete</a>
-                            </td>
+<!--                            <td>-->
+<!--                                <a th:href="@{'/halls/delete/' + ${hall.getId()}}" type="button"-->
+<!--                                   class="btn btn-danger">delete</a>-->
+<!--                            </td>-->
                         </tr>
                         </tbody>
                     </table>
@@ -55,7 +63,6 @@
     </div>
 
 </div>
-<div layout:fragment="content"></div>
 
 </body>
 </html>
