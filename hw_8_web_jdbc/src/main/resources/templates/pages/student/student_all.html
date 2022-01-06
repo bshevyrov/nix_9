@@ -29,6 +29,7 @@
                             <th>email</th>
                             <th>phone</th>
                             <th>birthday</th>
+                            <th>courses types</th>
                             <!--                            <th>details</th>-->
 <!--                            <th>delete</th>-->
                         </tr>
@@ -44,6 +45,10 @@
                             <td th:text="${student.getEmail()}"></td>
                             <td th:text="${student.getPhone()}"></td>
                             <td th:text="${student.getBirthDate()}"></td>
+
+                            <span th:each="course,iter : ${student.getCourseResponseDtoSet()}">
+                            <td th:text="${course.getCourseType()}"></td>
+                        </span>
 <!--                            <td th:text="${hall.getNumOfSeats()}"></td>-->
                             <!--                            <td th:text="${#calendars.format(department.getCreated(),'dd MMMM yyyy')}"></td>-->
                             <!--                            <td>-->

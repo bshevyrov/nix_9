@@ -1,8 +1,10 @@
 package ua.com.alevel.veiw.dto.response;
 
 import java.sql.Date;
+import java.util.Set;
 
-public class StudentResponseDto extends ResponseDto{
+public class StudentResponseDto extends ResponseDto {
+
     private long id;
     private Date createDate;
     private String email;
@@ -10,6 +12,15 @@ public class StudentResponseDto extends ResponseDto{
     private Date birthDate;
     private String firstName;
     private String lastName;
+    private Set<CourseResponseDto> courseResponseDtoSet;
+
+    public Set<CourseResponseDto> getCourseResponseDtoSet() {
+        return courseResponseDtoSet;
+    }
+
+    public void setCourseResponseDtoSet(Set<CourseResponseDto> courseResponseDtoSet) {
+        this.courseResponseDtoSet = courseResponseDtoSet;
+    }
 
     public String getEmail() {
         return email;
