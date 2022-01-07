@@ -17,9 +17,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-
-import static org.codehaus.groovy.runtime.DefaultGroovyMethods.collect;
 
 @Service
 public class StudentFacadeImpl implements StudentFacade {
@@ -75,19 +72,19 @@ public class StudentFacadeImpl implements StudentFacade {
             responseDto.setPhone(students.get(i).getPhone());
             responseDto.setBirthDate((Date) students.get(i).getBirthDate());
 
-            DataTableResponse<Course> student = courseService.findAllByStudentId( students.get(i).getId());
+            DataTableResponse<Course> student = courseService.findAllByStudentId(students.get(i).getId());
             List<Course> list1 = student.geteList();
 
 
             responseDto.setCourseResponseDtoSet(convertToDtoByEntity(
-                   list1 ));
+                    list1));
             list.add(responseDto);
         }
         return list;
     }
 
     private Set<CourseResponseDto> convertToDtoByEntity(List<Course> courses) {
-     Set<CourseResponseDto> courseResponseDtoSet = new HashSet<>();
+        Set<CourseResponseDto> courseResponseDtoSet = new HashSet<>();
         for (Course cours : courses) {
             CourseResponseDto courseResponseDto = new CourseResponseDto();
             courseResponseDto.setCourseType(cours.getCourseType());
@@ -97,7 +94,7 @@ public class StudentFacadeImpl implements StudentFacade {
             courseResponseDto.setCreateDate((Date) cours.getCreateDate());
             courseResponseDtoSet.add(courseResponseDto);
         }
-            return courseResponseDtoSet;
-        }
+        return courseResponseDtoSet;
     }
+}
 

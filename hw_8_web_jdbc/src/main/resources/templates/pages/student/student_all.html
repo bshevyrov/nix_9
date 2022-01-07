@@ -39,7 +39,8 @@
                         <tr th:each="student,iter : ${students}">
                             <td th:text="${iter.count}"></td>
 <!--                            <td><a th:href="@{'/halls/details/' + ${hall.getId()}}" th:text="${hall.getId()}"></a></td>-->
-                            <td th:text="${student.getId()}"></td>
+                            <td><a th:href="@{'/courses/student/id=' + ${student.getId()}}" th:text="${student.getId()}"></a></td>
+<!--                            <td th:href="'/courses/student/id='${student.getId()}"></td>-->
                             <td th:text="${student.getFirstName()}"></td>
                             <td th:text="${student.getLastName()}"></td>
                             <td th:text="${student.getEmail()}"></td>

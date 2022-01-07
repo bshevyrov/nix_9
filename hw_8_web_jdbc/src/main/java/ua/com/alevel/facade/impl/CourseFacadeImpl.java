@@ -1,5 +1,6 @@
 package ua.com.alevel.facade.impl;
 
+import org.springframework.stereotype.Service;
 import ua.com.alevel.facade.CourseFacade;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Course;
@@ -10,6 +11,7 @@ import ua.com.alevel.veiw.dto.response.CourseResponseDto;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class CourseFacadeImpl implements CourseFacade {
 
     private final CourseService courseService;

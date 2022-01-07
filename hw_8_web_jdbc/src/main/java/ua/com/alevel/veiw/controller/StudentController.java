@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ua.com.alevel.facade.StudentFacade;
-import ua.com.alevel.persistence.entity.Student;
 import ua.com.alevel.veiw.dto.request.StudentRequestDto;
-import ua.com.alevel.veiw.dto.response.CourseResponseDto;
 import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
 import java.util.List;
@@ -25,7 +23,7 @@ public class StudentController {
     }
 
     @GetMapping()
-    public String mainPage(){
+    public String mainPage() {
         return "redirect:/students/all";
     }
 
@@ -33,9 +31,6 @@ public class StudentController {
     public String studentsAllPage(Model model) {
         List<StudentResponseDto> list = studentFacade.findAll();
         model.addAttribute("students", list);
-
-
-
         return "pages/student/student_all";
     }
 

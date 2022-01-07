@@ -2,15 +2,13 @@ package ua.com.alevel.veiw.dto.response;
 
 import ua.com.alevel.persistence.type.CourseType;
 
-import java.sql.Date;
-
-public class CourseResponseDto extends ResponseDto{
+public class CourseResponseDto extends ResponseDto {
 
     private String name;
     private String description;
     private CourseType courseType;
 
-       public String getName() {
+    public String getName() {
         return name;
     }
 
@@ -18,7 +16,7 @@ public class CourseResponseDto extends ResponseDto{
         this.name = name;
     }
 
-      public String getDescription() {
+    public String getDescription() {
         return description;
     }
 

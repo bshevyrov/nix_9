@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <title>Courses</title>
 </head>
 <body>
 
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header">
+                    All Courses
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Course id</th>
+                            <th>name</th>
+                            <th>courses types</th>
+                            <th>description</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        <tr th:each="course,iter : ${courses}">
+                            <td th:text="${iter.count}"></td>
+                            <td th:text="${course.getId()}"></td>
+                            <td th:text="${course.getName()}"></td>
+                            <td th:text="${course.getDescription()}"></td>
+                            <td th:text="${course.getCourseType()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 </body>
 </html>
+
