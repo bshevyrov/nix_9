@@ -7,46 +7,46 @@
     <meta charset="utf-8">
     <title>Courses</title>
 </head>
-<body>
 
-<div layout:fragment="content">
+<section layout:fragment="content">
+    <div class="container">
 
-    <div class="row">
-        <div class="col-12">
-            <div class="card mb-2 mt-2">
-                <div class="card-header">
-                    All Courses
-                </div>
-                <div class="card-body">
-                    <table class="table table-sm table-hover">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Course id</th>
-                            <th>name</th>
-                            <th>courses types</th>
-                            <th>description</th>
-                        </tr>
-                        </thead>
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-2 mt-2">
+                    <div class="card-header">
+                        All Courses
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Course id</th>
+                                <th>name</th>
+                                <th>courses types</th>
+                                <th>description</th>
+                            </tr>
+                            </thead>
 
-                        <tbody>
+                            <tbody>
 
-                        <tr th:each="course,iter : ${courses}">
-                            <td th:text="${iter.count}"></td>
-                            <td th:text="${course.getId()}"></td>
-                            <td th:text="${course.getName()}"></td>
-                            <td th:text="${course.getDescription()}"></td>
-                            <td th:text="${course.getCourseType()}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                            <tr th:each="course,iter : ${courses}">
+                                <td th:text="${iter.count}"></td>
+                                <td th:text="${course.getId()}"></td>
+                                <td th:text="${course.getName()}"></td>
+                                <td th:text="${course.getDescription()}"></td>
+                                <td th:text="${course.getCourseType()}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</section>
 
-</div>
 
-</body>
 </html>
 

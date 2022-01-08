@@ -2,6 +2,7 @@ package ua.com.alevel.facade.impl;
 
 import org.springframework.stereotype.Service;
 import ua.com.alevel.facade.CourseFacade;
+import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Course;
 import ua.com.alevel.service.CourseService;
@@ -42,7 +43,7 @@ public class CourseFacadeImpl implements CourseFacade {
 
     @Override
     public List<CourseResponseDto> findAll() {
-        return null;
+        return (List<CourseResponseDto>) courseService.findAll(new DataTableRequest());
     }
 
     @Override

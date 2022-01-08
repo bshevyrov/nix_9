@@ -18,11 +18,15 @@ public class CourseController {
     }
 
     @GetMapping(path = {"/student/{id}"})
-    public String getAllByStudentId(@PathVariable("id")Long id, Model model) {
+    public String getAllByStudentId(@PathVariable("id") Long id, Model model) {
 //TODO validate
-        System.out.println(id);
-            model.addAttribute("courses",courseFacade.findAllByStudentId(id));
-           model.addAttribute("studentId",id);
-            return "/pages/course/course_all";
+        model.addAttribute("courses", courseFacade.findAllByStudentId(id));
+        model.addAttribute("studentId", id);
+        return "/pages/course/course_all";
     }
+
+//    @GetMapping("/all")
+//    public String getAllCourses(Model model){
+//        model.addAttribute("list",courseFacade.findAll());
+//    }
 }
