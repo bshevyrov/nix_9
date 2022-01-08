@@ -1,32 +1,39 @@
-create schema if not exists minimal_cinema collate utf8_general_ci;
+create schema if not exists private_school collate utf8_general_ci;
+use private_school;
 
-use minimal_cinema;
-
-create table if not exists halls
+create table if not exists courses
 (
-    id          bigint auto_increment
+    create_date date null,
+    id bigint auto_increment
         primary key,
-    name        varchar(255) null,
-    num_of_seat int          null
+    name varchar(256) null,
+    course_type varchar(256) null,
+    description varchar(256) null
 );
 
-create table if not exists movies
+create table  if not exists students
 (
-    id          bigint auto_increment
+    create_date date null,
+    id bigint auto_increment
         primary key,
-    name        varchar(255) null,
-    description varchar(255) null,
-    hall_id     bigint       null
+    first_name varchar(255) null,
+    last_name varchar(255) null,
+    birth_date date null,
+    email varchar(255) null,
+    phone varchar(255) null
 );
 
-create table if not exists hall_movie
+create table  if not exists course_student
 (
-    hall_id  bigint not null,
-    movie_id bigint not null,
-    primary key (hall_id, movie_id),
-    foreign key (hall_id) references halls (id),
-    foreign key (movie_id) references movies (id)
+    student_id bigint null,
+    course_id bigint null,
+    constraint course_student_courses_id_fk
+        foreign key (course_id) references courses (id),
+    constraint course_student_students_id_fk
+        foreign key (student_id) references students (id)
 );
+
+
 
 
 

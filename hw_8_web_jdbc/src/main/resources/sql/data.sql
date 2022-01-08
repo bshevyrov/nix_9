@@ -1,41 +1,239 @@
-INSERT INTO minimal_cinema.halls (id, name, num_of_seat) VALUES (1, 'green', 12);
-INSERT INTO minimal_cinema.halls (id, name, num_of_seat) VALUES (2, 'yellow', 13);
-INSERT INTO minimal_cinema.halls (id, name, num_of_seat) VALUES (3, 'black', 14);
-INSERT INTO minimal_cinema.halls (id, name, num_of_seat) VALUES (4, 'white', 15);
-INSERT INTO minimal_cinema.halls (id, name, num_of_seat) VALUES (5, 'torques', 16);
-INSERT INTO minimal_cinema.halls (id, name, num_of_seat) VALUES (6, 'red', 10);
-INSERT INTO minimal_cinema.halls (id, name, num_of_seat) VALUES (7, 'orange', 12);
+# INSERT INTO minimal_cinema.halls (id, name, num_of_seat) VALUES (1, 'green', 12);
+# 
+# 
+# INSERT INTO minimal_cinema.movies (id, name, description) VALUES (1, 'matrix', 'asdasd');
+# 
+# INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (1,1);
 
-INSERT INTO minimal_cinema.movies (id, name, description) VALUES (1, 'matrix', 'asdasd');
-INSERT INTO minimal_cinema.movies (id, name, description) VALUES (2, 'matrix2', 'asdasd');
-INSERT INTO minimal_cinema.movies (id, name, description) VALUES (3, 'matrix3', 'asdasd');
-INSERT INTO minimal_cinema.movies (id, name, description) VALUES (4, 'resident evil', 'asdasd');
-INSERT INTO minimal_cinema.movies (id, name, description) VALUES (5, 'resident evil2', 'asdasd');
-INSERT INTO minimal_cinema.movies (id, name, description) VALUES (6, 'resident evil3', 'asdasd');
-INSERT INTO minimal_cinema.movies (id, name, description) VALUES (7, 'resident evil4', 'asdasd');
-INSERT INTO minimal_cinema.movies (id, name, description) VALUES (8, 'resident evil5', 'asdasd');
-INSERT INTO minimal_cinema.movies (id, name, description) VALUES (9, 'star wars', 'asdasd');
-INSERT INTO minimal_cinema.movies (id, name, description) VALUES (10, 'star wars2', 'asdasd');
-INSERT INTO minimal_cinema.movies (id, name, description) VALUES (11, 'star wars3', 'asdasd');
-INSERT INTO minimal_cinema.movies (id, name, description) VALUES (12, 'star wars4', 'asdasd');
-INSERT INTO minimal_cinema.movies (id, name, description) VALUES (13, 'star wars5', 'asdasd');
-INSERT INTO minimal_cinema.movies (id, name, description) VALUES (14, 'star wars6', 'asdasd');
 
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (1,1);
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (1,7);
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (1,8);
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (2,2);
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (3,1);
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (3,8);
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (4,3);
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (5,4);
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (6,5);
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (7,8);
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (7,6);
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (1,9);
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (2,10);
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (3,11);
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (2,12);
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (7,14);
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (3,14);
-INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (4,14);
+
+INSERT INTO private_school.courses (description, course_type, name, id, create_date)
+VALUES ('Math for dummies', 'MATH', 'Base Math', 1, '2022-01-03'),
+       ('Advanced Math', 'MATH', 'Middle level of Math', 3, '2021-11-23'),
+       ('Happy botanic', 'BIOLOGY', 'Biology for kids', 4, '2011-07-10'),
+       ('First Aid', 'BIOLOGY', 'You can be a doctor', 5, '2011-07-10'),
+       ('History for dummies', 'HISTORY', 'Base History', 2, '2022-02-01');
+
+INSERT INTO private_school.students (phone, email, birth_date, last_name, first_name, id, create_date)
+VALUES ('+380990000001', '1@gmail.com', '1901-05-03', 'Name1', 'LastN1', 1, '2020-01-02'),
+       ('+380990000002', '2@gmail.com', '1902-05-03', 'Name2', 'LastN2', 2, '2020-01-02'),
+       ('+380990000003', '3@gmail.com', '1903-05-03', 'Name3', 'LastN3', 3, '2020-01-02'),
+       ('+380990000004', '4@gmail.com', '1904-05-03', 'Name4', 'LastN4', 4, '2020-01-02'),
+       ('+380990000005', '5@gmail.com', '1905-05-03', 'Name5', 'LastN5', 5, '2020-01-02'),
+       ('+380990000006', '6@gmail.com', '1906-05-03', 'Name6', 'LastN6', 6, '2020-01-02'),
+       ('+380990000007', '7@gmail.com', '1907-05-03', 'Name7', 'LastN7', 7, '2020-01-02'),
+       ('+380990000008', '8@gmail.com', '1908-05-03', 'Name8', 'LastN8', 8, '2020-01-02'),
+       ('+380990000009', '9@gmail.com', '1909-05-03', 'Name9', 'LastN9', 9, '2020-01-02'),
+       ('+3809900000010', '10@gmail.com', '1910-05-03', 'Name10', 'LastN10', 10, '2020-01-02'),
+       ('+3809900000011', '11@gmail.com', '1911-05-03', 'Name11', 'LastN11', 11, '2020-01-02'),
+       ('+3809900000012', '12@gmail.com', '1912-05-03', 'Name12', 'LastN12', 12, '2020-01-02'),
+       ('+3809900000013', '13@gmail.com', '1913-05-03', 'Name13', 'LastN13', 13, '2020-01-02'),
+       ('+3809900000014', '14@gmail.com', '1914-05-03', 'Name14', 'LastN14', 14, '2020-01-02'),
+       ('+3809900000015', '15@gmail.com', '1915-05-03', 'Name15', 'LastN15', 15, '2020-01-02'),
+       ('+3809900000016', '16@gmail.com', '1916-05-03', 'Name16', 'LastN16', 16, '2020-01-02'),
+       ('+3809900000017', '17@gmail.com', '1917-05-03', 'Name17', 'LastN17', 17, '2020-01-02'),
+       ('+3809900000018', '18@gmail.com', '1918-05-03', 'Name18', 'LastN18', 18, '2020-01-02'),
+       ('+3809900000019', '19@gmail.com', '1919-05-03', 'Name19', 'LastN19', 19, '2020-01-02'),
+       ('+3809900000020', '20@gmail.com', '1920-05-03', 'Name20', 'LastN20', 20, '2020-01-02'),
+       ('+3809900000021', '21@gmail.com', '1921-05-03', 'Name21', 'LastN21', 21, '2020-01-02'),
+       ('+3809900000022', '22@gmail.com', '1922-05-03', 'Name22', 'LastN22', 22, '2020-01-02'),
+       ('+3809900000023', '23@gmail.com', '1923-05-03', 'Name23', 'LastN23', 23, '2020-01-02'),
+       ('+3809900000024', '24@gmail.com', '1924-05-03', 'Name24', 'LastN24', 24, '2020-01-02'),
+       ('+3809900000025', '25@gmail.com', '1925-05-03', 'Name25', 'LastN25', 25, '2020-01-02'),
+       ('+3809900000026', '26@gmail.com', '1926-05-03', 'Name26', 'LastN26', 26, '2020-01-02'),
+       ('+3809900000027', '27@gmail.com', '1927-05-03', 'Name27', 'LastN27', 27, '2020-01-02'),
+       ('+3809900000028', '28@gmail.com', '1928-05-03', 'Name28', 'LastN28', 28, '2020-01-02'),
+       ('+3809900000029', '29@gmail.com', '1929-05-03', 'Name29', 'LastN29', 29, '2020-01-02'),
+       ('+3809900000030', '30@gmail.com', '1930-05-03', 'Name30', 'LastN30', 30, '2020-01-02'),
+       ('+3809900000031', '31@gmail.com', '1931-05-03', 'Name31', 'LastN31', 31, '2020-01-02'),
+       ('+3809900000032', '32@gmail.com', '1932-05-03', 'Name32', 'LastN32', 32, '2020-01-02'),
+       ('+3809900000033', '33@gmail.com', '1933-05-03', 'Name33', 'LastN33', 33, '2020-01-02'),
+       ('+3809900000034', '34@gmail.com', '1934-05-03', 'Name34', 'LastN34', 34, '2020-01-02'),
+       ('+3809900000035', '35@gmail.com', '1935-05-03', 'Name35', 'LastN35', 35, '2020-01-02'),
+       ('+3809900000036', '36@gmail.com', '1936-05-03', 'Name36', 'LastN36', 36, '2020-01-02'),
+       ('+3809900000037', '37@gmail.com', '1937-05-03', 'Name37', 'LastN37', 37, '2020-01-02'),
+       ('+3809900000038', '38@gmail.com', '1938-05-03', 'Name38', 'LastN38', 38, '2020-01-02'),
+       ('+3809900000039', '39@gmail.com', '1939-05-03', 'Name39', 'LastN39', 39, '2020-01-02'),
+       ('+3809900000040', '40@gmail.com', '1940-05-03', 'Name40', 'LastN40', 40, '2020-01-02'),
+       ('+3809900000041', '41@gmail.com', '1941-05-03', 'Name41', 'LastN41', 41, '2020-01-02'),
+       ('+3809900000042', '42@gmail.com', '1942-05-03', 'Name42', 'LastN42', 42, '2020-01-02'),
+       ('+3809900000043', '43@gmail.com', '1943-05-03', 'Name43', 'LastN43', 43, '2020-01-02'),
+       ('+3809900000044', '44@gmail.com', '1944-05-03', 'Name44', 'LastN44', 44, '2020-01-02'),
+       ('+3809900000045', '45@gmail.com', '1945-05-03', 'Name45', 'LastN45', 45, '2020-01-02'),
+       ('+3809900000046', '46@gmail.com', '1946-05-03', 'Name46', 'LastN46', 46, '2020-01-02'),
+       ('+3809900000047', '47@gmail.com', '1947-05-03', 'Name47', 'LastN47', 47, '2020-01-02'),
+       ('+3809900000048', '48@gmail.com', '1948-05-03', 'Name48', 'LastN48', 48, '2020-01-02');
+
+INSERT INTO private_school.course_student (course_id, student_id)
+VALUES (1, 1),
+       (3, 25),
+       (3, 37),
+       (1, 40),
+       (5, 38),
+       (5, 14),
+       (5, 26),
+       (1, 36),
+       (5, 30),
+       (1, 12),
+       (5, 42),
+       (3, 41),
+       (2, 44),
+       (4, 29),
+       (3, 1),
+       (2, 28),
+       (4, 6),
+       (3, 9),
+       (4, 33),
+       (2, 4),
+       (2, 20),
+       (2, 32),
+       (1, 41),
+       (3, 48),
+       (5, 27),
+       (5, 39),
+       (5, 15),
+       (3, 40),
+       (5, 43),
+       (1, 25),
+       (5, 31),
+       (4, 28),
+       (2, 33),
+       (2, 45),
+       (2, 17),
+       (4, 16),
+       (2, 29),
+       (4, 20),
+       (4, 7),
+       (4, 44),
+       (2, 5),
+       (2, 21),
+       (5, 9),
+       (5, 48),
+       (3, 39),
+       (2, 19),
+       (5, 12),
+       (1, 14),
+       (3, 43),
+       (2, 22),
+       (4, 19),
+       (2, 46),
+       (4, 47),
+       (3, 7),
+       (4, 11),
+       (5, 1),
+       (4, 23),
+       (1, 5),
+       (4, 4),
+       (2, 10),
+       (3, 14),
+       (3, 26),
+       (3, 38),
+       (5, 37),
+       (1, 27),
+       (1, 39),
+       (1, 15),
+       (5, 41),
+       (1, 43),
+       (3, 30),
+       (2, 23),
+       (2, 35),
+       (2, 47),
+       (4, 46),
+       (4, 10),
+       (3, 8),
+       (5, 2),
+       (4, 22),
+       (4, 34),
+       (1, 6),
+       (1, 20),
+       (5, 18),
+       (3, 29),
+       (3, 17),
+       (5, 34),
+       (1, 28),
+       (5, 10),
+       (3, 21),
+       (3, 33),
+       (1, 32),
+       (2, 12),
+       (2, 24),
+       (1, 3),
+       (2, 36),
+       (2, 48),
+       (4, 13),
+       (4, 25),
+       (1, 29),
+       (4, 2),
+       (2, 40),
+       (5, 7),
+       (3, 5),
+       (4, 41),
+       (5, 19),
+       (5, 47),
+       (3, 16),
+       (3, 28),
+       (5, 23),
+       (1, 17),
+       (5, 35),
+       (5, 11),
+       (3, 32),
+       (3, 44),
+       (1, 21),
+       (1, 33),
+       (3, 20),
+       (2, 1),
+       (1, 4),
+       (2, 13),
+       (2, 25),
+       (4, 24),
+       (4, 36),
+       (2, 9),
+       (4, 12),
+       (5, 8),
+       (4, 3),
+       (2, 41),
+       (4, 40),
+       (3, 6),
+       (3, 23),
+       (3, 35),
+       (5, 28),
+       (3, 19),
+       (5, 32),
+       (5, 44),
+       (3, 11),
+       (1, 46),
+       (1, 10),
+       (1, 22),
+       (4, 39),
+       (1, 1),
+       (2, 26),
+       (2, 38),
+       (1, 19),
+       (4, 27),
+       (4, 43),
+       (1, 9),
+       (3, 3),
+       (2, 30),
+       (2, 6),
+       (2, 42),
+       (5, 5),
+       (5, 29),
+       (3, 34),
+       (3, 46),
+       (3, 18),
+       (5, 45),
+       (1, 47),
+       (1, 23),
+       (3, 10),
+       (3, 22),
+       (1, 11),
+       (4, 1),
+       (4, 14),
+       (2, 39),
+       (4, 26),
+       (4, 38),
+       (4, 42),
+       (3, 4),
+       (2, 7),
+       (2, 43),
+       (2, 1);
