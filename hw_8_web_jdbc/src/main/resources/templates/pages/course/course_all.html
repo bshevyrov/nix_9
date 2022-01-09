@@ -35,7 +35,9 @@
                                 <td><a th:href="@{'/students/course/' + ${course.getId()}}"
                                        th:text="${course.getId()}"></a></td>                                <td th:text="${course.getName()}"></td>
                                 <td th:text="${course.getDescription()}"></td>
-                                <td th:text="${course.getCourseType()}"></td>
+                                <td><a th:href="@{'/students/course?type=' + ${course.getCourseType()}}"
+                                       th:text="${course.getCourseType()}"></a></td>
+
                             </tr>
                             </tbody>
                         </table>
