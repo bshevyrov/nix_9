@@ -5,7 +5,9 @@ import ua.com.alevel.config.jpa.JpaConfig;
 import ua.com.alevel.persistence.dao.StudentDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
+import ua.com.alevel.persistence.entity.Course;
 import ua.com.alevel.persistence.entity.Student;
+import ua.com.alevel.persistence.type.CourseType;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -14,8 +16,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.com.alevel.persistence.dao.query.JpaQueryUtil.CREATE_STUDENT_QUERY;
-import static ua.com.alevel.persistence.dao.query.JpaQueryUtil.FIND_ALL_STUDENTS_QUERY;
+import static ua.com.alevel.persistence.dao.query.JpaQueryUtil.*;
 
 @Service
 public class StudentDaoImpl implements StudentDao {
@@ -96,5 +97,63 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public long count() {
         return 0;
+    }
+
+    @Override
+    public DataTableResponse<Student> findAllByCourseId(Long id) {
+        DataTableResponse<Student> response = new DataTableResponse<>();
+        List<Student> list = new ArrayList<>();
+        long size = 0L;
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(FIND_ALL_STUDENTS_BY_COURSE_ID);
+        ) {
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Student student = new Student();
+                student.setId(resultSet.getLong("id"));
+                student.setFirstName(resultSet.getString("first_name"));
+                student.setLastName(resultSet.getString("last_name"));
+                student.setEmail(resultSet.getString("email"));
+                student.setPhone(resultSet.getString("phone"));
+                student.setBirthDate(resultSet.getDate("birth_date"));
+               list.add(student);
+                size++;
+            }
+            response.seteList(list);
+            response.seteListSize(size);
+        } catch (SQLException throwables) {
+            throwables.getMessage();
+        }
+        return response;
+    }
+
+    @Override
+    public DataTableResponse<Student> findAllByCourseType(CourseType type) {
+        DataTableResponse<Student> response = new DataTableResponse<>();
+        List<Student> list = new ArrayList<>();
+        long size = 0L;
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(FIND_ALL_STUDENTS_BY_COURSE_TYPE);
+        ) {
+            preparedStatement.setString(1, type.toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Student student = new Student();
+                student.setId(resultSet.getLong("id"));
+                student.setFirstName(resultSet.getString("first_name"));
+                student.setLastName(resultSet.getString("last_name"));
+                student.setEmail(resultSet.getString("email"));
+                student.setPhone(resultSet.getString("phone"));
+                student.setBirthDate(resultSet.getDate("birth_date"));
+                list.add(student);
+                size++;
+            }
+            response.seteList(list);
+            response.seteListSize(size);
+        } catch (SQLException throwables) {
+            throwables.getMessage();
+        }
+        return response;
     }
 }

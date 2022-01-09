@@ -2,11 +2,9 @@ package ua.com.alevel.veiw.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ua.com.alevel.facade.StudentFacade;
+import ua.com.alevel.persistence.type.CourseType;
 import ua.com.alevel.veiw.dto.request.StudentRequestDto;
 import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
@@ -45,6 +43,22 @@ public class StudentController {
     public String CreateNewHall(@ModelAttribute("student") StudentRequestDto studentRequestDto) {
         studentFacade.create(studentRequestDto);
         return "redirect:/students";
+    }
+
+    @GetMapping(path = {"/course/{id}"})
+    public String getAllByStudentId(@PathVariable("id") Long id, Model model) {
+//TODO validate
+        model.addAttribute("students", studentFacade.findAllByCourseId(id));
+        model.addAttribute("courseId", id);
+        return "/pages/student/student_all";
+
+    }
+    @GetMapping(path = {"/course"})
+    public String getAllByStudentId(@RequestParam("type") String type, Model model) {
+//TODO validate
+        model.addAttribute("students", studentFacade.findAllByCourseType(CourseType.valueOf(type)));
+//        model.addAttribute("courseId", id);
+        return "/pages/student/student_all";
     }
 
 }

@@ -23,8 +23,8 @@
                                 <th>#</th>
                                 <th>Course id</th>
                                 <th>name</th>
-                                <th>courses types</th>
                                 <th>description</th>
+                                <th>courses types</th>
                             </tr>
                             </thead>
 
@@ -32,8 +32,8 @@
 
                             <tr th:each="course,iter : ${courses}">
                                 <td th:text="${iter.count}"></td>
-                                <td th:text="${course.getId()}"></td>
-                                <td th:text="${course.getName()}"></td>
+                                <td><a th:href="@{'/students/course/' + ${course.getId()}}"
+                                       th:text="${course.getId()}"></a></td>                                <td th:text="${course.getName()}"></td>
                                 <td th:text="${course.getDescription()}"></td>
                                 <td th:text="${course.getCourseType()}"></td>
                             </tr>

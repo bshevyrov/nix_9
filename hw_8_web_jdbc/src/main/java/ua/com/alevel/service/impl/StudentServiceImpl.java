@@ -5,6 +5,7 @@ import ua.com.alevel.persistence.dao.StudentDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Student;
+import ua.com.alevel.persistence.type.CourseType;
 import ua.com.alevel.service.StudentService;
 
 @Service
@@ -42,4 +43,13 @@ public class StudentServiceImpl implements StudentService {
         return studentDao.findAll(request);
     }
 
+    @Override
+    public DataTableResponse<Student> findAllByCourseId(Long id) {
+        return studentDao.findAllByCourseId(id);
+    }
+
+    @Override
+    public DataTableResponse<Student> findAllByCourseType(CourseType type) {
+        return studentDao.findAllByCourseType(type);
+    }
 }

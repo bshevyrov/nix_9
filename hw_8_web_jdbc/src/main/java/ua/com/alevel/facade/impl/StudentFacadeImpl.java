@@ -1,19 +1,18 @@
 package ua.com.alevel.facade.impl;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.facade.StudentFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Course;
 import ua.com.alevel.persistence.entity.Student;
+import ua.com.alevel.persistence.type.CourseType;
 import ua.com.alevel.service.CourseService;
 import ua.com.alevel.service.StudentService;
 import ua.com.alevel.veiw.dto.request.StudentRequestDto;
 import ua.com.alevel.veiw.dto.response.CourseResponseDto;
 import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
-import java.sql.Array;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -60,26 +59,9 @@ public class StudentFacadeImpl implements StudentFacade {
 
     @Override
     public List<StudentResponseDto> findAll() {
-
         DataTableResponse<Student> studentDataTableResponse = studentService.findAll(new DataTableRequest());
-        List<StudentResponseDto> list = new ArrayList<>();
-        List<Student> students = studentDataTableResponse.geteList();
-//stream
-        for (int i = 0; i < students.size(); i++) {
-            StudentResponseDto responseDto = new StudentResponseDto();
-            responseDto.setId(students.get(i).getId());
-            responseDto.setFirstName(students.get(i).getFirstName());
-            responseDto.setLastName(students.get(i).getLastName());
-            responseDto.setEmail(students.get(i).getEmail());
-            responseDto.setPhone(students.get(i).getPhone());
-            responseDto.setBirthDate((Date) students.get(i).getBirthDate());
-
-            DataTableResponse<Course> student = courseService.findAllByStudentId(students.get(i).getId());
-            List<Course> list1 = student.geteList();
-            responseDto.setCourseResponseDtoSet(convertToDtoByEntity(list1));
-            list.add(responseDto);
-        }
-        return list;
+        return convertStudentsToStudentResponseDto(
+                studentDataTableResponse.geteList());
     }
 
     private Set<CourseResponseDto> convertToDtoByEntity(List<Course> courses) {
@@ -94,6 +76,41 @@ public class StudentFacadeImpl implements StudentFacade {
             courseResponseDtoSet.add(courseResponseDto);
         }
         return courseResponseDtoSet;
+    }
+
+    @Override
+    public List<StudentResponseDto> findAllByCourseId(Long id) {
+        DataTableResponse<Student> dataTableResponse = studentService.findAllByCourseId(id);
+        return convertStudentsToStudentResponseDto(dataTableResponse.geteList());
+    }
+
+    @Override
+    public List<StudentResponseDto> findAllByCourseType(CourseType type) {
+        DataTableResponse<Student> dataTableResponse = studentService.findAllByCourseType(type);
+        return convertStudentsToStudentResponseDto(dataTableResponse.geteList());
+    }
+
+    private List<StudentResponseDto> convertStudentsToStudentResponseDto(List<Student> students) {
+        List<StudentResponseDto> studentResponseDtoList = new ArrayList<>();
+
+        for (Student student : students) {
+            StudentResponseDto responseDto = new StudentResponseDto();
+            responseDto.setId(student.getId());
+            responseDto.setBirthDate((Date) student.getBirthDate());
+            responseDto.setPhone(student.getPhone());
+            responseDto.setEmail(student.getEmail());
+            responseDto.setFirstName(student.getFirstName());
+            responseDto.setLastName(student.getLastName());
+            responseDto.setCreateDate((Date) student.getCreateDate());
+            studentResponseDtoList.add(responseDto);
+
+
+            DataTableResponse<Course> dataTableResponse = courseService.findAllByStudentId(student.getId());
+            List<Course> list1 = dataTableResponse.geteList();
+            responseDto.setCourseResponseDtoSet(convertToDtoByEntity(list1));
+        }
+
+        return studentResponseDtoList;
     }
 }
 

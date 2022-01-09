@@ -43,7 +43,8 @@
                                 <td th:text="${student.getBirthDate()}"></td>
 
                                 <span th:each="course,iter : ${student.getUniqTypes()}">
-                            <td th:text="${course.toString()}"></td>
+                                     <td><a th:href="@{'/students/course?type=' + ${course.toString()}}"
+                                            th:text="${course.toString()}"></a></td>
                         </span>
                             </tr>
                             </tbody>
