@@ -1,5 +1,6 @@
 package ua.com.alevel.facade.impl;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.facade.StudentFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
@@ -12,6 +13,7 @@ import ua.com.alevel.veiw.dto.request.StudentRequestDto;
 import ua.com.alevel.veiw.dto.response.CourseResponseDto;
 import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
+import java.sql.Array;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -62,9 +64,9 @@ public class StudentFacadeImpl implements StudentFacade {
         DataTableResponse<Student> studentDataTableResponse = studentService.findAll(new DataTableRequest());
         List<StudentResponseDto> list = new ArrayList<>();
         List<Student> students = studentDataTableResponse.geteList();
-        StudentResponseDto responseDto = new StudentResponseDto();
 //stream
         for (int i = 0; i < students.size(); i++) {
+            StudentResponseDto responseDto = new StudentResponseDto();
             responseDto.setId(students.get(i).getId());
             responseDto.setFirstName(students.get(i).getFirstName());
             responseDto.setLastName(students.get(i).getLastName());
@@ -74,10 +76,7 @@ public class StudentFacadeImpl implements StudentFacade {
 
             DataTableResponse<Course> student = courseService.findAllByStudentId(students.get(i).getId());
             List<Course> list1 = student.geteList();
-
-
-            responseDto.setCourseResponseDtoSet(convertToDtoByEntity(
-                    list1));
+            responseDto.setCourseResponseDtoSet(convertToDtoByEntity(list1));
             list.add(responseDto);
         }
         return list;

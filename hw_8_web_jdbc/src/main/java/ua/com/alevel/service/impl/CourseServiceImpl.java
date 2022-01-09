@@ -18,12 +18,17 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void create(BaseEntity baseEntity) {
+    public DataTableResponse<Course> findAllByStudentId(Long id) {
+        return courseDao.findAllByStudentId(id);
+    }
+
+    @Override
+    public void create(Course course) {
 
     }
 
     @Override
-    public void update(BaseEntity baseEntity) {
+    public void update(Course course) {
 
     }
 
@@ -32,19 +37,13 @@ public class CourseServiceImpl implements CourseService {
 
     }
 
-
     @Override
-    public BaseEntity findById(long id) {
+    public Course findById(long id) {
         return null;
     }
 
     @Override
     public DataTableResponse<Course> findAll(DataTableRequest request) {
-        return null;
-    }
-
-    @Override
-    public DataTableResponse<Course> findAllByStudentId(Long id) {
-        return courseDao.findAllByStudentId(id);
+        return courseDao.findAll(request);
     }
 }

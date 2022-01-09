@@ -6,7 +6,6 @@
 # INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (1,1);
 
 
-
 INSERT INTO private_school.courses (description, course_type, name, id, create_date)
 VALUES ('Math for dummies', 'MATH', 'Base Math', 1, '2022-01-03'),
        ('Advanced Math', 'MATH', 'Middle level of Math', 3, '2021-11-23'),
@@ -14,7 +13,7 @@ VALUES ('Math for dummies', 'MATH', 'Base Math', 1, '2022-01-03'),
        ('First Aid', 'BIOLOGY', 'You can be a doctor', 5, '2011-07-10'),
        ('History for dummies', 'HISTORY', 'Base History', 2, '2022-02-01');
 
-INSERT INTO private_school.students (phone, email, birth_date, last_name, first_name, id, create_date)
+INSERT INTO private_school.students (phone, email, birth_date, first_name, last_name, id, create_date)
 VALUES ('+380990000001', '1@gmail.com', '1901-05-03', 'Name1', 'LastN1', 1, '2020-01-02'),
        ('+380990000002', '2@gmail.com', '1902-05-03', 'Name2', 'LastN2', 2, '2020-01-02'),
        ('+380990000003', '3@gmail.com', '1903-05-03', 'Name3', 'LastN3', 3, '2020-01-02'),
@@ -64,176 +63,345 @@ VALUES ('+380990000001', '1@gmail.com', '1901-05-03', 'Name1', 'LastN1', 1, '202
        ('+3809900000047', '47@gmail.com', '1947-05-03', 'Name47', 'LastN47', 47, '2020-01-02'),
        ('+3809900000048', '48@gmail.com', '1948-05-03', 'Name48', 'LastN48', 48, '2020-01-02');
 
-INSERT INTO private_school.course_student (course_id, student_id)
-VALUES (1, 1),
-       (3, 25),
-       (3, 37),
-       (1, 40),
-       (5, 38),
-       (5, 14),
-       (5, 26),
-       (1, 36),
-       (5, 30),
-       (1, 12),
-       (5, 42),
-       (3, 41),
-       (2, 44),
-       (4, 29),
-       (3, 1),
-       (2, 28),
-       (4, 6),
-       (3, 9),
-       (4, 33),
-       (2, 4),
-       (2, 20),
-       (2, 32),
-       (1, 41),
-       (3, 48),
-       (5, 27),
-       (5, 39),
-       (5, 15),
-       (3, 40),
-       (5, 43),
-       (1, 25),
-       (5, 31),
-       (4, 28),
-       (2, 33),
-       (2, 45),
-       (2, 17),
-       (4, 16),
-       (2, 29),
-       (4, 20),
-       (4, 7),
-       (4, 44),
-       (2, 5),
-       (2, 21),
-       (5, 9),
-       (5, 48),
-       (3, 39),
-       (2, 19),
-       (5, 12),
-       (1, 14),
-       (3, 43),
-       (2, 22),
-       (4, 19),
-       (2, 46),
-       (4, 47),
-       (3, 7),
-       (4, 11),
-       (5, 1),
-       (4, 23),
-       (1, 5),
-       (4, 4),
-       (2, 10),
-       (3, 14),
-       (3, 26),
-       (3, 38),
-       (5, 37),
-       (1, 27),
-       (1, 39),
-       (1, 15),
-       (5, 41),
-       (1, 43),
-       (3, 30),
-       (2, 23),
-       (2, 35),
-       (2, 47),
-       (4, 46),
-       (4, 10),
-       (3, 8),
-       (5, 2),
-       (4, 22),
-       (4, 34),
-       (1, 6),
-       (1, 20),
-       (5, 18),
-       (3, 29),
-       (3, 17),
-       (5, 34),
-       (1, 28),
-       (5, 10),
-       (3, 21),
-       (3, 33),
-       (1, 32),
-       (2, 12),
-       (2, 24),
-       (1, 3),
-       (2, 36),
-       (2, 48),
-       (4, 13),
-       (4, 25),
-       (1, 29),
-       (4, 2),
-       (2, 40),
-       (5, 7),
-       (3, 5),
-       (4, 41),
-       (5, 19),
-       (5, 47),
-       (3, 16),
-       (3, 28),
-       (5, 23),
-       (1, 17),
-       (5, 35),
-       (5, 11),
-       (3, 32),
-       (3, 44),
-       (1, 21),
-       (1, 33),
-       (3, 20),
-       (2, 1),
-       (1, 4),
-       (2, 13),
-       (2, 25),
-       (4, 24),
-       (4, 36),
-       (2, 9),
-       (4, 12),
-       (5, 8),
-       (4, 3),
-       (2, 41),
-       (4, 40),
-       (3, 6),
-       (3, 23),
-       (3, 35),
-       (5, 28),
-       (3, 19),
-       (5, 32),
-       (5, 44),
-       (3, 11),
-       (1, 46),
-       (1, 10),
-       (1, 22),
-       (4, 39),
-       (1, 1),
-       (2, 26),
-       (2, 38),
-       (1, 19),
-       (4, 27),
-       (4, 43),
-       (1, 9),
-       (3, 3),
-       (2, 30),
-       (2, 6),
-       (2, 42),
-       (5, 5),
-       (5, 29),
-       (3, 34),
-       (3, 46),
-       (3, 18),
-       (5, 45),
-       (1, 47),
-       (1, 23),
-       (3, 10),
-       (3, 22),
-       (1, 11),
-       (4, 1),
-       (4, 14),
-       (2, 39),
-       (4, 26),
-       (4, 38),
-       (4, 42),
-       (3, 4),
-       (2, 7),
-       (2, 43),
-       (2, 1);
+
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (1, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (25, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (37, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (40, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (38, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (14, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (26, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (36, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (30, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (12, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (42, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (41, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (44, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (29, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (1, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (28, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (6, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (9, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (33, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (4, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (20, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (32, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (41, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (48, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (27, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (39, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (15, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (40, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (43, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (25, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (31, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (28, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (33, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (45, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (17, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (16, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (29, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (20, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (7, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (44, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (5, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (21, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (9, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (48, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (39, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (19, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (12, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (14, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (43, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (22, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (19, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (46, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (47, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (7, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (11, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (1, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (23, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (5, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (4, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (10, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (14, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (26, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (38, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (37, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (27, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (39, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (15, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (41, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (43, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (30, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (23, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (35, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (47, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (46, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (10, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (8, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (2, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (22, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (34, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (6, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (20, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (18, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (29, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (17, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (34, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (28, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (10, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (21, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (33, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (32, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (12, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (24, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (3, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (36, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (48, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (13, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (25, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (29, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (2, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (40, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (7, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (5, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (41, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (19, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (47, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (16, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (28, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (23, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (17, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (35, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (11, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (32, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (44, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (21, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (33, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (20, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (1, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (4, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (13, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (25, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (24, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (36, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (9, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (12, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (8, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (3, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (41, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (40, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (6, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (23, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (35, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (28, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (19, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (32, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (44, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (11, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (46, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (10, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (22, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (39, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (26, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (38, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (19, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (27, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (43, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (9, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (3, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (30, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (6, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (42, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (5, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (29, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (34, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (46, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (18, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (45, 5);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (47, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (23, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (10, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (22, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (11, 1);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (1, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (14, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (39, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (26, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (38, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (42, 4);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (4, 3);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (7, 2);
+INSERT INTO private_school.course_student (student_id, course_id)
+VALUES (43, 2);
+

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static ua.com.alevel.persistence.dao.query.JpaQueryUtil.FIND_ALL_COURSES_BY_STUDENT_ID;
+import static ua.com.alevel.persistence.dao.query.JpaQueryUtil.FIND_ALL_COURSES_QUERY;
 
 @Service
 public class CourseDaoImpl implements CourseDao {
@@ -53,7 +54,27 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public DataTableResponse<Course> findAll(DataTableRequest request) {
-        return null;
+
+        DataTableResponse<Course> response = new DataTableResponse<>();
+        List<Course> courseList = new ArrayList<>();
+        long size = 0L;
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_COURSES_QUERY)) {
+            while (resultSet.next()) {
+                Course course = new Course();
+                course.setId(resultSet.getLong("id"));
+                course.setCreateDate(resultSet.getDate("create_date"));
+                course.setName(resultSet.getString("name"));
+                course.setDescription(resultSet.getString("description"));
+                course.setCourseType(CourseType.valueOf(resultSet.getString("course_type")));
+                courseList.add(course);
+                ++size;
+            }
+            response.seteList(courseList);
+            response.seteListSize(size);
+        } catch (SQLException throwables) {
+            System.out.println(throwables.getMessage());
+        }
+        return response;
     }
 
     @Override
@@ -65,11 +86,11 @@ public class CourseDaoImpl implements CourseDao {
     public DataTableResponse<Course> findAllByStudentId(Long id) {
         DataTableResponse<Course> response = new DataTableResponse<>();
         List<Course> list = new ArrayList<>();
-        long size =0L;
-        try ( PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(FIND_ALL_COURSES_BY_STUDENT_ID);
-) {
+        long size = 0L;
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(FIND_ALL_COURSES_BY_STUDENT_ID);
+        ) {
             preparedStatement.setLong(1, id);
-          ResultSet resultSet =   preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 Course course = new Course();

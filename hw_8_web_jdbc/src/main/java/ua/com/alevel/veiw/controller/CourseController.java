@@ -25,8 +25,9 @@ public class CourseController {
         return "/pages/course/course_all";
     }
 
-//    @GetMapping("/all")
-//    public String getAllCourses(Model model){
-//        model.addAttribute("list",courseFacade.findAll());
-//    }
+    @GetMapping("/all")
+    public String getAllCourses(Model model){
+        model.addAttribute("courses",courseFacade.findAll());
+        return "/pages/course/course_all";
+    }
 }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static ua.com.alevel.persistence.dao.query.JpaQueryUtil.CREATE_STUDENT_QUERY;
-import static ua.com.alevel.persistence.dao.query.JpaQueryUtil.FIND_ALL_STUDENT_QUERY;
+import static ua.com.alevel.persistence.dao.query.JpaQueryUtil.FIND_ALL_STUDENTS_QUERY;
 
 @Service
 public class StudentDaoImpl implements StudentDao {
@@ -69,10 +69,7 @@ public class StudentDaoImpl implements StudentDao {
         DataTableResponse<Student> response = new DataTableResponse<>();
         List<Student> studentList = new ArrayList<>();
         long size = 0L;
-
-
-
-        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_STUDENT_QUERY)) {
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_STUDENTS_QUERY)) {
             while (resultSet.next()) {
                 Student student = new Student();
                 student.setFirstName(resultSet.getString("first_name"));

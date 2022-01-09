@@ -43,28 +43,29 @@ public class CourseFacadeImpl implements CourseFacade {
 
     @Override
     public List<CourseResponseDto> findAll() {
-        return (List<CourseResponseDto>) courseService.findAll(new DataTableRequest());
-    }
+        return convertCourseToCourseResponseDto(courseService.findAll(new DataTableRequest()).geteList());    }
 
     @Override
     public List<CourseResponseDto> findAllByStudentId(Long id) {
         DataTableResponse<Course> dataTableResponse = courseService.findAllByStudentId(id);
-        List<CourseResponseDto> responseDtoList = new ArrayList<>();
-        for (Course course : dataTableResponse.geteList()) {
-            responseDtoList.add(convertCourseToCourseResponseDto(course));
-        }
-        return responseDtoList;
+        return convertCourseToCourseResponseDto(dataTableResponse.geteList());
 
 
     }
 
-    private CourseResponseDto convertCourseToCourseResponseDto(Course course) {
-        CourseResponseDto responseDto = new CourseResponseDto();
-        responseDto.setId(course.getId());
-        responseDto.setName(course.getName());
-        responseDto.setDescription(course.getDescription());
-        responseDto.setCourseType(course.getCourseType());
-        return responseDto;
+    private List<CourseResponseDto> convertCourseToCourseResponseDto(List<Course> course) {
+        List<CourseResponseDto> courseResponseDtoList = new ArrayList<>();
+
+        for (Course course1 : course) {
+            CourseResponseDto responseDto = new CourseResponseDto();
+            responseDto.setId(course1.getId());
+            responseDto.setName(course1.getName());
+            responseDto.setDescription(course1.getDescription());
+            responseDto.setCourseType(course1.getCourseType());
+            courseResponseDtoList.add(responseDto);
+        }
+
+        return courseResponseDtoList;
     }
 
 
