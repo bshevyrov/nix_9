@@ -6,6 +6,8 @@
 <head>
     <meta charset="utf-8">
     <title>Students</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <section layout:fragment="content">
@@ -21,11 +23,22 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>id</th>
-                                <th>first name</th>
-                                <th>last name</th>
-                                <th>email</th>
-                                <th>phone</th>
+
+                                <!--                              <th>  <a th:href="@{'/students/all?field=id&ASC'}" class="btn btn-link" role="button">id</a>-->
+                                <!--                              </th>-->
+                                <!--                                <th><a th:href="@{'/courses/student/' + 'id'}"-->
+                                <!--                                       th:text="id"></a></th>-->
+                                <!---->
+                                <th><a th:href="@{'/students/all?field=id&sort=ASC'}" th:text="'⇑'"></a> id <a
+                                        th:href="@{'/students/all?field=id&sort=DESC'}" th:text="'⇓'"></a></th>
+                                <th><a th:href="@{'/students/all?field=first_name&sort=ASC'}" th:text="'⇑'"></a> first name <a
+                                        th:href="@{'/students/all?field=first_name&sort=DESC'}" th:text="'⇓'"></a></th>
+                                <th><a th:href="@{'/students/all?field=last_name&sort=ASC'}" th:text="'⇑'"></a> last name <a
+                                        th:href="@{'/students/all?field=last_name&sort=DESC'}" th:text="'⇓'"></a></th>
+                                <th><a th:href="@{'/students/all?field=email&sort=ASC'}" th:text="'⇑'"></a> email <a
+                                        th:href="@{'/students/all?field=email&sort=DESC'}" th:text="'⇓'"></a></th>
+                               <th><a th:href="@{'/students/all?field=phone&sort=ASC'}" th:text="'⇑'"></a> phone <a
+                                        th:href="@{'/students/all?field=phone&sort=DESC'}" th:text="'⇓'"></a></th>
                                 <th>birthday</th>
                                 <th>courses types</th>
                             </tr>
@@ -42,10 +55,10 @@
                                 <td th:text="${student.getPhone()}"></td>
                                 <td th:text="${student.getBirthDate()}"></td>
 
-                                <span th:each="course,iter : ${student.getUniqTypes()}">
-                                     <td><a th:href="@{'/students/course?type=' + ${course.toString()}}"
-                                            th:text="${course.toString()}"></a></td>
-                        </span>
+                                <td> <span th:each="course,iter : ${student.getUniqTypes()}">
+                                     <a th:href="@{'/students/course?type=' + ${course.toString()}}"
+                                            th:text="${course.toString()}"></a>
+                        </span></td>
                             </tr>
                             </tbody>
                         </table>

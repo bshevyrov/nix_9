@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import ua.com.alevel.persistence.dao.CourseDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.BaseEntity;
 import ua.com.alevel.persistence.entity.Course;
 import ua.com.alevel.service.CourseService;
 
@@ -46,4 +45,11 @@ public class CourseServiceImpl implements CourseService {
     public DataTableResponse<Course> findAll(DataTableRequest request) {
         return courseDao.findAll(request);
     }
+
+    @Override
+    public DataTableResponse<Course> findAllSortedByFieldOrderedBy(DataTableRequest request) {
+        return courseDao.findAllSortedByFieldOrderedBy(request);
+    }
+
+
 }

@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.com.alevel.facade.StudentFacade;
 import ua.com.alevel.persistence.type.CourseType;
+import ua.com.alevel.veiw.dto.request.PageDataRequest;
 import ua.com.alevel.veiw.dto.request.StudentRequestDto;
 import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
@@ -25,12 +26,7 @@ public class StudentController {
         return "redirect:/students/all";
     }
 
-    @GetMapping("/all")
-    public String studentsAllPage(Model model) {
-        List<StudentResponseDto> list = studentFacade.findAll();
-        model.addAttribute("students", list);
-        return "pages/student/student_all";
-    }
+
 
     @GetMapping("/new")
     public String redirectToNewHallPage(Model model) {
@@ -53,11 +49,34 @@ public class StudentController {
         return "/pages/student/student_all";
 
     }
+
     @GetMapping(path = {"/course"})
     public String getAllByStudentId(@RequestParam("type") String type, Model model) {
 //TODO validate
         model.addAttribute("students", studentFacade.findAllByCourseType(CourseType.valueOf(type)));
 //        model.addAttribute("courseId", id);
+        return "/pages/student/student_all";
+    }
+
+//    @GetMapping("/all")
+//    public String studentsAllPage(Model model) {
+//
+//        return "redirect:/students/all?field=id&sort=ASC&from=1&to=10";
+//    }
+
+    @GetMapping(path = {"/all"})
+    public String getAllStudentSortedBy(@RequestParam(value = "field", required = false, defaultValue = "id") String field,
+                                        @RequestParam(value = "sort", required = false, defaultValue = "ASC") String sort,
+                                        @RequestParam(value = "from", required = false, defaultValue = "1") long from,
+                                        @RequestParam(value = "to", required = false, defaultValue = "10") long to,
+                                        Model model) {
+        PageDataRequest request = new PageDataRequest();
+        request.setOrder(field);
+        request.setSort(sort);
+        request.setPageSize((to - from) + 1);
+        request.setCurrentPage(to / request.getPageSize());
+
+        model.addAttribute("students", studentFacade.findAllSortedByFieldOrderedBy(request).getItems());
         return "/pages/student/student_all";
     }
 

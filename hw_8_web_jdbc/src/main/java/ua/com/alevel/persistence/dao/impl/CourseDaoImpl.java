@@ -6,6 +6,7 @@ import ua.com.alevel.persistence.dao.CourseDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Course;
+import ua.com.alevel.persistence.entity.Student;
 import ua.com.alevel.persistence.type.CourseType;
 
 import java.sql.PreparedStatement;
@@ -14,8 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.com.alevel.persistence.dao.query.JpaQueryUtil.FIND_ALL_COURSES_BY_STUDENT_ID;
-import static ua.com.alevel.persistence.dao.query.JpaQueryUtil.FIND_ALL_COURSES_QUERY;
+import static ua.com.alevel.persistence.dao.query.JpaQueryUtil.*;
 
 @Service
 public class CourseDaoImpl implements CourseDao {
@@ -81,6 +81,39 @@ public class CourseDaoImpl implements CourseDao {
     public long count() {
         return 0;
     }
+
+    @Override
+    public DataTableResponse<Course> findAllSortedByFieldOrderedBy(DataTableRequest request) {
+        DataTableResponse<Course> response = new DataTableResponse<>();
+        List<Course> list = new ArrayList<>();
+        long size = 0L;
+        String sql= String.format(FIND_ALL_COURSE_FROM_TO_SORTED_BY_COLUMN_QUERY,request.getOrder(),request.getSort());
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(sql);
+        ) {
+            // "SELECT * FROM students ORDERED BY *COLUMN NAME* *ASC/DESC* OFFSET *HOW MANY SKIPS* FETCH FIRST *HOW MANY SHOW* ROWS ONLY;";
+
+//            preparedStatement.setString(1, request.getOrder());
+            preparedStatement.setLong(1, (request.getCurrentPage() - 1) * request.getPageSize());
+            preparedStatement.setLong(2, request.getPageSize());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Course course = new Course();
+                course.setCourseType(CourseType.valueOf(resultSet.getString("course_type")));
+                course.setId(resultSet.getLong("id"));
+                course.setName(resultSet.getString("name"));
+                course.setDescription(resultSet.getString("description"));
+                course.setCreateDate(resultSet.getDate("create_date"));
+                list.add(course);
+                size++;
+            }
+            response.seteList(list);
+            response.seteListSize(size);
+        } catch (SQLException throwables) {
+            throwables.getMessage();
+        }
+        return response;    }
+
 
     @Override
     public DataTableResponse<Course> findAllByStudentId(Long id) {

@@ -10,4 +10,5 @@ public interface StudentFacade extends BaseFacade<StudentRequestDto, StudentResp
 
     List<StudentResponseDto> findAllByCourseId(Long id);
     List<StudentResponseDto> findAllByCourseType(CourseType type);
+
 }

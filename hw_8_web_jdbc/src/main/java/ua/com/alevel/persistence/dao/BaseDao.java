@@ -3,6 +3,7 @@ package ua.com.alevel.persistence.dao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.BaseEntity;
+import ua.com.alevel.persistence.entity.Student;
 
 import java.util.List;
 
@@ -21,5 +22,7 @@ public interface BaseDao<E extends BaseEntity> {
     DataTableResponse<E> findAll(DataTableRequest request);
 
     long count();
+
+    DataTableResponse<E> findAllSortedByFieldOrderedBy(DataTableRequest request);
 
 }

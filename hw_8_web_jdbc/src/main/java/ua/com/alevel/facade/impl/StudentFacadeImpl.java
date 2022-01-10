@@ -9,8 +9,10 @@ import ua.com.alevel.persistence.entity.Student;
 import ua.com.alevel.persistence.type.CourseType;
 import ua.com.alevel.service.CourseService;
 import ua.com.alevel.service.StudentService;
+import ua.com.alevel.veiw.dto.request.PageDataRequest;
 import ua.com.alevel.veiw.dto.request.StudentRequestDto;
 import ua.com.alevel.veiw.dto.response.CourseResponseDto;
+import ua.com.alevel.veiw.dto.response.PageDataResponse;
 import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
 import java.sql.Date;
@@ -64,6 +66,26 @@ public class StudentFacadeImpl implements StudentFacade {
                 studentDataTableResponse.geteList());
     }
 
+    @Override
+    public PageDataResponse<StudentResponseDto> findAllSortedByFieldOrderedBy(PageDataRequest request) {
+        DataTableRequest dataTableRequest = new DataTableRequest();
+        dataTableRequest.setOrder(request.getOrder());
+        dataTableRequest.setSort(request.getSort());
+        dataTableRequest.setCurrentPage(request.getCurrentPage());
+        dataTableRequest.setPageSize(request.getPageSize());
+        DataTableResponse<Student> dataTableResponse = studentService.findAllSortedByFieldOrderedBy(dataTableRequest);
+
+        PageDataResponse<StudentResponseDto> response = new PageDataResponse<>();
+        response.setItems(convertStudentsToStudentResponseDto(dataTableResponse.geteList()));
+        response.setItemSize(dataTableResponse.geteListSize());
+        response.setOrder(request.getOrder());
+        response.setSort(request.getSort());
+        response.setCurrentPage(request.getCurrentPage());
+
+        return response;
+    }
+
+
     private Set<CourseResponseDto> convertToDtoByEntity(List<Course> courses) {
         Set<CourseResponseDto> courseResponseDtoSet = new HashSet<>();
         for (Course cours : courses) {
@@ -112,5 +134,7 @@ public class StudentFacadeImpl implements StudentFacade {
 
         return studentResponseDtoList;
     }
+
+
 }
 

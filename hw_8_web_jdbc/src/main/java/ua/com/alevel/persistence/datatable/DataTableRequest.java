@@ -4,8 +4,8 @@ public class DataTableRequest {
 
     private String sort;
     private String order;
-    private int currentPage;
-    private int pageSize;
+    private long currentPage;
+    private long pageSize;
 
     public DataTableRequest() {
         this.sort = "id";
@@ -30,19 +30,19 @@ public class DataTableRequest {
         this.order = order;
     }
 
-    public int getCurrentPage() {
+    public long getCurrentPage() {
         return currentPage;
     }
 
-    public void setCurrentPage(int currentPage) {
+    public void setCurrentPage(long currentPage) {
         this.currentPage = currentPage;
     }
 
-    public int getPageSize() {
+    public long getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(int pageSize) {
+    public void setPageSize(long pageSize) {
         this.pageSize = pageSize;
     }
 }

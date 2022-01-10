@@ -5,7 +5,6 @@ import ua.com.alevel.config.jpa.JpaConfig;
 import ua.com.alevel.persistence.dao.StudentDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.Course;
 import ua.com.alevel.persistence.entity.Student;
 import ua.com.alevel.persistence.type.CourseType;
 
@@ -100,6 +99,43 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
+    public DataTableResponse<Student> findAllSortedByFieldOrderedBy(DataTableRequest request) {
+        DataTableResponse<Student> response = new DataTableResponse<>();
+        List<Student> list = new ArrayList<>();
+        long size = 0L;
+        String sql= String.format(FIND_ALL_STUDENT_FROM_TO_SORTED_BY_COLUMN_QUERY,request.getOrder(),request.getSort());
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(sql);
+        ) {
+            // "SELECT * FROM students ORDERED BY *COLUMN NAME* *ASC/DESC* OFFSET *HOW MANY SKIPS* FETCH FIRST *HOW MANY SHOW* ROWS ONLY;";
+
+//            preparedStatement.setString(1, request.getOrder());
+            preparedStatement.setLong(1, (request.getCurrentPage() - 1) * request.getPageSize());
+            preparedStatement.setLong(2, request.getPageSize());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Student student = new Student();
+                student.setId(resultSet.getLong("id"));
+                student.setFirstName(resultSet.getString("first_name"));
+                student.setLastName(resultSet.getString("last_name"));
+                student.setEmail(resultSet.getString("email"));
+                student.setPhone(resultSet.getString("phone"));
+                student.setBirthDate(resultSet.getDate("birth_date"));
+                list.add(student);
+                size++;
+            }
+            response.seteList(list);
+            response.seteListSize(size);
+        } catch (SQLException throwables) {
+            throwables.getMessage();
+        }
+        return response;
+    }
+
+
+
+
+    @Override
     public DataTableResponse<Student> findAllByCourseId(Long id) {
         DataTableResponse<Student> response = new DataTableResponse<>();
         List<Student> list = new ArrayList<>();
@@ -117,7 +153,7 @@ public class StudentDaoImpl implements StudentDao {
                 student.setEmail(resultSet.getString("email"));
                 student.setPhone(resultSet.getString("phone"));
                 student.setBirthDate(resultSet.getDate("birth_date"));
-               list.add(student);
+                list.add(student);
                 size++;
             }
             response.seteList(list);

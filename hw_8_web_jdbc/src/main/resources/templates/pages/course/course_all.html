@@ -21,8 +21,10 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Course id</th>
-                                <th>name</th>
+                                <th><a th:href="@{'/courses/all?field=id&sort=ASC'}" th:text="'⇑'"></a> Course id <a
+                                        th:href="@{'/courses/all?field=id&sort=DESC'}" th:text="'⇓'"></a></th>
+                                <th><a th:href="@{'/courses/all?field=name&sort=ASC'}" th:text="'⇑'"></a> Name <a
+                                        th:href="@{'/courses/all?field=name&sort=DESC'}" th:text="'⇓'"></a></th>
                                 <th>description</th>
                                 <th>courses types</th>
                             </tr>

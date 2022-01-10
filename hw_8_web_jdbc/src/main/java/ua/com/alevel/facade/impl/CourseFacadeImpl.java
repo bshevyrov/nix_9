@@ -5,9 +5,13 @@ import ua.com.alevel.facade.CourseFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Course;
+import ua.com.alevel.persistence.entity.Student;
 import ua.com.alevel.service.CourseService;
 import ua.com.alevel.veiw.dto.request.CourseRequestDto;
+import ua.com.alevel.veiw.dto.request.PageDataRequest;
 import ua.com.alevel.veiw.dto.response.CourseResponseDto;
+import ua.com.alevel.veiw.dto.response.PageDataResponse;
+import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +48,24 @@ public class CourseFacadeImpl implements CourseFacade {
     @Override
     public List<CourseResponseDto> findAll() {
         return convertCourseToCourseResponseDto(courseService.findAll(new DataTableRequest()).geteList());    }
+
+    @Override
+    public PageDataResponse<CourseResponseDto> findAllSortedByFieldOrderedBy(PageDataRequest request) {
+        DataTableRequest dataTableRequest = new DataTableRequest();
+        dataTableRequest.setOrder(request.getOrder());
+        dataTableRequest.setSort(request.getSort());
+        dataTableRequest.setCurrentPage(request.getCurrentPage());
+        dataTableRequest.setPageSize(request.getPageSize());
+        DataTableResponse<Course> dataTableResponse = courseService.findAllSortedByFieldOrderedBy(dataTableRequest);
+
+        PageDataResponse<CourseResponseDto> response = new PageDataResponse<>();
+        response.setItems(convertCourseToCourseResponseDto(dataTableResponse.geteList()));
+        response.setItemSize(dataTableResponse.geteListSize());
+        response.setOrder(request.getOrder());
+        response.setSort(request.getSort());
+        response.setCurrentPage(request.getCurrentPage());
+
+        return response;    }
 
     @Override
     public List<CourseResponseDto> findAllByStudentId(Long id) {

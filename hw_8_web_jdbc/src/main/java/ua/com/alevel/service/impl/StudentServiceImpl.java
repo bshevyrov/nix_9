@@ -44,6 +44,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public DataTableResponse<Student> findAllSortedByFieldOrderedBy(DataTableRequest request) {
+        return studentDao.findAllSortedByFieldOrderedBy(request);
+    }
+
+
+
+    @Override
     public DataTableResponse<Student> findAllByCourseId(Long id) {
         return studentDao.findAllByCourseId(id);
     }
