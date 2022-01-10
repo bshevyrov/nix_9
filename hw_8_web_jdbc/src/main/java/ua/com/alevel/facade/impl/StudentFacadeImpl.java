@@ -51,7 +51,7 @@ public class StudentFacadeImpl implements StudentFacade {
 
     @Override
     public void delete(long id) {
-
+        studentService.delete(id);
     }
 
     @Override
@@ -73,6 +73,7 @@ public class StudentFacadeImpl implements StudentFacade {
         dataTableRequest.setSort(request.getSort());
         dataTableRequest.setCurrentPage(request.getCurrentPage());
         dataTableRequest.setPageSize(request.getPageSize());
+        dataTableRequest.setTotalPages(request.getTotalPageSize());
         DataTableResponse<Student> dataTableResponse = studentService.findAllSortedByFieldOrderedBy(dataTableRequest);
 
         PageDataResponse<StudentResponseDto> response = new PageDataResponse<>();
@@ -81,7 +82,7 @@ public class StudentFacadeImpl implements StudentFacade {
         response.setOrder(request.getOrder());
         response.setSort(request.getSort());
         response.setCurrentPage(request.getCurrentPage());
-
+        response.setTotalPageSize((int) dataTableResponse.getTotalPage());
         return response;
     }
 

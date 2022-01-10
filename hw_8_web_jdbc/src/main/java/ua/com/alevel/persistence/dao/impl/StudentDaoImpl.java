@@ -50,6 +50,18 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public void delete(long id) {
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(DELETE_STUDENT_BY_ID_QUERY)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(DELETE_COURSES_STUDENT_BY_STUDENT_ID_QUERY)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
     }
 
@@ -81,12 +93,9 @@ public class StudentDaoImpl implements StudentDao {
                 student.setId(resultSet.getLong("id"));
                 studentList.add(student);
                 ++size;
-
             }
             response.seteList(studentList);
             response.seteListSize(size);
-
-
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());
         }
@@ -103,7 +112,7 @@ public class StudentDaoImpl implements StudentDao {
         DataTableResponse<Student> response = new DataTableResponse<>();
         List<Student> list = new ArrayList<>();
         long size = 0L;
-        String sql= String.format(FIND_ALL_STUDENT_FROM_TO_SORTED_BY_COLUMN_QUERY,request.getOrder(),request.getSort());
+        String sql = String.format(FIND_ALL_STUDENT_FROM_TO_SORTED_BY_COLUMN_QUERY, request.getOrder(), request.getSort());
         try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(sql);
         ) {
             // "SELECT * FROM students ORDERED BY *COLUMN NAME* *ASC/DESC* OFFSET *HOW MANY SKIPS* FETCH FIRST *HOW MANY SHOW* ROWS ONLY;";
@@ -126,13 +135,24 @@ public class StudentDaoImpl implements StudentDao {
             }
             response.seteList(list);
             response.seteListSize(size);
+
+//            response.setTotalPage(jpaConfig
+//                    .getConnection()
+//                    .prepareStatement(COUNT_STUDENTS)
+//                    .executeQuery()
+//                    .getInt("COUNT(*)")/request.getPageSize());
         } catch (SQLException throwables) {
             throwables.getMessage();
         }
+        try (ResultSet resultSet1 = jpaConfig.getStatement().executeQuery(COUNT_STUDENTS)) {
+            resultSet1.next();
+            long size3 = resultSet1.getLong("COUNT(*)");
+            response.setTotalPage(size3 / request.getPageSize());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         return response;
     }
-
-
 
 
     @Override

@@ -9,6 +9,9 @@ public final class JpaQueryUtil {
     public static final String CREATE_STUDENT_QUERY = "INSERT INTO students VALUES (default,?,?,?,?,?);";
     public static final String FIND_ALL_STUDENTS_QUERY = "SELECT * FROM students;";
     public static final String FIND_ALL_COURSES_QUERY = "SELECT * FROM courses;";
+    public static final String COUNT_STUDENTS = "SELECT COUNT(*) FROM students;";
+    public static final String DELETE_STUDENT_BY_ID_QUERY= "DELETE FROM students WHERE id=?;";
+    public static final String DELETE_COURSES_STUDENT_BY_STUDENT_ID_QUERY= "DELETE FROM course_student WHERE student_id=?;";
     public static final String FIND_ALL_STUDENT_FROM_TO_SORTED_BY_COLUMN_QUERY = "SELECT * FROM students ORDER BY %s %s LIMIT ?,?;";
     public static final String FIND_ALL_COURSE_FROM_TO_SORTED_BY_COLUMN_QUERY = "SELECT * FROM courses ORDER BY %s %s LIMIT ?,?;";
     // "SELECT * FROM students ORDERED BY *COLUMN NAME* *ASC/DESC* OFFSET *HOW MANY SKIPS* FETCH FIRST *HOW MANY SHOW* ROWS ONLY;";

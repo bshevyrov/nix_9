@@ -3,13 +3,20 @@ package ua.com.alevel.veiw.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.com.alevel.facade.StudentFacade;
 import ua.com.alevel.persistence.type.CourseType;
 import ua.com.alevel.veiw.dto.request.PageDataRequest;
 import ua.com.alevel.veiw.dto.request.StudentRequestDto;
 import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/students")
@@ -54,7 +61,6 @@ public class StudentController {
     public String getAllByStudentId(@RequestParam("type") String type, Model model) {
 //TODO validate
         model.addAttribute("students", studentFacade.findAllByCourseType(CourseType.valueOf(type)));
-//        model.addAttribute("courseId", id);
         return "/pages/student/student_all";
     }
 
@@ -67,17 +73,37 @@ public class StudentController {
     @GetMapping(path = {"/all"})
     public String getAllStudentSortedBy(@RequestParam(value = "field", required = false, defaultValue = "id") String field,
                                         @RequestParam(value = "sort", required = false, defaultValue = "ASC") String sort,
-                                        @RequestParam(value = "from", required = false, defaultValue = "1") long from,
-                                        @RequestParam(value = "to", required = false, defaultValue = "10") long to,
-                                        Model model) {
+                                        @RequestParam(value = "page", required = false, defaultValue = "1") long page,
+                                        @RequestParam(value = "size", required = false, defaultValue = "10") long size,
+                                        Model model,HttpServletRequest request22) {
         PageDataRequest request = new PageDataRequest();
         request.setOrder(field);
         request.setSort(sort);
-        request.setPageSize((to - from) + 1);
-        request.setCurrentPage(to / request.getPageSize());
+        request.setPageSize(size);
+        request.setCurrentPage(page);
+        long totalPages = studentFacade.findAllSortedByFieldOrderedBy(request).getTotalPageSize();
+        model.addAttribute("currentPage",page );
+        model.addAttribute("pageSize", size );
+        model.addAttribute("totalPages",totalPages );
 
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, (int) totalPages+1)
+                    .boxed()
+                    .collect(Collectors.toList());
+
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
+
+        System.out.println(request22.getRequestURI());
         model.addAttribute("students", studentFacade.findAllSortedByFieldOrderedBy(request).getItems());
         return "/pages/student/student_all";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteStudent(@PathVariable("id") Long id){
+        studentFacade.delete(id);
+        return "redirect:/students";
     }
 
 }

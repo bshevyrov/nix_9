@@ -29,7 +29,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void delete(long id) {
-
+        studentDao.delete(id);
     }
 
 
@@ -47,7 +47,6 @@ public class StudentServiceImpl implements StudentService {
     public DataTableResponse<Student> findAllSortedByFieldOrderedBy(DataTableRequest request) {
         return studentDao.findAllSortedByFieldOrderedBy(request);
     }
-
 
 
     @Override

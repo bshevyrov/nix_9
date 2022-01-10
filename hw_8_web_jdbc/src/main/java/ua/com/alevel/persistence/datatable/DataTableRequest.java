@@ -6,6 +6,7 @@ public class DataTableRequest {
     private String order;
     private long currentPage;
     private long pageSize;
+    private long totalPages;
 
     public DataTableRequest() {
         this.sort = "id";
@@ -44,5 +45,13 @@ public class DataTableRequest {
 
     public void setPageSize(long pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public long getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(long totalPages) {
+        this.totalPages = totalPages;
     }
 }

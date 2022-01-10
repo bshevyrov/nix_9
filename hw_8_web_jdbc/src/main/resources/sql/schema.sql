@@ -31,6 +31,7 @@ create table  if not exists course_student
         foreign key (course_id) references courses (id),
     constraint course_student_students_id_fk
         foreign key (student_id) references students (id)
+            ON DELETE CASCADE
 );
 
 
