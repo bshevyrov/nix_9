@@ -13,9 +13,9 @@ create table if not exists courses
 
 create table  if not exists students
 (
-    create_date date null,
     id bigint auto_increment
         primary key,
+    create_date date null,
     first_name varchar(255) null,
     last_name varchar(255) null,
     birth_date date null,

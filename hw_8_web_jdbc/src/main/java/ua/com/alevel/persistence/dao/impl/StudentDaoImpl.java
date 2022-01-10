@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,11 +32,12 @@ public class StudentDaoImpl implements StudentDao {
     public void create(Student student) {
 
         try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(CREATE_STUDENT_QUERY)) {
-            preparedStatement.setString(1, student.getPhone());
-            preparedStatement.setString(2, student.getEmail());
-            preparedStatement.setDate(3, (Date) student.getBirthDate());
-            preparedStatement.setString(4, student.getLastName());
-            preparedStatement.setString(5, student.getFirstName());
+            preparedStatement.setDate(1, Date.valueOf(LocalDate.now()));
+            preparedStatement.setString(2, student.getFirstName());
+            preparedStatement.setString(3, student.getLastName());
+            preparedStatement.setDate(4, (Date) student.getBirthDate());
+            preparedStatement.setString(5, student.getEmail());
+            preparedStatement.setString(6, student.getPhone());
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());

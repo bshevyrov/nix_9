@@ -3,8 +3,6 @@
 <head>
   <!--    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>-->
 </head>
-<body>
-<!-- Grey with black text -->
 <div th:fragment="navbar">
   <div class="container">
   <nav class="navbar navbar-expand-sm bg-light navbar-light">
@@ -16,14 +14,15 @@
         <a class="nav-link" href="/courses/all">All Courses</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" href="/students/new">Add student</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
+        <a class="nav-link disabled" href="/courses/new">Add Course</a>
+      </li><li class="nav-item">
+        <a class="nav-link disabled" href="#">Add Course</a>
       </li>
     </ul>
   </nav>
 </div>
 </div>
-</body>
 </html>

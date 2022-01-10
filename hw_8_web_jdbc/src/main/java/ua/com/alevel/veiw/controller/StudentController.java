@@ -3,17 +3,13 @@ package ua.com.alevel.veiw.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ua.com.alevel.facade.CourseFacade;
 import ua.com.alevel.facade.StudentFacade;
 import ua.com.alevel.persistence.type.CourseType;
 import ua.com.alevel.veiw.dto.request.PageDataRequest;
 import ua.com.alevel.veiw.dto.request.StudentRequestDto;
-import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -23,9 +19,11 @@ import java.util.stream.IntStream;
 public class StudentController {
 
     private final StudentFacade studentFacade;
+    private final CourseFacade courseFacade;
 
-    public StudentController(StudentFacade studentFacade) {
+    public StudentController(StudentFacade studentFacade, CourseFacade courseFacade) {
         this.studentFacade = studentFacade;
+        this.courseFacade = courseFacade;
     }
 
     @GetMapping()
@@ -34,16 +32,17 @@ public class StudentController {
     }
 
 
-
     @GetMapping("/new")
     public String redirectToNewHallPage(Model model) {
         //модел  адд атрибьют, те модели что передаем на ХТМЛИНУ
-        model.addAttribute("student", new StudentRequestDto());
+        model.addAttribute("studentRequestDto", new StudentRequestDto());
+        model.addAttribute("courses",courseFacade.findAll());
         return "pages/student/student_new";
     }
 
     @PostMapping("/new")
-    public String CreateNewHall(@ModelAttribute("student") StudentRequestDto studentRequestDto) {
+    public String CreateNewHall(@ModelAttribute StudentRequestDto studentRequestDto, Model model) {
+        //model.addAttribute(studentRequestDto);
         studentFacade.create(studentRequestDto);
         return "redirect:/students";
     }
@@ -75,19 +74,19 @@ public class StudentController {
                                         @RequestParam(value = "sort", required = false, defaultValue = "ASC") String sort,
                                         @RequestParam(value = "page", required = false, defaultValue = "1") long page,
                                         @RequestParam(value = "size", required = false, defaultValue = "10") long size,
-                                        Model model,HttpServletRequest request22) {
+                                        Model model, HttpServletRequest request22) {
         PageDataRequest request = new PageDataRequest();
         request.setOrder(field);
         request.setSort(sort);
         request.setPageSize(size);
         request.setCurrentPage(page);
         long totalPages = studentFacade.findAllSortedByFieldOrderedBy(request).getTotalPageSize();
-        model.addAttribute("currentPage",page );
-        model.addAttribute("pageSize", size );
-        model.addAttribute("totalPages",totalPages );
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pageSize", size);
+        model.addAttribute("totalPages", totalPages);
 
         if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, (int) totalPages+1)
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, (int) totalPages + 1)
                     .boxed()
                     .collect(Collectors.toList());
 
@@ -101,7 +100,7 @@ public class StudentController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteStudent(@PathVariable("id") Long id){
+    public String deleteStudent(@PathVariable("id") Long id) {
         studentFacade.delete(id);
         return "redirect:/students";
     }

@@ -9,46 +9,49 @@
     <title>New Hall</title>
 
 </head>
-<body>
 
-<div layout:fragment="content">
+<section layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-2 mt-2">
+                    <div class="card-header">
+                        All Students
+                    </div>
+                    <div class="card-body">
+                        <form action="#" th:action="@{/students/new}" th:object="${studentRequestDto}" method="post">
 
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">First name</span>
-        <input type="text" class="form-control" placeholder="Username" aria-label="Ivan"
-               aria-describedby="basic-addon1">
-    </div>
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon2">Last name</span>
-        <input type="text" class="form-control" placeholder="Username" aria-label="Ivanov"
-               aria-describedby="basic-addon1">
-    </div>
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon3">E-mail</span>
-        <input type="text" class="form-control" placeholder="Username" aria-label="mail@example.com"
-               aria-describedby="basic-addon1">
-    </div>
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon4">Phone</span>
-        <input type="text" class="form-control" placeholder="Username" aria-label="+380"
-               aria-describedby="basic-addon1">
-    </div>
-
-
-    <div class="input-group mb-3">
-        <form action="/dateTest">
-        <span class="input-group-text" id="basic-addon00">Date Time:         <input type="date" id="date" name="date"
-                                                                                    class="form-control"
-                                                                                    aria-describedby="basic-addon1"
-                                                                                    placeholder="Username"
-                                                                                    aria-label="+380"/>
+                        <table class="table table-sm table-hover">
+                            <div class="input-group mb-3">
+                                <p>First name: <input type="text" th:field="*{firstName}"/></p>
+                                <p>Last name: <input type="text" th:field="*{lastName}"/></p>
+                                <p>Email: <input type="text" th:field="*{email}"/></p>
+                                <p>phone: <input type="text" th:field="*{phone}"/></p>
+<!--                                <select th:field="*{percentage}">
+    <option th:each="i : ${#numbers.sequence(0, 100)}" th:value="${i}" th:text="${i}"
+      th:selected="${i==75}"></option>
+</select>-->
+                            </div>
+<!--                                <form action="#" th:action="@{/students/new}" th:object="${student}" method="post">-->
+            <span class="input-group-text" id="basic-addon00">Birthday date:
+            <input type="date" th:field="*{birthDate}" name="date"
+                   aria-label="+380"/>
 </span>
-            <input type="submit" value="Submit"/>
-            <!--    <input type="hidden" name="_csrf" value="437b30dc-a103-44d0-b4e9-791d8de62986"/></form>-->
-        </form>
+                                    <input type="submit" value="Submit"/>
+
+<!--                                </form>-->
+                                <!--    <input type="hidden" name="_csrf" value="437b30dc-a103-44d0-b4e9-791d8de62986"/></form>-->
+                            </div>
+
+                        </table>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-</div>
 
-</body>
+</section>
 </html>
