@@ -2,9 +2,11 @@ package ua.com.alevel.persistence.entity;
 
 import ua.com.alevel.persistence.type.CourseType;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 
-public class Course extends BaseEntity{
+public class Course extends BaseEntity {
 
     private String name;
     private String description;
@@ -13,6 +15,19 @@ public class Course extends BaseEntity{
     public Course() {
         super();
     }
+
+    public Course(ResultSet resultSet) {
+        try {
+            setId(resultSet.getLong("id"));
+            setCreateDate(resultSet.getDate("create_date"));
+            setCourseType(CourseType.valueOf(resultSet.getString("course_type")));
+            setName(resultSet.getString("name"));
+            setDescription(resultSet.getString("description"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public String getName() {
         return name;

@@ -6,7 +6,6 @@ import ua.com.alevel.persistence.dao.CourseDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Course;
-import ua.com.alevel.persistence.entity.Student;
 import ua.com.alevel.persistence.type.CourseType;
 
 import java.sql.PreparedStatement;
@@ -15,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.com.alevel.persistence.dao.query.JpaQueryUtil.*;
+import static ua.com.alevel.util.JpaQueryUtil.*;
 
 @Service
 public class CourseDaoImpl implements CourseDao {
@@ -52,8 +51,8 @@ public class CourseDaoImpl implements CourseDao {
         return null;
     }
 
-    @Override
-    public DataTableResponse<Course> findAll(DataTableRequest request) {
+   /* @Override
+    public DataTableResponse<Course> findAll(String tableName, DataTableRequest request) {
 
         DataTableResponse<Course> response = new DataTableResponse<>();
         List<Course> courseList = new ArrayList<>();
@@ -75,7 +74,7 @@ public class CourseDaoImpl implements CourseDao {
             System.out.println(throwables.getMessage());
         }
         return response;
-    }
+    }*/
 
     @Override
     public long count() {
@@ -83,11 +82,11 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
-    public DataTableResponse<Course> findAllSortedByFieldOrderedBy(DataTableRequest request) {
+    public DataTableResponse<Course> findAll( DataTableRequest request) {
         DataTableResponse<Course> response = new DataTableResponse<>();
         List<Course> list = new ArrayList<>();
         long size = 0L;
-        String sql= String.format(FIND_ALL_COURSE_FROM_TO_SORTED_BY_COLUMN_QUERY,request.getOrder(),request.getSort());
+        String sql= String.format(FIND_ALL_FROM_TO_SORTED_BY_COLUMN_QUERY,"courses",request.getOrder(),request.getSort());
         try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(sql);
         ) {
             // "SELECT * FROM students ORDERED BY *COLUMN NAME* *ASC/DESC* OFFSET *HOW MANY SKIPS* FETCH FIRST *HOW MANY SHOW* ROWS ONLY;";
@@ -98,13 +97,13 @@ public class CourseDaoImpl implements CourseDao {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                Course course = new Course();
+               /* Course course = new Course();
                 course.setCourseType(CourseType.valueOf(resultSet.getString("course_type")));
                 course.setId(resultSet.getLong("id"));
                 course.setName(resultSet.getString("name"));
                 course.setDescription(resultSet.getString("description"));
-                course.setCreateDate(resultSet.getDate("create_date"));
-                list.add(course);
+                course.setCreateDate(resultSet.getDate("create_date"));*/
+                list.add(new Course(resultSet));
                 size++;
             }
             response.seteList(list);

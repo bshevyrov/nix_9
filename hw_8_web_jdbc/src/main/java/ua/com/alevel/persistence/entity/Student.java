@@ -1,8 +1,10 @@
 package ua.com.alevel.persistence.entity;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
-public class Student extends BaseEntity{
+public class Student extends BaseEntity {
 
     private String firstName;
     private String lastName;
@@ -11,7 +13,21 @@ public class Student extends BaseEntity{
     private Date birthDate;
 
     public Student() {
-        super();
+      super();
+    }
+
+    public Student(ResultSet resultSet) {
+        try {
+       setId(resultSet.getLong("id"));
+       setCreateDate(resultSet.getDate("create_date"));
+        setFirstName(resultSet.getString("first_name"));
+        setLastName(resultSet.getString("last_name"));
+        setEmail(resultSet.getString("email"));
+        setPhone(resultSet.getString("phone"));
+        setBirthDate(resultSet.getDate("birth_date"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getFirstName() {

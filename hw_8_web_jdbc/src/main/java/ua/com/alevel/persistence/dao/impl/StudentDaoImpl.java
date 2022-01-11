@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ua.com.alevel.persistence.dao.query.JpaQueryUtil.*;
+import static ua.com.alevel.util.JpaQueryUtil.*;
 
 @Service
 public class StudentDaoImpl implements StudentDao {
@@ -77,7 +77,7 @@ public class StudentDaoImpl implements StudentDao {
         return null;
     }
 
-    @Override
+  /*  @Override
     public DataTableResponse<Student> findAll(DataTableRequest request) {
 
         DataTableResponse<Student> response = new DataTableResponse<>();
@@ -103,36 +103,42 @@ public class StudentDaoImpl implements StudentDao {
         }
         return response;
     }
-
+*/
     @Override
     public long count() {
-        return 0;
+        int count = 0;
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(COUNT_STUDENT_QUERY)) {
+            while (resultSet.next()) {
+                count = resultSet.getInt("count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
     }
-
     @Override
-    public DataTableResponse<Student> findAllSortedByFieldOrderedBy(DataTableRequest request) {
+    public DataTableResponse<Student> findAll(DataTableRequest request) {
         DataTableResponse<Student> response = new DataTableResponse<>();
         List<Student> list = new ArrayList<>();
         long size = 0L;
-        String sql = String.format(FIND_ALL_STUDENT_FROM_TO_SORTED_BY_COLUMN_QUERY, request.getOrder(), request.getSort());
+        String sql = String.format(FIND_ALL_FROM_TO_SORTED_BY_COLUMN_QUERY,"students", request.getSort(), request.getOrder());
         try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(sql);
         ) {
-            // "SELECT * FROM students ORDERED BY *COLUMN NAME* *ASC/DESC* OFFSET *HOW MANY SKIPS* FETCH FIRST *HOW MANY SHOW* ROWS ONLY;";
-
-//            preparedStatement.setString(1, request.getOrder());
             preparedStatement.setLong(1, (request.getCurrentPage() - 1) * request.getPageSize());
             preparedStatement.setLong(2, request.getPageSize());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                Student student = new Student();
+            /*    Student student = new Student();
+
                 student.setId(resultSet.getLong("id"));
+                student.setCreateDate(resultSet.getDate("create_date"));
                 student.setFirstName(resultSet.getString("first_name"));
                 student.setLastName(resultSet.getString("last_name"));
                 student.setEmail(resultSet.getString("email"));
                 student.setPhone(resultSet.getString("phone"));
-                student.setBirthDate(resultSet.getDate("birth_date"));
-                list.add(student);
+                student.setBirthDate(resultSet.getDate("birth_date"));*/
+                list.add(new Student(resultSet));
                 size++;
             }
             response.seteList(list);

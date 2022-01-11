@@ -13,7 +13,7 @@ public final class WebRequestUtil {
     private static final String SIZE_PARAM = "size";
     private static final String SORT_PARAM = "sort";
     private static final String ORDER_PARAM = "order";
-    public static final String DEFAULT_SORT_PARAM_VALUE = "created";
+    public static final String DEFAULT_SORT_PARAM_VALUE = "id";
     public static final String DEFAULT_ORDER_PARAM_VALUE = "desc";
     public static final int DEFAULT_PAGE_PARAM_VALUE = 1;
     public static final int DEFAULT_SIZE_PARAM_VALUE = 10;
