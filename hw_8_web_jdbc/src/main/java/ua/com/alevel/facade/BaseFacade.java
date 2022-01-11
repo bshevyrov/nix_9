@@ -1,5 +1,6 @@
 package ua.com.alevel.facade;
 
+import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.veiw.dto.request.PageDataRequest;
 import ua.com.alevel.veiw.dto.request.RequestDto;
 import ua.com.alevel.veiw.dto.response.PageDataResponse;
@@ -18,7 +19,7 @@ public interface BaseFacade<REQ extends RequestDto, RES extends ResponseDto> {
 
     List<RES> findAll();
 
-    PageDataResponse<RES> findAllSortedByFieldOrderedBy(PageDataRequest request);
+    PageDataResponse<RES> findAll(WebRequest request);
 
 
 }

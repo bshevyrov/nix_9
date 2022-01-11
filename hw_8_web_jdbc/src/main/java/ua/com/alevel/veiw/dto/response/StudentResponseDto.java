@@ -1,5 +1,6 @@
 package ua.com.alevel.veiw.dto.response;
 
+import ua.com.alevel.persistence.entity.Student;
 import ua.com.alevel.persistence.type.CourseType;
 
 import java.sql.Date;
@@ -8,15 +9,24 @@ import java.util.Set;
 
 public class StudentResponseDto extends ResponseDto {
 
-    private long id;
-    private Date createDate;
+
     private String email;
     private String phone;
     private Date birthDate;
     private String firstName;
     private String lastName;
-    private Set<CourseResponseDto> courseResponseDtoSet;
 
+
+    public StudentResponseDto(Student student) {
+        super(student.getId(), (Date) student.getCreateDate());
+        setFirstName(student.getFirstName());
+        setLastName(student.getLastName());
+        setBirthDate((Date) student.getBirthDate());
+        setPhone(student.getPhone());
+        setEmail(student.getEmail());
+    }
+
+/*
     public Set<CourseType> getUniqTypes() {
         Set<CourseType> types = new HashSet<CourseType>();
         for (CourseResponseDto courseResponseDto : getCourseResponseDtoSet()) {
@@ -25,14 +35,15 @@ public class StudentResponseDto extends ResponseDto {
         return types;
     }
 
+*/
 
-    public Set<CourseResponseDto> getCourseResponseDtoSet() {
-        return courseResponseDtoSet;
-    }
-
-    public void setCourseResponseDtoSet(Set<CourseResponseDto> courseResponseDtoSet) {
-        this.courseResponseDtoSet = courseResponseDtoSet;
-    }
+//    public Set<CourseResponseDto> getCourseResponseDtoSet() {
+//        return courseResponseDtoSet;
+//    }
+//
+//    public void setCourseResponseDtoSet(Set<CourseResponseDto> courseResponseDtoSet) {
+//        this.courseResponseDtoSet = courseResponseDtoSet;
+//    }
 
     public String getEmail() {
         return email;
@@ -74,19 +85,4 @@ public class StudentResponseDto extends ResponseDto {
         this.lastName = lastName;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
 }

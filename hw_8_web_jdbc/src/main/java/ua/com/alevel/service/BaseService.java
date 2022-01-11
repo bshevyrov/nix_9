@@ -14,7 +14,7 @@ public interface BaseService <E extends BaseEntity>{
 
     E findById(long id);
 
-    DataTableResponse<E> findAll(DataTableRequest request);
+//    DataTableResponse<E> findAll();
 
-    DataTableResponse<E> findAllSortedByFieldOrderedBy(DataTableRequest request);
+    DataTableResponse<E> findAll(DataTableRequest request);
 }

@@ -4,16 +4,8 @@ public class DataTableRequest {
 
     private String sort;
     private String order;
-    private long currentPage;
-    private long pageSize;
-    private long totalPages;
-
-    public DataTableRequest() {
-        this.sort = "id";
-        this.order = "ASC";
-        this.currentPage = 1;
-        this.pageSize = 10;
-    }
+    private int currentPage;
+    private int pageSize;
 
     public String getSort() {
         return sort;
@@ -31,27 +23,29 @@ public class DataTableRequest {
         this.order = order;
     }
 
-    public long getCurrentPage() {
+    public int getCurrentPage() {
         return currentPage;
     }
 
-    public void setCurrentPage(long currentPage) {
+    public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
     }
 
-    public long getPageSize() {
+    public int getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(long pageSize) {
+    public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
 
-    public long getTotalPages() {
-        return totalPages;
-    }
-
-    public void setTotalPages(long totalPages) {
-        this.totalPages = totalPages;
+    @Override
+    public String toString() {
+        return "DataTableRequest{" +
+                "sort='" + sort + '\'' +
+                ", order='" + order + '\'' +
+                ", currentPage=" + currentPage +
+                ", pageSize=" + pageSize +
+                '}';
     }
 }

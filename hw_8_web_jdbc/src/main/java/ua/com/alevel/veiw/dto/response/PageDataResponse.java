@@ -1,40 +1,80 @@
 package ua.com.alevel.veiw.dto.response;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PageDataResponse<REQ extends ResponseDto> {
 
+    private int currentPage;
+    private int pageSize;
+    private int totalPageSize;
+    private long itemsSize;
     private List<REQ> items;
-    private long itemSize;
-
-    private String sort;
-    private String order;
+    private final int[] pageSizeItems;
     private boolean showFirst;
-    private boolean showLast;
     private boolean showPrevious;
     private boolean showNext;
-    private long pageSize;
-    private long currentPage;
-    private long totalPageSize;
-
+    private boolean showLast;
+    private String sort;
+    private String order;
+    private long currentShowFromEntries;
+    private long currentShowToEntries;
 
     public PageDataResponse() {
-        this.currentPage = 1L;
-        this.pageSize = 10L;
-        this.itemSize = 0L;
+        this.currentPage = 0;
+        this.pageSize = 10;
+        this.totalPageSize = 0;
+        this.itemsSize = 0;
         this.items = new ArrayList<>();
+        this.pageSizeItems = new int[]{10, 25, 50, 100};
         this.showFirst = false;
-        this.showLast = false;
         this.showPrevious = false;
         this.showNext = false;
+        this.showLast = false;
     }
 
-    public void initPaginationState(long page) {
+    public void initPaginationState(int page) {
+
         this.showFirst = page != 1;
         this.showLast = page != totalPageSize;
         this.showNext = page != totalPageSize;
         this.showPrevious = page - 1 != 0;
+        this.totalPageSize = (int) (itemsSize % pageSize == 0 ? itemsSize / pageSize : itemsSize / pageSize + 1);
+        this.currentShowFromEntries = (long) (page - 1) * pageSize + 1;
+        this.currentShowToEntries = Math.min((long) page * pageSize, itemsSize);
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getTotalPageSize() {
+        return totalPageSize;
+    }
+
+    public void setTotalPageSize(int totalPageSize) {
+        this.totalPageSize = totalPageSize;
+    }
+
+    public long getItemsSize() {
+        return itemsSize;
+    }
+
+    public void setItemsSize(long itemsSize) {
+        this.itemsSize = itemsSize;
     }
 
     public List<REQ> getItems() {
@@ -45,12 +85,8 @@ public class PageDataResponse<REQ extends ResponseDto> {
         this.items = items;
     }
 
-    public long getItemSize() {
-        return itemSize;
-    }
-
-    public void setItemSize(long itemSize) {
-        this.itemSize = itemSize;
+    public int[] getPageSizeItems() {
+        return pageSizeItems;
     }
 
     public boolean isShowFirst() {
@@ -59,14 +95,6 @@ public class PageDataResponse<REQ extends ResponseDto> {
 
     public void setShowFirst(boolean showFirst) {
         this.showFirst = showFirst;
-    }
-
-    public boolean isShowLast() {
-        return showLast;
-    }
-
-    public void setShowLast(boolean showLast) {
-        this.showLast = showLast;
     }
 
     public boolean isShowPrevious() {
@@ -85,6 +113,14 @@ public class PageDataResponse<REQ extends ResponseDto> {
         this.showNext = showNext;
     }
 
+    public boolean isShowLast() {
+        return showLast;
+    }
+
+    public void setShowLast(boolean showLast) {
+        this.showLast = showLast;
+    }
+
     public String getSort() {
         return sort;
     }
@@ -101,27 +137,38 @@ public class PageDataResponse<REQ extends ResponseDto> {
         this.order = order;
     }
 
-    public long getPageSize() {
-        return pageSize;
+    public long getCurrentShowFromEntries() {
+        return currentShowFromEntries;
     }
 
-    public void setPageSize(long pageSize) {
-        this.pageSize = pageSize;
+    public void setCurrentShowFromEntries(long currentShowFromEntries) {
+        this.currentShowFromEntries = currentShowFromEntries;
     }
 
-    public long getCurrentPage() {
-        return currentPage;
+    public long getCurrentShowToEntries() {
+        return currentShowToEntries;
     }
 
-    public void setCurrentPage(long currentPage) {
-        this.currentPage = currentPage;
+    public void setCurrentShowToEntries(long currentShowToEntries) {
+        this.currentShowToEntries = currentShowToEntries;
     }
 
-    public long getTotalPageSize() {
-        return totalPageSize;
-    }
-
-    public void setTotalPageSize(int totalPageSize) {
-        this.totalPageSize = totalPageSize;
+    @Override
+    public String toString() {
+        return "PageData{" +
+                "currentPage=" + currentPage +
+                ", pageSize=" + pageSize +
+                ", totalPageSize=" + totalPageSize +
+                ", itemsSize=" + itemsSize +
+                ", pageSizeItems=" + Arrays.toString(pageSizeItems) +
+                ", showFirst=" + showFirst +
+                ", showPrevious=" + showPrevious +
+                ", showNext=" + showNext +
+                ", showLast=" + showLast +
+                ", sort='" + sort + '\'' +
+                ", order='" + order + '\'' +
+                ", currentShowFromEntries=" + currentShowFromEntries +
+                ", currentShowToEntries=" + currentShowToEntries +
+                '}';
     }
 }

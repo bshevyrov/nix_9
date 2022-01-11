@@ -46,10 +46,10 @@ public class CourseServiceImpl implements CourseService {
         return courseDao.findAll(request);
     }
 
-    @Override
-    public DataTableResponse<Course> findAllSortedByFieldOrderedBy(DataTableRequest request) {
-        return courseDao.findAllSortedByFieldOrderedBy(request);
-    }
+//    @Override
+//    public DataTableResponse<Course> findAllSortedByFieldOrderedBy(DataTableRequest request) {
+//        return courseDao.findAllSortedByFieldOrderedBy(request);
+//    }
 
 
 }

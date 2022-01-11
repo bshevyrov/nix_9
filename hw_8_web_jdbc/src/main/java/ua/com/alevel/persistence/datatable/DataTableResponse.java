@@ -11,7 +11,6 @@ public class DataTableResponse<E extends BaseEntity> {
     private List<E> eList;
     private long eListSize;
     private Map<Object, Object> otherParamMap;
-    private long totalPage;
 
 
     public DataTableResponse() {
@@ -20,14 +19,6 @@ public class DataTableResponse<E extends BaseEntity> {
         this.otherParamMap = Collections.emptyMap();
     }
 
-
-    public long getTotalPage() {
-        return totalPage;
-    }
-
-    public void setTotalPage(long totalPage) {
-        this.totalPage = totalPage;
-    }
 
     public List<E> geteList() {
         return eList;

@@ -1,20 +1,23 @@
 package ua.com.alevel.facade.impl;
 
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.CourseFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Course;
-import ua.com.alevel.persistence.entity.Student;
 import ua.com.alevel.service.CourseService;
+import ua.com.alevel.util.FacadeUtil;
+import ua.com.alevel.util.WebRequestUtil;
 import ua.com.alevel.veiw.dto.request.CourseRequestDto;
-import ua.com.alevel.veiw.dto.request.PageDataRequest;
+import ua.com.alevel.veiw.dto.request.PageAndSizeData;
+import ua.com.alevel.veiw.dto.request.SortData;
 import ua.com.alevel.veiw.dto.response.CourseResponseDto;
 import ua.com.alevel.veiw.dto.response.PageDataResponse;
-import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseFacadeImpl implements CourseFacade {
@@ -47,47 +50,37 @@ public class CourseFacadeImpl implements CourseFacade {
 
     @Override
     public List<CourseResponseDto> findAll() {
-        return convertCourseToCourseResponseDto(courseService.findAll(new DataTableRequest()).geteList());    }
+        PageAndSizeData pageAndSizeData  = WebRequestUtil.defaultPageAndSizeData();
+        SortData sortData = WebRequestUtil.defaultSortData();
+        DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData,sortData);
+
+        return courseService.findAll(dataTableRequest)
+                .geteList()
+                .stream()
+                .map(CourseResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
 
     @Override
-    public PageDataResponse<CourseResponseDto> findAllSortedByFieldOrderedBy(PageDataRequest request) {
-        DataTableRequest dataTableRequest = new DataTableRequest();
-        dataTableRequest.setOrder(request.getOrder());
-        dataTableRequest.setSort(request.getSort());
-        dataTableRequest.setCurrentPage(request.getCurrentPage());
-        dataTableRequest.setPageSize(request.getPageSize());
-        DataTableResponse<Course> dataTableResponse = courseService.findAllSortedByFieldOrderedBy(dataTableRequest);
-
-        PageDataResponse<CourseResponseDto> response = new PageDataResponse<>();
-        response.setItems(convertCourseToCourseResponseDto(dataTableResponse.geteList()));
-        response.setItemSize(dataTableResponse.geteListSize());
-        response.setOrder(request.getOrder());
-        response.setSort(request.getSort());
-        response.setCurrentPage(request.getCurrentPage());
-
-        return response;    }
+    public PageDataResponse<CourseResponseDto> findAll(WebRequest request) {
+        PageAndSizeData pageAndSizeData  = WebRequestUtil.generatePageAndSizeData(request);
+        SortData sortData = WebRequestUtil.generateSortData(request);
+        DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData,sortData);
+        DataTableResponse<Course> all = courseService.findAll(dataTableRequest);
+        List<CourseResponseDto> list = all.geteList().stream().map(CourseResponseDto::new).collect(Collectors.toList());
+        PageDataResponse<CourseResponseDto> pageDataResponse = FacadeUtil.getPageDataResponseFromDTResp(list,pageAndSizeData,sortData);
+        pageDataResponse.setItemsSize(all.geteListSize());
+        pageDataResponse.initPaginationState(pageDataResponse.getCurrentPage());
+return pageDataResponse;
+    }
 
     @Override
     public List<CourseResponseDto> findAllByStudentId(Long id) {
         DataTableResponse<Course> dataTableResponse = courseService.findAllByStudentId(id);
-        return convertCourseToCourseResponseDto(dataTableResponse.geteList());
+        return dataTableResponse.geteList().stream().map(CourseResponseDto::new).collect(Collectors.toList());
 
 
-    }
-
-    private List<CourseResponseDto> convertCourseToCourseResponseDto(List<Course> course) {
-        List<CourseResponseDto> courseResponseDtoList = new ArrayList<>();
-
-        for (Course course1 : course) {
-            CourseResponseDto responseDto = new CourseResponseDto();
-            responseDto.setId(course1.getId());
-            responseDto.setName(course1.getName());
-            responseDto.setDescription(course1.getDescription());
-            responseDto.setCourseType(course1.getCourseType());
-            courseResponseDtoList.add(responseDto);
-        }
-
-        return courseResponseDtoList;
     }
 
 

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.CourseFacade;
 import ua.com.alevel.veiw.dto.request.PageDataRequest;
 
@@ -32,14 +33,14 @@ public class CourseController {
                                         @RequestParam(value = "sort", required = false, defaultValue = "ASC") String sort,
                                         @RequestParam(value = "from", required = false, defaultValue = "1") long from,
                                         @RequestParam(value = "to", required = false, defaultValue = "10") long to,
-                                        Model model) {
-        PageDataRequest request = new PageDataRequest();
-        request.setOrder(field);
-        request.setSort(sort);
-        request.setPageSize((to - from) + 1);
-        request.setCurrentPage(to / request.getPageSize());
+                                        Model model, WebRequest webRequest) {
+//        PageDataRequest request = new PageDataRequest();
+//        request.setOrder(field);
+//        request.setSort(sort);
+//        request.setPageSize((to - from) + 1);
+//        request.setCurrentPage(to / request.getPageSize());
 
-        model.addAttribute("courses", courseFacade.findAllSortedByFieldOrderedBy(request).getItems());
+        model.addAttribute("pageDataResponse", courseFacade.findAll(webRequest));
         return "/pages/course/course_all";
     }
 }

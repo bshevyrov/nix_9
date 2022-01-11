@@ -43,10 +43,10 @@ public class StudentServiceImpl implements StudentService {
         return studentDao.findAll(request);
     }
 
-    @Override
-    public DataTableResponse<Student> findAllSortedByFieldOrderedBy(DataTableRequest request) {
-        return studentDao.findAllSortedByFieldOrderedBy(request);
-    }
+//    @Override
+//    public DataTableResponse<Student> findAllSortedByFieldOrderedBy(DataTableRequest request) {
+//        return studentDao.findAllSortedByFieldOrderedBy(request);
+//    }
 
 
     @Override

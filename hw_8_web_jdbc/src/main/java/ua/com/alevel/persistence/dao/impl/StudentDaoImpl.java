@@ -146,13 +146,7 @@ public class StudentDaoImpl implements StudentDao {
         } catch (SQLException throwables) {
             throwables.getMessage();
         }
-        try (ResultSet resultSet1 = jpaConfig.getStatement().executeQuery(COUNT_STUDENTS)) {
-            resultSet1.next();
-            long size3 = resultSet1.getLong("COUNT(*)");
-            response.setTotalPage(size3 / request.getPageSize());
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+
         return response;
     }
 

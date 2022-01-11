@@ -1,7 +1,9 @@
 package ua.com.alevel.veiw.dto.response;
 
+import ua.com.alevel.persistence.entity.Course;
 import ua.com.alevel.persistence.type.CourseType;
 
+import java.sql.Date;
 import java.util.Objects;
 
 public class CourseResponseDto extends ResponseDto {
@@ -9,6 +11,16 @@ public class CourseResponseDto extends ResponseDto {
     private String name;
     private String description;
     private CourseType courseType;
+
+    public CourseResponseDto(long id, Date createDate) {
+        super(id, createDate);
+
+    } public CourseResponseDto(Course course) {
+        super(course.getId(), (Date) course.getCreateDate());
+        setCourseType(course.getCourseType());
+        setName(course.getName());
+        setDescription(course.getDescription());
+    }
 
     public String getName() {
         return name;
