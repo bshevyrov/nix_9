@@ -45,6 +45,10 @@ public class StudentController extends AbstractController {
         return "/pages/student/student_all";
     }
 
+    @GetMapping("/all")
+    public  String getAll(WebRequest request, Model model){
+        return "redirect:/students";
+    }
     @PostMapping("/all")
     public ModelAndView findAll(WebRequest request, ModelMap model) {
         Map<String, String[]> parameterMap = request.getParameterMap();
@@ -95,7 +99,7 @@ public class StudentController extends AbstractController {
                 new HeaderName("firstname", "firstName", "first_name"),
                 new HeaderName("lastname", "lastName", "last_name"),
                 new HeaderName("email", "email", "email"),
-                new HeaderName("phone", "phone", "phone"),
+                new HeaderName("phon.e", "phone", "phone"),
                 new HeaderName("createdate", "createDate", "create_date"),
                 new HeaderName("delete", null, null),
                 new HeaderName("update", null, null)

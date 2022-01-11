@@ -6,7 +6,6 @@
 <head>
     <meta charset="utf-8">
     <title>Students</title>
-    <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 </head>
 <body>
 <div layout:fragment="data_table_content">
@@ -19,11 +18,6 @@
         <td th:text="${student.getEmail()}"></td>
         <td th:text="${student.getPhone()}"></td>
         <td th:text="${student.getBirthDate()}"></td>
-      <!--  <td> <span th:each="course,iter : ${student.getUniqTypes()}">
-                                     <a th:href="@{'/students/course?type=' + ${course.toString()}}"
-                                        th:text="${course.toString()}"></a>
-                        </span>
-        </td>-->
         <td>
             <a type="button" th:href="@{'/students/delete/' + ${student.getId()}}"
                class="btn btn-outline-light text-danger">delete</a>

@@ -86,7 +86,7 @@ public class CourseDaoImpl implements CourseDao {
         DataTableResponse<Course> response = new DataTableResponse<>();
         List<Course> list = new ArrayList<>();
         long size = 0L;
-        String sql= String.format(FIND_ALL_FROM_TO_SORTED_BY_COLUMN_QUERY,"courses",request.getOrder(),request.getSort());
+        String sql= String.format(FIND_ALL_FROM_TO_SORTED_BY_COLUMN_QUERY,"courses",request.getSort(),request.getOrder());
         try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(sql);
         ) {
             // "SELECT * FROM students ORDERED BY *COLUMN NAME* *ASC/DESC* OFFSET *HOW MANY SKIPS* FETCH FIRST *HOW MANY SHOW* ROWS ONLY;";
@@ -97,12 +97,6 @@ public class CourseDaoImpl implements CourseDao {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-               /* Course course = new Course();
-                course.setCourseType(CourseType.valueOf(resultSet.getString("course_type")));
-                course.setId(resultSet.getLong("id"));
-                course.setName(resultSet.getString("name"));
-                course.setDescription(resultSet.getString("description"));
-                course.setCreateDate(resultSet.getDate("create_date"));*/
                 list.add(new Course(resultSet));
                 size++;
             }
