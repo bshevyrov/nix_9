@@ -74,7 +74,17 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public Student findById(long id) {
-        return null;
+        Student student = new Student();
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(FIND_STUDENT_BY_ID);
+        ) {
+            preparedStatement.setLong(1, (id));
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            student = new Student(resultSet);
+        } catch (SQLException throwables) {
+            throwables.getMessage();
+        }
+        return student;
     }
 
     /*  @Override

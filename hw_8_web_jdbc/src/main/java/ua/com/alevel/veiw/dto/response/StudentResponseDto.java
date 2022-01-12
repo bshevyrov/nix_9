@@ -26,6 +26,11 @@ public class StudentResponseDto extends ResponseDto {
         setEmail(student.getEmail());
     }
 
+
+
+
+
+
 /*
     public Set<CourseType> getUniqTypes() {
         Set<CourseType> types = new HashSet<CourseType>();

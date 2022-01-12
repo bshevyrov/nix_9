@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Halls</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header">
+                    Student Detail
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm table-hover">
+
+                        <tr>
+                            <th>id</th>
+                            <td th:text="${student.getId()}"></td>
+                        </tr>
+                        <tr>
+
+                            <th>name</th>
+                            <td th:text="${student.getFirstName()}"></td>
+                        </tr>
+                        <tr>
+                            <th>last name</th>
+                            <td th:text="${student.getLastName()}"></td>
+                        </tr>
+
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+</body>
+</html>
+

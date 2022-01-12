@@ -66,7 +66,7 @@ public class StudentFacadeImpl implements StudentFacade {
 
     @Override
     public StudentResponseDto findById(long id) {
-        return null;
+        return new StudentResponseDto(studentService.findById(id));
     }
 
     @Override

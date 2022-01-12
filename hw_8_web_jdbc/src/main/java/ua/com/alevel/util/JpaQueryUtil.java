@@ -10,6 +10,7 @@ public final class JpaQueryUtil {
     public static final String CREATE_STUDENT_QUERY = "INSERT INTO students VALUES (default,?,?,?,?,?,?);";
     public static final String CREATE_COURSE_STUDENT_QUERY = "INSERT INTO course_student VALUES (?,?);";
     public static final String FIND_STUDENT_BY_EMAIL = "SELECT * FROM students WHERE email=?;";
+    public static final String FIND_STUDENT_BY_ID = "SELECT * FROM students WHERE id=?;";
     public static final String FIND_ALL_STUDENTS_QUERY = "SELECT * FROM students;";
     public static final String FIND_ALL_COURSES_QUERY = "SELECT * FROM courses;";
     public static final String COUNT_STUDENTS = "SELECT COUNT(*) FROM students;";

@@ -1,6 +1,5 @@
 package ua.com.alevel.veiw.controller;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,9 +47,10 @@ public class StudentController extends AbstractController {
     }
 
     @GetMapping("/all")
-    public  String getAll(WebRequest request, Model model){
+    public String getAll(WebRequest request, Model model) {
         return "redirect:/students";
     }
+
     @PostMapping("/all")
     public ModelAndView findAll(WebRequest request, ModelMap model) {
         Map<String, String[]> parameterMap = request.getParameterMap();
@@ -88,22 +88,49 @@ public class StudentController extends AbstractController {
         model.addAttribute("students", studentFacade.findAllByCourseType(CourseType.valueOf(type)));
         return "/pages/student/student_all";
     }
+
     @GetMapping("/delete/{id}")
     public String deleteStudent(@PathVariable("id") Long id) {
         studentFacade.delete(id);
         return "redirect:/students";
     }
 
+    @GetMapping("/detail/{id}")
+    public String getDetail(@PathVariable("id") Long id, Model model) {
+
+        StudentResponseDto studentDto = studentFacade.findById(id);
+        model.addAttribute("student", studentDto);
+
+
+        return "/pages/student/student_detail";
+    }
+
+    private HeaderName[] getColumnNamesDetail() {
+        return new HeaderName[]{
+                new HeaderName("#", null, null),
+                new HeaderName("Id", "id", "id"),
+                new HeaderName("First Name", "firstName", "first_name"),
+                new HeaderName("Last Name", "lastName", "last_name"),
+                new HeaderName("E-mail", "email", "email"),
+                new HeaderName("Phone", "phone", "phone"),
+                new HeaderName("Create Date", "createDate", "create_date"),
+                new HeaderName("Courses", "createDate", "create_date"),
+                new HeaderName("Delete", null, null),
+                new HeaderName("update", null, null)
+        };
+    }
+
+
     private HeaderName[] getColumnNames() {
         return new HeaderName[]{
                 new HeaderName("#", null, null),
-                new HeaderName("id", "id", "id"),
-                new HeaderName("firstname", "firstName", "first_name"),
-                new HeaderName("lastname", "lastName", "last_name"),
-                new HeaderName("email", "email", "email"),
-                new HeaderName("phon.e", "phone", "phone"),
-                new HeaderName("createdate", "createDate", "create_date"),
-                new HeaderName("delete", null, null),
+                new HeaderName("Id", "id", "id"),
+                new HeaderName("First Name", "firstName", "first_name"),
+                new HeaderName("Last Name", "lastName", "last_name"),
+                new HeaderName("E-mail", "email", "email"),
+                new HeaderName("Phone", "phone", "phone"),
+                new HeaderName("Create Date", "createDate", "create_date"),
+                new HeaderName("Delete", null, null),
                 new HeaderName("update", null, null)
         };
     }
