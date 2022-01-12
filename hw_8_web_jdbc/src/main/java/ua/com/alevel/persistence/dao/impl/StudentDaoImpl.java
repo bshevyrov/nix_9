@@ -77,33 +77,33 @@ public class StudentDaoImpl implements StudentDao {
         return null;
     }
 
-  /*  @Override
-    public DataTableResponse<Student> findAll(DataTableRequest request) {
+    /*  @Override
+      public DataTableResponse<Student> findAll(DataTableRequest request) {
 
-        DataTableResponse<Student> response = new DataTableResponse<>();
-        List<Student> studentList = new ArrayList<>();
-        long size = 0L;
-        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_STUDENTS_QUERY)) {
-            while (resultSet.next()) {
-                Student student = new Student();
-                student.setFirstName(resultSet.getString("first_name"));
-                student.setLastName(resultSet.getString("last_name"));
-                student.setBirthDate(resultSet.getDate("birth_date"));
-                student.setEmail(resultSet.getString("email"));
-                student.setPhone(resultSet.getString("phone"));
-                student.setCreateDate(resultSet.getDate("create_date"));
-                student.setId(resultSet.getLong("id"));
-                studentList.add(student);
-                ++size;
-            }
-            response.seteList(studentList);
-            response.seteListSize(size);
-        } catch (SQLException throwables) {
-            System.out.println(throwables.getMessage());
-        }
-        return response;
-    }
-*/
+          DataTableResponse<Student> response = new DataTableResponse<>();
+          List<Student> studentList = new ArrayList<>();
+          long size = 0L;
+          try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_STUDENTS_QUERY)) {
+              while (resultSet.next()) {
+                  Student student = new Student();
+                  student.setFirstName(resultSet.getString("first_name"));
+                  student.setLastName(resultSet.getString("last_name"));
+                  student.setBirthDate(resultSet.getDate("birth_date"));
+                  student.setEmail(resultSet.getString("email"));
+                  student.setPhone(resultSet.getString("phone"));
+                  student.setCreateDate(resultSet.getDate("create_date"));
+                  student.setId(resultSet.getLong("id"));
+                  studentList.add(student);
+                  ++size;
+              }
+              response.seteList(studentList);
+              response.seteListSize(size);
+          } catch (SQLException throwables) {
+              System.out.println(throwables.getMessage());
+          }
+          return response;
+      }
+  */
     @Override
     public long count() {
         int count = 0;
@@ -116,39 +116,25 @@ public class StudentDaoImpl implements StudentDao {
         }
         return count;
     }
+
     @Override
     public DataTableResponse<Student> findAll(DataTableRequest request) {
         DataTableResponse<Student> response = new DataTableResponse<>();
         List<Student> list = new ArrayList<>();
         long size = 0L;
-        String sql = String.format(FIND_ALL_FROM_TO_SORTED_BY_COLUMN_QUERY,"students", request.getSort(), request.getOrder());
+        String sql = String.format(FIND_ALL_FROM_TO_SORTED_BY_COLUMN_QUERY, "students", request.getSort(), request.getOrder());
         try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(sql);
         ) {
             preparedStatement.setLong(1, (request.getCurrentPage() - 1) * request.getPageSize());
             preparedStatement.setLong(2, request.getPageSize());
             ResultSet resultSet = preparedStatement.executeQuery();
-
             while (resultSet.next()) {
-            /*    Student student = new Student();
-
-                student.setId(resultSet.getLong("id"));
-                student.setCreateDate(resultSet.getDate("create_date"));
-                student.setFirstName(resultSet.getString("first_name"));
-                student.setLastName(resultSet.getString("last_name"));
-                student.setEmail(resultSet.getString("email"));
-                student.setPhone(resultSet.getString("phone"));
-                student.setBirthDate(resultSet.getDate("birth_date"));*/
                 list.add(new Student(resultSet));
                 size++;
             }
             response.seteList(list);
             response.seteListSize(size);
 
-//            response.setTotalPage(jpaConfig
-//                    .getConnection()
-//                    .prepareStatement(COUNT_STUDENTS)
-//                    .executeQuery()
-//                    .getInt("COUNT(*)")/request.getPageSize());
         } catch (SQLException throwables) {
             throwables.getMessage();
         }
@@ -213,5 +199,20 @@ public class StudentDaoImpl implements StudentDao {
             throwables.getMessage();
         }
         return response;
+    }
+
+    @Override
+    public Student findByEmail(String email) {
+        Student student = new Student();
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(FIND_STUDENT_BY_EMAIL);
+        ) {
+            preparedStatement.setString(1, (email));
+             ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+          student = new Student(resultSet);
+        } catch (SQLException throwables) {
+            throwables.getMessage();
+        }
+        return student;
     }
 }

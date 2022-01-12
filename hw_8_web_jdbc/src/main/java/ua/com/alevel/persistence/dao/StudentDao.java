@@ -9,4 +9,6 @@ public interface StudentDao extends BaseDao<Student> {
 
     DataTableResponse<Student> findAllByCourseId(Long id);
     DataTableResponse<Student> findAllByCourseType(CourseType type);
+
+    Student findByEmail(String email);
 }

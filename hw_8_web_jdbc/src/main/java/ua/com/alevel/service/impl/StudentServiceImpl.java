@@ -19,7 +19,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void create(Student student) {
-        studentDao.create(student);
+                studentDao.create(student);
     }
 
     @Override
@@ -53,5 +53,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public DataTableResponse<Student> findAllByCourseType(CourseType type) {
         return studentDao.findAllByCourseType(type);
+    }
+
+    @Override
+    public Student findByEmail(String email) {
+        return studentDao.findByEmail(email);
     }
 }

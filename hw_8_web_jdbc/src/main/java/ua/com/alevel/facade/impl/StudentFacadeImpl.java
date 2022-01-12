@@ -5,9 +5,11 @@ import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.StudentFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
+import ua.com.alevel.persistence.entity.CourseStudent;
 import ua.com.alevel.persistence.entity.Student;
 import ua.com.alevel.persistence.type.CourseType;
 import ua.com.alevel.service.CourseService;
+import ua.com.alevel.service.CourseStudentService;
 import ua.com.alevel.service.StudentService;
 import ua.com.alevel.util.FacadeUtil;
 import ua.com.alevel.util.WebRequestUtil;
@@ -25,10 +27,12 @@ public class StudentFacadeImpl implements StudentFacade {
 
     private final StudentService studentService;
     private final CourseService courseService;
+    private final CourseStudentService courseStudentService;
 
-    public StudentFacadeImpl(StudentService studentService, CourseService courseService) {
+    public StudentFacadeImpl(StudentService studentService, CourseService courseService, CourseStudentService courseStudentService) {
         this.studentService = studentService;
         this.courseService = courseService;
+        this.courseStudentService = courseStudentService;
     }
 
 
@@ -41,6 +45,13 @@ public class StudentFacadeImpl implements StudentFacade {
         student.setLastName(studentRequestDto.getLastName());
         student.setPhone(studentRequestDto.getPhone());
         studentService.create(student);
+
+
+        CourseStudent courseStudent = new CourseStudent();
+        Student currentStudent = studentService.findByEmail(student.getEmail());
+        courseStudent.setStudentId(currentStudent.getId());
+        courseStudent.setCourseId(studentRequestDto.getCourseId());
+        courseStudentService.create(courseStudent);
     }
 
     @Override

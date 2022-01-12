@@ -1,5 +1,6 @@
 package ua.com.alevel.veiw.controller;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/students")
@@ -61,7 +63,7 @@ public class StudentController extends AbstractController {
     @GetMapping("/new")
     public String redirectToNewHallPage(Model model) {
         model.addAttribute("studentRequestDto", new StudentRequestDto());
-        model.addAttribute("courses", courseFacade.findAll());
+        model.addAttribute("courses", courseFacade.findAll().stream().distinct().collect(Collectors.toList()));
         return "pages/student/student_new";
     }
 
