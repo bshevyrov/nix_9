@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Course detail</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    id
+                </div>
+                <div class="col">
+                    <p th:text="${course.getId()}"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    name
+                </div>
+                <div class="col">
+                    <p th:text="${course.getName()}"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    description
+                </div>
+                <div class="col">
+                    <p th:text="${course.getDescription()}"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    Students
+                </div>
+                <div class="col">
+                    <a th:href="@{'/students/course/' + ${course.getId()}}"
+                    >All students of this course</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

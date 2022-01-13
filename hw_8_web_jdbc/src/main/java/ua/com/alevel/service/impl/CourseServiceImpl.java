@@ -38,7 +38,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course findById(long id) {
-        return null;
+        return courseDao.findById(id);
     }
 
     @Override

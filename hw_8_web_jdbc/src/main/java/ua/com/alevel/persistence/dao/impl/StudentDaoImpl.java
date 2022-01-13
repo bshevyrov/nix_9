@@ -154,31 +154,28 @@ public class StudentDaoImpl implements StudentDao {
 
 
     @Override
-    public DataTableResponse<Student> findAllByCourseId(Long id) {
+    public DataTableResponse<Student> findAllByCourseId(Long id, DataTableRequest request) {
         DataTableResponse<Student> response = new DataTableResponse<>();
         List<Student> list = new ArrayList<>();
         long size = 0L;
-        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(FIND_ALL_STUDENTS_BY_COURSE_ID);
+        String sql = String.format(FIND_ALL_STUDENTS_BY_COURSE_ID, request.getSort(), request.getOrder());
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(sql);
         ) {
-            preparedStatement.setLong(1, id);
+            preparedStatement.setLong(1, (id));
+            preparedStatement.setLong(2, (request.getCurrentPage() - 1) * request.getPageSize());
+            preparedStatement.setLong(3, request.getPageSize());
             ResultSet resultSet = preparedStatement.executeQuery();
-
             while (resultSet.next()) {
-                Student student = new Student();
-                student.setId(resultSet.getLong("id"));
-                student.setFirstName(resultSet.getString("first_name"));
-                student.setLastName(resultSet.getString("last_name"));
-                student.setEmail(resultSet.getString("email"));
-                student.setPhone(resultSet.getString("phone"));
-                student.setBirthDate(resultSet.getDate("birth_date"));
-                list.add(student);
+                list.add(new Student(resultSet));
                 size++;
             }
             response.seteList(list);
             response.seteListSize(size);
+
         } catch (SQLException throwables) {
             throwables.getMessage();
         }
+
         return response;
     }
 
@@ -217,12 +214,27 @@ public class StudentDaoImpl implements StudentDao {
         try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(FIND_STUDENT_BY_EMAIL);
         ) {
             preparedStatement.setString(1, (email));
-             ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-          student = new Student(resultSet);
+            student = new Student(resultSet);
         } catch (SQLException throwables) {
             throwables.getMessage();
         }
         return student;
+    }
+
+    @Override
+    public long countFindAllByCourseId(Long id) {
+        int size = 0;
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(COUNT_FIND_ALL_STUDENTS_BY_COURSE_ID);
+        ) {
+            preparedStatement.setLong(1, (id));
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            size = resultSet.getInt("count");
+        } catch (SQLException throwables) {
+            throwables.getMessage();
+        }
+        return size;
     }
 }

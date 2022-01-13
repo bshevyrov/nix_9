@@ -10,39 +10,69 @@
 <body>
 
 <div layout:fragment="content">
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div class="card mb-2 mt-2">
-                <div class="card-header">
-                    Student Detail
-                </div>
-                <div class="card-body">
-                    <table class="table table-sm table-hover">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-2 mt-2">
+                    <div class="card-header">
+                        Student Detail
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-sm table-hover">
+                            <div class="row">
+                                <div class="col">
+                                    id
+                                </div>
+                                <div class="col">
+                                    <p th:text="${student.getId()}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    name
+                                </div>
+                                <div class="col">
+                                    <p th:text="${student.getFirstName()}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    last name
+                                </div>
+                                <div class="col">
+                                    <p th:text="${student.getLastName()}"></p>
+                                </div>
+                            </div>
+                             <div class="row">
+                                    <div class="col">
+                                        courses
+                                    </div>
+                                    <div class="col">
+                                        <span th:each="course,iter: ${courses}">
+                                            <span th:if="${iter.count}>1" >,</span>
+                                            <a th:href="@{'/courses/detail/' + ${course.getId()}}"
+                                               th:text="${course.getName()}"></a>
+                                        </span>
+                                    </div>
+                                    </div>
 
-                        <tr>
-                            <th>id</th>
-                            <td th:text="${student.getId()}"></td>
-                        </tr>
-                        <tr>
-
-                            <th>name</th>
-                            <td th:text="${student.getFirstName()}"></td>
-                        </tr>
-                        <tr>
-                            <th>last name</th>
-                            <td th:text="${student.getLastName()}"></td>
-                        </tr>
+                            </table>
+                                </div>
 
 
-                    </table>
+                            <!--<th>Courses</th>
+                            &lt;!&ndash;                                <td th:text="${courses..getLastName()}"></td>&ndash;&gt;
+                        <tr th:each="course: ${courses}">
+                        <div>
+                        <th><a th:href="@{'/students/detail/' + ${course.getId()}}"
+                                   th:text="${course.getName()}"></a></th>
+                </div>-->
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</div>
-</div>
+    </div>
 </body>
 </html>
 

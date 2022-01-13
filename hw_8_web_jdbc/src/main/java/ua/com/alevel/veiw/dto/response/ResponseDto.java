@@ -7,9 +7,8 @@ public abstract class ResponseDto {
     private long id;
     private Date createDate;
 
-    public ResponseDto(long id, Date createDate) {
-        this.id = id;
-        this.createDate = createDate;
+    public ResponseDto() {
+
     }
 
     public long getId() {

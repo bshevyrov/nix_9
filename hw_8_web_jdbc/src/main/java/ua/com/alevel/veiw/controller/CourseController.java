@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.CourseFacade;
+import ua.com.alevel.facade.StudentFacade;
 import ua.com.alevel.veiw.dto.request.CourseRequestDto;
 import ua.com.alevel.veiw.dto.request.PageDataRequest;
 import ua.com.alevel.veiw.dto.response.CourseResponseDto;
 import ua.com.alevel.veiw.dto.response.PageDataResponse;
+import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
 import java.util.List;
 import java.util.Map;
@@ -21,9 +23,11 @@ import java.util.Map;
 public class CourseController extends AbstractController{
 
     private final CourseFacade courseFacade;
+    private final StudentFacade studentFacade;
 
-    public CourseController(CourseFacade courseFacade) {
+    public CourseController(CourseFacade courseFacade, StudentFacade studentFacade) {
         this.courseFacade = courseFacade;
+        this.studentFacade = studentFacade;
     }
 
     @GetMapping(path = {"/student/{id}"})
@@ -42,11 +46,11 @@ public class CourseController extends AbstractController{
         response.initPaginationState(response.getCurrentPage());
         List<HeaderData> headerDataList = getHeaderDataList(columnNames, response);
         model.addAttribute("headerDataList", headerDataList);
-        model.addAttribute("createUrl", "/courses/all");
+//        model.addAttribute("createUrl", "/courses/all");
         model.addAttribute("pageData", response);
-        model.addAttribute("cardHeader", "All Students");
-        model.addAttribute("allowCreate", true);
-        model.addAttribute("createNewItemUrl", "/courses/new");
+        model.addAttribute("cardHeader", "All Courses");
+//        model.addAttribute("allowCreate", true);
+//        model.addAttribute("createNewItemUrl", "/courses/new");
         return "/pages/course/course_all";
     }
 
@@ -62,6 +66,12 @@ public class CourseController extends AbstractController{
             parameterMap.forEach(model::addAttribute);
         }
         return new ModelAndView("redirect:/courses", model);
+    }
+    @GetMapping("/detail/{id}")
+    public String getDetail(@PathVariable("id") Long id, Model model) {
+        CourseResponseDto response = courseFacade.findById(id);
+        model.addAttribute("course", response);
+        return "/pages/course/course_detail";
     }
     private HeaderName[] getColumnNames() {
         return new HeaderName[]{

@@ -12,7 +12,12 @@
     <tr th:each="course,iter : ${pageData.getItems()}">
         <td th:text="${iter.count}"></td>
         <td th:text="${course.getId()}"></td>
-        <td th:text="${course.getName()}"></td>
+        <td>
+            <a th:href="@{'/courses/detail/' + ${course.getId()}}"
+               th:text="${course.getName()}"></a>
+        </td>
+
+<!--        <td th:text="${course.getName()}"></td>-->
         <td th:text="${course.getDescription()}"></td>
         <td th:text="${course.getCourseType()}"></td>
         <td>

@@ -48,33 +48,22 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public Course findById(long id) {
-        return null;
-    }
+        Course course = new Course();
 
-   /* @Override
-    public DataTableResponse<Course> findAll(String tableName, DataTableRequest request) {
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(FIND_COURSE_BY_ID);
+            ) {
+                preparedStatement.setLong(1, id);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    course= new Course(resultSet);
+                                 }
 
-        DataTableResponse<Course> response = new DataTableResponse<>();
-        List<Course> courseList = new ArrayList<>();
-        long size = 0L;
-        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_COURSES_QUERY)) {
-            while (resultSet.next()) {
-                Course course = new Course();
-                course.setId(resultSet.getLong("id"));
-                course.setCreateDate(resultSet.getDate("create_date"));
-                course.setName(resultSet.getString("name"));
-                course.setDescription(resultSet.getString("description"));
-                course.setCourseType(CourseType.valueOf(resultSet.getString("course_type")));
-                courseList.add(course);
-                ++size;
+            } catch (SQLException throwables) {
+                throwables.getMessage();
             }
-            response.seteList(courseList);
-            response.seteListSize(size);
-        } catch (SQLException throwables) {
-            System.out.println(throwables.getMessage());
+
+            return course;
         }
-        return response;
-    }*/
 
     @Override
     public long count() {
@@ -124,6 +113,7 @@ public class CourseDaoImpl implements CourseDao {
                 course.setName(resultSet.getString("name"));
                 course.setDescription(resultSet.getString("description"));
                 course.setCourseType(CourseType.valueOf(resultSet.getString("course_type")));
+               course.setCreateDate(resultSet.getDate("create_date"));
                 list.add(course);
                 size++;
             }

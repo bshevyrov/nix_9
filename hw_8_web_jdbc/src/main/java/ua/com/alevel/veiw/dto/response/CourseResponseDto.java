@@ -12,11 +12,12 @@ public class CourseResponseDto extends ResponseDto {
     private String description;
     private CourseType courseType;
 
-    public CourseResponseDto(long id, Date createDate) {
-        super(id, createDate);
+    public CourseResponseDto() {
+        super();
 
     } public CourseResponseDto(Course course) {
-        super(course.getId(), (Date) course.getCreateDate());
+        setId(course.getId());
+        setCreateDate((Date) course.getCreateDate());
         setCourseType(course.getCourseType());
         setName(course.getName());
         setDescription(course.getDescription());

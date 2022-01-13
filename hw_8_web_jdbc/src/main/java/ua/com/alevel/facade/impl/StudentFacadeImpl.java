@@ -77,7 +77,6 @@ public class StudentFacadeImpl implements StudentFacade {
                 .stream()
                 .map(StudentResponseDto::new)
                 .collect(Collectors.toList());
-
     }
 
     @Override
@@ -96,31 +95,22 @@ public class StudentFacadeImpl implements StudentFacade {
         return pageDataResponse;
     }
 
-//    @Override
-//    public PageDataResponse<StudentResponseDto> findAllSortedByFieldOrderedBy(PageDataRequest request) {
-//        DataTableRequest dataTableRequest = new DataTableRequest();
-//        dataTableRequest.setOrder(request.getOrder());
-//        dataTableRequest.setSort(request.getSort());
-//        dataTableRequest.setCurrentPage(request.getCurrentPage());
-//        dataTableRequest.setPageSize(request.getPageSize());
-//        dataTableRequest.setTotalPages(request.getTotalPageSize());
-//        DataTableResponse<Student> dataTableResponse = studentService.findAllSortedByFieldOrderedBy(dataTableRequest);
-//
-//        PageDataResponse<StudentResponseDto> response = new PageDataResponse<>();
-//        response.setItems(dataTableResponse.geteList().stream().map(StudentResponseDto::new).collect(Collectors.toList()));
-//        response.setItemSize(dataTableResponse.geteListSize());
-//        response.setOrder(request.getOrder());
-//        response.setSort(request.getSort());
-//        response.setCurrentPage(request.getCurrentPage());
-//        response.setTotalPageSize((int) dataTableResponse.getTotalPage());
-//        return response;
-//    }
-
-
     @Override
-    public List<StudentResponseDto> findAllByCourseId(Long id) {
-        DataTableResponse<Student> dataTableResponse = studentService.findAllByCourseId(id);
-        return dataTableResponse.geteList().stream().map(StudentResponseDto::new).collect(Collectors.toList());
+    public PageDataResponse<StudentResponseDto> findAllByCourseId(Long id, WebRequest request) {
+        PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
+        SortData sortData = WebRequestUtil.generateSortData(request);
+        DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
+        DataTableResponse<Student> all = studentService.findAllByCourseId( id,dataTableRequest);
+        List<StudentResponseDto> list = all.geteList()
+                .stream()
+                .map(StudentResponseDto::new)
+                .collect(Collectors.toList());
+        PageDataResponse<StudentResponseDto> pageDataResponse = FacadeUtil.getPageDataResponseFromDTResp(list, pageAndSizeData, sortData);
+        pageDataResponse.setItemsSize(all.geteListSize());
+        pageDataResponse.initPaginationState(pageDataResponse.getCurrentPage());
+        return pageDataResponse;
+//        DataTableResponse<Student> dataTableResponse = studentService.findAllByCourseId(id,request);
+//        return dataTableResponse.geteList().stream().map(StudentResponseDto::new).collect(Collectors.toList());
     }
 
     @Override

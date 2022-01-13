@@ -46,8 +46,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public DataTableResponse<Student> findAllByCourseId(Long id) {
-        return studentDao.findAllByCourseId(id);
+    public DataTableResponse<Student> findAllByCourseId(Long id, DataTableRequest request) {
+        DataTableResponse<Student> response = studentDao.findAllByCourseId(id,request);
+        response.seteListSize(studentDao.countFindAllByCourseId(id));
+        return response;
     }
 
     @Override

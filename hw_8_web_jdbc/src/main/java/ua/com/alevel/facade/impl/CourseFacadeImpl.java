@@ -45,7 +45,7 @@ public class CourseFacadeImpl implements CourseFacade {
 
     @Override
     public CourseResponseDto findById(long id) {
-        return null;
+        return new CourseResponseDto(courseService.findById(id));
     }
 
     @Override

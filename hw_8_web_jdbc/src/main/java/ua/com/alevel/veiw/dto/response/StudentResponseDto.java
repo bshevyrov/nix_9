@@ -18,7 +18,8 @@ public class StudentResponseDto extends ResponseDto {
 
 
     public StudentResponseDto(Student student) {
-        super(student.getId(), (Date) student.getCreateDate());
+        setId(student.getId());
+        setCreateDate((Date) student.getCreateDate());
         setFirstName(student.getFirstName());
         setLastName(student.getLastName());
         setBirthDate((Date) student.getBirthDate());

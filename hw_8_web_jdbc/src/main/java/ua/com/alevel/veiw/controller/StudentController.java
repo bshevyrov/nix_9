@@ -9,8 +9,10 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.CourseFacade;
 import ua.com.alevel.facade.StudentFacade;
+import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.type.CourseType;
 import ua.com.alevel.veiw.dto.request.StudentRequestDto;
+import ua.com.alevel.veiw.dto.response.CourseResponseDto;
 import ua.com.alevel.veiw.dto.response.PageDataResponse;
 import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
@@ -74,10 +76,25 @@ public class StudentController extends AbstractController {
     }
 
     @GetMapping(path = {"/course/{id}"})
-    public String getAllByStudentId(@PathVariable("id") Long id, Model model) {
+    public String getAllByStudentId(@PathVariable("id") Long id, Model model, WebRequest request) {
 //TODO validate
-        model.addAttribute("students", studentFacade.findAllByCourseId(id));
-        model.addAttribute("courseId", id);
+        HeaderName[] columnNames = getColumnNames();
+
+        PageDataResponse<StudentResponseDto> response = studentFacade.findAllByCourseId(id,request);
+        response.initPaginationState(response.getCurrentPage());
+        List<AbstractController.HeaderData> headerDataList = getHeaderDataList(columnNames, response);
+        model.addAttribute("headerDataList", headerDataList);
+//        model.addAttribute("createUrl", "/students/all");
+        model.addAttribute("pageData", response);
+        model.addAttribute("cardHeader", "All students of Course " + courseFacade.findById(id).getName());
+//        model.addAttribute("allowCreate", true);
+//        model.addAttribute("createNewItemUrl", "/students/new");
+//        return "/pages/student/student_all";
+
+
+
+//        model.addAttribute("students", studentFacade.findAllByCourseId(id));
+//        model.addAttribute("courseId", id);
         return "/pages/student/student_all";
 
     }
@@ -99,9 +116,9 @@ public class StudentController extends AbstractController {
     public String getDetail(@PathVariable("id") Long id, Model model) {
 
         StudentResponseDto studentDto = studentFacade.findById(id);
+        List<CourseResponseDto> courseResponseDtoList = courseFacade.findAllByStudentId(id);
         model.addAttribute("student", studentDto);
-
-
+        model.addAttribute("courses", courseResponseDtoList);
         return "/pages/student/student_detail";
     }
 
