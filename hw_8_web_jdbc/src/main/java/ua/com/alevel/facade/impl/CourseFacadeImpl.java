@@ -1,6 +1,5 @@
 package ua.com.alevel.facade.impl;
 
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.CourseFacade;
@@ -30,7 +29,7 @@ public class CourseFacadeImpl implements CourseFacade {
 
     @Override
     public void create(CourseRequestDto courseRequestDto) {
-
+        courseService.create(new Course(courseRequestDto));
     }
 
     @Override
@@ -40,7 +39,7 @@ public class CourseFacadeImpl implements CourseFacade {
 
     @Override
     public void delete(long id) {
-
+        courseService.delete(id);
     }
 
     @Override
@@ -50,9 +49,9 @@ public class CourseFacadeImpl implements CourseFacade {
 
     @Override
     public List<CourseResponseDto> findAll() {
-        PageAndSizeData pageAndSizeData  = WebRequestUtil.defaultPageAndSizeData();
+        PageAndSizeData pageAndSizeData = WebRequestUtil.defaultPageAndSizeData();
         SortData sortData = WebRequestUtil.defaultSortData();
-        DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData,sortData);
+        DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
 
         return courseService.findAll(dataTableRequest)
                 .geteList()
@@ -64,15 +63,15 @@ public class CourseFacadeImpl implements CourseFacade {
 
     @Override
     public PageDataResponse<CourseResponseDto> findAll(WebRequest request) {
-        PageAndSizeData pageAndSizeData  = WebRequestUtil.generatePageAndSizeData(request);
+        PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
         SortData sortData = WebRequestUtil.generateSortData(request);
-        DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData,sortData);
+        DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
         DataTableResponse<Course> all = courseService.findAll(dataTableRequest);
         List<CourseResponseDto> list = all.geteList().stream().map(CourseResponseDto::new).collect(Collectors.toList());
-        PageDataResponse<CourseResponseDto> pageDataResponse = FacadeUtil.getPageDataResponseFromDTResp(list,pageAndSizeData,sortData);
+        PageDataResponse<CourseResponseDto> pageDataResponse = FacadeUtil.getPageDataResponseFromDTResp(list, pageAndSizeData, sortData);
         pageDataResponse.setItemsSize(all.geteListSize());
         pageDataResponse.initPaginationState(pageDataResponse.getCurrentPage());
-return pageDataResponse;
+        return pageDataResponse;
     }
 
     @Override

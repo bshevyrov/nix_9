@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.CourseFacade;
+import ua.com.alevel.facade.CourseStudentFacade;
 import ua.com.alevel.facade.StudentFacade;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.type.CourseType;
+import ua.com.alevel.service.CourseStudentService;
+import ua.com.alevel.veiw.dto.request.CourseStudentRequestDto;
 import ua.com.alevel.veiw.dto.request.StudentRequestDto;
 import ua.com.alevel.veiw.dto.response.CourseResponseDto;
 import ua.com.alevel.veiw.dto.response.PageDataResponse;
@@ -24,11 +27,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/students")
 public class StudentController extends AbstractController {
     private final StudentFacade studentFacade;
-
+private final CourseStudentFacade courseStudentFacade;
     private final CourseFacade courseFacade;
 
-    public StudentController(StudentFacade studentFacade, CourseFacade courseFacade) {
+    public StudentController(StudentFacade studentFacade, CourseStudentFacade courseStudentFacade, CourseFacade courseFacade) {
         this.studentFacade = studentFacade;
+        this.courseStudentFacade = courseStudentFacade;
         this.courseFacade = courseFacade;
     }
 
@@ -72,6 +76,7 @@ public class StudentController extends AbstractController {
     @PostMapping("/new")
     public String CreateNewHall(@ModelAttribute StudentRequestDto studentRequestDto, Model model) {
         studentFacade.create(studentRequestDto);
+        courseStudentFacade.create(new CourseStudentRequestDto(studentRequestDto));
         return "redirect:/students";
     }
 

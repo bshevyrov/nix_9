@@ -30,7 +30,6 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public void create(Student student) {
-
         try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(CREATE_STUDENT_QUERY)) {
             preparedStatement.setDate(1, Date.valueOf(LocalDate.now()));
             preparedStatement.setString(2, student.getFirstName());
@@ -52,7 +51,7 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public void delete(long id) {
-        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(DELETE_STUDENT_BY_ID_QUERY)) {
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(DELETE_STUDENT_BY_ID)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
@@ -87,33 +86,6 @@ public class StudentDaoImpl implements StudentDao {
         return student;
     }
 
-    /*  @Override
-      public DataTableResponse<Student> findAll(DataTableRequest request) {
-
-          DataTableResponse<Student> response = new DataTableResponse<>();
-          List<Student> studentList = new ArrayList<>();
-          long size = 0L;
-          try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_STUDENTS_QUERY)) {
-              while (resultSet.next()) {
-                  Student student = new Student();
-                  student.setFirstName(resultSet.getString("first_name"));
-                  student.setLastName(resultSet.getString("last_name"));
-                  student.setBirthDate(resultSet.getDate("birth_date"));
-                  student.setEmail(resultSet.getString("email"));
-                  student.setPhone(resultSet.getString("phone"));
-                  student.setCreateDate(resultSet.getDate("create_date"));
-                  student.setId(resultSet.getLong("id"));
-                  studentList.add(student);
-                  ++size;
-              }
-              response.seteList(studentList);
-              response.seteListSize(size);
-          } catch (SQLException throwables) {
-              System.out.println(throwables.getMessage());
-          }
-          return response;
-      }
-  */
     @Override
     public long count() {
         int count = 0;

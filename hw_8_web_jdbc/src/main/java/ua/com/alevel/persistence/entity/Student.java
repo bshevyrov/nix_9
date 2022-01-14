@@ -1,8 +1,11 @@
 package ua.com.alevel.persistence.entity;
 
+import ua.com.alevel.veiw.dto.request.StudentRequestDto;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.Objects;
 
 public class Student extends BaseEntity {
 
@@ -16,6 +19,13 @@ public class Student extends BaseEntity {
       super();
     }
 
+    public Student(StudentRequestDto studentRequestDto){
+        setEmail(studentRequestDto.getEmail());
+        setBirthDate(studentRequestDto.getBirthDate());
+        setFirstName(studentRequestDto.getFirstName());
+        setLastName(studentRequestDto.getLastName());
+        setPhone(studentRequestDto.getPhone());
+    }
     public Student(ResultSet resultSet) {
         try {
        setId(resultSet.getLong("id"));
@@ -68,5 +78,29 @@ public class Student extends BaseEntity {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(firstName, student.firstName) && Objects.equals(lastName, student.lastName) && Objects.equals(email, student.email) && Objects.equals(phone, student.phone) && Objects.equals(birthDate, student.birthDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, email, phone, birthDate);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", birthDate=" + birthDate +
+                '}';
     }
 }

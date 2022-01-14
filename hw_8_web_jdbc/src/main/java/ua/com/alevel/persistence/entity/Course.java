@@ -1,6 +1,7 @@
 package ua.com.alevel.persistence.entity;
 
 import ua.com.alevel.persistence.type.CourseType;
+import ua.com.alevel.veiw.dto.request.CourseRequestDto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,6 +17,11 @@ public class Course extends BaseEntity {
         super();
     }
 
+    public Course(CourseRequestDto courseRequestDto){
+        setDescription(courseRequestDto.getDescription());
+        setName(courseRequestDto.getName());
+        setCourseType(courseRequestDto.getCourseType());
+    }
     public Course(ResultSet resultSet) {
         try {
             setId(resultSet.getLong("id"));

@@ -23,7 +23,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void create(Course course) {
-
+courseDao.create(course);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void delete(long id) {
-
+        courseDao.delete(id);
     }
 
     @Override

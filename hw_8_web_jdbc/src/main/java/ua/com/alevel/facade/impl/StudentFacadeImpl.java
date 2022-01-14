@@ -38,15 +38,8 @@ public class StudentFacadeImpl implements StudentFacade {
 
     @Override
     public void create(StudentRequestDto studentRequestDto) {
-        Student student = new Student();
-        student.setEmail(studentRequestDto.getEmail());
-        student.setBirthDate(studentRequestDto.getBirthDate());
-        student.setFirstName(studentRequestDto.getFirstName());
-        student.setLastName(studentRequestDto.getLastName());
-        student.setPhone(studentRequestDto.getPhone());
-        studentService.create(student);
-
-
+        Student student = new Student(studentRequestDto);
+               studentService.create(student);
         CourseStudent courseStudent = new CourseStudent();
         Student currentStudent = studentService.findByEmail(student.getEmail());
         courseStudent.setStudentId(currentStudent.getId());

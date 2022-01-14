@@ -9,14 +9,18 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.CourseFacade;
 import ua.com.alevel.facade.StudentFacade;
+import ua.com.alevel.persistence.type.CourseType;
 import ua.com.alevel.veiw.dto.request.CourseRequestDto;
+import ua.com.alevel.veiw.dto.request.CourseStudentRequestDto;
 import ua.com.alevel.veiw.dto.request.PageDataRequest;
+import ua.com.alevel.veiw.dto.request.StudentRequestDto;
 import ua.com.alevel.veiw.dto.response.CourseResponseDto;
 import ua.com.alevel.veiw.dto.response.PageDataResponse;
 import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/courses")
@@ -37,7 +41,19 @@ public class CourseController extends AbstractController{
         model.addAttribute("studentId", id);
         return "/pages/course/course_all";
     }
+    @GetMapping("/new")
+    public String redirectToNewHallPage(Model model) {
+        model.addAttribute("courseRequestDto", new CourseRequestDto());
 
+        model.addAttribute("coursesTypes",CourseType.values());
+        return "pages/course/course_new";
+    }
+
+    @PostMapping("/new")
+    public String CreateNewHall(@ModelAttribute CourseRequestDto courseRequestDto, Model model) {
+        courseFacade.create(courseRequestDto);
+       return "redirect:/courses";
+    }
     @GetMapping()
     public String getAllStudentSortedBy(Model model, WebRequest webRequest) {
 
@@ -67,8 +83,13 @@ public class CourseController extends AbstractController{
         }
         return new ModelAndView("redirect:/courses", model);
     }
-    @GetMapping("/detail/{id}")
+    @GetMapping("/delete/{id}")
     public String getDetail(@PathVariable("id") Long id, Model model) {
+         courseFacade.delete(id);
+        return "redirect:/courses";
+    }
+    @GetMapping("/detail/{id}")
+    public String getDelete(@PathVariable("id") Long id, Model model) {
         CourseResponseDto response = courseFacade.findById(id);
         model.addAttribute("course", response);
         return "/pages/course/course_detail";

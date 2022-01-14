@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+
+
+<head>
+    <meta charset="utf-8">
+    <title>New Hall</title>
+
+</head>
+
+<section layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-2 mt-2">
+                    <div class="card-header">
+                        All Students
+                    </div>
+                    <div class="card-body">
+                        <form action="#" th:action="@{/courses/new}" th:object="${courseRequestDto}" method="post">
+                            <table class="table table-sm table-hover">
+                                <div class="input-group mb-3">
+                                    <p> name: <input type="text" th:field="*{name}"/></p>
+                                    <p>Description: <input type="text" th:field="*{description}"/></p>
+                                    <tr th:each="course,iter : ${coursesTypes}">
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" th:field="*{courseType}"
+                                                   th:value="${course}" name="flexRadioDefault"
+                                                   id="flexRadioDefault1">
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                [[${course}]]
+                                            </label>
+                                        </div>
+                                    </tr>
+                                    <input type="submit" value="Submit"/>
+                                </div>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</html>
