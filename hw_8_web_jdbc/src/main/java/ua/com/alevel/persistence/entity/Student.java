@@ -20,6 +20,7 @@ public class Student extends BaseEntity {
     }
 
     public Student(StudentRequestDto studentRequestDto){
+        setId(studentRequestDto.getId());
         setEmail(studentRequestDto.getEmail());
         setBirthDate(studentRequestDto.getBirthDate());
         setFirstName(studentRequestDto.getFirstName());

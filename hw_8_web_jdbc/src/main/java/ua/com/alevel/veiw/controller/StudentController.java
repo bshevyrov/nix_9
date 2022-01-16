@@ -10,15 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.CourseFacade;
 import ua.com.alevel.facade.CourseStudentFacade;
 import ua.com.alevel.facade.StudentFacade;
-import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.type.CourseType;
-import ua.com.alevel.service.CourseStudentService;
 import ua.com.alevel.veiw.dto.request.CourseStudentRequestDto;
 import ua.com.alevel.veiw.dto.request.StudentRequestDto;
 import ua.com.alevel.veiw.dto.response.CourseResponseDto;
 import ua.com.alevel.veiw.dto.response.PageDataResponse;
 import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -27,7 +26,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/students")
 public class StudentController extends AbstractController {
     private final StudentFacade studentFacade;
-private final CourseStudentFacade courseStudentFacade;
+    private final CourseStudentFacade courseStudentFacade;
     private final CourseFacade courseFacade;
 
     public StudentController(StudentFacade studentFacade, CourseStudentFacade courseStudentFacade, CourseFacade courseFacade) {
@@ -74,10 +73,27 @@ private final CourseStudentFacade courseStudentFacade;
     }
 
     @PostMapping("/new")
-    public String CreateNewHall(@ModelAttribute StudentRequestDto studentRequestDto, Model model) {
+    public String CreateNewHall(@ModelAttribute StudentRequestDto studentRequestDto,
+                                @RequestParam List<Long>  checkedCourses,
+                                Model model){
         studentFacade.create(studentRequestDto);
-        courseStudentFacade.create(new CourseStudentRequestDto(studentRequestDto));
+        for (Long l : checkedCourses) {
+                    CourseStudentRequestDto courseStudentRequestDto = new CourseStudentRequestDto();
+            courseStudentRequestDto.setStudentId(studentFacade.findByEmail(studentRequestDto.getEmail()).getId());
+            courseStudentRequestDto.setCourseId(l);
+            courseStudentFacade.create(courseStudentRequestDto);
+        }
+//        courseStudentFacade.create(new CourseStudentRequestDto(studentRequestDto));
         return "redirect:/students";
+    }
+
+    @GetMapping("/update/{id}")
+    public String CreateNewHall(@PathVariable long id, Model model) {
+        StudentRequestDto studentRequestDto = new StudentRequestDto();
+        studentRequestDto.setId(id);
+        model.addAttribute("studentRequestDto", studentRequestDto);
+        model.addAttribute("courses", courseFacade.findAll().stream().distinct().collect(Collectors.toList()));
+        return "pages/student/student_new";
     }
 
     @GetMapping(path = {"/course/{id}"})
@@ -85,7 +101,7 @@ private final CourseStudentFacade courseStudentFacade;
 //TODO validate
         HeaderName[] columnNames = getColumnNames();
 
-        PageDataResponse<StudentResponseDto> response = studentFacade.findAllByCourseId(id,request);
+        PageDataResponse<StudentResponseDto> response = studentFacade.findAllByCourseId(id, request);
         response.initPaginationState(response.getCurrentPage());
         List<AbstractController.HeaderData> headerDataList = getHeaderDataList(columnNames, response);
         model.addAttribute("headerDataList", headerDataList);
@@ -95,7 +111,6 @@ private final CourseStudentFacade courseStudentFacade;
 //        model.addAttribute("allowCreate", true);
 //        model.addAttribute("createNewItemUrl", "/students/new");
 //        return "/pages/student/student_all";
-
 
 
 //        model.addAttribute("students", studentFacade.findAllByCourseId(id));

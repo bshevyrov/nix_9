@@ -27,7 +27,6 @@ public class StudentDaoImpl implements StudentDao {
 
     private final JpaConfig jpaConfig;
 
-
     @Override
     public void create(Student student) {
         try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(CREATE_STUDENT_QUERY)) {
@@ -41,11 +40,21 @@ public class StudentDaoImpl implements StudentDao {
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());
         }
-
     }
 
     @Override
     public void update(Student student) {
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(UPDATE_STUDENT_QUERY)) {
+            preparedStatement.setString(1, student.getFirstName());
+            preparedStatement.setString(2, student.getLastName());
+            preparedStatement.setDate(3, (Date) student.getBirthDate());
+            preparedStatement.setString(4, student.getEmail());
+            preparedStatement.setString(5, student.getPhone());
+            preparedStatement.setLong(6, student.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            System.out.println(throwables.getMessage());
+        }
 
     }
 
@@ -63,7 +72,6 @@ public class StudentDaoImpl implements StudentDao {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
     }
 
     @Override
@@ -116,14 +124,12 @@ public class StudentDaoImpl implements StudentDao {
             }
             response.seteList(list);
             response.seteListSize(size);
-
         } catch (SQLException throwables) {
             throwables.getMessage();
         }
 
         return response;
     }
-
 
     @Override
     public DataTableResponse<Student> findAllByCourseId(Long id, DataTableRequest request) {
@@ -209,4 +215,5 @@ public class StudentDaoImpl implements StudentDao {
         }
         return size;
     }
+
 }

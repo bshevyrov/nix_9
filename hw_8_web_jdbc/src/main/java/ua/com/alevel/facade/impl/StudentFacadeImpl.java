@@ -39,17 +39,16 @@ public class StudentFacadeImpl implements StudentFacade {
     @Override
     public void create(StudentRequestDto studentRequestDto) {
         Student student = new Student(studentRequestDto);
-               studentService.create(student);
-        CourseStudent courseStudent = new CourseStudent();
-        Student currentStudent = studentService.findByEmail(student.getEmail());
+        studentService.create(student);
+//        CourseStudent courseStudent = new CourseStudent();
+ /*       Student currentStudent = studentService.findByEmail(student.getEmail());
         courseStudent.setStudentId(currentStudent.getId());
-        courseStudent.setCourseId(studentRequestDto.getCourseId());
-        courseStudentService.create(courseStudent);
+        courseStudentService.create(courseStudent);*/
     }
 
     @Override
-    public void update(StudentRequestDto studentRequestDto, Long id) {
-
+    public void update(StudentRequestDto studentRequestDto) {
+        studentService.update(new Student(studentRequestDto));
     }
 
     @Override
@@ -93,7 +92,7 @@ public class StudentFacadeImpl implements StudentFacade {
         PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
         SortData sortData = WebRequestUtil.generateSortData(request);
         DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
-        DataTableResponse<Student> all = studentService.findAllByCourseId( id,dataTableRequest);
+        DataTableResponse<Student> all = studentService.findAllByCourseId(id, dataTableRequest);
         List<StudentResponseDto> list = all.geteList()
                 .stream()
                 .map(StudentResponseDto::new)
@@ -110,6 +109,11 @@ public class StudentFacadeImpl implements StudentFacade {
     public List<StudentResponseDto> findAllByCourseType(CourseType type) {
         DataTableResponse<Student> dataTableResponse = studentService.findAllByCourseType(type);
         return dataTableResponse.geteList().stream().map(StudentResponseDto::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public StudentResponseDto findByEmail(String email) {
+        return new StudentResponseDto(studentService.findByEmail(email));
     }
 
 

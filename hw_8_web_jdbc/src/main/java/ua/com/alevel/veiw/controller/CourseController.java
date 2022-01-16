@@ -44,16 +44,26 @@ public class CourseController extends AbstractController{
     @GetMapping("/new")
     public String redirectToNewHallPage(Model model) {
         model.addAttribute("courseRequestDto", new CourseRequestDto());
-
         model.addAttribute("coursesTypes",CourseType.values());
         return "pages/course/course_new";
     }
 
     @PostMapping("/new")
     public String CreateNewHall(@ModelAttribute CourseRequestDto courseRequestDto, Model model) {
+        System.out.println(courseRequestDto.getCourseType());
         courseFacade.create(courseRequestDto);
        return "redirect:/courses";
     }
+
+    @GetMapping("/update/{id}")
+    public String redirectToNewCoursePage(@PathVariable long id, Model model) {
+        CourseRequestDto courseRequestDto = new CourseRequestDto();
+        courseRequestDto.setId(id);
+        model.addAttribute("courseRequestDto", courseRequestDto);
+        model.addAttribute("coursesTypes",CourseType.values());
+        return "pages/course/course_new";
+    }
+
     @GetMapping()
     public String getAllStudentSortedBy(Model model, WebRequest webRequest) {
 

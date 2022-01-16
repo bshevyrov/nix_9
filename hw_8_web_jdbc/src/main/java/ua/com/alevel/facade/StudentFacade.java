@@ -13,5 +13,6 @@ public interface StudentFacade extends BaseFacade<StudentRequestDto, StudentResp
 
     PageDataResponse<StudentResponseDto> findAllByCourseId(Long id, WebRequest request);
     List<StudentResponseDto> findAllByCourseType(CourseType type);
+    StudentResponseDto findByEmail(String email);
 
 }

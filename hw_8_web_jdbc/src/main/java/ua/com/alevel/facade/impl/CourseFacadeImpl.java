@@ -33,8 +33,8 @@ public class CourseFacadeImpl implements CourseFacade {
     }
 
     @Override
-    public void update(CourseRequestDto courseRequestDto, Long id) {
-
+    public void update(CourseRequestDto courseRequestDto) {
+        courseService.update(new Course(courseRequestDto));
     }
 
     @Override

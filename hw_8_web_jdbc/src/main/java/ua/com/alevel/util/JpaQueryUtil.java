@@ -9,11 +9,16 @@ public final class JpaQueryUtil {
 
 
 
+
+
+    public static final String DELETE_STUDENT_IF_NO_COURSE ="DELETE s FROM students s LEFT JOIN course_student cs ON s.id=cs.student_id WHERE cs.course_id IS NULL;";
     public static final String CREATE_COURSE_QUERY = "INSERT INTO courses VALUES (default,?,?,?,?);";;
+    public static final String UPDATE_COURSE_QUERY = "INSERT INTO courses VALUES (?,?,?) WHERE id = ?;";
     public static final String DELETE_COURSE_BY_ID ="DELETE FROM courses WHERE id=?;" ;
     public static final String COUNT_STUDENT_QUERY = "SELECT COUNT(*) as count FROM students";
     public static final String COUNT_FIND_ALL_STUDENTS_BY_COURSE_ID = "SELECT COUNT(*) as count FROM students s  JOIN course_student cs on s.id = cs.student_id  JOIN courses  c ON cs.course_id = c.id WHERE c.id=?;";
     public static final String CREATE_STUDENT_QUERY = "INSERT INTO students VALUES (default,?,?,?,?,?,?);";
+    public static final String UPDATE_STUDENT_QUERY = "INSERT INTO students VALUES (?,?,?,?,?) WHERE id=?;";
     public static final String CREATE_COURSE_STUDENT_QUERY = "INSERT INTO course_student VALUES (?,?);";
     public static final String FIND_STUDENT_BY_EMAIL = "SELECT * FROM students WHERE email=?;";
     public static final String FIND_COURSE_BY_ID = "SELECT * FROM courses WHERE id=?;";

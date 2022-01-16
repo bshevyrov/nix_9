@@ -23,12 +23,12 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void create(Course course) {
-courseDao.create(course);
+        courseDao.create(course);
     }
 
     @Override
     public void update(Course course) {
-
+        courseDao.update(course);
     }
 
     @Override

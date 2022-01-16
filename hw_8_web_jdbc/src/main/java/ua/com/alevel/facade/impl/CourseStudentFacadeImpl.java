@@ -26,7 +26,7 @@ public class CourseStudentFacadeImpl implements CourseStudentFacade {
     }
 
     @Override
-    public void update(CourseStudentRequestDto courseStudentRequestDto, Long id) {
+    public void update(CourseStudentRequestDto courseStudentRequestDto) {
 
     }
 

@@ -16,69 +16,104 @@
             <div class="col-12">
                 <div class="card mb-2 mt-2">
                     <div class="card-header">
-                        All Students
+                        New Student
                     </div>
                     <div class="card-body">
                         <form action="#" th:action="@{/students/new}" th:object="${studentRequestDto}" method="post">
 
                             <table class="table table-sm table-hover">
-                                <div class="input-group mb-3">
-                                    <p>First name: <input type="text" th:field="*{firstName}"/></p>
-                                    <p>Last name: <input type="text" th:field="*{lastName}"/></p>
-                                    <p>Email: <input type="text" th:field="*{email}"/></p>
-                                    <p>phone: <input type="text" th:field="*{phone}"/></p>
+                                <div class="row" th:if="${studentRequestDto.getId() > 0}">
+                                    <div class="col">
+                                        <p>Id </p>
+                                    </div>
+                                    <div class="col">
+                                        <p th:text="${studentRequestDto.getId()}"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>First Name: </p>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" th:field="*{firstName}">
+                                    </div>
                                 </div>
 
-                                <!--  <div class="form-group row">
-                                      <select th:field="*{courseId}">
-                                          <option th:each="stat : ${courses}"
-                                                  th:value="${stat.getId()}"
-                                                  th:text="${stat.getName()}"/></option>
-                                      </select>
-                                  </div>-->
-                                <div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Last Name : </p>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" th:field="*{lastName}"/>
+                                    </div>
+                                </div>
 
-                                    <tr th:each="course,iter : ${courses}">
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Email: </p>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" th:field="*{email}">
+                                    </div>
+                                </div>
 
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" th:field="*{courseId}"
-                                                   th:value="${course.getId()}" name="flexRadioDefault"
-                                                   id="flexRadioDefault1">
-                                            <label class="form-check-label" for="flexRadioDefault1">
-                                                [[${course.getName()}]]
-                                            </label>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Phone number : </p>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" th:field="*{phone}"/>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Course : </p>
+                                    </div>
+                                    <div class="col" >
+                                        <div class="col">
+                                            <div th:each="course, iter : ${courses}">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" th:value="${course.getId()}"
+                                                       id="flexCheckChecked"
+                                                       name="checkedCourses"
+                                                       th:checked="${iter.index} == 0">
+                                                <label class="form-check-label" for="flexCheckChecked">
+                                                    [[${course.getName()}]] </label>
+                                            </div>
                                         </div>
-                                        <!--                                    <div class="form-check form-check-inline">-->
-                                        <!--                                        <input class="form-check-input" th:field="*{courses}" type="checkbox" th:id="inlineCheckbox+iter" th:value="option+iter">-->
-                                        <!--                                        <label class="form-check-label" th:for="inlineCheckbox+iter" >[[${course.getName()}]]</label>-->
-                                        <!--                                    </div>-->
-                                    </tr>
+                                        </div>
+                                </div>
+                                </div>
 
-
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Birth Data : </p>
+                                    </div>
+                                    <div class="col">
+                               <input type="date" th:field="*{birthDate}" name="date" aria-label="+380"/>
+                                    </div>
                                 </div>
 
 
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="submit" value="Submit"/>
+                                    </div>
+                                    <div class="col">
+                                        <span>
+                                        </span>
+                                    </div>
+                                </div>
 
-                                <!--                                <form action="#" th:action="@{/students/new}" th:object="${student}" method="post">-->
-                                <span class="input-group-text" id="basic-addon00">Birthday date:
-            <input type="date" th:field="*{birthDate}" name="date"
-                   aria-label="+380"/>
-</span>
-                                <input type="submit" value="Submit"/>
-
-                                <!--                                </form>-->
-                                <!--    <input type="hidden" name="_csrf" value="437b30dc-a103-44d0-b4e9-791d8de62986"/></form>-->
-                            </table></form> </div>
-
-                    </table>
-                    </form>
-
+                                <input type="hidden" name="_csrf" value="437b30dc-a103-44d0-b4e9-791d8de62986"/>
+                            </table>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-
-
 </section>
 </html>

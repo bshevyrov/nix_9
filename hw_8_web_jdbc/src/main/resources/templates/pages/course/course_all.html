@@ -16,8 +16,6 @@
             <a th:href="@{'/courses/detail/' + ${course.getId()}}"
                th:text="${course.getName()}"></a>
         </td>
-
-<!--        <td th:text="${course.getName()}"></td>-->
         <td th:text="${course.getDescription()}"></td>
         <td th:text="${course.getCourseType()}"></td>
         <td>
@@ -30,49 +28,6 @@
         </td>
     </tr>
 </div>
-</body><!--
-<section layout:fragment="content">
-    <div class="container">
-
-        <div class="row">
-            <div class="col-12">
-                <div class="card mb-2 mt-2">
-                    <div class="card-header">
-                        All Courses
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-sm table-hover">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th><a th:href="@{'/courses/all?field=id&sort=ASC'}" th:text="'⇑'"></a> Course id <a
-                                        th:href="@{'/courses/all?field=id&sort=DESC'}" th:text="'⇓'"></a></th>
-                                <th><a th:href="@{'/courses/all?field=name&sort=ASC'}" th:text="'⇑'"></a> Name <a
-                                        th:href="@{'/courses/all?field=name&sort=DESC'}" th:text="'⇓'"></a></th>
-                                <th>description</th>
-                                <th>courses types</th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-
-                            <tr th:each="course,iter : ${courses}">
-                                <td th:text="${iter.count}"></td>
-                                <td><a th:href="@{'/students/course/' + ${course.getId()}}"
-                                       th:text="${course.getId()}"></a></td>
-                                <td th:text="${course.getName()}"></td>
-                                <td th:text="${course.getDescription()}"></td>
-                                <td><a th:href="@{'/students/course?type=' + ${course.getCourseType()}}"
-                                       th:text="${course.getCourseType()}"></a></td>
-
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>-->
+</body>
 </html>
 

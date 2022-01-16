@@ -23,7 +23,7 @@ public class CourseStudentDaoImpl implements CourseStudentDao {
 
     @Override
     public void create(CourseStudent courseStudent) {
-        System.out.println( "c"+courseStudent.getCourseId() + "s" + courseStudent.getStudentId());
+        System.out.println("c" + courseStudent.getCourseId() + "s" + courseStudent.getStudentId());
         try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(CREATE_COURSE_STUDENT_QUERY)) {
             preparedStatement.setLong(1, courseStudent.getCourseId());
             preparedStatement.setLong(2, courseStudent.getStudentId());

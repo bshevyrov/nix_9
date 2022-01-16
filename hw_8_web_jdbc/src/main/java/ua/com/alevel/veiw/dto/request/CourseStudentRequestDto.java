@@ -5,9 +5,8 @@ public class CourseStudentRequestDto extends RequestDto{
     private long courseId;
     private long studentId;
 
-    public CourseStudentRequestDto(StudentRequestDto requestDto) {
-    this.courseId=requestDto.getCourseId();
-    this.studentId=requestDto.getId();
+    public CourseStudentRequestDto() {
+
     }
 
     public long getCourseId() {

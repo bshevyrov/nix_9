@@ -9,15 +9,6 @@ public class StudentRequestDto extends RequestDto{
     private Date birthDate;
     private String firstName;
     private String lastName;
-    private long courseId;
-
-    public long getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(long courseId) {
-        this.courseId = courseId;
-    }
 
     public String getEmail() {
         return email;
@@ -58,4 +49,5 @@ public class StudentRequestDto extends RequestDto{
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
 }

@@ -19,12 +19,16 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void create(Student student) {
-                studentDao.create(student);
+        if (student.getId() > 0) {
+            studentDao.update(student);
+        }
+        studentDao.create(student);
+
     }
 
     @Override
     public void update(Student student) {
-
+        studentDao.update(student);
     }
 
     @Override
@@ -47,7 +51,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public DataTableResponse<Student> findAllByCourseId(Long id, DataTableRequest request) {
-        DataTableResponse<Student> response = studentDao.findAllByCourseId(id,request);
+        DataTableResponse<Student> response = studentDao.findAllByCourseId(id, request);
         response.seteListSize(studentDao.countFindAllByCourseId(id));
         return response;
     }
