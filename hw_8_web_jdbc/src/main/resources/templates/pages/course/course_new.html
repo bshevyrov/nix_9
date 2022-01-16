@@ -2,40 +2,67 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
-
-
 <head>
     <meta charset="utf-8">
-    <title>New Hall</title>
-
 </head>
-
 <section layout:fragment="content">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="card mb-2 mt-2">
                     <div class="card-header">
-                        All Students
+                        New Course
                     </div>
                     <div class="card-body">
                         <form action="#" th:action="@{/courses/new}" th:object="${courseRequestDto}" method="post">
                             <table class="table table-sm table-hover">
-                                <div class="input-group mb-3">
-                                    <p> name: <input type="text" th:field="*{name}"/></p>
-                                    <p>Description: <input type="text" th:field="*{description}"/></p>
-                                    <tr th:each="course,iter : ${coursesTypes}">
+                                <div class="row" th:if="${courseRequestDto.getId() > 0}">
+                                    <div class="col">
+                                        <p>Id </p>
+                                    </div>
+                                    <div class="col">
+                                        <p th:text="${courseRequestDto.getId()}"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Name: </p>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" th:field="*{name}">
+                                    </div>
+                                </div>
 
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" th:field="*{courseType}"
-                                                   th:value="${course}" name="flexRadioDefault"
-                                                   id="flexRadioDefault1">
-                                            <label class="form-check-label" for="flexRadioDefault1">
-                                                [[${course}]]
-                                            </label>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Description: </p>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" th:field="*{description}"/>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Courses type: </p>
+                                    </div>
+                                    <div class="col">
+                                        <select th:field="*{courseType}">
+                                            <option th:each="course, iter : ${coursesTypes}" th:value="${course}" th:text="${course}"
+                                                    th:selected="${iter==0}"></option>
+                                        </select>
                                         </div>
-                                    </tr>
-                                    <input type="submit" value="Submit"/>
+                                    </div>
+
+
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="submit" value="Submit"/>
+                                    </div>
+                                    <div class="col">
+                                        <span>
+                                        </span>
+                                    </div>
                                 </div>
                             </table>
                         </form>
