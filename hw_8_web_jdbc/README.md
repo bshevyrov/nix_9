@@ -1,2 +1,3 @@
-db root:root
-jdbc:mysql://localhost:3306/web_jdbc
+datasource.url=jdbc:mysql://localhost:3306/private_school
+datasource.username=root
+datasource.password=root
