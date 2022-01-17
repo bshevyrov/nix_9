@@ -43,43 +43,45 @@
                                     <p th:text="${student.getLastName()}"></p>
                                 </div>
                             </div>
-                             <div class="row">
-                                    <div class="col">
-                                        courses
-                                    </div>
-                                    <div class="col">
+                            <div class="row">
+                                <div class="col">
+                                    courses
+                                </div>
+                                <div class="col">
                                         <span th:each="course,iter: ${courses}">
-                                            <span th:if="${iter.count}>1" >,</span>
+                                            <span th:if="${iter.count}>1">,</span>
                                             <a th:href="@{'/courses/detail/' + ${course.getId()}}"
                                                th:text="${course.getName()}"></a>
                                         </span>
-                                    </div>
-                                    </div>
-                            <div class="row">
-                                <div class="col">
-                                    <a class="btn btn-warning" th:href="@{'/students/update/'+ ${student.getId()}}" role="button">update</a>
-                                </div>
-                                <div class="col">
-                                    <a class="btn btn-danger" th:href="@{'/students/delete/'+ ${student.getId()}}" role="button">delete</a>
                                 </div>
                             </div>
-                            </table>
+                            <div class="row">
+                                <div class="col">
+                                    <a class="btn btn-warning" th:href="@{'/students/update/'+ ${student.getId()}}"
+                                       role="button">update</a>
                                 </div>
-
-
-                            <!--<th>Courses</th>
-                            &lt;!&ndash;                                <td th:text="${courses..getLastName()}"></td>&ndash;&gt;
-                        <tr th:each="course: ${courses}">
-                        <div>
-                        <th><a th:href="@{'/students/detail/' + ${course.getId()}}"
-                                   th:text="${course.getName()}"></a></th>
-                </div>-->
+                                <div class="col">
+                                    <a class="btn btn-danger" th:href="@{'/students/delete/'+ ${student.getId()}}"
+                                       role="button">delete</a>
+                                </div>
+                            </div>
+                        </table>
                     </div>
+
+
+                    <!--<th>Courses</th>
+                    &lt;!&ndash;                                <td th:text="${courses..getLastName()}"></td>&ndash;&gt;
+                <tr th:each="course: ${courses}">
+                <div>
+                <th><a th:href="@{'/students/detail/' + ${course.getId()}}"
+                           th:text="${course.getName()}"></a></th>
+        </div>-->
                 </div>
             </div>
         </div>
-
     </div>
+
+</div>
 </body>
 </html>
 

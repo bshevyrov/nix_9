@@ -42,9 +42,9 @@ public class CourseDaoImpl implements CourseDao {
     @Override
     public void update(Course course) {
         try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(UPDATE_COURSE_QUERY)) {
-            preparedStatement.setString(1, course.getName());
-            preparedStatement.setString(2, course.getDescription());
-            preparedStatement.setString(3, course.getCourseType().toString());
+            preparedStatement.setString(1, course.getDescription());
+            preparedStatement.setString(2, course.getCourseType().toString());
+            preparedStatement.setString(3, course.getName());
             preparedStatement.setLong(4, course.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {

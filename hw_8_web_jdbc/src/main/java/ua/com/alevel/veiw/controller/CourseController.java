@@ -50,8 +50,11 @@ public class CourseController extends AbstractController{
 
     @PostMapping("/new")
     public String CreateNewHall(@ModelAttribute CourseRequestDto courseRequestDto, Model model) {
-        System.out.println(courseRequestDto.getCourseType());
-        courseFacade.create(courseRequestDto);
+        if(courseRequestDto.getId()>0){
+            courseFacade.update(courseRequestDto);
+        } else {
+            courseFacade.create(courseRequestDto);
+        }
        return "redirect:/courses";
     }
 

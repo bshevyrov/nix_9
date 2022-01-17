@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+       <!-- <div class="row">
             <div class="col">
                 <button th:href="@{'/cousres/delete/' + ${course.getId()}}" class="btn btn-outline-light text-danger"
                         type="button">Delete
@@ -53,9 +53,19 @@
             </div>
             <div class="col">
             </div>
-            <!--    </div>-->
-            <!--        <button  th:href="@{'/cousres/delete/' + ${course.getId()}}" class="btn btn-outline-light text-danger" type="button">Delete</button>-->
-            <!--    </div>-->
+            &lt;!&ndash;    </div>&ndash;&gt;
+            &lt;!&ndash;        <button  th:href="@{'/cousres/delete/' + ${course.getId()}}" class="btn btn-outline-light text-danger" type="button">Delete</button>&ndash;&gt;
+            &lt;!&ndash;    </div>&ndash;&gt;
+        </div>-->
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-warning" th:href="@{'/courses/update/'+ ${course.getId()}}"
+                   role="button">update</a>
+            </div>
+            <div class="col">
+                <a class="btn btn-danger" th:href="@{'/courses/delete/'+ ${course.getId()}}"
+                   role="button">delete</a>
+            </div>
         </div>
     </div>
 </div>
