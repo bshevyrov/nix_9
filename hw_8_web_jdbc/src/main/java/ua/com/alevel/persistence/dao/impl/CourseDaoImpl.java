@@ -6,6 +6,7 @@ import ua.com.alevel.persistence.dao.CourseDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Course;
+import ua.com.alevel.util.ClassConverterUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -74,7 +75,7 @@ public class CourseDaoImpl implements CourseDao {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                course = new Course(resultSet);
+                course = ClassConverterUtil.resultSetToCourse(resultSet);
             }
         } catch (SQLException throwables) {
             throwables.getMessage();
@@ -100,7 +101,7 @@ public class CourseDaoImpl implements CourseDao {
             preparedStatement.setLong(2, request.getPageSize());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                list.add(new Course(resultSet));
+                list.add(ClassConverterUtil.resultSetToCourse(resultSet));
                 size++;
             }
             response.seteList(list);
@@ -120,8 +121,7 @@ public class CourseDaoImpl implements CourseDao {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Course course = new Course(resultSet);
-                list.add(course);
+                list.add(ClassConverterUtil.resultSetToCourse(resultSet));
                 size++;
             }
             response.seteList(list);

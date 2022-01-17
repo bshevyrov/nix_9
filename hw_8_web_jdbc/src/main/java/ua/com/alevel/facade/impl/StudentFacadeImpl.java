@@ -11,6 +11,7 @@ import ua.com.alevel.persistence.type.CourseType;
 import ua.com.alevel.service.CourseService;
 import ua.com.alevel.service.CourseStudentService;
 import ua.com.alevel.service.StudentService;
+import ua.com.alevel.util.ClassConverterUtil;
 import ua.com.alevel.util.FacadeUtil;
 import ua.com.alevel.util.WebRequestUtil;
 import ua.com.alevel.veiw.dto.request.PageAndSizeData;
@@ -38,8 +39,9 @@ public class StudentFacadeImpl implements StudentFacade {
 
     @Override
     public void create(StudentRequestDto studentRequestDto) {
-        Student student = new Student(studentRequestDto);
-        studentService.create(student);
+//        Student student = new Student(studentRequestDto);
+        studentService.create(ClassConverterUtil
+                .studentRequestDtoToStudent(studentRequestDto));
 //        CourseStudent courseStudent = new CourseStudent();
  /*       Student currentStudent = studentService.findByEmail(student.getEmail());
         courseStudent.setStudentId(currentStudent.getId());
@@ -48,7 +50,8 @@ public class StudentFacadeImpl implements StudentFacade {
 
     @Override
     public void update(StudentRequestDto studentRequestDto) {
-        studentService.update(new Student(studentRequestDto));
+        studentService.update(ClassConverterUtil
+                .studentRequestDtoToStudent(studentRequestDto));
     }
 
     @Override

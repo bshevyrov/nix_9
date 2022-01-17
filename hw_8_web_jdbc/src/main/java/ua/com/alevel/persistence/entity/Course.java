@@ -17,24 +17,6 @@ public class Course extends BaseEntity {
         super();
     }
 
-    public Course(CourseRequestDto courseRequestDto){
-        setDescription(courseRequestDto.getDescription());
-        setName(courseRequestDto.getName());
-        setCourseType(courseRequestDto.getCourseType());
-    }
-    public Course(ResultSet resultSet) {
-        try {
-            setId(resultSet.getLong("id"));
-            setCreateDate(resultSet.getDate("create_date"));
-            setCourseType(CourseType.valueOf(resultSet.getString("course_type")));
-            setName(resultSet.getString("name"));
-            setDescription(resultSet.getString("description"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public String getName() {
         return name;
     }

@@ -1,9 +1,5 @@
 package ua.com.alevel.persistence.entity;
 
-import ua.com.alevel.veiw.dto.request.StudentRequestDto;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.Objects;
 
@@ -16,29 +12,7 @@ public class Student extends BaseEntity {
     private Date birthDate;
 
     public Student() {
-      super();
-    }
-
-    public Student(StudentRequestDto studentRequestDto){
-        setId(studentRequestDto.getId());
-        setEmail(studentRequestDto.getEmail());
-        setBirthDate(studentRequestDto.getBirthDate());
-        setFirstName(studentRequestDto.getFirstName());
-        setLastName(studentRequestDto.getLastName());
-        setPhone(studentRequestDto.getPhone());
-    }
-    public Student(ResultSet resultSet) {
-        try {
-       setId(resultSet.getLong("id"));
-       setCreateDate(resultSet.getDate("create_date"));
-        setFirstName(resultSet.getString("first_name"));
-        setLastName(resultSet.getString("last_name"));
-        setEmail(resultSet.getString("email"));
-        setPhone(resultSet.getString("phone"));
-        setBirthDate(resultSet.getDate("birth_date"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        super();
     }
 
     public String getFirstName() {

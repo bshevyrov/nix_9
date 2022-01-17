@@ -17,7 +17,6 @@ import ua.com.alevel.veiw.dto.response.CourseResponseDto;
 import ua.com.alevel.veiw.dto.response.PageDataResponse;
 import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -74,11 +73,11 @@ public class StudentController extends AbstractController {
 
     @PostMapping("/new")
     public String CreateNewHall(@ModelAttribute StudentRequestDto studentRequestDto,
-                                @RequestParam List<Long>  checkedCourses,
-                                Model model){
+                                @RequestParam List<Long> checkedCourses,
+                                Model model) {
         studentFacade.create(studentRequestDto);
         for (Long l : checkedCourses) {
-                    CourseStudentRequestDto courseStudentRequestDto = new CourseStudentRequestDto();
+            CourseStudentRequestDto courseStudentRequestDto = new CourseStudentRequestDto();
             courseStudentRequestDto.setStudentId(studentFacade.findByEmail(studentRequestDto.getEmail()).getId());
             courseStudentRequestDto.setCourseId(l);
             courseStudentFacade.create(courseStudentRequestDto);

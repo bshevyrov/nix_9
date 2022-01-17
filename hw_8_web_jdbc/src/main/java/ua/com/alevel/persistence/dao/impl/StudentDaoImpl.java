@@ -7,6 +7,7 @@ import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Student;
 import ua.com.alevel.persistence.type.CourseType;
+import ua.com.alevel.util.ClassConverterUtil;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -87,7 +88,7 @@ public class StudentDaoImpl implements StudentDao {
             preparedStatement.setLong(1, (id));
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            student = new Student(resultSet);
+            student = ClassConverterUtil.resultSetToStudent(resultSet);
         } catch (SQLException throwables) {
             throwables.getMessage();
         }
@@ -119,7 +120,8 @@ public class StudentDaoImpl implements StudentDao {
             preparedStatement.setLong(2, request.getPageSize());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                list.add(new Student(resultSet));
+                list.add(ClassConverterUtil
+                        .resultSetToStudent(resultSet));
                 size++;
             }
             response.seteList(list);
@@ -144,7 +146,7 @@ public class StudentDaoImpl implements StudentDao {
             preparedStatement.setLong(3, request.getPageSize());
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                list.add(new Student(resultSet));
+                list.add(ClassConverterUtil.resultSetToStudent(resultSet));
                 size++;
             }
             response.seteList(list);
@@ -194,7 +196,7 @@ public class StudentDaoImpl implements StudentDao {
             preparedStatement.setString(1, (email));
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            student = new Student(resultSet);
+            student = ClassConverterUtil.resultSetToStudent(resultSet);
         } catch (SQLException throwables) {
             throwables.getMessage();
         }

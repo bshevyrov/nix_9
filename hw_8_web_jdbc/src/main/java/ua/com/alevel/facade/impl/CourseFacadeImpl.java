@@ -7,6 +7,7 @@ import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Course;
 import ua.com.alevel.service.CourseService;
+import ua.com.alevel.util.ClassConverterUtil;
 import ua.com.alevel.util.FacadeUtil;
 import ua.com.alevel.util.WebRequestUtil;
 import ua.com.alevel.veiw.dto.request.CourseRequestDto;
@@ -29,12 +30,14 @@ public class CourseFacadeImpl implements CourseFacade {
 
     @Override
     public void create(CourseRequestDto courseRequestDto) {
-        courseService.create(new Course(courseRequestDto));
+        courseService.create(ClassConverterUtil
+                .courseRequestDtoToCourse(courseRequestDto));
     }
 
     @Override
     public void update(CourseRequestDto courseRequestDto) {
-        courseService.update(new Course(courseRequestDto));
+        courseService.update(ClassConverterUtil
+                .courseRequestDtoToCourse(courseRequestDto));
     }
 
     @Override
@@ -59,7 +62,6 @@ public class CourseFacadeImpl implements CourseFacade {
                 .map(CourseResponseDto::new)
                 .collect(Collectors.toList());
     }
-
 
     @Override
     public PageDataResponse<CourseResponseDto> findAll(WebRequest request) {
