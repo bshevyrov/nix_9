@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/data_table}">
+<head>
+    <meta charset="utf-8">
+    <title>Courses</title>
+</head>
+<body>
+<div layout:fragment="data_table_content">
+    <tr th:each="course,iter : ${pageData.getItems()}">
+        <td th:text="${iter.count}"></td>
+        <td th:text="${course.getId()}"></td>
+        <td>
+            <a th:href="@{'/courses/detail/' + ${course.getId()}}"
+               th:text="${course.getName()}"></a>
+        </td>
+        <td th:text="${course.getDescription()}"></td>
+        <td th:text="${course.getCourseType()}"></td>
+        <td>
+            <a type="button" th:href="@{'/courses/delete/' + ${course.getId()}}"
+               class="btn btn-outline-light text-danger">delete</a>
+        </td>
+        <td>
+            <a type="button" th:href="@{'/courses/update/' + ${course.getId()}}"
+               class="btn btn-outline-light text-primary">update</a>
+        </td>
+    </tr>
+</div>
+</body>
+</html>
+
