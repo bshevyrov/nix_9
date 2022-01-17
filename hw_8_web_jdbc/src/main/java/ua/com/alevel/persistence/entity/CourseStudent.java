@@ -12,10 +12,6 @@ public class CourseStudent extends BaseEntity{
 
     }
 
-    public CourseStudent(CourseStudentRequestDto courseStudentRequestDto) {
-        this.courseId = courseStudentRequestDto.getCourseId();
-    this.studentId = courseStudentRequestDto.getStudentId();
-    }
 
     public long getCourseId() {
         return courseId;

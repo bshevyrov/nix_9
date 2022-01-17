@@ -55,7 +55,14 @@
                                         </span>
                                     </div>
                                     </div>
-
+                            <div class="row">
+                                <div class="col">
+                                    <a class="btn btn-warning" th:href="@{'/students/update/'+ ${student.getId()}}" role="button">update</a>
+                                </div>
+                                <div class="col">
+                                    <a class="btn btn-danger" th:href="@{'/students/delete/'+ ${student.getId()}}" role="button">delete</a>
+                                </div>
+                            </div>
                             </table>
                                 </div>
 

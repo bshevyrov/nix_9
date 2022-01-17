@@ -1,9 +1,11 @@
 package ua.com.alevel.util;
 
 import ua.com.alevel.persistence.entity.Course;
+import ua.com.alevel.persistence.entity.CourseStudent;
 import ua.com.alevel.persistence.entity.Student;
 import ua.com.alevel.persistence.type.CourseType;
 import ua.com.alevel.veiw.dto.request.CourseRequestDto;
+import ua.com.alevel.veiw.dto.request.CourseStudentRequestDto;
 import ua.com.alevel.veiw.dto.request.StudentRequestDto;
 
 import java.sql.ResultSet;
@@ -66,4 +68,13 @@ public class ClassConverterUtil {
         }
         return course;
     }
+
+    public static CourseStudent courseStudentRequestDtoToCourseStudent(CourseStudentRequestDto courseStudentRequestDto) {
+        CourseStudent courseStudent = new CourseStudent();
+        courseStudent.setCourseId(courseStudentRequestDto.getCourseId());
+        courseStudent.setStudentId(courseStudentRequestDto.getStudentId());
+        return courseStudent;
+    }
+
+
 }

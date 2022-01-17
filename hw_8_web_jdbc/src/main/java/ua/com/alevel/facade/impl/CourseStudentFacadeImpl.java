@@ -5,6 +5,7 @@ import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.CourseStudentFacade;
 import ua.com.alevel.persistence.entity.CourseStudent;
 import ua.com.alevel.service.CourseStudentService;
+import ua.com.alevel.util.ClassConverterUtil;
 import ua.com.alevel.veiw.dto.request.CourseStudentRequestDto;
 import ua.com.alevel.veiw.dto.response.CourseStudentResponseDto;
 import ua.com.alevel.veiw.dto.response.PageDataResponse;
@@ -22,7 +23,7 @@ public class CourseStudentFacadeImpl implements CourseStudentFacade {
 
     @Override
     public void create(CourseStudentRequestDto courseStudentRequestDto) {
-        courseStudentService.create(new CourseStudent(courseStudentRequestDto));
+        courseStudentService.create(ClassConverterUtil.courseStudentRequestDtoToCourseStudent(courseStudentRequestDto));
     }
 
     @Override
@@ -48,5 +49,10 @@ public class CourseStudentFacadeImpl implements CourseStudentFacade {
     @Override
     public PageDataResponse<CourseStudentResponseDto> findAll(WebRequest request) {
         return null;
+    }
+
+    @Override
+    public void deleteByStudentId(long id) {
+    courseStudentService.deleteByStudentId(id);
     }
 }

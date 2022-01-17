@@ -77,6 +77,7 @@ public class StudentController extends AbstractController {
                                 Model model) {
         if(studentRequestDto.getId()>0){
             studentFacade.update(studentRequestDto);
+            courseStudentFacade.deleteByStudentId(studentRequestDto.getId());
         } else {
             studentFacade.create(studentRequestDto);
         }

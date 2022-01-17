@@ -40,4 +40,9 @@ public class CourseStudentServiceImpl implements CourseStudentService {
     public DataTableResponse<CourseStudent> findAll(DataTableRequest request) {
         return null;
     }
+
+    @Override
+    public void deleteByStudentId(long id) {
+        courseStudentDao.deleteByStudentId(id);
+    }
 }

@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import static ua.com.alevel.util.JpaQueryUtil.CREATE_COURSE_STUDENT_QUERY;
+import static ua.com.alevel.util.JpaQueryUtil.DELETE_COURSES_STUDENT_BY_STUDENT_ID_QUERY;
 
 @Service
 public class CourseStudentDaoImpl implements CourseStudentDao {
@@ -23,7 +24,6 @@ public class CourseStudentDaoImpl implements CourseStudentDao {
 
     @Override
     public void create(CourseStudent courseStudent) {
-        System.out.println("c" + courseStudent.getCourseId() + "s" + courseStudent.getStudentId());
         try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(CREATE_COURSE_STUDENT_QUERY)) {
             preparedStatement.setLong(1, courseStudent.getCourseId());
             preparedStatement.setLong(2, courseStudent.getStudentId());
@@ -63,5 +63,15 @@ public class CourseStudentDaoImpl implements CourseStudentDao {
     @Override
     public long count() {
         return 0;
+    }
+
+    @Override
+    public void deleteByStudentId(long id) {
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(DELETE_COURSES_STUDENT_BY_STUDENT_ID_QUERY)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }
