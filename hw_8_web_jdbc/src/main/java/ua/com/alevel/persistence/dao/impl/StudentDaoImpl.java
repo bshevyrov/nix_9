@@ -56,7 +56,6 @@ public class StudentDaoImpl implements StudentDao {
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());
         }
-
     }
 
     @Override

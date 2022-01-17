@@ -75,7 +75,11 @@ public class StudentController extends AbstractController {
     public String CreateNewHall(@ModelAttribute StudentRequestDto studentRequestDto,
                                 @RequestParam List<Long> checkedCourses,
                                 Model model) {
-        studentFacade.create(studentRequestDto);
+        if(studentRequestDto.getId()>0){
+            studentFacade.update(studentRequestDto);
+        } else {
+            studentFacade.create(studentRequestDto);
+        }
         for (Long l : checkedCourses) {
             CourseStudentRequestDto courseStudentRequestDto = new CourseStudentRequestDto();
             courseStudentRequestDto.setStudentId(studentFacade.findByEmail(studentRequestDto.getEmail()).getId());
