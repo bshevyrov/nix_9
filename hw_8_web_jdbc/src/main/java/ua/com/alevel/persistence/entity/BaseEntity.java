@@ -10,11 +10,6 @@ public abstract class BaseEntity {
     public BaseEntity() {
     }
 
-    public BaseEntity(long id, Date createDate) {
-        this.id=id;
-        this.createDate = createDate;
-    }
-
     public long getId() {
         return id;
     }

@@ -5,7 +5,6 @@ import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.StudentFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.CourseStudent;
 import ua.com.alevel.persistence.entity.Student;
 import ua.com.alevel.persistence.type.CourseType;
 import ua.com.alevel.service.CourseService;
@@ -27,25 +26,15 @@ import java.util.stream.Collectors;
 public class StudentFacadeImpl implements StudentFacade {
 
     private final StudentService studentService;
-    private final CourseService courseService;
-    private final CourseStudentService courseStudentService;
 
-    public StudentFacadeImpl(StudentService studentService, CourseService courseService, CourseStudentService courseStudentService) {
+    public StudentFacadeImpl(StudentService studentService) {
         this.studentService = studentService;
-        this.courseService = courseService;
-        this.courseStudentService = courseStudentService;
     }
-
 
     @Override
     public void create(StudentRequestDto studentRequestDto) {
-//        Student student = new Student(studentRequestDto);
         studentService.create(ClassConverterUtil
                 .studentRequestDtoToStudent(studentRequestDto));
-//        CourseStudent courseStudent = new CourseStudent();
- /*       Student currentStudent = studentService.findByEmail(student.getEmail());
-        courseStudent.setStudentId(currentStudent.getId());
-        courseStudentService.create(courseStudent);*/
     }
 
     @Override
@@ -61,7 +50,7 @@ public class StudentFacadeImpl implements StudentFacade {
 
     @Override
     public StudentResponseDto findById(long id) {
-        return new StudentResponseDto(studentService.findById(id));
+        return ClassConverterUtil.studentToStudentResponceDto(studentService.findById(id));
     }
 
     @Override
@@ -70,7 +59,7 @@ public class StudentFacadeImpl implements StudentFacade {
         return studentDataTableResponse
                 .geteList()
                 .stream()
-                .map(StudentResponseDto::new)
+                .map(ClassConverterUtil::studentToStudentResponceDto)
                 .collect(Collectors.toList());
     }
 
@@ -80,9 +69,13 @@ public class StudentFacadeImpl implements StudentFacade {
         SortData sortData = WebRequestUtil.generateSortData(request);
         DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
         DataTableResponse<Student> all = studentService.findAll(dataTableRequest);
+        return getStudentResponseDtoPageDataResponse(pageAndSizeData, sortData, all);
+    }
+
+    private PageDataResponse<StudentResponseDto> getStudentResponseDtoPageDataResponse(PageAndSizeData pageAndSizeData, SortData sortData, DataTableResponse<Student> all) {
         List<StudentResponseDto> list = all.geteList()
                 .stream()
-                .map(StudentResponseDto::new)
+                .map(ClassConverterUtil::studentToStudentResponceDto)
                 .collect(Collectors.toList());
         PageDataResponse<StudentResponseDto> pageDataResponse = FacadeUtil.getPageDataResponseFromDTResp(list, pageAndSizeData, sortData);
         pageDataResponse.setItemsSize(all.geteListSize());
@@ -96,29 +89,21 @@ public class StudentFacadeImpl implements StudentFacade {
         SortData sortData = WebRequestUtil.generateSortData(request);
         DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
         DataTableResponse<Student> all = studentService.findAllByCourseId(id, dataTableRequest);
-        List<StudentResponseDto> list = all.geteList()
-                .stream()
-                .map(StudentResponseDto::new)
-                .collect(Collectors.toList());
-        PageDataResponse<StudentResponseDto> pageDataResponse = FacadeUtil.getPageDataResponseFromDTResp(list, pageAndSizeData, sortData);
-        pageDataResponse.setItemsSize(all.geteListSize());
-        pageDataResponse.initPaginationState(pageDataResponse.getCurrentPage());
-        return pageDataResponse;
-//        DataTableResponse<Student> dataTableResponse = studentService.findAllByCourseId(id,request);
-//        return dataTableResponse.geteList().stream().map(StudentResponseDto::new).collect(Collectors.toList());
+        return getStudentResponseDtoPageDataResponse(pageAndSizeData, sortData, all);
     }
 
     @Override
     public List<StudentResponseDto> findAllByCourseType(CourseType type) {
         DataTableResponse<Student> dataTableResponse = studentService.findAllByCourseType(type);
-        return dataTableResponse.geteList().stream().map(StudentResponseDto::new).collect(Collectors.toList());
+        return dataTableResponse.geteList()
+                .stream()
+                .map(ClassConverterUtil::studentToStudentResponceDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public StudentResponseDto findByEmail(String email) {
-        return new StudentResponseDto(studentService.findByEmail(email));
+        return ClassConverterUtil.studentToStudentResponceDto(studentService.findByEmail(email));
     }
-
-
 }
 

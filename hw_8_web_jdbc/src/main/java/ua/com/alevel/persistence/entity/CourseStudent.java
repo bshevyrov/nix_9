@@ -1,17 +1,13 @@
 package ua.com.alevel.persistence.entity;
 
 
-import ua.com.alevel.veiw.dto.request.CourseStudentRequestDto;
-
-public class CourseStudent extends BaseEntity{
+public class CourseStudent extends BaseEntity {
 
     private long courseId;
     private long studentId;
 
     public CourseStudent() {
-
     }
-
 
     public long getCourseId() {
         return courseId;

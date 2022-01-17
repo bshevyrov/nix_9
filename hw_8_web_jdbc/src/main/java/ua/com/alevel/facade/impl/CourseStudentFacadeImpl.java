@@ -28,12 +28,10 @@ public class CourseStudentFacadeImpl implements CourseStudentFacade {
 
     @Override
     public void update(CourseStudentRequestDto courseStudentRequestDto) {
-
     }
 
     @Override
     public void delete(long id) {
-
     }
 
     @Override

@@ -8,7 +8,6 @@ public abstract class ResponseDto {
     private Date createDate;
 
     public ResponseDto() {
-
     }
 
     public long getId() {

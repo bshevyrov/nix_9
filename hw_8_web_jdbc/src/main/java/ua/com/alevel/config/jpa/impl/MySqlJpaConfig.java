@@ -23,19 +23,17 @@ public class MySqlJpaConfig implements JpaConfig {
 
     @Override
     public void connect() {
-//        System.out.println("jpaPropertyConfig = " + jpaPropertyConfig);
         try {
             Class.forName(jpaPropertyConfig.getDriverClassName());
-            connection=DriverManager.getConnection(
+            connection = DriverManager.getConnection(
                     jpaPropertyConfig.getUrl(),
                     jpaPropertyConfig.getUsername(),
                     jpaPropertyConfig.getPassword()
             );
-            statement= connection.createStatement();
+            statement = connection.createStatement();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override

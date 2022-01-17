@@ -2,7 +2,7 @@ package ua.com.alevel.veiw.dto.request;
 
 import java.sql.Date;
 
-public class StudentRequestDto extends RequestDto{
+public class StudentRequestDto extends RequestDto {
 
     private long id;
     private String email;

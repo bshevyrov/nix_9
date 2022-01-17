@@ -19,7 +19,6 @@ import static ua.com.alevel.util.JpaQueryUtil.*;
 @Service
 public class CourseDaoImpl implements CourseDao {
 
-
     private final JpaConfig jpaConfig;
 
     public CourseDaoImpl(JpaConfig jpaConfig) {
@@ -61,7 +60,7 @@ public class CourseDaoImpl implements CourseDao {
             throwables.printStackTrace();
         }
         studentValidation();
-           }
+    }
 
     @Override
     public boolean existById(long id) {
@@ -131,6 +130,7 @@ public class CourseDaoImpl implements CourseDao {
         }
         return response;
     }
+
     public void studentValidation() {
         try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(DELETE_STUDENT_IF_NO_COURSE)) {
             preparedStatement.executeUpdate();

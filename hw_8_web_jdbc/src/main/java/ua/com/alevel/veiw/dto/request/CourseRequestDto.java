@@ -2,13 +2,11 @@ package ua.com.alevel.veiw.dto.request;
 
 import ua.com.alevel.persistence.type.CourseType;
 
-public class CourseRequestDto extends RequestDto{
+public class CourseRequestDto extends RequestDto {
 
     private String name;
     private String description;
     private CourseType courseType;
-
-
 
     public String getName() {
         return name;

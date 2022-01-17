@@ -31,17 +31,14 @@ public class CourseStudentDaoImpl implements CourseStudentDao {
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());
         }
-
     }
 
     @Override
     public void update(CourseStudent courseStudent) {
-
     }
 
     @Override
     public void delete(long id) {
-
     }
 
     @Override

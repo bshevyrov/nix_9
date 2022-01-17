@@ -23,12 +23,10 @@ public class CourseStudentServiceImpl implements CourseStudentService {
 
     @Override
     public void update(CourseStudent courseStudent) {
-
     }
 
     @Override
     public void delete(long id) {
-
     }
 
     @Override

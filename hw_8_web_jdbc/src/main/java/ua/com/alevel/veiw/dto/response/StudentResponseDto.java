@@ -6,7 +6,6 @@ import java.sql.Date;
 
 public class StudentResponseDto extends ResponseDto {
 
-
     private String email;
     private String phone;
     private Date birthDate;
@@ -14,18 +13,7 @@ public class StudentResponseDto extends ResponseDto {
     private String lastName;
 
 
-    public StudentResponseDto(Student student) {
-        setId(student.getId());
-        setCreateDate((Date) student.getCreateDate());
-        setFirstName(student.getFirstName());
-        setLastName(student.getLastName());
-        setBirthDate((Date) student.getBirthDate());
-        setPhone(student.getPhone());
-        setEmail(student.getEmail());
-    }
-
     public StudentResponseDto() {
-
     }
 
     public String getEmail() {

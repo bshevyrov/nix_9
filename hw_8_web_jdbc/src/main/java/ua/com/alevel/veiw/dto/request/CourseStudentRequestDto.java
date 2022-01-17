@@ -1,12 +1,11 @@
 package ua.com.alevel.veiw.dto.request;
 
-public class CourseStudentRequestDto extends RequestDto{
+public class CourseStudentRequestDto extends RequestDto {
 
     private long courseId;
     private long studentId;
 
     public CourseStudentRequestDto() {
-
     }
 
     public long getCourseId() {

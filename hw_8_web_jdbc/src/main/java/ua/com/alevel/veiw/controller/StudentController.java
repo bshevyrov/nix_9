@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/students")
 public class StudentController extends AbstractController {
+
     private final StudentFacade studentFacade;
     private final CourseStudentFacade courseStudentFacade;
     private final CourseFacade courseFacade;
@@ -75,7 +76,7 @@ public class StudentController extends AbstractController {
     public String CreateNewHall(@ModelAttribute StudentRequestDto studentRequestDto,
                                 @RequestParam List<Long> checkedCourses,
                                 Model model) {
-        if(studentRequestDto.getId()>0){
+        if (studentRequestDto.getId() > 0) {
             studentFacade.update(studentRequestDto);
             courseStudentFacade.deleteByStudentId(studentRequestDto.getId());
         } else {
@@ -87,7 +88,6 @@ public class StudentController extends AbstractController {
             courseStudentRequestDto.setCourseId(l);
             courseStudentFacade.create(courseStudentRequestDto);
         }
-//        courseStudentFacade.create(new CourseStudentRequestDto(studentRequestDto));
         return "redirect:/students";
     }
 
@@ -102,30 +102,18 @@ public class StudentController extends AbstractController {
 
     @GetMapping(path = {"/course/{id}"})
     public String getAllByStudentId(@PathVariable("id") Long id, Model model, WebRequest request) {
-//TODO validate
         HeaderName[] columnNames = getColumnNames();
-
         PageDataResponse<StudentResponseDto> response = studentFacade.findAllByCourseId(id, request);
         response.initPaginationState(response.getCurrentPage());
         List<AbstractController.HeaderData> headerDataList = getHeaderDataList(columnNames, response);
         model.addAttribute("headerDataList", headerDataList);
-//        model.addAttribute("createUrl", "/students/all");
         model.addAttribute("pageData", response);
         model.addAttribute("cardHeader", "All students of Course " + courseFacade.findById(id).getName());
-//        model.addAttribute("allowCreate", true);
-//        model.addAttribute("createNewItemUrl", "/students/new");
-//        return "/pages/student/student_all";
-
-
-//        model.addAttribute("students", studentFacade.findAllByCourseId(id));
-//        model.addAttribute("courseId", id);
         return "/pages/student/student_all";
-
     }
 
     @GetMapping(path = {"/course"})
     public String getAllByStudentId(@RequestParam("type") String type, Model model) {
-//TODO validate
         model.addAttribute("students", studentFacade.findAllByCourseType(CourseType.valueOf(type)));
         return "/pages/student/student_all";
     }
@@ -138,29 +126,12 @@ public class StudentController extends AbstractController {
 
     @GetMapping("/detail/{id}")
     public String getDetail(@PathVariable("id") Long id, Model model) {
-
         StudentResponseDto studentDto = studentFacade.findById(id);
         List<CourseResponseDto> courseResponseDtoList = courseFacade.findAllByStudentId(id);
         model.addAttribute("student", studentDto);
         model.addAttribute("courses", courseResponseDtoList);
         return "/pages/student/student_detail";
     }
-
-    private HeaderName[] getColumnNamesDetail() {
-        return new HeaderName[]{
-                new HeaderName("#", null, null),
-                new HeaderName("Id", "id", "id"),
-                new HeaderName("First Name", "firstName", "first_name"),
-                new HeaderName("Last Name", "lastName", "last_name"),
-                new HeaderName("E-mail", "email", "email"),
-                new HeaderName("Phone", "phone", "phone"),
-                new HeaderName("Create Date", "createDate", "create_date"),
-                new HeaderName("Courses", "createDate", "create_date"),
-                new HeaderName("Delete", null, null),
-                new HeaderName("update", null, null)
-        };
-    }
-
 
     private HeaderName[] getColumnNames() {
         return new HeaderName[]{
@@ -175,6 +146,4 @@ public class StudentController extends AbstractController {
                 new HeaderName("update", null, null)
         };
     }
-
-
 }

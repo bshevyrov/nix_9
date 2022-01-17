@@ -7,7 +7,10 @@ import ua.com.alevel.persistence.type.CourseType;
 import ua.com.alevel.veiw.dto.request.CourseRequestDto;
 import ua.com.alevel.veiw.dto.request.CourseStudentRequestDto;
 import ua.com.alevel.veiw.dto.request.StudentRequestDto;
+import ua.com.alevel.veiw.dto.response.CourseResponseDto;
+import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -76,5 +79,25 @@ public class ClassConverterUtil {
         return courseStudent;
     }
 
+    public static CourseResponseDto courseToCourseResponseDto(Course course) {
+        CourseResponseDto courseResponseDto = new CourseResponseDto();
+        courseResponseDto.setId(course.getId());
+        courseResponseDto.setCreateDate((Date) course.getCreateDate());
+        courseResponseDto.setCourseType(course.getCourseType());
+        courseResponseDto.setName(course.getName());
+        courseResponseDto.setDescription(course.getDescription());
+        return courseResponseDto;
+    }
 
+    public static StudentResponseDto studentToStudentResponceDto(Student student) {
+        StudentResponseDto studentResponseDto = new StudentResponseDto();
+        studentResponseDto.setId(student.getId());
+        studentResponseDto.setCreateDate((Date) student.getCreateDate());
+        studentResponseDto.setFirstName(student.getFirstName());
+        studentResponseDto.setLastName(student.getLastName());
+        studentResponseDto.setBirthDate((Date) student.getBirthDate());
+        studentResponseDto.setPhone(student.getPhone());
+        studentResponseDto.setEmail(student.getEmail());
+        return studentResponseDto;
+    }
 }

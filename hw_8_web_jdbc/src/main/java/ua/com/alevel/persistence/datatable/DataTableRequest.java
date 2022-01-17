@@ -1,5 +1,7 @@
 package ua.com.alevel.persistence.datatable;
 
+import java.util.Objects;
+
 public class DataTableRequest {
 
     private String sort;
@@ -47,5 +49,18 @@ public class DataTableRequest {
                 ", currentPage=" + currentPage +
                 ", pageSize=" + pageSize +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DataTableRequest that = (DataTableRequest) o;
+        return currentPage == that.currentPage && pageSize == that.pageSize && Objects.equals(sort, that.sort) && Objects.equals(order, that.order);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sort, order, currentPage, pageSize);
     }
 }

@@ -128,7 +128,6 @@ public class StudentDaoImpl implements StudentDao {
         } catch (SQLException throwables) {
             throwables.getMessage();
         }
-
         return response;
     }
 
@@ -150,11 +149,9 @@ public class StudentDaoImpl implements StudentDao {
             }
             response.seteList(list);
             response.seteListSize(size);
-
         } catch (SQLException throwables) {
             throwables.getMessage();
         }
-
         return response;
     }
 
@@ -216,5 +213,4 @@ public class StudentDaoImpl implements StudentDao {
         }
         return size;
     }
-
 }

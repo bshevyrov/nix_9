@@ -19,7 +19,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void create(Student student) {
-            studentDao.create(student);
+        studentDao.create(student);
     }
 
     @Override

@@ -7,8 +7,8 @@ import ua.com.alevel.persistence.type.CourseType;
 
 public interface StudentDao extends BaseDao<Student> {
 
-
     DataTableResponse<Student> findAllByCourseId(Long id, DataTableRequest dataTableRequest);
+
     DataTableResponse<Student> findAllByCourseType(CourseType type);
 
     Student findByEmail(String email);

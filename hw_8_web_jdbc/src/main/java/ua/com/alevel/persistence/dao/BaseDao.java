@@ -23,6 +23,5 @@ public interface BaseDao<E extends BaseEntity> {
 
     long count();
 
-//    DataTableResponse<E> findAllSortedByFieldOrderedBy(DataTableRequest request);
 
 }

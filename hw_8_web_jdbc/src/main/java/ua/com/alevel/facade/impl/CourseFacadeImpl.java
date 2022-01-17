@@ -47,7 +47,7 @@ public class CourseFacadeImpl implements CourseFacade {
 
     @Override
     public CourseResponseDto findById(long id) {
-        return new CourseResponseDto(courseService.findById(id));
+        return ClassConverterUtil.courseToCourseResponseDto(courseService.findById(id));
     }
 
     @Override
@@ -59,7 +59,7 @@ public class CourseFacadeImpl implements CourseFacade {
         return courseService.findAll(dataTableRequest)
                 .geteList()
                 .stream()
-                .map(CourseResponseDto::new)
+                .map(ClassConverterUtil::courseToCourseResponseDto)
                 .collect(Collectors.toList());
     }
 
@@ -69,7 +69,7 @@ public class CourseFacadeImpl implements CourseFacade {
         SortData sortData = WebRequestUtil.generateSortData(request);
         DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
         DataTableResponse<Course> all = courseService.findAll(dataTableRequest);
-        List<CourseResponseDto> list = all.geteList().stream().map(CourseResponseDto::new).collect(Collectors.toList());
+        List<CourseResponseDto> list = all.geteList().stream().map(ClassConverterUtil::courseToCourseResponseDto).collect(Collectors.toList());
         PageDataResponse<CourseResponseDto> pageDataResponse = FacadeUtil.getPageDataResponseFromDTResp(list, pageAndSizeData, sortData);
         pageDataResponse.setItemsSize(all.geteListSize());
         pageDataResponse.initPaginationState(pageDataResponse.getCurrentPage());
@@ -79,10 +79,6 @@ public class CourseFacadeImpl implements CourseFacade {
     @Override
     public List<CourseResponseDto> findAllByStudentId(Long id) {
         DataTableResponse<Course> dataTableResponse = courseService.findAllByStudentId(id);
-        return dataTableResponse.geteList().stream().map(CourseResponseDto::new).collect(Collectors.toList());
-
-
+        return dataTableResponse.geteList().stream().map(ClassConverterUtil::courseToCourseResponseDto).collect(Collectors.toList());
     }
-
-
 }

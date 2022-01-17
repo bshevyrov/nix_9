@@ -8,5 +8,6 @@ import ua.com.alevel.veiw.dto.response.CourseResponseDto;
 import java.util.List;
 
 public interface CourseService extends BaseService<Course>{
+
     DataTableResponse<Course> findAllByStudentId(Long id);
 }

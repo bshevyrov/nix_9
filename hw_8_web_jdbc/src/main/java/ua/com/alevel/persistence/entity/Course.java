@@ -1,10 +1,7 @@
 package ua.com.alevel.persistence.entity;
 
 import ua.com.alevel.persistence.type.CourseType;
-import ua.com.alevel.veiw.dto.request.CourseRequestDto;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Objects;
 
 public class Course extends BaseEntity {
