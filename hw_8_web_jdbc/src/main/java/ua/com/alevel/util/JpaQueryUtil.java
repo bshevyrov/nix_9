@@ -18,7 +18,7 @@ public final class JpaQueryUtil {
     public static final String COUNT_STUDENT_QUERY = "SELECT COUNT(*) as count FROM students";
     public static final String COUNT_FIND_ALL_STUDENTS_BY_COURSE_ID = "SELECT COUNT(*) as count FROM students s  JOIN course_student cs on s.id = cs.student_id  JOIN courses  c ON cs.course_id = c.id WHERE c.id=?;";
     public static final String CREATE_STUDENT_QUERY = "INSERT INTO students VALUES (default,?,?,?,?,?,?);";
-    public static final String UPDATE_STUDENT_QUERY = "INSERT INTO students VALUES (?,?,?,?,?) WHERE id=?;";
+    public static final String UPDATE_STUDENT_QUERY = "update  students SET first_name = ?, last_name = ?, birth_date = ?, email = ?, phone = ? WHERE id=?;";
     public static final String CREATE_COURSE_STUDENT_QUERY = "INSERT INTO course_student VALUES (?,?);";
     public static final String FIND_STUDENT_BY_EMAIL = "SELECT * FROM students WHERE email=?;";
     public static final String FIND_COURSE_BY_ID = "SELECT * FROM courses WHERE id=?;";

@@ -21,9 +21,9 @@ public class StudentServiceImpl implements StudentService {
     public void create(Student student) {
         if (student.getId() > 0) {
             studentDao.update(student);
+        } else {
+            studentDao.create(student);
         }
-        studentDao.create(student);
-
     }
 
     @Override

@@ -4,11 +4,22 @@ import java.sql.Date;
 
 public class StudentRequestDto extends RequestDto{
 
+    private long id;
     private String email;
     private String phone;
     private Date birthDate;
     private String firstName;
     private String lastName;
+
+    @Override
+    public long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
