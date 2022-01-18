@@ -1,77 +1,42 @@
 package ua.com.alevel.persistence.dao.impl;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import ua.com.alevel.config.jpa.JpaConfig;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.dao.StudentDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Student;
 import ua.com.alevel.persistence.type.CourseType;
-import ua.com.alevel.util.ClassConverterUtil;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
-
-import static ua.com.alevel.util.JpaQueryUtil.*;
+import java.util.Locale;
 
 @Service
+@Transactional
 public class StudentDaoImpl implements StudentDao {
 
-    public StudentDaoImpl(JpaConfig jpaConfig) {
-        this.jpaConfig = jpaConfig;
-    }
-
-    private final JpaConfig jpaConfig;
+    @PersistenceContext
+    private  EntityManager entityManager;
 
     @Override
     public void create(Student student) {
-        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(CREATE_STUDENT_QUERY)) {
-            preparedStatement.setDate(1, Date.valueOf(LocalDate.now()));
-            preparedStatement.setString(2, student.getFirstName());
-            preparedStatement.setString(3, student.getLastName());
-            preparedStatement.setDate(4, (Date) student.getBirthDate());
-            preparedStatement.setString(5, student.getEmail());
-            preparedStatement.setString(6, student.getPhone());
-            preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            System.out.println(throwables.getMessage());
-        }
+        entityManager.persist(student);
     }
 
     @Override
     public void update(Student student) {
-        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(UPDATE_STUDENT_QUERY)) {
-            preparedStatement.setString(1, student.getFirstName());
-            preparedStatement.setString(2, student.getLastName());
-            preparedStatement.setDate(3, (Date) student.getBirthDate());
-            preparedStatement.setString(4, student.getEmail());
-            preparedStatement.setString(5, student.getPhone());
-            preparedStatement.setLong(6, student.getId());
-            preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            System.out.println(throwables.getMessage());
-        }
+
     }
 
     @Override
     public void delete(long id) {
-        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(DELETE_STUDENT_BY_ID)) {
-            preparedStatement.setLong(1, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(DELETE_COURSES_STUDENT_BY_STUDENT_ID_QUERY)) {
-            preparedStatement.setLong(1, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+
     }
 
     @Override
@@ -81,136 +46,57 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public Student findById(long id) {
-        Student student = new Student();
-        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(FIND_STUDENT_BY_ID);
-        ) {
-            preparedStatement.setLong(1, (id));
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            student = ClassConverterUtil.resultSetToStudent(resultSet);
-        } catch (SQLException throwables) {
-            throwables.getMessage();
-        }
-        return student;
+return new Student();
     }
 
     @Override
     public long count() {
-        int count = 0;
-        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(COUNT_STUDENT_QUERY)) {
-            while (resultSet.next()) {
-                count = resultSet.getInt("count");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return count;
+return 0;
     }
 
     @Override
-    public DataTableResponse<Student> findAll(DataTableRequest request) {
-        DataTableResponse<Student> response = new DataTableResponse<>();
-        List<Student> list = new ArrayList<>();
-        long size = 0L;
-        String sql = String.format(FIND_ALL_FROM_TO_SORTED_BY_COLUMN_QUERY, "students", request.getSort(), request.getOrder());
-        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(sql);
-        ) {
-            preparedStatement.setLong(1, (request.getCurrentPage() - 1) * request.getPageSize());
-            preparedStatement.setLong(2, request.getPageSize());
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                list.add(ClassConverterUtil
-                        .resultSetToStudent(resultSet));
-                size++;
-            }
-            response.seteList(list);
-            response.seteListSize(size);
-        } catch (SQLException throwables) {
-            throwables.getMessage();
+    public DataTableResponse<Student> findAll(DataTableRequest request)
+    {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Student> criteriaQuery = criteriaBuilder.createQuery(Student.class);
+        Root<Student> from = criteriaQuery.from(Student.class);
+        if (request.getOrder().toLowerCase(Locale.ROOT).equals("desc")) {
+            criteriaQuery.orderBy(criteriaBuilder.desc(from.get(request.getSort())));
+        } else {
+            criteriaQuery.orderBy(criteriaBuilder.asc(from.get(request.getSort())));
         }
+        int page = (request.getCurrentPage() - 1) * request.getPageSize();
+        int size = page + request.getPageSize();
+        DataTableResponse<Student> response = new DataTableResponse<>();
+        List<Student> list = entityManager.createQuery(criteriaQuery)
+                .setFirstResult(page)
+                .setMaxResults(size)
+                .getResultList();
+        response.seteList(list);
         return response;
+
     }
 
     @Override
     public DataTableResponse<Student> findAllByCourseId(Long id, DataTableRequest request) {
-        DataTableResponse<Student> response = new DataTableResponse<>();
-        List<Student> list = new ArrayList<>();
-        long size = 0L;
-        String sql = String.format(FIND_ALL_STUDENTS_BY_COURSE_ID, request.getSort(), request.getOrder());
-        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(sql);
-        ) {
-            preparedStatement.setLong(1, (id));
-            preparedStatement.setLong(2, (request.getCurrentPage() - 1) * request.getPageSize());
-            preparedStatement.setLong(3, request.getPageSize());
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                list.add(ClassConverterUtil.resultSetToStudent(resultSet));
-                size++;
-            }
-            response.seteList(list);
-            response.seteListSize(size);
-        } catch (SQLException throwables) {
-            throwables.getMessage();
-        }
-        return response;
+return new DataTableResponse<Student>();
     }
 
     @Override
     public DataTableResponse<Student> findAllByCourseType(CourseType type) {
-        DataTableResponse<Student> response = new DataTableResponse<>();
-        List<Student> list = new ArrayList<>();
-        long size = 0L;
-        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(FIND_ALL_STUDENTS_BY_COURSE_TYPE);
-        ) {
-            preparedStatement.setString(1, type.toString());
-            ResultSet resultSet = preparedStatement.executeQuery();
+        return new  DataTableResponse<Student>();
 
-            while (resultSet.next()) {
-                Student student = new Student();
-                student.setId(resultSet.getLong("id"));
-                student.setFirstName(resultSet.getString("first_name"));
-                student.setLastName(resultSet.getString("last_name"));
-                student.setEmail(resultSet.getString("email"));
-                student.setPhone(resultSet.getString("phone"));
-                student.setBirthDate(resultSet.getDate("birth_date"));
-                list.add(student);
-                size++;
-            }
-            response.seteList(list);
-            response.seteListSize(size);
-        } catch (SQLException throwables) {
-            throwables.getMessage();
-        }
-        return response;
     }
 
     @Override
     public Student findByEmail(String email) {
-        Student student = new Student();
-        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(FIND_STUDENT_BY_EMAIL);
-        ) {
-            preparedStatement.setString(1, (email));
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            student = ClassConverterUtil.resultSetToStudent(resultSet);
-        } catch (SQLException throwables) {
-            throwables.getMessage();
-        }
-        return student;
+        return new Student();
     }
+
+
+
 
     @Override
     public long countFindAllByCourseId(Long id) {
-        int size = 0;
-        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(COUNT_FIND_ALL_STUDENTS_BY_COURSE_ID);
-        ) {
-            preparedStatement.setLong(1, (id));
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            size = resultSet.getInt("count");
-        } catch (SQLException throwables) {
-            throwables.getMessage();
-        }
-        return size;
-    }
-}
+return 0L;
+    }}

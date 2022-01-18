@@ -27,7 +27,7 @@ create table  if not exists course_student
 (
     course_id  bigint not null ,
     student_id bigint not null ,
-    CONSTRAINT course_student_pk PRIMARY KEY (course_id, student_id) ,
+    PRIMARY KEY (course_id, student_id) ,
     constraint course_student_courses_id_fk
         foreign key (course_id) references courses (id)
             on update cascade on delete cascade,

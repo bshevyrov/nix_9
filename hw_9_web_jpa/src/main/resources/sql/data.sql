@@ -1,10 +1,3 @@
-# INSERT INTO minimal_cinema.halls (id, name, num_of_seat) VALUES (1, 'green', 12);
-# 
-# 
-# INSERT INTO minimal_cinema.movies (id, name, description) VALUES (1, 'matrix', 'asdasd');
-# 
-# INSERT INTO minimal_cinema.hall_movie(hall_id, movie_id) VALUES (1,1);
-
 
 INSERT INTO private_school.courses (description, course_type, name, id, create_date)
 VALUES ('Math for dummies', 'MATH', 'Base Math', 1, '2022-01-03'),
