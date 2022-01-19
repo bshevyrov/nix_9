@@ -104,7 +104,7 @@ public class CourseController extends AbstractController {
                 new HeaderName("id", "id", "id"),
                 new HeaderName("name", "Name", "name"),
                 new HeaderName("description", "description", "description"),
-                new HeaderName("coursetype", "courseType", "course_type"),
+                new HeaderName("course type", "course_type", "courseType"),
                 new HeaderName("delete", null, null),
                 new HeaderName("update", null, null)
         };

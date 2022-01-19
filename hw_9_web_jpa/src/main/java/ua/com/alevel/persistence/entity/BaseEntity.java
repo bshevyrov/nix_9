@@ -6,7 +6,7 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class BaseEntity {
 
-    @Id()
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 

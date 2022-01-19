@@ -17,6 +17,7 @@ import ua.com.alevel.veiw.dto.response.CourseResponseDto;
 import ua.com.alevel.veiw.dto.response.PageDataResponse;
 import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -103,13 +104,24 @@ public class StudentController extends AbstractController {
     @GetMapping(path = {"/course/{id}"})
     public String getAllByStudentId(@PathVariable("id") Long id, Model model, WebRequest request) {
         HeaderName[] columnNames = getColumnNames();
-        PageDataResponse<StudentResponseDto> response = studentFacade.findAllByCourseId(id, request);
+                PageDataResponse<StudentResponseDto> response = studentFacade.findAllByCourseId(id, request);
         response.initPaginationState(response.getCurrentPage());
         List<HeaderData> headerDataList = getHeaderDataList(columnNames, response);
         model.addAttribute("headerDataList", headerDataList);
         model.addAttribute("pageData", response);
         model.addAttribute("cardHeader", "All students of Course " + courseFacade.findById(id).getName());
         return "/pages/student/student_all";
+    }
+
+    @PostMapping("/course/{id}")
+    public ModelAndView findAllS(@PathVariable("id") Long id, WebRequest request, ModelMap model) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        System.out.println(parameterMap.size());
+        if (MapUtils.isNotEmpty(parameterMap)) {
+            parameterMap.forEach(model::addAttribute);
+        }
+        System.out.println(model.size());
+        return new ModelAndView("redirect:/students/course/"+id, model);
     }
 
     @GetMapping(path = {"/course"})
@@ -137,11 +149,11 @@ public class StudentController extends AbstractController {
         return new HeaderName[]{
                 new HeaderName("#", null, null),
                 new HeaderName("Id", "id", "id"),
-                new HeaderName("First Name", "firstName", "first_name"),
-                new HeaderName("Last Name", "lastName", "last_name"),
+                new HeaderName("First Name", "first_name", "firstName"),
+                new HeaderName("Last Name", "last_name", "lastName"),
                 new HeaderName("E-mail", "email", "email"),
                 new HeaderName("Phone", "phone", "phone"),
-                new HeaderName("Create Date", "createDate", "create_date"),
+                new HeaderName("Create Date", "create_date", "createDate"),
                 new HeaderName("Delete", null, null),
                 new HeaderName("update", null, null)
         };

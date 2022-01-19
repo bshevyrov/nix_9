@@ -1,8 +1,17 @@
 package ua.com.alevel.persistence.entity;
 
-public class CourseStudent extends BaseEntity {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "course_student")
+public class CourseStudent  {
+
+    @Column(name = "course_id")
     private long courseId;
+
+    @Column(name = "student_id")
     private long studentId;
 
     public CourseStudent() {
