@@ -15,7 +15,8 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.*;
+import java.util.List;
+import java.util.Set;
 
 @Repository
 @Transactional
@@ -39,7 +40,6 @@ public class StudentDaoImpl implements StudentDao {
         entityManager.createQuery("delete from Student s where s.id = :id")
                 .setParameter("id", id)
                 .executeUpdate();
-
     }
 
     @Override
@@ -78,20 +78,19 @@ public class StudentDaoImpl implements StudentDao {
                 .getResultList();
         response.seteList(list);
         return response;
-
     }
 
     @Override
     public DataTableResponse<Student> findAllByCourseId(Long id, DataTableRequest request) {
-        String hql = "SELECT s FROM Student s  JOIN CourseStudent cs on s.id = cs.studentId  JOIN Course  c ON cs.courseId = c.id WHERE c.id=:ids ORDER BY s."+request.getSort()+" "+request.getOrder();
+        String hql = "SELECT s FROM Student s  JOIN CourseStudent cs on s.id = cs.studentId  JOIN Course  c ON cs.courseId = c.id WHERE c.id=:ids ORDER BY s." + request.getSort() + " " + request.getOrder();
         DataTableResponse<Student> response = new DataTableResponse<>();
         Query query = entityManager.createQuery(hql);
-        query.setParameter("ids",id);
+        query.setParameter("ids", id);
         int page = (request.getCurrentPage() - 1) * request.getPageSize();
         int size = request.getPageSize();
         query.setFirstResult(page);
         query.setMaxResults(size);
-        List list= query.getResultList();
+        List list = query.getResultList();
         response.seteList(list);
         return response;
     }
@@ -104,18 +103,33 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public Student findByEmail(String email) {
-        Query query= entityManager.createQuery("SELECT s FROM Student s WHERE s.email=:email");
-   query.setParameter("email", email);
-   List list = query.getResultList();
+        Query query = entityManager.createQuery("SELECT s FROM Student s WHERE s.email=:email");
+        query.setParameter("email", email);
+        List list = query.getResultList();
         System.out.println(list.size());
-   return (Student) list.get(0);
+        return (Student) list.get(0);
     }
 
 
     @Override
     public long countFindAllByCourseId(Long id) {
         Set<Student> setStudents = entityManager.find(Course.class, id).getStudents();
-
         return setStudents.size();
+    }
+
+    @Override
+    public void createCourseStudent(long courseId, long studentId) {
+        Course course = entityManager.find(Course.class, courseId);
+        Student student = entityManager.find(Student.class, studentId);
+        course.getStudents().add(student);
+        student.getCourses().add(course);
+    }
+
+    @Override
+    public void deleteCourseStudent(long courseId, long studentId) {
+        Course course = entityManager.find(Course.class, courseId);
+        Student student = entityManager.find(Student.class, studentId);
+        course.getStudents().remove(student);
+        student.getCourses().remove(course);
     }
 }

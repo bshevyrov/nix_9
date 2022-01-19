@@ -3,10 +3,10 @@ use private_school;
 
 create table if not exists courses
 (
-    create_date date null,
     id bigint auto_increment
-        primary key,
-    name varchar(256) null,
+        primary key not null ,
+    create_date date null,
+        name varchar(256) null,
     course_type varchar(256) null,
     description varchar(256) null
 );
@@ -14,7 +14,7 @@ create table if not exists courses
 create table  if not exists students
 (
     id bigint auto_increment
-        primary key,
+        primary key not null ,
     create_date date null,
     first_name varchar(255) null,
     last_name varchar(255) null,

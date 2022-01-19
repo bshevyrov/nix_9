@@ -8,16 +8,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.CourseFacade;
-import ua.com.alevel.facade.CourseStudentFacade;
 import ua.com.alevel.facade.StudentFacade;
+import ua.com.alevel.persistence.entity.Course;
 import ua.com.alevel.persistence.type.CourseType;
-import ua.com.alevel.veiw.dto.request.CourseStudentRequestDto;
 import ua.com.alevel.veiw.dto.request.StudentRequestDto;
 import ua.com.alevel.veiw.dto.response.CourseResponseDto;
 import ua.com.alevel.veiw.dto.response.PageDataResponse;
 import ua.com.alevel.veiw.dto.response.StudentResponseDto;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -27,12 +25,10 @@ import java.util.stream.Collectors;
 public class StudentController extends AbstractController {
 
     private final StudentFacade studentFacade;
-    private final CourseStudentFacade courseStudentFacade;
     private final CourseFacade courseFacade;
 
-    public StudentController(StudentFacade studentFacade, CourseStudentFacade courseStudentFacade, CourseFacade courseFacade) {
+    public StudentController(StudentFacade studentFacade, CourseFacade courseFacade) {
         this.studentFacade = studentFacade;
-        this.courseStudentFacade = courseStudentFacade;
         this.courseFacade = courseFacade;
     }
 
@@ -79,16 +75,21 @@ public class StudentController extends AbstractController {
                                 Model model) {
         if (studentRequestDto.getId() > 0) {
             studentFacade.update(studentRequestDto);
-            courseStudentFacade.deleteByStudentId(studentRequestDto.getId());
+            List<CourseResponseDto> courses = courseFacade.findAll();
+            for (CourseResponseDto cours : courses) {
+                long studentId= studentRequestDto.getId();
+                long courseId = cours.getId();
+                studentFacade.deleteCourseStudent(courseId,studentId);
+            }
         } else {
             studentFacade.create(studentRequestDto);
         }
         for (Long l : checkedCourses) {
-            CourseStudentRequestDto courseStudentRequestDto = new CourseStudentRequestDto();
-            courseStudentRequestDto.setStudentId(studentFacade.findByEmail(studentRequestDto.getEmail()).getId());
-            courseStudentRequestDto.setCourseId(l);
-            courseStudentFacade.create(courseStudentRequestDto);
+            long studentId=studentFacade.findByEmail(studentRequestDto.getEmail()).getId();
+            long courseId = l;
+            studentFacade.createCourseStudent(courseId,studentId);
         }
+
         return "redirect:/students";
     }
 

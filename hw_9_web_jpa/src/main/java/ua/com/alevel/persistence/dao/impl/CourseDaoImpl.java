@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+
 @Service
 @Transactional
 public class CourseDaoImpl implements CourseDao {
@@ -40,6 +41,7 @@ public class CourseDaoImpl implements CourseDao {
         entityManager.createQuery("delete from Course s where s.id = :id")
                 .setParameter("id", id)
                 .executeUpdate();
+        studentValidation(id);
     }
 
     @Override
@@ -87,6 +89,25 @@ public class CourseDaoImpl implements CourseDao {
         DataTableResponse<Course> response = new DataTableResponse<>();
         response.seteList(list);
         return response;
+    }
+
+    public void studentValidation(long courseId) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Student> criteriaQuery = criteriaBuilder.createQuery(Student.class);
+        Root<Student> from = criteriaQuery.from(Student.class);
+
+        List<Student> list = entityManager.createQuery(criteriaQuery)
+                .getResultList();
+        for (Student student : list) {
+            if (student.getCourses().size() == 0) {
+                entityManager.createQuery("delete from Student s where s.id = :id")
+                        .setParameter("id", student.getId())
+                        .executeUpdate();
+            }
+
+        }
+
+
     }
 }
 

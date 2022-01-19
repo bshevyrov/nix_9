@@ -61,4 +61,14 @@ public class StudentServiceImpl implements StudentService {
     public Student findByEmail(String email) {
         return studentDao.findByEmail(email);
     }
+
+    @Override
+    public void createCourseStudent(long courseId, long studentId) {
+        studentDao.createCourseStudent(courseId, studentId);
+    }
+
+    @Override
+    public void deleteCourseStudent(long courseId, long studentId) {
+        studentDao.deleteCourseStudent(courseId, studentId);
+    }
 }

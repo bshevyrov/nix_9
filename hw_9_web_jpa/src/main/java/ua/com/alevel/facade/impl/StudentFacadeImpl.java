@@ -103,5 +103,17 @@ public class StudentFacadeImpl implements StudentFacade {
     public StudentResponseDto findByEmail(String email) {
         return ClassConverterUtil.studentToStudentResponceDto(studentService.findByEmail(email));
     }
+
+    @Override
+    public void createCourseStudent(long courseId, long studentId) {
+        studentService.createCourseStudent(courseId, studentId);
+    }
+
+    @Override
+    public void deleteCourseStudent(long courseId, long studentId) {
+        studentService.deleteCourseStudent(courseId, studentId);
+    }
+
+
 }
 

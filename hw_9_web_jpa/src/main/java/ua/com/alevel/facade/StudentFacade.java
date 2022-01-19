@@ -16,4 +16,7 @@ public interface StudentFacade extends BaseFacade<StudentRequestDto, StudentResp
 
     StudentResponseDto findByEmail(String email);
 
+    void createCourseStudent(long courseId, long studentId);
+
+    void deleteCourseStudent(long courseId, long studentId);
 }

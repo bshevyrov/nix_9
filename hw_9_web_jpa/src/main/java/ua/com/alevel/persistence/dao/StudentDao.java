@@ -14,4 +14,9 @@ public interface StudentDao extends BaseDao<Student> {
     Student findByEmail(String email);
 
     long countFindAllByCourseId(Long id);
-}
+
+    void createCourseStudent(long courseId, long studentId);
+
+    void deleteCourseStudent(long courseId, long studentId) ;
+
+    }

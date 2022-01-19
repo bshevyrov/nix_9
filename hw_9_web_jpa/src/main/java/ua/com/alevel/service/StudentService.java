@@ -12,4 +12,8 @@ public interface StudentService extends BaseService<Student> {
     DataTableResponse<Student> findAllByCourseType(CourseType type);
 
     Student findByEmail(String email);
+
+    void createCourseStudent(long courseId, long studentId);
+
+    void deleteCourseStudent(long courseId, long studentId);
 }
