@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Course detail</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    id
+                </div>
+                <div class="col">
+                    <p th:text="${course.getId()}"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    name
+                </div>
+                <div class="col">
+                    <p th:text="${course.getName()}"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    description
+                </div>
+                <div class="col">
+                    <p th:text="${course.getDescription()}"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    Students
+                </div>
+                <div class="col">
+                    <a th:href="@{'/students/course/' + ${course.getId()}}"
+                    >All students of this course</a>
+                </div>
+            </div>
+        </div>
+       <!-- <div class="row">
+            <div class="col">
+                <button th:href="@{'/cousres/delete/' + ${course.getId()}}" class="btn btn-outline-light text-danger"
+                        type="button">Delete
+                </button>
+            </div>
+            <div class="col">
+            </div>
+            &lt;!&ndash;    </div>&ndash;&gt;
+            &lt;!&ndash;        <button  th:href="@{'/cousres/delete/' + ${course.getId()}}" class="btn btn-outline-light text-danger" type="button">Delete</button>&ndash;&gt;
+            &lt;!&ndash;    </div>&ndash;&gt;
+        </div>-->
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-warning" th:href="@{'/courses/update/'+ ${course.getId()}}"
+                   role="button">update</a>
+            </div>
+            <div class="col">
+                <a class="btn btn-danger" th:href="@{'/courses/delete/'+ ${course.getId()}}"
+                   role="button">delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
