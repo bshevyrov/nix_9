@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "course_student")
-public class CourseStudent implements Serializable {
+public class CourseStudent extends BaseEntity implements Serializable {
 
     @Id
     @Column(name = "course_id")
