@@ -2,6 +2,7 @@ package ua.com.alevel.persistence.entity;
 
 import ua.com.alevel.persistence.type.CourseType;
 
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
