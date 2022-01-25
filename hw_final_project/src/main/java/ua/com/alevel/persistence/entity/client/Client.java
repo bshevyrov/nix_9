@@ -1,6 +1,7 @@
-package ua.com.alevel.persistence.entity.user;
+package ua.com.alevel.persistence.entity.client;
 
 import ua.com.alevel.persistence.entity.BaseEntity;
+import ua.com.alevel.persistence.entity.user.ClientUser;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -17,9 +18,14 @@ public class Client extends BaseEntity {
     @Column(name = "phone")
     private String phone;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_user_id", referencedColumnName = "id")
+    private ClientUser clientUser;
+
     public Client() {
         super();
     }
+
 
     public String getName() {
         return name;
@@ -37,16 +43,24 @@ public class Client extends BaseEntity {
         this.phone = phone;
     }
 
+    public ClientUser getClientUser() {
+        return clientUser;
+    }
+
+    public void setClientUser(ClientUser clientUser) {
+        this.clientUser = clientUser;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return Objects.equals(name, client.name) && Objects.equals(phone, client.phone);
+        return Objects.equals(name, client.name) && Objects.equals(phone, client.phone) && Objects.equals(clientUser, client.clientUser);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, phone);
+        return Objects.hash(name, phone, clientUser);
     }
 }

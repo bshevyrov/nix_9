@@ -1,5 +1,6 @@
 package ua.com.alevel.persistence.entity.user;
 
+import ua.com.alevel.persistence.entity.client.Client;
 import ua.com.alevel.persistence.type.RoleType;
 
 import javax.persistence.DiscriminatorValue;
