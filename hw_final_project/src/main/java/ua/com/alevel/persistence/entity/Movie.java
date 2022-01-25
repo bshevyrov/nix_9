@@ -1,6 +1,8 @@
 package ua.com.alevel.persistence.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Objects;
@@ -22,7 +24,7 @@ public class Movie extends BaseEntity {
     private String country;
 
     @Column(name = "relese_date", columnDefinition = "DATE")
-        private Date releaseDate;
+    private Date releaseDate;
 
     @Column(name = "image_url")
     private String imageUrl;

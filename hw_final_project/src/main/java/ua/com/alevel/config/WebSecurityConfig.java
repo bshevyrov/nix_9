@@ -43,13 +43,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers(staticResources).permitAll()
-                .antMatchers("/movies", "/doctor/registration", "/open/dashboard/**", "/").permitAll()
-                .antMatchers("/doctor/**").access("hasRole('ROLE_DOCTOR')")
-                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/patient/**").access("hasRole('ROLE_PATIENT')")
-                .antMatchers("/doctors/**", "/patients/**", "/departments/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_PATIENT','ROLE_DOCTOR')")
+                .antMatchers("/movies", "/client/registration", "/open/dashboard/**", "/").permitAll()
+//                .antMatchers("/doctor/**").access("hasRole('ROLE_DOCTOR')")
+//                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/client/**").access("hasRole('ROLE_CLIENT')")
+                .antMatchers("/doctors/**", "/patients/**", "/departments/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT','ROLE_DOCTOR')")
                 .anyRequest().authenticated()
-                //.and().formLogin().loginPage("/login").defaultSuccessUrl("/dashboard").permitAll()
+//                .and().formLogin().loginPage("/login").defaultSuccessUrl("/dashboard").permitAll()
                 .and().formLogin().loginPage("/login").permitAll()
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/open/dashboard/");
     }

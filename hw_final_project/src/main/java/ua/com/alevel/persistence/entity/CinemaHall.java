@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "cinema_halls")
-public class CinemaHall extends BaseEntity{
+public class CinemaHall extends BaseEntity {
 
     @Column(name = "cinema_hall_type")
     @Enumerated(EnumType.STRING)

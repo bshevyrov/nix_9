@@ -11,8 +11,11 @@ import java.util.Objects;
 public class Client extends BaseEntity {
 
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "first_name")
+    private String FirstName;
+
+    @Column(name = "last_name")
+    private String LastName;
     //    private String password;
 //    private String email;
     @Column(name = "phone")
@@ -27,12 +30,20 @@ public class Client extends BaseEntity {
     }
 
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return FirstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        FirstName = firstName;
+    }
+
+    public String getLastName() {
+        return LastName;
+    }
+
+    public void setLastName(String lastName) {
+        LastName = lastName;
     }
 
     public String getPhone() {
@@ -56,11 +67,11 @@ public class Client extends BaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return Objects.equals(name, client.name) && Objects.equals(phone, client.phone) && Objects.equals(clientUser, client.clientUser);
+        return Objects.equals(FirstName, client.FirstName) && Objects.equals(LastName, client.LastName) && Objects.equals(phone, client.phone) && Objects.equals(clientUser, client.clientUser);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, phone, clientUser);
+        return Objects.hash(FirstName, LastName, phone, clientUser);
     }
 }

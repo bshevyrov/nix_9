@@ -2,8 +2,11 @@ package ua.com.alevel.facade.impl;
 
 import org.springframework.stereotype.Service;
 import ua.com.alevel.facade.RegistrationFacade;
+import ua.com.alevel.persistence.entity.client.Client;
 import ua.com.alevel.persistence.entity.user.ClientUser;
 import ua.com.alevel.service.ClientUserCrudService;
+import ua.com.alevel.view.dto.request.ClientRequestDto;
+import ua.com.alevel.view.dto.request.RequestDto;
 import ua.com.alevel.view.dto.request.register.AuthDto;
 
 
@@ -17,10 +20,19 @@ public class RegistrationFacadeImpl implements RegistrationFacade {
     }
 
     @Override
-    public void registration(AuthDto dto) {
-        ClientUser client = new ClientUser();
-        client.setEmail(dto.getEmail());
-        client.setPassword(dto.getPassword());
-        clientService.create(client);
+    public void registration(ClientRequestDto requestDtoDto) {
+        ClientUser clientUser = new ClientUser();
+        clientUser.setEmail(requestDtoDto.getEmail());
+        clientUser.setPassword(requestDtoDto.getPassword());
+//        clientService.create(clientUser);
+
+        Client client = new Client();
+       client.setFirstName(requestDtoDto.getFirstName());
+       client.setLastName(requestDtoDto.getLastName());
+       client.setPhone(requestDtoDto.getPhone());
+       client.setClientUser(clientUser);
+
+        clientUser.setClient(client);
+        clientService.create(clientUser);
     }
 }

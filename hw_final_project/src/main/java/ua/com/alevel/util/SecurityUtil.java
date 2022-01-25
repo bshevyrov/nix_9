@@ -3,11 +3,13 @@ package ua.com.alevel.util;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class SecurityUtil {
 
-    private SecurityUtil() { }
+    private SecurityUtil() {
+    }
 
     public static boolean hasRole(String role) {
         Authentication authentication = SecurityUtil.getAuthentication();

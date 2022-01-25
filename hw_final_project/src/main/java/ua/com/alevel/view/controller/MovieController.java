@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MovieController {
 
     @GetMapping()
-    public String getFirst(Model model){
+    public String getFirst(Model model) {
         return "/pages/movie/movie_all";
     }
 }

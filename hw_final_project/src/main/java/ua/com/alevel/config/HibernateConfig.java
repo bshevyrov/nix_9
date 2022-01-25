@@ -17,42 +17,6 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class HibernateConfig {
 
-    @Value("${spring.datasource.url}")
-    private String jdbcUrl;
-
-    @Value("${spring.datasource.username}")
-    private String username;
-
-    @Value("${spring.datasource.password}")
-    private String password;
-
-    @Value("${spring.datasource.driver-class-name}")
-    private String driver;
-
-    @Value("${spring.jpa.properties.hibernate.dialect}")
-    private String dialect;
-
-    @Value("${spring.jpa.hibernate.ddl-auto}")
-    private String hbm2ddl;
-
-    @Value("${spring.jpa.show-sql}")
-    private Boolean showSql;
-
-    @Value("${spring.jpa.properties.hibernate.jdbc.max_size}")
-    private String maxSize;
-
-    @Value("${spring.jpa.properties.hibernate.jdbc.min_size}")
-    private String minSize;
-
-    @Value("${spring.jpa.properties.hibernate.jdbc.batch_size}")
-    private String batchSize;
-
-    @Value("${spring.jpa.properties.hibernate.jdbc.fetch_size}")
-    private String fetchSize;
-
-    @Value("${spring.jpa.properties.hibernate.enable_lazy_load_no_trans}")
-    private String lazyLoad;
-
     private static final String HIBERNATE_DIALECT = "hibernate.dialect";
     private static final String HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
     private static final String HIBERNATE_SHOW_SQL = "hibernate.show_sql";
@@ -62,6 +26,30 @@ public class HibernateConfig {
     private static final String BATCH_SIZE = "hibernate.jdbc.batch_size";
     private static final String FETCH_SIZE = "hibernate.jdbc.fetch_size";
     private static final String ENTITY_MANAGER_PACKAGES_TO_SCAN = "ua.com.alevel.persistence.entity";
+    @Value("${spring.datasource.url}")
+    private String jdbcUrl;
+    @Value("${spring.datasource.username}")
+    private String username;
+    @Value("${spring.datasource.password}")
+    private String password;
+    @Value("${spring.datasource.driver-class-name}")
+    private String driver;
+    @Value("${spring.jpa.properties.hibernate.dialect}")
+    private String dialect;
+    @Value("${spring.jpa.hibernate.ddl-auto}")
+    private String hbm2ddl;
+    @Value("${spring.jpa.show-sql}")
+    private Boolean showSql;
+    @Value("${spring.jpa.properties.hibernate.jdbc.max_size}")
+    private String maxSize;
+    @Value("${spring.jpa.properties.hibernate.jdbc.min_size}")
+    private String minSize;
+    @Value("${spring.jpa.properties.hibernate.jdbc.batch_size}")
+    private String batchSize;
+    @Value("${spring.jpa.properties.hibernate.jdbc.fetch_size}")
+    private String fetchSize;
+    @Value("${spring.jpa.properties.hibernate.enable_lazy_load_no_trans}")
+    private String lazyLoad;
 
     @Bean
     public DataSource dataSource() {
@@ -80,7 +68,7 @@ public class HibernateConfig {
         return manager;
     }
 
-    @Bean(name="entityManagerFactory")
+    @Bean(name = "entityManagerFactory")
     public LocalSessionFactoryBean sessionFactoryBean() {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource());

@@ -1,6 +1,8 @@
 package ua.com.alevel.view.dto.request.register;
 
-public class AuthDto {
+import ua.com.alevel.view.dto.request.RequestDto;
+
+public class AuthDto extends RequestDto {
 
     private String email;
     private String password;

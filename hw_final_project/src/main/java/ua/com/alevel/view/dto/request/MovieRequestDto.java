@@ -1,4 +1,4 @@
 package ua.com.alevel.view.dto.request;
 
-public class MovieRequestDto extends RequestDto{
+public class MovieRequestDto extends RequestDto {
 }

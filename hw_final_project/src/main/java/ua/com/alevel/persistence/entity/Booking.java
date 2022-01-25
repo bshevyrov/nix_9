@@ -21,7 +21,7 @@ public class Booking extends BaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "show_id", referencedColumnName = "id")
-      private Show show;
+    private Show show;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", referencedColumnName = "id")

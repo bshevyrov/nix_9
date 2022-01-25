@@ -11,13 +11,13 @@ public class Show extends BaseEntity {
 
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
-        private Date date;
+    private Date date;
 
-    @Column(name = "start_time",columnDefinition = "DATETIME")
+    @Column(name = "start_time", columnDefinition = "DATETIME")
 //        @Temporal(TemporalType.TIMESTAMP)
-        private LocalDateTime startTime;
+    private LocalDateTime startTime;
 
-    @Column(name = "end_time",columnDefinition = "DATETIME")
+    @Column(name = "end_time", columnDefinition = "DATETIME")
 //    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime endTime;
 

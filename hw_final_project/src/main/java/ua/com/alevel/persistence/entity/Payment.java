@@ -1,29 +1,26 @@
 package ua.com.alevel.persistence.entity;
 
-import ua.com.alevel.persistence.type.PaymentMethodType;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Table(name = "payments")
-public class Payment extends BaseEntity{
+public class Payment extends BaseEntity {
 
     @Column(name = "amount")
     private double amount;
 
-    @Column(name = "time_stamp",columnDefinition = "TIMESTAMP")
+    @Column(name = "time_stamp", columnDefinition = "TIMESTAMP")
 //    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp timeStamp;
 
-//    private String remoteTransactionId;
+    //    private String remoteTransactionId;
 //    private PaymentMethodType paymentMethodType;
 //
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "booking_id", referencedColumnName = "id")
-       private Booking booking;
+    private Booking booking;
 
     public Payment() {
         super();

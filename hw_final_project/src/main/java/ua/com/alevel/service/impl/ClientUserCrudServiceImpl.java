@@ -27,11 +27,11 @@ public class ClientUserCrudServiceImpl implements ClientUserCrudService {
 
     @Override
     public void create(ClientUser entity) {
-    if(clientRepository.existsByEmail(entity.getEmail())){
-        throw new EntityExistsException("entity already exist");
-    }
-    entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
-    crudRepositoryHelper.create(clientRepository,entity);
+        if (clientRepository.existsByEmail(entity.getEmail())) {
+            throw new EntityExistsException("entity already exist");
+        }
+        entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
+        crudRepositoryHelper.create(clientRepository, entity);
     }
 
     @Override

@@ -10,18 +10,19 @@ import ua.com.alevel.view.dto.response.ResponseDto;
 
 public final class WebUtil {
 
-    private static final String PAGE_PARAM = "page";
-    private static final String SIZE_PARAM = "size";
-    private static final String SORT_PARAM = "sort";
-    private static final String ORDER_PARAM = "order";
     public static final String DEFAULT_SORT_PARAM_VALUE = "created";
     public static final String DEFAULT_ORDER_PARAM_VALUE = "desc";
     public static final int DEFAULT_PAGE_PARAM_VALUE = 1;
     public static final int DEFAULT_SIZE_PARAM_VALUE = 10;
     public static final String PUBLISHER_PARAM = "publisher";
     public static final String BOOK_SEARCH_PARAM = "bookSearch";
+    private static final String PAGE_PARAM = "page";
+    private static final String SIZE_PARAM = "size";
+    private static final String SORT_PARAM = "sort";
+    private static final String ORDER_PARAM = "order";
 
-    private WebUtil() { }
+    private WebUtil() {
+    }
 
     public static DataTableRequest generateDataTableRequestByWebRequest(WebRequest request) {
         DataTableRequest dataTableRequest = new DataTableRequest();

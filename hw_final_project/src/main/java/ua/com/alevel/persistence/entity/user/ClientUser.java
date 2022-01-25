@@ -6,7 +6,6 @@ import ua.com.alevel.persistence.type.RoleType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
-import java.util.Objects;
 
 @Entity
 @DiscriminatorValue("CLIENT")

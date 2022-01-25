@@ -49,6 +49,41 @@ public abstract class AbstractController {
         model.addAttribute("showMessage", show);
     }
 
+    protected void initDataTable(
+            PageData<? extends ResponseDto> response,
+            HeaderName[] columnNames,
+            Model model) {
+        List<HeaderData> headerDataList = new ArrayList<>();
+        for (HeaderName headerName : columnNames) {
+            HeaderData data = new HeaderData();
+            data.setHeaderName(headerName.getColumnName());
+            if (StringUtils.isBlank(headerName.getTableName())) {
+                data.setSortable(false);
+            } else {
+                data.setSortable(true);
+                data.setSort(headerName.getDbName());
+                if (response.getSort().equals(headerName.getDbName())) {
+                    data.setActive(true);
+                    data.setOrder(response.getOrder());
+                } else {
+                    data.setActive(false);
+                    data.setOrder(DEFAULT_ORDER_PARAM_VALUE);
+                }
+            }
+            headerDataList.add(data);
+        }
+        model.addAttribute("headerDataList", headerDataList);
+        model.addAttribute("pageData", response);
+    }
+
+    public ModelAndView findAllRedirect(WebRequest request, ModelMap model, String redirectUrl) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        if (MapUtils.isNotEmpty(parameterMap)) {
+            parameterMap.forEach(model::addAttribute);
+        }
+        return new ModelAndView("redirect:/" + redirectUrl, model);
+    }
+
     protected static class HeaderName {
 
         private String columnName;
@@ -144,40 +179,5 @@ public abstract class AbstractController {
                     ", order='" + order + '\'' +
                     '}';
         }
-    }
-
-    protected void initDataTable(
-            PageData<? extends ResponseDto> response,
-            HeaderName[] columnNames,
-            Model model) {
-        List<HeaderData> headerDataList = new ArrayList<>();
-        for (HeaderName headerName : columnNames) {
-            HeaderData data = new HeaderData();
-            data.setHeaderName(headerName.getColumnName());
-            if (StringUtils.isBlank(headerName.getTableName())) {
-                data.setSortable(false);
-            } else {
-                data.setSortable(true);
-                data.setSort(headerName.getDbName());
-                if (response.getSort().equals(headerName.getDbName())) {
-                    data.setActive(true);
-                    data.setOrder(response.getOrder());
-                } else {
-                    data.setActive(false);
-                    data.setOrder(DEFAULT_ORDER_PARAM_VALUE);
-                }
-            }
-            headerDataList.add(data);
-        }
-        model.addAttribute("headerDataList", headerDataList);
-        model.addAttribute("pageData", response);
-    }
-
-    public ModelAndView findAllRedirect(WebRequest request, ModelMap model, String redirectUrl) {
-        Map<String, String[]> parameterMap = request.getParameterMap();
-        if (MapUtils.isNotEmpty(parameterMap)) {
-            parameterMap.forEach(model::addAttribute);
-        }
-        return new ModelAndView("redirect:/" + redirectUrl, model);
     }
 }
