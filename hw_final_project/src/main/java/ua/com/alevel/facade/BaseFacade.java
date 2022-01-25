@@ -1,7 +1,7 @@
 package ua.com.alevel.facade;
 
-import ua.com.alevel.view.request.RequestDto;
-import ua.com.alevel.view.response.ResponseDto;
+import ua.com.alevel.view.dto.request.RequestDto;
+import ua.com.alevel.view.dto.response.ResponseDto;
 
 import java.util.List;
 
