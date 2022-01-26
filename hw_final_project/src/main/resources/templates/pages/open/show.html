@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <title>Detail</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <div class="card mb-3"  id="movie-card">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img th:src="${movie.getImageUrl()}" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title" id="title-card" th:text="${movie.getTitle()}"></h5>
+                    <p class="card-text"  style="color:#b9b9b9"  th:text="${movie.getDescription()}"></p>
+                    <br>
+                    <p class="card-text"  style="color:#b9b9b9"  th:text="'Director: ' +${movie.getDirector()}"></p>
+                    <br>
+                    <p class="card-text"  style="color:#b9b9b9"  th:text="'Duration: '+${movie.getDuration()}"></p>
+                    <br>
+                    <p class="card-text"  style="color:#b9b9b9"  th:text="'Release year: '+${movie.getReleaseYear()}"></p>
+                    <br>
+                    <p class="card-text"  style="color:#b9b9b9"  th:text="'Genre: '+${movie.getGenre()}"></p>
+                    <br>
+
+
+                    <!--
+                       <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
+                    <a class="btn btn-primary" th:href="@{'/shows/movie/' + ${movie.getId()}}">Schedule of Show</a>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

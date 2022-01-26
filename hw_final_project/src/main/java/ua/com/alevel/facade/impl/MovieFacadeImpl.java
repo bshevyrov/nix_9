@@ -49,7 +49,7 @@ public class MovieFacadeImpl implements MovieFacade {
 
     @Override
     public MovieResponseDto findById(long id) {
-        return null;
+        return  ClassConverterUtil.movieToMovieResponseDto( movieService.findById(id).get());
     }
 
     @Override

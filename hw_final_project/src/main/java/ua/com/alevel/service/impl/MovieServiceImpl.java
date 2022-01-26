@@ -39,7 +39,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Optional<Movie> findById(Long id) {
-        return Optional.empty();
+        return crudRepositoryHelper.findById(movieRepository,id);
     }
 
     @Override

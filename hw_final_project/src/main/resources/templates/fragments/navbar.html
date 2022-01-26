@@ -9,30 +9,75 @@
 </head>
 <body>
 <div th:fragment="navbar">
-    <div class="container">
-        <nav class="navbar   navbar-expand-sm navbar-dark bg-dark">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/students/all">All Students</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/courses/all">All Courses</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/students/new">Add student</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="/courses/new">Add Course</a>
-                </li>
-            </ul>
-            <div sec:authorize="hasRole('ROLE_CLIENT')" > Has Authority USER </div>
-            <a class="btn btn-outline-light text-danger" id="log-btn" th:href="@{'/login'}"
-               type="button">Login</a>
+    <div sec:authorize="hasRole('ROLE_CLIENT')|| isAnonymous()">
+        <div class="container">
+            <nav class="navbar   navbar-expand-sm navbar-dark bg-dark">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/students/all">All Students</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/courses/all">All Courses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/students/new">Add student</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="/courses/new">Add Course</a>
+                    </li>
+                </ul>
+                <div sec:authorize="isAnonymous()">
+                <a class="btn btn-outline-light text-danger" id="login-btn" th:href="@{'/login'}"
+                   type="button">Login</a>
+                </div>
+
+                <div sec:authorize="hasRole('ROLE_CLIENT')">
+                    <form th:action="@{/logout}" method="post">
+                        <button class="btn btn-outline-light text-danger" id="logout-btn" th:href="@{'/logout'}"
+                                type="submit">Logout</button>
+                    </form>
+                </div>
 
 
-
-        </nav>
+            </nav>
+        </div>
     </div>
+
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <div class="container">
+            <nav class="navbar   navbar-expand-sm navbar-dark bg-dark">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/movies">All Movies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/shows/all">All Shows</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/students/new">Add student</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="/courses/new">Add Course</a>
+                    </li>
+                </ul>
+
+<!--                <form method="post" name="f" th:action="@{/login}">-->
+                <form th:action="@{/logout}" method="post">
+                    <button class="btn btn-outline-light text-danger" id="logout-btn" th:href="@{'/logout'}"
+                            type="submit">Logout</button>
+<!--                    <button type="submit">Sign Out</button>-->
+                </form>
+
+<!--                <a class="btn btn-outline-light text-danger" id="log-btn" th:href="@{'/logout'}"-->
+<!--                   type="button">Logout</a>-->
+
+
+            </nav>
+        </div>
+    </div>
+
+
+
 </div>
 </body>
 </html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <title>Movies</title>
+</head>
+<body>
+
+
+<!--<div class="container">-->
+<div layout:fragment="content">
+
+
+    <div th:if="${shows.getItemsSize() == 0}">
+
+        <div class="container">
+            <tr>
+                <td>
+                    <a type="button" th:href="@{'/students/delete/' }"
+                       class="btn btn-outline-light text-danger">create</a>
+                </td>
+            </tr>
+        </div>
+    </div>
+
+    <div th:unless="${shows.getItemsSize() == 0}">
+
+        <tr th:each="show,iter : ${shows.getItems()}">
+            <td th:text="${iter.count}"></td>
+            <td><a th:href="@{'/students/detail/' + ${show.getId()}}"
+                   th:text="${show.getId()}"></a></td>
+            <td th:text="${show.getDate()}"></td>
+            <td th:text="${show.getStartTime()}"></td>
+            <td th:text="${show.getEndTime()}"></td>
+            <td th:text="${show.getMovie().getName()}"></td>
+            <td th:text="${show.getCinemaHall.getName()}"></td>
+            <td>
+                <a type="button" th:href="@{'/students/delete/' + ${show.getId()}}"
+                   class="btn btn-outline-light text-danger">delete</a>
+            </td>
+            <td>
+                <a type="button" th:href="@{'/students/update/' + ${show.getId()}}"
+                   class="btn btn-outline-light text-primary">update</a>
+            </td>
+        </tr>
+    </div>
+
+
+
+</div>
+</body>
+</html>

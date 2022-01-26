@@ -47,10 +47,15 @@ a.nav-item.nav-link {
     color: #d9d9d9;
 }
 #text-card {
-    color: #b9b9b9;
+    color: #b9b9b9!important;
 }
-#log-btn {
+#login-btn {
     position: absolute;
     left: 90%;
+}
+
+#logout-btn {
+   position: relative;
+    left: 600%;
 }
 
