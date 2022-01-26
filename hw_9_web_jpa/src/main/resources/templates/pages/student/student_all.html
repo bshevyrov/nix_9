@@ -9,7 +9,7 @@
 </head>
 <body>
 <div layout:fragment="data_table_content">
-      <tr th:each="student,iter : ${pageData.getItems()}">
+      <tr th:each="student,iter : ${pageDataResponse.getItems()}">
         <td th:text="${iter.count}"></td>
         <td><a th:href="@{'/students/detail/' + ${student.getId()}}"
                th:text="${student.getId()}"></a></td>

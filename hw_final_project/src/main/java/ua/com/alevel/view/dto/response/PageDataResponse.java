@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PageData<REQ extends ResponseDto> {
+public class PageDataResponse<REQ extends ResponseDto> {
 
     private final int[] pageSizeItems;
     private int currentPage;
@@ -21,7 +21,7 @@ public class PageData<REQ extends ResponseDto> {
     private long currentShowFromEntries;
     private long currentShowToEntries;
 
-    public PageData() {
+    public PageDataResponse() {
         this.currentPage = 0;
         this.pageSize = 10;
         this.totalPageSize = 0;
@@ -34,16 +34,15 @@ public class PageData<REQ extends ResponseDto> {
         this.showLast = false;
     }
 
-    public void initPaginationState() {
-        if (pageSize < itemsSize) {
-            this.totalPageSize = (int) itemsSize / pageSize; // TODO fix this
-            this.showFirst = currentPage != 1;
-            this.showPrevious = currentPage - 1 != 0;
-            this.showLast = currentPage - 1 != totalPageSize;
-            this.showNext = currentPage - 1 != totalPageSize;
-        }
-        currentShowFromEntries = ((currentPage - 1) * pageSize) + 1;
-        currentShowToEntries = ((currentPage - 1) * pageSize) + items.size();
+    public void initPaginationState(int page) {
+
+        this.showFirst = page != 1;
+        this.showLast = page != totalPageSize;
+        this.showNext = page != totalPageSize;
+        this.showPrevious = page - 1 != 0;
+        this.totalPageSize = (int) (itemsSize % pageSize == 0 ? itemsSize / pageSize : itemsSize / pageSize + 1);
+        this.currentShowFromEntries = (long) (page - 1) * pageSize + 1;
+        this.currentShowToEntries = Math.min((long) page * pageSize, itemsSize);
     }
 
     public int getCurrentPage() {

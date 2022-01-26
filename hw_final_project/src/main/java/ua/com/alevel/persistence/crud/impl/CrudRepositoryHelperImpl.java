@@ -48,10 +48,10 @@ public class CrudRepositoryHelperImpl<
                 ? Sort.by(request.getSort()).descending()
                 : Sort.by(request.getSort()).ascending();
         Page<E> entityPage = repository.findAll(
-                PageRequest.of(request.getPage() - 1, request.getSize(), sort));
+                PageRequest.of(request.getCurrentPage() - 1, request.getPageSize(), sort));
         DataTableResponse<E> dataTableResponse = new DataTableResponse<>();
-        dataTableResponse.setCurrentPage(request.getPage());
-        dataTableResponse.setPageSize(request.getSize());
+        dataTableResponse.setCurrentPage(request.getCurrentPage());
+        dataTableResponse.setPageSize(request.getPageSize());
         dataTableResponse.setOrder(request.getOrder());
         dataTableResponse.setSort(request.getSort());
         dataTableResponse.setItemsSize(entityPage.getTotalElements());

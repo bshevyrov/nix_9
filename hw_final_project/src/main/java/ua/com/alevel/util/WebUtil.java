@@ -5,7 +5,7 @@ import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.BaseEntity;
-import ua.com.alevel.view.dto.response.PageData;
+import ua.com.alevel.view.dto.response.PageDataResponse;
 import ua.com.alevel.view.dto.response.ResponseDto;
 
 public final class WebUtil {
@@ -40,20 +40,21 @@ public final class WebUtil {
                 : request.getParameter(ORDER_PARAM);
         dataTableRequest.setOrder(order);
         dataTableRequest.setSort(sort);
-        dataTableRequest.setSize(size);
-        dataTableRequest.setPage(page);
+        dataTableRequest.setPageSize(size);
+        dataTableRequest.setCurrentPage(page);
         return dataTableRequest;
     }
 
-    public static PageData<? extends ResponseDto> initPageData(
+    public static PageDataResponse<? extends ResponseDto> initPageData(
             DataTableResponse<? extends BaseEntity> tableResponse) {
-        PageData<? extends ResponseDto> pageData = new PageData<>();
-        pageData.setCurrentPage(tableResponse.getCurrentPage());
-        pageData.setPageSize(tableResponse.getPageSize());
-        pageData.setOrder(tableResponse.getOrder());
-        pageData.setSort(tableResponse.getSort());
-        pageData.setItemsSize(tableResponse.getItemsSize());
-        pageData.initPaginationState();
-        return pageData;
+        PageDataResponse<? extends ResponseDto> pageDataResponse = new PageDataResponse<>();
+        pageDataResponse.setCurrentPage(tableResponse.getCurrentPage());
+        pageDataResponse.setPageSize(tableResponse.getPageSize());
+        pageDataResponse.setOrder(tableResponse.getOrder());
+        pageDataResponse.setSort(tableResponse.getSort());
+        pageDataResponse.setItemsSize(tableResponse.getItemsSize());
+        //
+        pageDataResponse.initPaginationState(tableResponse.getCurrentPage());
+        return pageDataResponse;
     }
 }

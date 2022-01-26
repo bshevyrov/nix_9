@@ -7,7 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import ua.com.alevel.view.dto.response.PageData;
+import ua.com.alevel.view.dto.response.PageDataResponse;
 import ua.com.alevel.view.dto.response.ResponseDto;
 
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public abstract class AbstractController {
     }
 
     protected void initDataTable(
-            PageData<? extends ResponseDto> response,
+            PageDataResponse<? extends ResponseDto> response,
             HeaderName[] columnNames,
             Model model) {
         List<HeaderData> headerDataList = new ArrayList<>();

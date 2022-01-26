@@ -5,8 +5,8 @@ import java.util.Map;
 
 public class DataTableRequest {
 
-    private int page;
-    private int size;
+    private int currentPage;
+    private int pageSize;
     private String order;
     private String sort;
     private Map<String, String[]> requestParamMap;
@@ -15,20 +15,20 @@ public class DataTableRequest {
         requestParamMap = Collections.emptyMap();
     }
 
-    public int getPage() {
-        return page;
+    public int getCurrentPage() {
+        return currentPage;
     }
 
-    public void setPage(int page) {
-        this.page = page;
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
     }
 
-    public int getSize() {
-        return size;
+    public int getPageSize() {
+        return pageSize;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 
     public String getOrder() {
