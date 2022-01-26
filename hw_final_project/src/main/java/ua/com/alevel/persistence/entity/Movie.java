@@ -20,11 +20,11 @@ public class Movie extends BaseEntity {
     @Column(name = "duration", columnDefinition = "TIME")
     private Time duration;
 
-    @Column(name = "country")
-    private String country;
+    @Column(name = "director")
+    private String director;
 
-    @Column(name = "relese_date", columnDefinition = "DATE")
-    private Date releaseDate;
+    @Column(name = "relese_year")
+    private int releaseYear;
 
     @Column(name = "image_url")
     private String imageUrl;
@@ -60,20 +60,20 @@ public class Movie extends BaseEntity {
         this.duration = duration;
     }
 
-    public String getCountry() {
-        return country;
+    public String getDirector() {
+        return director;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setDirector(String director) {
+        this.director = director;
     }
 
-    public Date getReleaseDate() {
-        return releaseDate;
+    public int getReleaseYear() {
+        return releaseYear;
     }
 
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
     }
 
     public String getImageUrl() {
@@ -92,16 +92,17 @@ public class Movie extends BaseEntity {
         this.genre = genre;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Movie movie = (Movie) o;
-        return Objects.equals(title, movie.title) && Objects.equals(description, movie.description) && Objects.equals(duration, movie.duration) && Objects.equals(country, movie.country) && Objects.equals(releaseDate, movie.releaseDate) && Objects.equals(imageUrl, movie.imageUrl) && Objects.equals(genre, movie.genre);
+        return releaseYear == movie.releaseYear && Objects.equals(title, movie.title) && Objects.equals(description, movie.description) && Objects.equals(duration, movie.duration) && Objects.equals(director, movie.director) && Objects.equals(imageUrl, movie.imageUrl) && Objects.equals(genre, movie.genre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, description, duration, country, releaseDate, imageUrl, genre);
+        return Objects.hash(title, description, duration, director, releaseYear, imageUrl, genre);
     }
 }
