@@ -3,8 +3,7 @@ package ua.com.alevel.view.dto.request;
 import ua.com.alevel.persistence.entity.CinemaHall;
 import ua.com.alevel.persistence.entity.Movie;
 
-import java.sql.Time;
-
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,9 +12,9 @@ public class ShowRequestDto extends RequestDto {
 
     private Date date;
 
-    private Time startTime;
+    private LocalTime startTime;
 
-    private Time endTime;
+    private LocalTime endTime;
 
     private CinemaHall cinemaHall;
 
@@ -31,20 +30,20 @@ public class ShowRequestDto extends RequestDto {
         this.date = date;
     }
 
-    public Time getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
-        this.startTime = startTime;
+    public void setStartTime(String startTime) {
+        this.startTime = LocalTime.parse(startTime);
     }
 
-    public Time getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Time endTime) {
-        this.endTime = endTime;
+    public void setEndTime(String endTime) {
+        this.endTime = LocalTime.parse(endTime);
     }
 
     public CinemaHall getCinemaHall() {

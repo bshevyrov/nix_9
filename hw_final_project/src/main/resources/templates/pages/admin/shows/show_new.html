@@ -123,9 +123,28 @@
                                         <p>Start Time : </p>
                                     </div>
                                     <div class="col">
-                                        <input type="time" value="22:00" th:field="*{startTime}">
+                                        <input type="time" id="startTime" th:field="*{startTime}">
+                                        <script>
+                                            function myFunction() {
+                                                let time=  document.getElementById("startTime").value;
+                                                document.getElementById("startTime").value == time.concat(':00');
+                                                console.log(time);
+                                                let time1 = time.concat(':00');
+                                                console.log(time1);
+                                                let time2 = time+':00';
+                                                console.log(time2);
+                                                document.getElementById("startTime").value = time2
 
+                                                time.concat(':00')
+                                                console.log(time);
+                                                console.log( time.concat(':00'));
+                                                console.log('time');
+                                            }
+                                        </script>
                                     </div>
+
+
+
                                 </div>
                                 <div class="row">
                                     <div class="col">
@@ -140,7 +159,7 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <input type="submit" value="Submit"/>
+                                        <input type="submit"  onclick="myFunction()" value="Submit"/>
                                     </div>
                                     <div class="col">
                                         <span>

@@ -53,3 +53,8 @@ INSERT INTO private_cinema_new.cinema_halls (id, cinema_hall_type, name, total_s
 VALUES (4, 'THREE_D', 'RED', 40);
 INSERT INTO private_cinema_new.cinema_halls (id, cinema_hall_type, name, total_seats)
 VALUES (5, 'IMAX', 'BLACK', 60);
+
+
+
+INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
+VALUES (1, '2022-01-12', '23:45:00', '22:00:00', 1, 4);

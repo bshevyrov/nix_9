@@ -60,7 +60,7 @@ public class AdminController extends AbstractController {
                                 @RequestParam long cinemaHall,
                                 @RequestParam long movie,
                                 Model model) {
-        System.out.println(showRequestDto.getDate().toString());
+      //  System.out.println(showRequestDto.getDate().toString());
         showFacade.create(showRequestDto);
 
 //        for (Long l : checkedCourses) {

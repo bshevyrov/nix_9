@@ -14,8 +14,10 @@ public class Booking extends BaseEntity {
     @Column(name = "booking_status")
     @Enumerated(EnumType.STRING)
     private BookingStatus bookingStatus;
+
     @Column(name = "timestamp", columnDefinition = "TIMESTAMP")
     private Timestamp timestamp;
+
     @Column(name = "number_of_seats")
     private int numberOfSeats;
 

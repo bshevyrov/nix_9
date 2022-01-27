@@ -5,6 +5,7 @@ import ua.com.alevel.persistence.entity.Movie;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,9 +14,9 @@ public class ShowResponseDto extends ResponseDto {
 
     private Date date;
 
-    private Timestamp startTime;
+    private LocalTime startTime;
 
-    private Timestamp endTime;
+    private LocalTime endTime;
 
     private CinemaHall cinemaHall;
 
@@ -30,19 +31,19 @@ public class ShowResponseDto extends ResponseDto {
         this.date = date;
     }
 
-    public Timestamp getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Timestamp startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public Timestamp getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Timestamp endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
