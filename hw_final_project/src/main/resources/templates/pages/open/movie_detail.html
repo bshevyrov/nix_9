@@ -9,23 +9,23 @@
 <body>
 
 <div layout:fragment="content">
-    <div class="card mb-3"  id="movie-card">
+    <div class="card mb-3" id="movie-card">
         <div class="row no-gutters">
             <div class="col-md-4">
-                <img th:src="${movie.getImageUrl()}" class="card-img" alt="...">
+                <img alt="..." class="card-img" th:src="${movie.getImageUrl()}">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title" id="title-card" th:text="${movie.getTitle()}"></h5>
-                    <p class="card-text"  style="color:#b9b9b9"  th:text="${movie.getDescription()}"></p>
+                    <p class="card-text" style="color:#b9b9b9" th:text="${movie.getDescription()}"></p>
                     <br>
-                     <p class="card-text"  style="color:#b9b9b9"  th:text="'Director: ' +${movie.getDirector()}"></p>
+                    <p class="card-text" style="color:#b9b9b9" th:text="'Director: ' +${movie.getDirector()}"></p>
                     <br>
-                    <p class="card-text"  style="color:#b9b9b9"  th:text="'Duration: '+${movie.getDuration()}"></p>
+                    <p class="card-text" style="color:#b9b9b9" th:text="'Duration: '+${movie.getDuration()}"></p>
                     <br>
-                    <p class="card-text"  style="color:#b9b9b9"  th:text="'Release year: '+${movie.getReleaseYear()}"></p>
+                    <p class="card-text" style="color:#b9b9b9" th:text="'Release year: '+${movie.getReleaseYear()}"></p>
                     <br>
-                    <p class="card-text"  style="color:#b9b9b9"  th:text="'Genre: '+${movie.getGenre()}"></p>
+                    <p class="card-text" style="color:#b9b9b9" th:text="'Genre: '+${movie.getGenre()}"></p>
                     <br>
 
 
@@ -37,7 +37,7 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
 </div>
 </body>
 </html>

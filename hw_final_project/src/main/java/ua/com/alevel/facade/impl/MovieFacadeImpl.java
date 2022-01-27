@@ -1,6 +1,5 @@
 package ua.com.alevel.facade.impl;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.MovieFacade;
@@ -11,7 +10,6 @@ import ua.com.alevel.service.MovieService;
 import ua.com.alevel.util.ClassConverterUtil;
 import ua.com.alevel.util.FacadeUtil;
 import ua.com.alevel.util.WebRequestUtil;
-import ua.com.alevel.util.WebUtil;
 import ua.com.alevel.view.dto.request.MovieRequestDto;
 import ua.com.alevel.view.dto.request.PageAndSizeData;
 import ua.com.alevel.view.dto.request.SortData;
@@ -49,12 +47,14 @@ public class MovieFacadeImpl implements MovieFacade {
 
     @Override
     public MovieResponseDto findById(long id) {
-        return  ClassConverterUtil.movieToMovieResponseDto( movieService.findById(id).get());
+        return ClassConverterUtil.movieToMovieResponseDto(movieService.findById(id).get());
     }
 
     @Override
     public List<MovieResponseDto> findAll() {
-        return null;
+        return movieService.findAll().stream()
+                .map(ClassConverterUtil::movieToMovieResponseDto)
+                .collect(Collectors.toList());
     }
 
     @Override

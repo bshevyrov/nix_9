@@ -7,6 +7,7 @@ import ua.com.alevel.persistence.entity.Show;
 import ua.com.alevel.persistence.repository.ShowRepository;
 import ua.com.alevel.service.ShowService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,6 +37,11 @@ public class ShowServiceImpl implements ShowService {
     @Override
     public Optional<Show> findById(Long id) {
         return showRepository.findByMovieId(id);
+    }
+
+    @Override
+    public List<Show> findAll() {
+        return null;
     }
 
     @Override

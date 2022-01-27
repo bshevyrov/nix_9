@@ -4,9 +4,9 @@ import ua.com.alevel.view.dto.request.register.AuthDto;
 
 public class ClientRequestDto extends AuthDto {
 
-   private String firstName;
-   private String lastName;
-   private String phone;
+    private String firstName;
+    private String lastName;
+    private String phone;
 
     public String getFirstName() {
         return firstName;

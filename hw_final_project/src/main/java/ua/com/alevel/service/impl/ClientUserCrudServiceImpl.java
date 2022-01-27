@@ -10,6 +10,7 @@ import ua.com.alevel.persistence.repository.user.ClientUserRepository;
 import ua.com.alevel.service.ClientUserCrudService;
 
 import javax.persistence.EntityExistsException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,6 +48,11 @@ public class ClientUserCrudServiceImpl implements ClientUserCrudService {
     @Override
     public Optional<ClientUser> findById(Long id) {
         return Optional.empty();
+    }
+
+    @Override
+    public List<ClientUser> findAll() {
+        return null;
     }
 
     @Override

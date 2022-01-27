@@ -3,19 +3,19 @@ package ua.com.alevel.view.dto.response;
 import ua.com.alevel.persistence.entity.CinemaHall;
 import ua.com.alevel.persistence.entity.Movie;
 
-import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
-public class ShowResponseDto extends  ResponseDto{
+public class ShowResponseDto extends ResponseDto {
 
 
     private Date date;
 
-    private LocalDateTime startTime;
+    private Timestamp startTime;
 
-    private LocalDateTime endTime;
+    private Timestamp endTime;
 
     private CinemaHall cinemaHall;
 
@@ -30,19 +30,19 @@ public class ShowResponseDto extends  ResponseDto{
         this.date = date;
     }
 
-    public LocalDateTime getStartTime() {
+    public Timestamp getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public Timestamp getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
     }
 

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" id="bootstrap-css" rel="stylesheet">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
@@ -27,14 +27,15 @@
                     </li>
                 </ul>
                 <div sec:authorize="isAnonymous()">
-                <a class="btn btn-outline-light text-danger" id="login-btn" th:href="@{'/login'}"
-                   type="button">Login</a>
+                    <a class="btn btn-outline-light text-danger" id="login-btn" th:href="@{'/login'}"
+                       type="button">Login</a>
                 </div>
 
                 <div sec:authorize="hasRole('ROLE_CLIENT')">
-                    <form th:action="@{/logout}" method="post">
+                    <form method="post" th:action="@{/logout}">
                         <button class="btn btn-outline-light text-danger" id="logout-btn" th:href="@{'/logout'}"
-                                type="submit">Logout</button>
+                                type="submit">Logout
+                        </button>
                     </form>
                 </div>
 
@@ -61,21 +62,21 @@
                     </li>
                 </ul>
 
-<!--                <form method="post" name="f" th:action="@{/login}">-->
-                <form th:action="@{/logout}" method="post">
+                <!--                <form method="post" name="f" th:action="@{/login}">-->
+                <form method="post" th:action="@{/logout}">
                     <button class="btn btn-outline-light text-danger" id="logout-btn" th:href="@{'/logout'}"
-                            type="submit">Logout</button>
-<!--                    <button type="submit">Sign Out</button>-->
+                            type="submit">Logout
+                    </button>
+                    <!--                    <button type="submit">Sign Out</button>-->
                 </form>
 
-<!--                <a class="btn btn-outline-light text-danger" id="log-btn" th:href="@{'/logout'}"-->
-<!--                   type="button">Logout</a>-->
+                <!--                <a class="btn btn-outline-light text-danger" id="log-btn" th:href="@{'/logout'}"-->
+                <!--                   type="button">Logout</a>-->
 
 
             </nav>
         </div>
     </div>
-
 
 
 </div>

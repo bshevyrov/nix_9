@@ -3,19 +3,13 @@ package ua.com.alevel.view.controller.auth;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import ua.com.alevel.config.security.SecurityService;
 import ua.com.alevel.facade.AuthValidatorFacade;
 import ua.com.alevel.facade.RegistrationFacade;
 import ua.com.alevel.persistence.type.RoleType;
 import ua.com.alevel.util.SecurityUtil;
 import ua.com.alevel.view.controller.AbstractController;
-import ua.com.alevel.view.dto.request.ClientRequestDto;
-import ua.com.alevel.view.dto.request.RequestDto;
-import ua.com.alevel.view.dto.request.register.AuthDto;
 
 @Controller
 public class AuthController extends AbstractController {

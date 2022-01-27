@@ -18,8 +18,8 @@
         <div class="container">
             <tr>
                 <td>
-                    <a type="button" th:href="@{'/students/delete/' }"
-                       class="btn btn-outline-light text-danger">create</a>
+                    <a class="btn btn-outline-light text-danger" th:href="@{'/admin/show/new' }"
+                       type="button">create</a>
                 </td>
             </tr>
         </div>
@@ -37,16 +37,15 @@
             <td th:text="${show.getMovie().getName()}"></td>
             <td th:text="${show.getCinemaHall.getName()}"></td>
             <td>
-                <a type="button" th:href="@{'/students/delete/' + ${show.getId()}}"
-                   class="btn btn-outline-light text-danger">delete</a>
+                <a class="btn btn-outline-light text-danger" th:href="@{'/students/delete/' + ${show.getId()}}"
+                   type="button">delete</a>
             </td>
             <td>
-                <a type="button" th:href="@{'/students/update/' + ${show.getId()}}"
-                   class="btn btn-outline-light text-primary">update</a>
+                <a class="btn btn-outline-light text-primary" th:href="@{'/students/update/' + ${show.getId()}}"
+                   type="button">update</a>
             </td>
         </tr>
     </div>
-
 
 
 </div>

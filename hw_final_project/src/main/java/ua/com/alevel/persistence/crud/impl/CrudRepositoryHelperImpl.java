@@ -11,6 +11,7 @@ import ua.com.alevel.persistence.entity.BaseEntity;
 import ua.com.alevel.persistence.repository.BaseRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,6 +41,11 @@ public class CrudRepositoryHelperImpl<
     public Optional<E> findById(R repository, Long id) {
         checkExist(repository, id);
         return repository.findById(id);
+    }
+
+    @Override
+    public List<E> findAll(R repository) {
+        return repository.findAll();
     }
 
     @Override

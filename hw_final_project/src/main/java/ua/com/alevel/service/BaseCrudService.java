@@ -4,6 +4,7 @@ import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.BaseEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BaseCrudService<E extends BaseEntity> {
@@ -15,6 +16,8 @@ public interface BaseCrudService<E extends BaseEntity> {
     void delete(Long id);
 
     Optional<E> findById(Long id);
+
+    List<E> findAll();
 
     DataTableResponse<E> findAll(DataTableRequest request);
 }

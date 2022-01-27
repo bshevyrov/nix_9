@@ -20,7 +20,6 @@ a.nav-item.nav-link {
 }
 
 
-
 .sort {
     cursor: pointer;
     margin-right: 2em;
@@ -37,25 +36,25 @@ a.nav-item.nav-link {
 }
 
 
-
-
 #movie-card {
-    background-color: #343a40!important;
+    background-color: #343a40 !important;
 }
 
-#title-card{
+#title-card {
     color: #d9d9d9;
 }
+
 #text-card {
-    color: #b9b9b9!important;
+    color: #b9b9b9 !important;
 }
+
 #login-btn {
     position: absolute;
     left: 90%;
 }
 
 #logout-btn {
-   position: relative;
+    position: relative;
     left: 600%;
 }
 

@@ -25,12 +25,14 @@
                                     <th:block th:if="${columnHeader.isActive()}">
                                         <span th:text="${columnHeader.getHeaderName()}"></span>
                                         <i aria-hidden="true"
-                                           class="fa fa-sort-desc float-right sort" onclick="runSort(this.getAttribute('data-sort'), this.getAttribute('data-order'))"
+                                           class="fa fa-sort-desc float-right sort"
+                                           onclick="runSort(this.getAttribute('data-sort'), this.getAttribute('data-order'))"
                                            th:data-order="${columnHeader.getOrder()}"
                                            th:data-sort="${columnHeader.getSort()}"
                                            th:if="${columnHeader.getOrder().equals('desc')}"></i>
                                         <i aria-hidden="true"
-                                           class="fa fa-sort-asc float-right sort" onclick="runSort(this.getAttribute('data-sort'), this.getAttribute('data-order'))"
+                                           class="fa fa-sort-asc float-right sort"
+                                           onclick="runSort(this.getAttribute('data-sort'), this.getAttribute('data-order'))"
                                            th:data-order="${columnHeader.getOrder()}"
                                            th:data-sort="${columnHeader.getSort()}"
                                            th:if="${columnHeader.getOrder().equals('asc')}"></i>
@@ -61,11 +63,13 @@
                         </div>
                         <div class="d-flex justify-content-end align-items-center">
                             <div class="p-1">Showing [[${pageDataResponse.getCurrentShowFromEntries()}]] to
-                                [[${pageDataResponse.getCurrentShowToEntries()}]] of [[${pageDataResponse.getItemsSize()}]] entries
+                                [[${pageDataResponse.getCurrentShowToEntries()}]] of
+                                [[${pageDataResponse.getItemsSize()}]] entries
                             </div>
                             <div class="p-1">
                                 <div class="dropdown dropup">
-                                    <button aria-expanded="false" aria-haspopup="true" class="btn btn-primary dropdown-toggle"
+                                    <button aria-expanded="false" aria-haspopup="true"
+                                            class="btn btn-primary dropdown-toggle"
                                             data-toggle="dropdown" id="dropdownMenuLink" type="button">
                                         <span th:text="${pageDataResponse.getPageSize()}"></span>
                                     </button>
@@ -79,7 +83,8 @@
                             </div>
                             <div class="p-1" style="margin-top: 1em !important;">
                                 <ul class="pagination align-middle">
-                                    <li class="page-item" th:classappend="${pageDataResponse.isShowFirst() ? '' : 'disabled'}">
+                                    <li class="page-item"
+                                        th:classappend="${pageDataResponse.isShowFirst() ? '' : 'disabled'}">
                                         <a class="page-link" href="#"
                                            th:onclick="|runPagination(1, ${pageDataResponse.getPageSize()}, 0)|"
                                            title="First Page"><i class="fa fa-fast-backward"></i></a>
@@ -93,12 +98,14 @@
                                     <li class="page-item disabled">
                                         <a class="page-link" href="" th:text="${pageDataResponse.getCurrentPage()}">@Model.currentPage</a>
                                     </li>
-                                    <li class="page-item" th:classappend="${pageDataResponse.isShowNext() ? '' : 'disabled'}">
+                                    <li class="page-item"
+                                        th:classappend="${pageDataResponse.isShowNext() ? '' : 'disabled'}">
                                         <a class="page-link" href="#"
                                            th:onclick="|runPagination(${pageDataResponse.getCurrentPage()}, ${pageDataResponse.getPageSize()}, 1)|"
                                            title="Next Page"><i class="fa fa-forward"></i></a>
                                     </li>
-                                    <li class="page-item" th:classappend="${pageDataResponse.isShowLast() ? '' : 'disabled'}">
+                                    <li class="page-item"
+                                        th:classappend="${pageDataResponse.isShowLast() ? '' : 'disabled'}">
                                         <a class="page-link" href="#"
                                            th:onclick="|runPagination(${pageDataResponse.getTotalPageSize()}, ${pageDataResponse.getPageSize()}, 0)|"
                                            title="Last Page"><i class="fa fa-fast-forward"></i></a>

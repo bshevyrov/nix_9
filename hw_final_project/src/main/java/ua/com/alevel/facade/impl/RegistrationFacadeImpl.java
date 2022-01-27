@@ -6,8 +6,6 @@ import ua.com.alevel.persistence.entity.client.Client;
 import ua.com.alevel.persistence.entity.user.ClientUser;
 import ua.com.alevel.service.ClientUserCrudService;
 import ua.com.alevel.view.dto.request.ClientRequestDto;
-import ua.com.alevel.view.dto.request.RequestDto;
-import ua.com.alevel.view.dto.request.register.AuthDto;
 
 
 @Service
@@ -27,10 +25,10 @@ public class RegistrationFacadeImpl implements RegistrationFacade {
 //        clientService.create(clientUser);
 
         Client client = new Client();
-       client.setFirstName(requestDtoDto.getFirstName());
-       client.setLastName(requestDtoDto.getLastName());
-       client.setPhone(requestDtoDto.getPhone());
-       client.setClientUser(clientUser);
+        client.setFirstName(requestDtoDto.getFirstName());
+        client.setLastName(requestDtoDto.getLastName());
+        client.setPhone(requestDtoDto.getPhone());
+        client.setClientUser(clientUser);
 
         clientUser.setClient(client);
         clientService.create(clientUser);

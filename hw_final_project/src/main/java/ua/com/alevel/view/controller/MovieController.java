@@ -8,12 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.config.security.SecurityService;
 import ua.com.alevel.facade.MovieFacade;
-import ua.com.alevel.persistence.type.RoleType;
-import ua.com.alevel.util.SecurityUtil;
 import ua.com.alevel.view.dto.response.MovieResponseDto;
 import ua.com.alevel.view.dto.response.PageDataResponse;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/movies")
@@ -38,11 +34,11 @@ public class MovieController {
         }
         //*/
 
-      //  AbstractController.HeaderName[] columnNames = getColumnNames();
+        //  AbstractController.HeaderName[] columnNames = getColumnNames();
         PageDataResponse<MovieResponseDto> response = movieFacade.findAll(request);
         response.initPaginationState(response.getCurrentPage());
-      //  List<AbstractController.HeaderData> headerDataList = getHeaderDataList(columnNames, response);
-      //  model.addAttribute("headerDataList", headerDataList);
+        //  List<AbstractController.HeaderData> headerDataList = getHeaderDataList(columnNames, response);
+        //  model.addAttribute("headerDataList", headerDataList);
         model.addAttribute("createUrl", "/students/all");
         model.addAttribute("pageData", response);
         model.addAttribute("cardHeader", "All Students");

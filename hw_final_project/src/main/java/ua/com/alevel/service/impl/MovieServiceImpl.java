@@ -8,13 +8,14 @@ import ua.com.alevel.persistence.entity.Movie;
 import ua.com.alevel.persistence.repository.MovieRepository;
 import ua.com.alevel.service.MovieService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class MovieServiceImpl implements MovieService {
 
     private final MovieRepository movieRepository;
-    private final CrudRepositoryHelper<Movie,MovieRepository> crudRepositoryHelper;
+    private final CrudRepositoryHelper<Movie, MovieRepository> crudRepositoryHelper;
 
 
     public MovieServiceImpl(MovieRepository movieRepository, CrudRepositoryHelper<Movie, MovieRepository> crudRepositoryHelper) {
@@ -39,12 +40,17 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Optional<Movie> findById(Long id) {
-        return crudRepositoryHelper.findById(movieRepository,id);
+        return crudRepositoryHelper.findById(movieRepository, id);
+    }
+
+    @Override
+    public List<Movie> findAll() {
+        return crudRepositoryHelper.findAll(movieRepository);
     }
 
     @Override
     public DataTableResponse<Movie> findAll(DataTableRequest request) {
 
-        return crudRepositoryHelper.findAll(movieRepository,request);
+        return crudRepositoryHelper.findAll(movieRepository, request);
     }
 }

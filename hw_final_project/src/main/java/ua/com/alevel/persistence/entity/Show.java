@@ -1,7 +1,9 @@
 package ua.com.alevel.persistence.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
 
@@ -10,16 +12,17 @@ import java.util.Objects;
 public class Show extends BaseEntity {
 
     @Column(name = "date")
-    @Temporal(TemporalType.DATE)
+//    @Temporal(TemporalType.DATE)
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
-    @Column(name = "start_time", columnDefinition = "DATETIME")
+    @Column(name = "start_time", columnDefinition = "TIMESTAMP")
 //        @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime startTime;
+    private Timestamp startTime;
 
-    @Column(name = "end_time", columnDefinition = "DATETIME")
+    @Column(name = "end_time", columnDefinition = "TIMESTAMP")
 //    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime endTime;
+    private Timestamp endTime;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cinema_hall_id", referencedColumnName = "id")
@@ -42,19 +45,19 @@ public class Show extends BaseEntity {
         this.date = date;
     }
 
-    public LocalDateTime getStartTime() {
+    public Timestamp getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public Timestamp getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
     }
 

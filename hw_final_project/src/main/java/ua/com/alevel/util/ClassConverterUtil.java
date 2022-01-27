@@ -1,7 +1,9 @@
 package ua.com.alevel.util;
 
+import ua.com.alevel.persistence.entity.CinemaHall;
 import ua.com.alevel.persistence.entity.Movie;
 import ua.com.alevel.persistence.entity.Show;
+import ua.com.alevel.view.dto.response.CinemaHallResponseDto;
 import ua.com.alevel.view.dto.response.MovieResponseDto;
 import ua.com.alevel.view.dto.response.ShowResponseDto;
 
@@ -86,6 +88,15 @@ public final class ClassConverterUtil {
         movieResponseDto.setTitle(movie.getTitle());
         movieResponseDto.setReleaseYear(movie.getReleaseYear());
         return movieResponseDto;
+    }
+
+    public static CinemaHallResponseDto cinemaHallToCinemaHallResponseDto(CinemaHall cinemaHall) {
+        CinemaHallResponseDto cinemaHallResponseDto = new CinemaHallResponseDto();
+        cinemaHallResponseDto.setId(cinemaHall.getId());
+        cinemaHallResponseDto.setCinemaHallType(cinemaHall.getCinemaHallType());
+        cinemaHallResponseDto.setName(cinemaHall.getName());
+        cinemaHallResponseDto.setTotalSeats(cinemaHall.getTotalSeats());
+        return cinemaHallResponseDto;
     }
 
     public static ShowResponseDto showToShowResponseDto(Show show) {

@@ -15,7 +15,6 @@ import ua.com.alevel.persistence.type.RoleType;
 import ua.com.alevel.util.SecurityUtil;
 import ua.com.alevel.view.controller.AbstractController;
 import ua.com.alevel.view.dto.request.ClientRequestDto;
-import ua.com.alevel.view.dto.request.register.AuthDto;
 
 @Controller
 @RequestMapping("/client/registration")
@@ -56,7 +55,7 @@ public class ClientRegistrationController extends AbstractController {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println(principal.toString());
-        model.addAttribute("user",principal.toString());
+        model.addAttribute("user", principal.toString());
         return redirectProcess(model);
     }
 
