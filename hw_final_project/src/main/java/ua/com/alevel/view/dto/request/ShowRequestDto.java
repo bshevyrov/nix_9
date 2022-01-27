@@ -3,8 +3,10 @@ package ua.com.alevel.view.dto.request;
 import ua.com.alevel.persistence.entity.CinemaHall;
 import ua.com.alevel.persistence.entity.Movie;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class ShowRequestDto extends RequestDto {
@@ -25,9 +27,11 @@ public class ShowRequestDto extends RequestDto {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
 
-        this.date = date;
+        LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.date =   Date.valueOf(       LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
     }
 
     public LocalTime getStartTime() {
@@ -60,6 +64,17 @@ public class ShowRequestDto extends RequestDto {
 
     public void setMovie(Movie movie) {
         this.movie = movie;
+    }
+
+    @Override
+    public String toString() {
+        return "ShowRequestDto{" +
+                "date=" + date +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", cinemaHall=" + cinemaHall.getName() +
+                ", movie=" + movie.getTitle() +
+                '}';
     }
 
     @Override

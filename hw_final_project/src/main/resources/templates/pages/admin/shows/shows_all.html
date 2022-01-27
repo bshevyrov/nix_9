@@ -9,45 +9,55 @@
 <body>
 
 
-<!--<div class="container">-->
-<div layout:fragment="content">
+<section layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-2 mt-2">
+                    <div class="card-header">
+                        All shows
+                    </div>
+                    <div class="card-body">
 
 
-    <div th:if="${shows.getItemsSize() == 0}">
+                        <div th:if="${shows.getItemsSize() > 0}">
 
-        <div class="container">
-            <tr>
-                <td>
-                    <a class="btn btn-outline-light text-danger" th:href="@{'/admin/show/new' }"
-                       type="button">create</a>
-                </td>
-            </tr>
+                            <tr th:each="show,iter : ${shows.getItems()}">
+                                <td th:text="${iter.count}"></td>
+                                <td><a th:href="@{'/students/detail/' + ${show.getId()}}"
+                                       th:text="${show.getId()}"></a></td>
+                                <td th:text="${show.getDate()}"></td>
+                                <td th:text="${show.getStartTime()}"></td>
+                                <td th:text="${show.getEndTime()}"></td>
+                                <td th:text="${show.getMovie().getTitle()}"></td>
+                                <td th:text="${show.getCinemaHall.getName()}"></td>
+                                <td>
+                                    <a class="btn btn-outline-light text-danger"
+                                       th:href="@{'/students/delete/' + ${show.getId()}}"
+                                       type="button">delete</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-light text-primary"
+                                       th:href="@{'/students/update/' + ${show.getId()}}"
+                                       type="button">update</a>
+                                </td>
+                            </tr>
+                        </div>
+                        <div class="container">
+                            <tr>
+                                <td>
+                                    <a class="btn btn-outline-light text-danger" th:href="@{'/admin/show/new' }"
+                                       type="button">create</a>
+                                </td>
+                            </tr>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div th:unless="${shows.getItemsSize() == 0}">
-
-        <tr th:each="show,iter : ${shows.getItems()}">
-            <td th:text="${iter.count}"></td>
-            <td><a th:href="@{'/students/detail/' + ${show.getId()}}"
-                   th:text="${show.getId()}"></a></td>
-            <td th:text="${show.getDate()}"></td>
-            <td th:text="${show.getStartTime()}"></td>
-            <td th:text="${show.getEndTime()}"></td>
-            <td th:text="${show.getMovie().getName()}"></td>
-            <td th:text="${show.getCinemaHall.getName()}"></td>
-            <td>
-                <a class="btn btn-outline-light text-danger" th:href="@{'/students/delete/' + ${show.getId()}}"
-                   type="button">delete</a>
-            </td>
-            <td>
-                <a class="btn btn-outline-light text-primary" th:href="@{'/students/update/' + ${show.getId()}}"
-                   type="button">update</a>
-            </td>
-        </tr>
-    </div>
-
-
-</div>
+</section>
 </body>
 </html>

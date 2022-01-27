@@ -3,6 +3,7 @@ package ua.com.alevel.util;
 import ua.com.alevel.persistence.entity.CinemaHall;
 import ua.com.alevel.persistence.entity.Movie;
 import ua.com.alevel.persistence.entity.Show;
+import ua.com.alevel.view.dto.request.ShowRequestDto;
 import ua.com.alevel.view.dto.response.CinemaHallResponseDto;
 import ua.com.alevel.view.dto.response.MovieResponseDto;
 import ua.com.alevel.view.dto.response.ShowResponseDto;
@@ -110,5 +111,17 @@ public final class ClassConverterUtil {
         responseDto.setStartTime(show.getStartTime());
         return responseDto;
 
+    }
+
+    public static Show SRDtoToEntity(ShowRequestDto showRequestDto) {
+
+        Show show = new Show();
+        show.setId(showRequestDto.getId());
+        show.setCinemaHall(showRequestDto.getCinemaHall());
+        show.setMovie(showRequestDto.getMovie());
+        show.setDate(showRequestDto.getDate());
+        show.setStartTime(showRequestDto.getStartTime());
+        show.setEndTime(showRequestDto.getEndTime());
+        return show;
     }
 }

@@ -11,170 +11,109 @@
 </head>
 <body>
 <section layout:fragment="content">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="card mb-2 mt-2">
-                    <div class="card-header">
-                        New Student
-                    </div>
-                    <div class="card-body">
-                        <form action="#" th:action="@{/admin/show/new}" th:object="${showRequestDto}" method="post">
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header">
+                    New Student
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{/admin/shows/new}" th:object="${showRequestDto}" method="post">
 
-                            <table class="table table-sm table-hover">
-                                <!--        <div class="row" th:if="${studentRequestDto.getId() > 0}">
-                                            <div class="col">
-                                                <p>Id </p>
-                                            </div>
-                                            <div class="col">
-                                                <input type="text" hidden th:field="*{id}" th:value="${studentRequestDto.getId()}">
-                                                <p th:text="${studentRequestDto.getId()}"></p>
-                                            </div>
-                                        </div>-->
-                                <!--<div class="row">
-                                    <div class="col">
-                                        <p>First Name: </p>
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" th:field="*{firstName}">
-                                    </div>
-                                </div>
+                        <table class="table table-sm table-hover">
 
-                                <div class="row">
-                                    <div class="col">
-                                        <p>Last Name : </p>
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" th:field="*{lastName}"/>
-                                    </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Movies : </p>
                                 </div>
-
-                                <div class="row">
+                                <div class="col">
                                     <div class="col">
-                                        <p>Email: </p>
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" th:field="*{email}">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <p>Phone number : </p>
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" th:field="*{phone}"/>
-                                    </div>
-                                </div>
--->
-                                <div class="row">
-                                    <div class="col">
-                                        <p>Movies : </p>
-                                    </div>
-                                    <div class="col">
-                                        <div class="col">
-                                            <div th:each="cinemaHall, iter : ${cinemaHalls}">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio"
-                                                           th:value="${cinemaHall.getId()}"
-                                                           id="cinemaHall"
-                                                           name="cinemaHall"
-                                                           th:checked="${iter.index} == 0">
-                                                    <label class="form-check-label" for="cinemaHall">
-                                                        [[${cinemaHall.getName()}]] </label>
-                                                </div>
+                                        <div th:each="cinemaHall, iter : ${cinemaHalls}">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                       th:value="${cinemaHall.getId()}"
+                                                       id="cinemaHall"
+                                                       name="cinemaHall"
+                                                       th:checked="${iter.index} == 0">
+                                                <label class="form-check-label" for="cinemaHall">
+                                                    [[${cinemaHall.getName()}]] </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <br>
-                                <div class="row">
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Movies : </p>
+                                </div>
+                                <div class="col">
                                     <div class="col">
-                                        <p>Movies : </p>
-                                    </div>
-                                    <div class="col">
-                                        <div class="col">
-                                            <div th:each="movie, iter : ${movies}">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio"
-                                                           th:value="${movie.getId()}"
-                                                           id="movie"
-                                                           name="movie"
-                                                           th:checked="${iter.index} == 0">
-                                                    <label class="form-check-label" for="movie">
-                                                        [[${movie.getTitle()}]] </label>
-                                                </div>
+                                        <div th:each="movie, iter : ${movies}">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio"
+                                                       th:value="${movie.getId()}"
+                                                       id="movie"
+                                                       name="movie"
+                                                       th:checked="${iter.index} == 0">
+                                                <label class="form-check-label" for="movie">
+                                                    [[${movie.getTitle()}]] </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <br>
-                                <div class="row">
-                                    <div class="col">
-                                        <p>Date : </p>
-                                    </div>
-                                    <div class="col">
-                                        <input type="date" th:field="*{date}" name="date" aria-label="+380"/>
-                                    </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Date : </p>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <p>Start Time : </p>
-                                    </div>
-                                    <div class="col">
-                                        <input type="time" id="startTime" th:field="*{startTime}">
-                                        <script>
-                                            function myFunction() {
-                                                let time=  document.getElementById("startTime").value;
-                                                document.getElementById("startTime").value == time.concat(':00');
-                                                console.log(time);
-                                                let time1 = time.concat(':00');
-                                                console.log(time1);
-                                                let time2 = time+':00';
-                                                console.log(time2);
-                                                document.getElementById("startTime").value = time2
-
-                                                time.concat(':00')
-                                                console.log(time);
-                                                console.log( time.concat(':00'));
-                                                console.log('time');
-                                            }
-                                        </script>
-                                    </div>
-
-
-
+                                <div class="col">
+                                    <input type="date" th:field="*{date}" name="date" aria-label="+380"/>
                                 </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <p>End Time : </p>
-                                    </div>
-                                    <div class="col">
-                                        <input type="time" value="22:00" th:field="*{endTime}">
+                            </div>
 
-                                    </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Start Time : </p>
+                                </div>
+                                <div class="col">
+                                    <input type="time" id="startTime" th:field="*{startTime}">
+
                                 </div>
 
 
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="submit"  onclick="myFunction()" value="Submit"/>
-                                    </div>
-                                    <div class="col">
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>End Time : </p>
+                                </div>
+                                <div class="col">
+                                    <input type="time" value="22:00" th:field="*{endTime}">
+
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col">
+                                    <input type="submit" value="Submit"/>
+                                </div>
+                                <div class="col">
                                         <span>
                                         </span>
-                                    </div>
                                 </div>
+                            </div>
 
-                                <input type="hidden" name="_csrf" value="437b30dc-a103-44d0-b4e9-791d8de62986"/>
-                            </table>
-                        </form>
-                    </div>
+                            <input type="hidden" name="_csrf" value="437b30dc-a103-44d0-b4e9-791d8de62986"/>
+                        </table>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 </section>
 </body>
