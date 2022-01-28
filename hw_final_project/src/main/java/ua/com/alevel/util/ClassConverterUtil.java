@@ -1,12 +1,11 @@
 package ua.com.alevel.util;
 
-import ua.com.alevel.persistence.entity.CinemaHall;
-import ua.com.alevel.persistence.entity.Movie;
-import ua.com.alevel.persistence.entity.Show;
+import ua.com.alevel.persistence.entity.*;
+import ua.com.alevel.view.dto.request.CinemaHallSeatRequestDto;
+import ua.com.alevel.view.dto.request.MovieRequestDto;
 import ua.com.alevel.view.dto.request.ShowRequestDto;
-import ua.com.alevel.view.dto.response.CinemaHallResponseDto;
-import ua.com.alevel.view.dto.response.MovieResponseDto;
-import ua.com.alevel.view.dto.response.ShowResponseDto;
+import ua.com.alevel.view.dto.request.ShowSeatRequestDto;
+import ua.com.alevel.view.dto.response.*;
 
 public final class ClassConverterUtil {
 
@@ -91,6 +90,19 @@ public final class ClassConverterUtil {
         return movieResponseDto;
     }
 
+    public static Movie movieRequestDtoToMovie(MovieRequestDto movieRequestDto) {
+        Movie movie = new Movie();
+        movie.setId(movieRequestDto.getId());
+        movie.setDescription(movieRequestDto.getDescription());
+        movie.setImageUrl(movieRequestDto.getImageUrl());
+        movie.setGenre(movieRequestDto.getGenre());
+        movie.setDuration(movieRequestDto.getDuration());
+        movie.setDirector(movieRequestDto.getDirector());
+        movie.setTitle(movieRequestDto.getTitle());
+        movie.setReleaseYear(movieRequestDto.getReleaseYear());
+        return movie;
+    }
+    
     public static CinemaHallResponseDto cinemaHallToCinemaHallResponseDto(CinemaHall cinemaHall) {
         CinemaHallResponseDto cinemaHallResponseDto = new CinemaHallResponseDto();
         cinemaHallResponseDto.setId(cinemaHall.getId());
@@ -124,4 +136,58 @@ public final class ClassConverterUtil {
         show.setEndTime(showRequestDto.getEndTime());
         return show;
     }
+
+    public static CinemaHallSeat cinemaHallSeatResponseDtoToCinemaHallSeat(CinemaHallSeatRequestDto cinemaHallSeatRequestDto) {
+
+        CinemaHallSeat cinemaHallSeat = new CinemaHallSeat();
+        cinemaHallSeat.setCinemaHall(cinemaHallSeat.getCinemaHall());
+        cinemaHallSeat.setId(cinemaHallSeat.getId());
+        cinemaHallSeat.setCinemaSeatType(cinemaHallSeat.getCinemaSeatType());
+        cinemaHallSeat.setSeatNumber(cinemaHallSeat.getSeatNumber());
+
+        return cinemaHallSeat;
+    }
+    public static CinemaHallSeatResponseDto cinemaHallSeatToCinemaHallSeatResponseDto(CinemaHallSeat cinemaHallSeat) {
+
+        CinemaHallSeatResponseDto cinemaHallSeatResponseDto = new CinemaHallSeatResponseDto();
+        cinemaHallSeatResponseDto.setCinemaHall(cinemaHallSeat.getCinemaHall());
+        cinemaHallSeatResponseDto.setId(cinemaHallSeat.getId());
+        cinemaHallSeatResponseDto.setCinemaSeatType(cinemaHallSeat.getCinemaSeatType());
+        cinemaHallSeatResponseDto.setSeatNumber(cinemaHallSeat.getSeatNumber());
+
+        return cinemaHallSeatResponseDto;
+    }
+
+
+
+    public static ShowSeat showSeatResponseDtoToShowSeat(ShowSeatResponseDto showSeatResponseDto) {
+
+        ShowSeat showSeat = new ShowSeat();
+        showSeat.setShow(showSeatResponseDto.getShow());
+        showSeat.setShowSeatStatus(showSeatResponseDto.getShowSeatStatus());
+        showSeat.setPrice(showSeatResponseDto.getPrice());
+        showSeat.setId(showSeatResponseDto.getId());
+        showSeat.setBooking(showSeatResponseDto.getBooking());
+        showSeat.setCinemaHallSeat(showSeatResponseDto.getCinemaHallSeat());
+        
+
+        return showSeat;
+    }
+    public static ShowSeatResponseDto showSeatToShowSeatResponseDto(ShowSeat showSeat) {
+
+        ShowSeatResponseDto showSeatResponseDto = new ShowSeatResponseDto();
+       showSeatResponseDto.setShow(showSeat.getShow());
+       showSeatResponseDto.setShowSeatStatus(showSeat.getShowSeatStatus());
+       showSeatResponseDto.setPrice(showSeat.getPrice());
+       showSeatResponseDto.setId(showSeat.getId());
+       showSeatResponseDto.setBooking(showSeat.getBooking());
+       showSeatResponseDto.setCinemaHallSeat(showSeat.getCinemaHallSeat());
+
+        return showSeatResponseDto;
+    }
+
+
+
+
 }
+

@@ -30,18 +30,19 @@ public class MovieFacadeImpl implements MovieFacade {
     }
 
     @Override
-
     public void create(MovieRequestDto movieRequestDto) {
-
+    movieService.create(ClassConverterUtil.movieRequestDtoToMovie(movieRequestDto));
     }
 
     @Override
     public void delete(long id) {
+        movieService.delete(id);
 
     }
 
     @Override
     public void update(MovieRequestDto movieRequestDto) {
+        movieService.update(ClassConverterUtil.movieRequestDtoToMovie(movieRequestDto));
 
     }
 

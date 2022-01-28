@@ -18,7 +18,7 @@ public class ShowSeat extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cinema_seat_id", referencedColumnName = "id")
-    private CinemaSeat cinemaSeat;
+    private CinemaHallSeat cinemaHallSeat;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "show_id", referencedColumnName = "id")
@@ -48,12 +48,12 @@ public class ShowSeat extends BaseEntity {
         this.price = price;
     }
 
-    public CinemaSeat getCinemaSeat() {
-        return cinemaSeat;
+    public CinemaHallSeat getCinemaHallSeat() {
+        return cinemaHallSeat;
     }
 
-    public void setCinemaSeat(CinemaSeat cinemaSeat) {
-        this.cinemaSeat = cinemaSeat;
+    public void setCinemaHallSeat(CinemaHallSeat cinemaHallSeat) {
+        this.cinemaHallSeat = cinemaHallSeat;
     }
 
     public Show getShow() {
@@ -77,11 +77,11 @@ public class ShowSeat extends BaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ShowSeat showSeat = (ShowSeat) o;
-        return Double.compare(showSeat.price, price) == 0 && showSeatStatus == showSeat.showSeatStatus && Objects.equals(cinemaSeat, showSeat.cinemaSeat) && Objects.equals(show, showSeat.show) && Objects.equals(booking, showSeat.booking);
+        return Double.compare(showSeat.price, price) == 0 && showSeatStatus == showSeat.showSeatStatus && Objects.equals(cinemaHallSeat, showSeat.cinemaHallSeat) && Objects.equals(show, showSeat.show) && Objects.equals(booking, showSeat.booking);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(showSeatStatus, price, cinemaSeat, show, booking);
+        return Objects.hash(showSeatStatus, price, cinemaHallSeat, show, booking);
     }
 }

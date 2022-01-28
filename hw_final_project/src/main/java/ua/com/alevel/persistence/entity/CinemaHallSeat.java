@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "cinema_seats")
-public class CinemaSeat extends BaseEntity {
+public class CinemaHallSeat extends BaseEntity {
 
     @Column(name = "seat_number")
     private int seatNumber;
@@ -20,7 +20,7 @@ public class CinemaSeat extends BaseEntity {
     @JoinColumn(name = "cinema_hall_id", referencedColumnName = "id")
     private CinemaHall cinemaHall;
 
-    public CinemaSeat() {
+    public CinemaHallSeat() {
         super();
     }
 
@@ -53,7 +53,7 @@ public class CinemaSeat extends BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CinemaSeat that = (CinemaSeat) o;
+        CinemaHallSeat that = (CinemaHallSeat) o;
         return seatNumber == that.seatNumber && cinemaSeatType == that.cinemaSeatType && Objects.equals(cinemaHall, that.cinemaHall);
     }
 

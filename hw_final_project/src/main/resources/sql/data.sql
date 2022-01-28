@@ -44,11 +44,11 @@ VALUES (6,
 
 
 INSERT INTO private_cinema_new.cinema_halls (id, cinema_hall_type, name, total_seats)
-VALUES (1, 'TWO_D', 'GREEN', 36);
+VALUES (1, 'TWO_D', 'GREEN', 35);
 INSERT INTO private_cinema_new.cinema_halls (id, cinema_hall_type, name, total_seats)
 VALUES (2, 'THREE_D', 'BLUE', 40);
 INSERT INTO private_cinema_new.cinema_halls (id, cinema_hall_type, name, total_seats)
-VALUES (3, 'TWO_D', 'YELLOW', 36);
+VALUES (3, 'TWO_D', 'YELLOW', 35);
 INSERT INTO private_cinema_new.cinema_halls (id, cinema_hall_type, name, total_seats)
 VALUES (4, 'THREE_D', 'RED', 40);
 INSERT INTO private_cinema_new.cinema_halls (id, cinema_hall_type, name, total_seats)

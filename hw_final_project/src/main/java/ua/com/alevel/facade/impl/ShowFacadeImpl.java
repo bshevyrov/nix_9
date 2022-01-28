@@ -68,17 +68,6 @@ public class ShowFacadeImpl implements ShowFacade {
         return getPageDataResponseFromDataTable(pageAndSizeData, sortData, all);
     }
 
-    private PageDataResponse<ShowResponseDto> getPageDataResponseFromDataTable(PageAndSizeData pageAndSizeData, SortData sortData, DataTableResponse<Show> all) {
-        List<ShowResponseDto> list = all.getItems()
-                .stream()
-                .map(ClassConverterUtil::showToShowResponseDto)
-                .collect(Collectors.toList());
-        PageDataResponse<ShowResponseDto> pageDataResponse = FacadeUtil.getPageDataResponseFromDTResp(list, pageAndSizeData, sortData);
-        pageDataResponse.setItemsSize(all.getItemsSize());
-        pageDataResponse.initPaginationState(pageDataResponse.getCurrentPage());
-        return pageDataResponse;
-    }
-
     @Override
     public ShowResponseDto findByMovieId(long id) {
         return ClassConverterUtil.showToShowResponseDto(showService.findByMovieId(id).get());
@@ -89,5 +78,16 @@ public class ShowFacadeImpl implements ShowFacade {
         return showService.findAllByMovieId(id).stream()
                 .map(ClassConverterUtil::showToShowResponseDto)
                 .collect(Collectors.toList());
+    }
+
+    private PageDataResponse<ShowResponseDto> getPageDataResponseFromDataTable(PageAndSizeData pageAndSizeData, SortData sortData, DataTableResponse<Show> all) {
+        List<ShowResponseDto> list = all.getItems()
+                .stream()
+                .map(ClassConverterUtil::showToShowResponseDto)
+                .collect(Collectors.toList());
+        PageDataResponse<ShowResponseDto> pageDataResponse = FacadeUtil.getPageDataResponseFromDTResp(list, pageAndSizeData, sortData);
+        pageDataResponse.setItemsSize(all.getItemsSize());
+        pageDataResponse.initPaginationState(pageDataResponse.getCurrentPage());
+        return pageDataResponse;
     }
 }
