@@ -58,3 +58,7 @@ VALUES (5, 'IMAX', 'BLACK', 60);
 
 INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
 VALUES (1, '2022-01-12', '23:45:00', '22:00:00', 1, 4);
+INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
+VALUES (2, '2022-01-28', '11:11:00', '11:11:00', 1, 1);
+INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
+VALUES (3, '2022-01-27', '15:11:00', '11:11:00', 2, 1);

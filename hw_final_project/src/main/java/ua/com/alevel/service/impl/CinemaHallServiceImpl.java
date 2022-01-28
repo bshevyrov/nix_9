@@ -24,23 +24,26 @@ public class CinemaHallServiceImpl implements CinemaHallService {
 
     @Override
     public void create(CinemaHall entity) {
-
+crudRepositoryHelper.create(cinemaHallRepository,entity);
     }
 
     @Override
     public void update(CinemaHall entity) {
+        crudRepositoryHelper.update(cinemaHallRepository,entity);
 
     }
 
     @Override
     public void delete(Long id) {
+        crudRepositoryHelper.delete(cinemaHallRepository,id);
 
     }
 
     @Override
     public Optional<CinemaHall> findById(Long id) {
 
-        return Optional.empty();
+        return crudRepositoryHelper.findById(cinemaHallRepository,id);
+
     }
 
     @Override
@@ -50,6 +53,7 @@ public class CinemaHallServiceImpl implements CinemaHallService {
 
     @Override
     public DataTableResponse<CinemaHall> findAll(DataTableRequest request) {
+
         return null;
     }
 }

@@ -2,10 +2,7 @@ package ua.com.alevel.view.controller.admin.movie;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.CinemaHallFacade;
 import ua.com.alevel.facade.MovieFacade;
@@ -16,8 +13,9 @@ import ua.com.alevel.view.dto.response.PageDataResponse;
 import ua.com.alevel.view.dto.response.ShowResponseDto;
 
 @Controller
-@RequestMapping("/shows")
+@RequestMapping("/admin/shows")
 public class AdminShowController extends AdminController {
+
     private final ShowFacade showFacade;
     private final CinemaHallFacade cinemaHallFacade;
     private final MovieFacade movieFacade;
@@ -32,11 +30,16 @@ public class AdminShowController extends AdminController {
     @GetMapping("/all")
     public String getAdminShowsAll(Model model, WebRequest request) {
         PageDataResponse<ShowResponseDto> response = showFacade.findAll(request);
-        System.out.println(response.getItemsSize());
         model.addAttribute("shows", response);
         return "/pages/admin/shows/shows_all";
     }
 
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") long id){
+        showFacade.delete(id);
+        return "redirect:/admin/shows/all";
+
+    }
     @GetMapping("/new")
     public String redirectToNewHallPage(Model model) {
         model.addAttribute("showRequestDto", new ShowRequestDto());
@@ -53,6 +56,6 @@ public class AdminShowController extends AdminController {
 
         showFacade.create(showRequestDto);
 
-        return "redirect:/shows";
+        return "redirect:/admin/shows/all";
     }
 }

@@ -13,15 +13,14 @@ import ua.com.alevel.view.dto.response.PageDataResponse;
 
 @Controller
 @RequestMapping("/movies")
-public class MovieController {
+public class MovieController extends AbstractController {
 
-    private final SecurityService securityService;
     private final MovieFacade movieFacade;
 
-    public MovieController(SecurityService securityService, MovieFacade movieFacade) {
-        this.securityService = securityService;
+    public MovieController(MovieFacade movieFacade) {
         this.movieFacade = movieFacade;
     }
+
 
     @GetMapping()
     public String getFirst(Model model, WebRequest request) {

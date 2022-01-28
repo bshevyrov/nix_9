@@ -1,24 +1,11 @@
 package ua.com.alevel.view.controller.admin;
 
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
-import ua.com.alevel.facade.CinemaHallFacade;
-import ua.com.alevel.facade.MovieFacade;
-import ua.com.alevel.facade.ShowFacade;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ua.com.alevel.view.controller.AbstractController;
-import ua.com.alevel.view.dto.request.ShowRequestDto;
-import ua.com.alevel.view.dto.response.PageDataResponse;
-import ua.com.alevel.view.dto.response.ShowResponseDto;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/")
 public class AdminController extends AbstractController {
 //
 //    private final ShowFacade showFacade;
@@ -29,7 +16,7 @@ public class AdminController extends AbstractController {
 //        this.showFacade = showFacade;
 //        this.cinemaHallFacade = cinemaHallFacade;
 //        this.movieFacade = movieFacade;
-    }
+}
 
 
 //    @GetMapping("/movies/all")
@@ -37,8 +24,6 @@ public class AdminController extends AbstractController {
 //
 //        return "/pages/admin/movies/movies_all";
 //    }
-
-
 
 
 //    @InitBinder

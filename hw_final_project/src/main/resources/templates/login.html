@@ -1,12 +1,70 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:tiles="http://www.w3.org/1999/xhtml">
 <head>
-    <title tiles:fragment="title">Messages : Create</title>
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+
+    <link href="/css/login.css" rel="stylesheet">
+
+<!--    <title tiles:fragment="title">Messages : Create</title>-->
 </head>
-<body>
+<body id = login-body>
+<!--
+
+<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+    <div class="card-header">Header</div>
+    <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+    </div>
+</div>
+-->
+
 <div tiles:fragment="content">
-    <form method="post" name="f" th:action="@{/login}">
+
+
+    <div class="card border-dark mb-3"  >
+        <div class="card-body">
+            <h5 class="card-title">Please Login</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <form method="post" name="f" th:action="@{/login}">
+                <fieldset>
+                    <!--            <legend>Please Login</legend>-->
+                    <div class="alert alert-error" th:if="${param.error}">
+                        Invalid username and password.
+                    </div>
+                    <div class="alert alert-success" th:if="${param.logout}">
+                        You have been logged out.
+                    </div>
+                    <label for="username">Email</label>
+                    <input id="username" name="username" type="email"/>
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password"/>
+                    <div class="form-actions">
+                        <button class="btn" type="submit">Log in</button>
+                    </div>
+                </fieldset>
+            </form>
+
+            <a href="#" class="card-link" th:href="@{/client/registration}">Registration</a>
+<!--
+            <a class="btn" th:href="@{/client/registration}">Registration</a>
+-->
+
+            <a href="#" class="card-link">Another link</a>
+        </div>
+    </div>
+
+
+  <!--  <form method="post" name="f" th:action="@{/login}">
         <fieldset>
-            <legend>Please Login</legend>
+&lt;!&ndash;            <legend>Please Login</legend>&ndash;&gt;
             <div class="alert alert-error" th:if="${param.error}">
                 Invalid username and password.
             </div>
@@ -21,10 +79,9 @@
                 <button class="btn" type="submit">Log in</button>
             </div>
         </fieldset>
-    </form>
+    </form>-->
 </div>
 <div>
-    <a class="btn" th:href="@{/client/registration}">Registration</a>
 </div>
 
 <!--<a class="nav-link disabled" href="/courses/new">Add Course</a>-->

@@ -25,17 +25,17 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void create(Movie entity) {
-
+        crudRepositoryHelper.create(movieRepository, entity);
     }
 
     @Override
     public void update(Movie entity) {
-
+        crudRepositoryHelper.update(movieRepository, entity);
     }
 
     @Override
     public void delete(Long id) {
-
+        crudRepositoryHelper.delete(movieRepository, id);
     }
 
     @Override

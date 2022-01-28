@@ -12,8 +12,10 @@ public class CinemaHall extends BaseEntity {
     @Column(name = "cinema_hall_type")
     @Enumerated(EnumType.STRING)
     CinemaHallType cinemaHallType;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "total_seats")
     private int totalSeats;
 

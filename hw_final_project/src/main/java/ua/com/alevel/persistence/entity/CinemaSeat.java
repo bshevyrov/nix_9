@@ -11,10 +11,12 @@ public class CinemaSeat extends BaseEntity {
 
     @Column(name = "seat_number")
     private int seatNumber;
+
     @Column(name = "cinema_seat_type")
     @Enumerated(EnumType.STRING)
     private CinemaSeatType cinemaSeatType;
-    @OneToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cinema_hall_id", referencedColumnName = "id")
     private CinemaHall cinemaHall;
 

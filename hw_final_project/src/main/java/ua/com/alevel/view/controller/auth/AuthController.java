@@ -33,10 +33,10 @@ public class AuthController extends AbstractController {
         boolean authenticated = securityService.isAuthenticated();
         if (authenticated) {
             if (SecurityUtil.hasRole(RoleType.ROLE_ADMIN.name())) {
-                return "redirect:/admin/dashboard";
+                return "redirect:/movies";
             }
             if (SecurityUtil.hasRole(RoleType.ROLE_CLIENT.name())) {
-                return "redirect:/client/dashboard";
+                return "redirect:/movies";
             }
         }
         if (error != null) {

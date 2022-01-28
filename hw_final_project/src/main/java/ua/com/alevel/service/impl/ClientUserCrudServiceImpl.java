@@ -17,22 +17,22 @@ import java.util.Optional;
 public class ClientUserCrudServiceImpl implements ClientUserCrudService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final ClientUserRepository clientRepository;
+    private final ClientUserRepository clientUserRepository;
     private final CrudRepositoryHelper<ClientUser, ClientUserRepository> crudRepositoryHelper;
 
-    public ClientUserCrudServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, ClientUserRepository clientRepository, CrudRepositoryHelper<ClientUser, ClientUserRepository> crudRepositoryHelper) {
+    public ClientUserCrudServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, ClientUserRepository clientUserRepository, CrudRepositoryHelper<ClientUser, ClientUserRepository> crudRepositoryHelper) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.clientRepository = clientRepository;
+        this.clientUserRepository = clientUserRepository;
         this.crudRepositoryHelper = crudRepositoryHelper;
     }
 
     @Override
     public void create(ClientUser entity) {
-        if (clientRepository.existsByEmail(entity.getEmail())) {
+        if (clientUserRepository.existsByEmail(entity.getEmail())) {
             throw new EntityExistsException("entity already exist");
         }
         entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
-        crudRepositoryHelper.create(clientRepository, entity);
+        crudRepositoryHelper.create(clientUserRepository, entity);
     }
 
     @Override
@@ -52,11 +52,13 @@ public class ClientUserCrudServiceImpl implements ClientUserCrudService {
 
     @Override
     public List<ClientUser> findAll() {
-        return null;
+
+        return crudRepositoryHelper.findAll(clientUserRepository);
     }
 
     @Override
     public DataTableResponse<ClientUser> findAll(DataTableRequest request) {
-        return null;
+        return crudRepositoryHelper
+                .findAll(clientUserRepository,request);
     }
 }

@@ -30,27 +30,33 @@ public class ShowFacadeImpl implements ShowFacade {
 
     @Override
     public void create(ShowRequestDto showRequestDto) {
-    showService.create(ClassConverterUtil.SRDtoToEntity(showRequestDto));
+        showService.create(ClassConverterUtil.SRDtoToEntity(showRequestDto));
     }
 
     @Override
     public void update(ShowRequestDto showRequestDto) {
-
+        showService.update(ClassConverterUtil.SRDtoToEntity(showRequestDto));
     }
 
     @Override
     public void delete(long id) {
-
+        showService.delete(id);
     }
 
     @Override
     public ShowResponseDto findById(long id) {
-        return null;
+        return ClassConverterUtil
+                .showToShowResponseDto(
+                        showService
+                                .findById(id)
+                                .get());
     }
 
     @Override
     public List<ShowResponseDto> findAll() {
-        return null;
+        return showService.findAll().stream()
+                .map(ClassConverterUtil::showToShowResponseDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -73,4 +79,15 @@ public class ShowFacadeImpl implements ShowFacade {
         return pageDataResponse;
     }
 
+    @Override
+    public ShowResponseDto findByMovieId(long id) {
+        return ClassConverterUtil.showToShowResponseDto(showService.findByMovieId(id).get());
+    }
+
+    @Override
+    public List<ShowResponseDto> findAllByMovieId(long id) {
+        return showService.findAllByMovieId(id).stream()
+                .map(ClassConverterUtil::showToShowResponseDto)
+                .collect(Collectors.toList());
+    }
 }
