@@ -16,15 +16,15 @@ public class ShowSeat extends BaseEntity {
     @Column(name = "price")
     private double price;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cinema_seat_id", referencedColumnName = "id")
     private CinemaSeat cinemaSeat;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "show_id", referencedColumnName = "id")
     private Show show;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "booking_id", referencedColumnName = "id")
     private Booking booking;
 

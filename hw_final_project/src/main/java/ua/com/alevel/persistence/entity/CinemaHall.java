@@ -11,7 +11,7 @@ public class CinemaHall extends BaseEntity {
 
     @Column(name = "cinema_hall_type")
     @Enumerated(EnumType.STRING)
-    CinemaHallType cinemaHallType;
+     private CinemaHallType cinemaHallType;
 
     @Column(name = "name")
     private String name;

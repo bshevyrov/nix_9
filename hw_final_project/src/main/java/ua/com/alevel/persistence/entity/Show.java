@@ -29,7 +29,7 @@ public class Show extends BaseEntity {
     @JoinColumn(name = "cinema_hall_id", referencedColumnName = "id")
     private CinemaHall cinemaHall;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private Movie movie;
 

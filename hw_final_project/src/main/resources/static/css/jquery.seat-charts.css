@@ -66,3 +66,18 @@ li.seatCharts-legendItem {
     margin-top: 10px;
     line-height: 2;
 }
+
+#seats{
+
+    display: flex;
+    flex-direction: row;
+
+}
+
+/*
+#details{
+
+    display: flex;
+    flex-direction: row;
+
+}*/
