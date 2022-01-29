@@ -1,8 +1,6 @@
 package ua.com.alevel.util;
 
 import org.apache.commons.lang3.StringUtils;
-import ua.com.alevel.persistence.entity.CinemaHallSeat;
-import ua.com.alevel.persistence.entity.ShowSeat;
 import ua.com.alevel.view.dto.response.CinemaHallSeatResponseDto;
 import ua.com.alevel.view.dto.response.ShowSeatResponseDto;
 
@@ -14,18 +12,42 @@ public final class ShowSeatUtil {
     private ShowSeatUtil() {
     }
 
-    public static String[][] createSeatMap(int totalSeat, List<CinemaHallSeatResponseDto> cinemaHallSeatList) {
+    public static String createSeatMap(int totalSeat, List<CinemaHallSeatResponseDto> cinemaHallSeatList) {
         //Hard code  5 seat in row
         int seatsInRow = 5;
         int row = totalSeat / seatsInRow;
-        String[][] seats = new String[row][seatsInRow];
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("map: [");
+
+
         int index = 0;
         for (int i = 0; i < row; i++) {
+            stringBuilder.append("'");
             for (int j = 0; j < seatsInRow; j++) {
-                seats[i][j] = cinemaHallSeatList.get(index++).getCinemaSeatType().name();
+                if(StringUtils.equals(cinemaHallSeatList.get(index).getCinemaSeatType().name(),"FIRST_CLASS")){
+                    stringBuilder.append("f");
+                }
+                if(StringUtils.equals(cinemaHallSeatList.get(index).getCinemaSeatType().name(),"ECONOMY_CLASS")) {
+                    stringBuilder.append("e");
+                }
+                index++;
             }
+            stringBuilder.append("',");
         }
-        return seats;
+        stringBuilder.append("],");
+        //map: [
+        //                'ff_ffe',
+        //                'ff_ffe',
+        //                'ee_eee',
+        //                'ee_eee',
+        //                'ee___e',
+        //                'ee_eee',
+        //                'ee_eee',
+        //                'ee_eee',
+        //                'eeeeef',
+        //            ],
+        System.out.println(stringBuilder.toString());
+        return stringBuilder.toString();
     }
 
     public static String createSoldSeats(List<ShowSeatResponseDto> showSeats) {

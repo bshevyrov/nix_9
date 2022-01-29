@@ -9,6 +9,17 @@ import java.util.ArrayList;
 
 public class App {
     public static void main(String[] args) {
+
+        int id = 191;
+        for (int i = 41; i <61 ; i++) {
+            System.out.println("INSERT INTO private_cinema_new.cinema_seats (id, cinema_seat_type, seat_number, cinema_hall_id) VALUES ("+(id++)+", 'FIRST_CLASS', "+i+", 5);");
+        }
+
+
+
+
+
+
         ArrayList<String> descriptions = new ArrayList<>();
         ArrayList<TaskHelper> taskHelpers = new ArrayList<>();
         descriptions.add("I can sum all number in a string");
