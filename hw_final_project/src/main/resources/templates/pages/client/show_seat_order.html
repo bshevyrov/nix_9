@@ -14,10 +14,10 @@
 
 <div class="wrapper">
     <div class="container" id="seats">
-        show
+       <!-- show
         movie
         seatMap
-        soldSeats
+        soldSeats-->
         <input type="hidden" th:value="${seatMap}" th:attr="name='seatMap'"/>
 
         <span th:text="${movie.getTitle()}"></span>
@@ -48,6 +48,7 @@
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="/js/jquery.seat-charts.js"></script>
 <script  th:inline="javascript">
+    /*<![CDATA[*/
     var firstSeatLabel = 1;
     $(document).ready(function() {
         var $cart = $('#selected-seats'),
@@ -132,7 +133,6 @@
                     }
                 }
             });
-        console.log(map);
         //this will handle "[cancel]" link clicks
         $('#selected-seats').on('click', '.cancel-cart-item', function () {
             //let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
@@ -140,7 +140,8 @@
         });
 
         //let's pretend some seats have already been booked
-        sc.get(['1_2', '4_1', '7_1', '7_2']).status('unavailable');
+        // sc.get(['1_2', '4_1', '7_1', '7_2']).status('unavailable');
+        sc.get([[${soldSeats}]]).status('unavailable');
 
     });
 
@@ -155,7 +156,7 @@
         return total;
     }
 
-
+    /*]]>*/
 </script>
 </body>
 </html>

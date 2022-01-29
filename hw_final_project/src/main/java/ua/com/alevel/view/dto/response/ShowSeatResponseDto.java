@@ -3,13 +3,9 @@ package ua.com.alevel.view.dto.response;
 import ua.com.alevel.persistence.entity.Booking;
 import ua.com.alevel.persistence.entity.CinemaHallSeat;
 import ua.com.alevel.persistence.entity.Show;
-import ua.com.alevel.persistence.entity.ShowSeat;
 import ua.com.alevel.persistence.type.ShowSeatStatus;
 
-import javax.persistence.*;
-import java.util.Objects;
-
-public class ShowSeatResponseDto extends ResponseDto{
+public class ShowSeatResponseDto extends ResponseDto {
 
     private ShowSeatStatus showSeatStatus;
 
@@ -64,7 +60,6 @@ public class ShowSeatResponseDto extends ResponseDto{
     public void setBooking(Booking booking) {
         this.booking = booking;
     }
-
 
 
 }
