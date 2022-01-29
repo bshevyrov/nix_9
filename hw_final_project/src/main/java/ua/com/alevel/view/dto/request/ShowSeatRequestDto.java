@@ -62,5 +62,14 @@ public class ShowSeatRequestDto extends RequestDto{
     }
 
 
-
+    @Override
+    public String toString() {
+        return "ShowSeatRequestDto{" +
+                "showSeatStatus=" + showSeatStatus +
+                ", price=" + price +
+                ", cinemaHallSeat=" + cinemaHallSeat +
+                ", show=" + show +
+                ", booking=" + booking +
+                '}';
+    }
 }

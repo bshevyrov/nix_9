@@ -1,10 +1,10 @@
 package ua.com.alevel.util;
 
 import ua.com.alevel.persistence.entity.*;
+import ua.com.alevel.view.dto.request.BookingRequestDto;
 import ua.com.alevel.view.dto.request.CinemaHallSeatRequestDto;
 import ua.com.alevel.view.dto.request.MovieRequestDto;
 import ua.com.alevel.view.dto.request.ShowRequestDto;
-import ua.com.alevel.view.dto.request.ShowSeatRequestDto;
 import ua.com.alevel.view.dto.response.*;
 
 public final class ClassConverterUtil {
@@ -102,7 +102,7 @@ public final class ClassConverterUtil {
         movie.setReleaseYear(movieRequestDto.getReleaseYear());
         return movie;
     }
-    
+
     public static CinemaHallResponseDto cinemaHallToCinemaHallResponseDto(CinemaHall cinemaHall) {
         CinemaHallResponseDto cinemaHallResponseDto = new CinemaHallResponseDto();
         cinemaHallResponseDto.setId(cinemaHall.getId());
@@ -137,7 +137,7 @@ public final class ClassConverterUtil {
         return show;
     }
 
-    public static CinemaHallSeat cinemaHallSeatResponseDtoToCinemaHallSeat(CinemaHallSeatRequestDto cinemaHallSeatRequestDto) {
+    public static CinemaHallSeat cinemaHallSeatRequestDtoToCinemaHallSeat(CinemaHallSeatRequestDto cinemaHallSeatRequestDto) {
 
         CinemaHallSeat cinemaHallSeat = new CinemaHallSeat();
         cinemaHallSeat.setCinemaHall(cinemaHallSeat.getCinemaHall());
@@ -147,6 +147,18 @@ public final class ClassConverterUtil {
 
         return cinemaHallSeat;
     }
+
+    public static CinemaHallSeat cinemaHallSeatResponseDtoToCinemaHallSeat(CinemaHallSeatResponseDto cinemaHallSeatRequestDto) {
+
+        CinemaHallSeat cinemaHallSeat = new CinemaHallSeat();
+        cinemaHallSeat.setCinemaHall(cinemaHallSeat.getCinemaHall());
+        cinemaHallSeat.setId(cinemaHallSeat.getId());
+        cinemaHallSeat.setCinemaSeatType(cinemaHallSeat.getCinemaSeatType());
+        cinemaHallSeat.setSeatNumber(cinemaHallSeat.getSeatNumber());
+
+        return cinemaHallSeat;
+    }
+
     public static CinemaHallSeatResponseDto cinemaHallSeatToCinemaHallSeatResponseDto(CinemaHallSeat cinemaHallSeat) {
 
         CinemaHallSeatResponseDto cinemaHallSeatResponseDto = new CinemaHallSeatResponseDto();
@@ -159,7 +171,6 @@ public final class ClassConverterUtil {
     }
 
 
-
     public static ShowSeat showSeatResponseDtoToShowSeat(ShowSeatResponseDto showSeatResponseDto) {
 
         ShowSeat showSeat = new ShowSeat();
@@ -169,25 +180,59 @@ public final class ClassConverterUtil {
         showSeat.setId(showSeatResponseDto.getId());
         showSeat.setBooking(showSeatResponseDto.getBooking());
         showSeat.setCinemaHallSeat(showSeatResponseDto.getCinemaHallSeat());
-        
+
 
         return showSeat;
     }
+
     public static ShowSeatResponseDto showSeatToShowSeatResponseDto(ShowSeat showSeat) {
 
         ShowSeatResponseDto showSeatResponseDto = new ShowSeatResponseDto();
-       showSeatResponseDto.setShow(showSeat.getShow());
-       showSeatResponseDto.setShowSeatStatus(showSeat.getShowSeatStatus());
-       showSeatResponseDto.setPrice(showSeat.getPrice());
-       showSeatResponseDto.setId(showSeat.getId());
-       showSeatResponseDto.setBooking(showSeat.getBooking());
-       showSeatResponseDto.setCinemaHallSeat(showSeat.getCinemaHallSeat());
+        showSeatResponseDto.setShow(showSeat.getShow());
+        showSeatResponseDto.setShowSeatStatus(showSeat.getShowSeatStatus());
+        showSeatResponseDto.setPrice(showSeat.getPrice());
+        showSeatResponseDto.setId(showSeat.getId());
+        showSeatResponseDto.setBooking(showSeat.getBooking());
+        showSeatResponseDto.setCinemaHallSeat(showSeat.getCinemaHallSeat());
 
         return showSeatResponseDto;
     }
 
 
+    public static Show SResponseDtoToEntity(ShowResponseDto showResponseDto) {
+        Show show = new Show();
+        show.setId(showResponseDto.getId());
+        show.setDate(showResponseDto.getDate());
+        show.setCinemaHall(showResponseDto.getCinemaHall());
+        show.setMovie(showResponseDto.getMovie());
+        show.setEndTime(showResponseDto.getEndTime());
+        show.setStartTime(showResponseDto.getStartTime());
+        return show;
 
+    }
 
+    public static Booking bookingRequestDtoToEntity(BookingRequestDto bookingRequestDto) {
+        Booking booking = new Booking();
+
+        booking.setBookingStatus(bookingRequestDto.getBookingStatus());
+        booking.setClient(bookingRequestDto.getClient());
+        booking.setId(bookingRequestDto.getId());
+        //TODO проверить тайм стамп именно когда оплатил
+        booking.setTimestamp(bookingRequestDto.getTimestamp());
+        booking.setNumberOfSeats(bookingRequestDto.getNumberOfSeats());
+
+        return booking;
+    }
+
+    public static BookingResponseDto bookingToResponseDto(Booking booking) {
+        BookingResponseDto bookingResponseDto = new BookingResponseDto();
+
+        bookingResponseDto.setBookingStatus(booking.getBookingStatus());
+        bookingResponseDto.setClient(booking.getClient());
+        bookingResponseDto.setId(booking.getId());
+        bookingResponseDto.setTimestamp(booking.getTimestamp());
+        bookingResponseDto.setNumberOfSeats(booking.getNumberOfSeats());
+        return bookingResponseDto;
+    }
 }
 

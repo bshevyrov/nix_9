@@ -32,13 +32,13 @@ public class CinemaHallSeatFacadeImpl implements CinemaHallSeatFacade {
     @Override
     public void create(CinemaHallSeatRequestDto cinemaHallSeatRequestDto) {
         cinemaHallSeatService.create(ClassConverterUtil
-                .cinemaHallSeatResponseDtoToCinemaHallSeat(cinemaHallSeatRequestDto));
+                .cinemaHallSeatRequestDtoToCinemaHallSeat(cinemaHallSeatRequestDto));
     }
 
     @Override
     public void update(CinemaHallSeatRequestDto cinemaHallSeatRequestDto) {
         cinemaHallSeatService.update(ClassConverterUtil
-                .cinemaHallSeatResponseDtoToCinemaHallSeat(cinemaHallSeatRequestDto));
+                .cinemaHallSeatRequestDtoToCinemaHallSeat(cinemaHallSeatRequestDto));
 
     }
 

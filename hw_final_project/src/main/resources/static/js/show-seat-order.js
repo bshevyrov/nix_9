@@ -1,3 +1,4 @@
+/*
 var firstSeatLabel = 1;
 $(document).ready(function() {
     var $cart = $('#selected-seats'),
@@ -51,12 +52,12 @@ $(document).ready(function() {
                         .data('seatId', this.settings.id)
                         .appendTo($cart);
 
-                    /*
+                    /!*
                      * Lets update the counter and total
                      *
                      * .find function will not find the current seat, because it will change its stauts only after return
                      * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
-                     */
+                     *!/
                     $counter.text(sc.find('selected').length+1);
                     $total.text(recalculateTotal(sc)+this.data().price);
 
@@ -102,3 +103,4 @@ function recalculateTotal(sc) {
 
     return total;
 }
+*/

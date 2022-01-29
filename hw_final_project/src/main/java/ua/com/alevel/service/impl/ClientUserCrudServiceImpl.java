@@ -61,4 +61,14 @@ public class ClientUserCrudServiceImpl implements ClientUserCrudService {
         return crudRepositoryHelper
                 .findAll(clientUserRepository,request);
     }
+
+    @Override
+    public ClientUser findByEmail(String email) {
+        return clientUserRepository.findByEmail(email);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return false;
+    }
 }
