@@ -18,7 +18,6 @@
         movie
         seatMap
         soldSeats-->
-        <input type="hidden" th:value="${seatMap}" th:attr="name='seatMap'"/>
 
         <span th:text="${movie.getTitle()}"></span>
         <span th:text="${show.getDate()}"></span>
@@ -34,9 +33,10 @@
             </ul>
             Total: <b>$<span id="total">0</span></b>
 
-
             <form th:action="@{'/client/show/seat/' + ${show.getId()}}"  method="post">
-                <button type="submit" name="submit" value="value" class="checkout-button"><!--class="link-button"--> This is a link that sends a POST request</button>
+                <input type="hidden" id="wwq" name="wwq" />
+
+                <button type="submit"  onclick="myFunction()" name="submit" value="value" class="checkout-button"><!--class="link-button"--> This is a link that sends a POST request</button>
             </form>
 
 <!--            <button  class="checkout-button">Checkout &raquo;</button>-->
@@ -45,6 +45,7 @@
         </div>
     </div>
 </div>
+
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="/js/jquery.seat-charts.js"></script>
 <script  th:inline="javascript">
@@ -155,8 +156,18 @@
 
         return total;
     }
-
     /*]]>*/
 </script>
+
+<script type="text/javascript">
+    function myFunction() {
+        document.getElementById("wwq").setAttribute('value',document.getElementById('total').innerText);
+        https://stackoverflow.com/questions/8803412/check-if-an-html-input-element-is-empty-or-has-no-value-entered-by-user
+
+        //if aria checket true  get iner text
+    }
+</script>
+
+
 </body>
 </html>

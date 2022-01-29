@@ -61,9 +61,7 @@ public final class ShowSeatUtil {
 
 //            sc.get(['1_2', '4_1', '7_1', '7_2'])
         }
-        System.out.println(  Arrays.toString(setss));
-//        return setss;
+        return setss;
 
-    return new String[]{"1_1"};
 
 }}
