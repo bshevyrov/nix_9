@@ -33,7 +33,6 @@ public final class ShowSeatUtil {
             }
             setss = ArrayUtils.add(setss,stringBuilder.toString());
         }
-        System.out.println(  Arrays.toString(setss));
 
         return setss;
     }

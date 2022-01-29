@@ -34,7 +34,8 @@
             Total: <b>$<span id="total">0</span></b>
 
             <form th:action="@{'/client/show/seat/' + ${show.getId()}}"  method="post">
-                <input type="hidden" id="wwq" name="wwq" />
+                <input type="hidden" id="sum" name="sum"/>
+                <input type="hidden" id="chosenSeats" name="chosenSeats"/>
 
                 <button type="submit"  onclick="myFunction()" name="submit" value="value" class="checkout-button"><!--class="link-button"--> This is a link that sends a POST request</button>
             </form>
@@ -161,13 +162,23 @@
 
 <script type="text/javascript">
     function myFunction() {
-        document.getElementById("wwq").setAttribute('value',document.getElementById('total').innerText);
-        https://stackoverflow.com/questions/8803412/check-if-an-html-input-element-is-empty-or-has-no-value-entered-by-user
+        //write sum to TH
+        document.getElementById("sum").setAttribute('value',document.getElementById('total').innerText);
 
-        //if aria checket true  get iner text
+        //choosen seats
+        let seeeets = [];
+        let elements = document.getElementsByTagName("li");
+        for(let i = 0; i < elements.length; i++) {
+            if(elements[i].className!=='seatCharts-legendItem'){
+                           let num = elements[i].innerText;
+                                let currentS=(num.substring((num.indexOf('#')+2), num.indexOf(':')));
+                seeeets.push(currentS);
+            }
+        }
+        document.getElementById("chosenSeats").setAttribute('value', seeeets);
+
     }
+
 </script>
-
-
 </body>
 </html>

@@ -3,10 +3,7 @@ package ua.com.alevel.view.controller.client;
 import org.apache.catalina.LifecycleState;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ua.com.alevel.facade.CinemaHallSeatFacade;
 import ua.com.alevel.facade.MovieFacade;
 import ua.com.alevel.facade.ShowFacade;
@@ -54,9 +51,13 @@ public class ClientShowSeatOrderController extends AbstractController {
     }
 
     @PostMapping("/seat/{id}")
-    public String seatOrder(@PathVariable("id") long id, Model model){
+    public String seatOrder(@PathVariable("id") long id,
+                            @RequestParam ("sum") int sum,
+                            @RequestParam ("chosenSeats") int[] chosenSeats,
+                            Model model){
+
 //        model.addAttribute("show", showFacade.findById(id));
-        return "/pages/client/show_seat_order";
+        return "redirect:/client/booking";
     }
 
 }
