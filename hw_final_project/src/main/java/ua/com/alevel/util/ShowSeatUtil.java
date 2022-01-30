@@ -48,7 +48,7 @@ public final class ShowSeatUtil {
                 int seatNum = showSeat.getCinemaHallSeat().getSeatNumber();
                 int seatRow = 0;
                 if (seatNum <= seatsInRow) {
-                    seatRow = seatNum;
+                    seatRow = 1;
                 } else {
                     seatRow = ((seatNum / seatsInRow)+1);
                 }

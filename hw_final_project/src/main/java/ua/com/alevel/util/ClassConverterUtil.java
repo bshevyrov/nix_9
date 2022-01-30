@@ -189,7 +189,7 @@ public final class ClassConverterUtil {
 
     public static BookingResponseDto bookingToResponseDto(Booking booking) {
         BookingResponseDto bookingResponseDto = new BookingResponseDto();
-
+        bookingResponseDto.setShow(booking.getShow());
         bookingResponseDto.setBookingStatus(booking.getBookingStatus());
         bookingResponseDto.setUser(booking.getUser());
         bookingResponseDto.setId(booking.getId());
