@@ -33,7 +33,7 @@
             </ul>
             Total: <b>$<span id="total">0</span></b>
 
-            <form th:action="@{'/client/show/seat/' + ${show.getId()}}"  method="post">
+            <form th:action="@{'/clients/show/seat/' + ${show.getId()}}"  method="post">
                 <input type="hidden" id="sum" name="sum"/>
                 <input type="hidden" id="chosenSeats" name="chosenSeats"/>
 

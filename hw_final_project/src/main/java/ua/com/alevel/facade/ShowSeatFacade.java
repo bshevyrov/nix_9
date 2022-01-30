@@ -1,6 +1,5 @@
 package ua.com.alevel.facade;
 
-import ua.com.alevel.persistence.entity.ShowSeat;
 import ua.com.alevel.view.dto.request.ShowSeatRequestDto;
 import ua.com.alevel.view.dto.response.ShowSeatResponseDto;
 

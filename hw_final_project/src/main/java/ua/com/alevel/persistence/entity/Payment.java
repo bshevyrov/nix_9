@@ -1,3 +1,4 @@
+/*
 package ua.com.alevel.persistence.entity;
 
 import javax.persistence.*;
@@ -63,3 +64,4 @@ public class Payment extends BaseEntity {
         return Objects.hash(amount, timeStamp, booking);
     }
 }
+*/

@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.com.alevel.facade.*;
 import ua.com.alevel.persistence.entity.user.User;
+import ua.com.alevel.persistence.type.BookingStatus;
 import ua.com.alevel.persistence.type.ShowSeatStatus;
 import ua.com.alevel.util.ClassConverterUtil;
 import ua.com.alevel.util.SecurityUtil;
@@ -12,6 +13,7 @@ import ua.com.alevel.util.ShowSeatUtil;
 import ua.com.alevel.view.controller.AbstractController;
 import ua.com.alevel.view.dto.request.BookingRequestDto;
 import ua.com.alevel.view.dto.request.ShowSeatRequestDto;
+import ua.com.alevel.view.dto.response.BookingResponseDto;
 import ua.com.alevel.view.dto.response.CinemaHallSeatResponseDto;
 import ua.com.alevel.view.dto.response.ShowResponseDto;
 import ua.com.alevel.view.dto.response.ShowSeatResponseDto;
@@ -19,7 +21,7 @@ import ua.com.alevel.view.dto.response.ShowSeatResponseDto;
 import java.util.List;
 
 @Controller
-@RequestMapping("/client/show")
+@RequestMapping("/clients/show")
 public class ClientShowSeatOrderController extends AbstractController {
 
     private final UserFacade userFacade;
@@ -57,7 +59,7 @@ public class ClientShowSeatOrderController extends AbstractController {
 
         List<ShowSeatResponseDto> showSeatList = showSeatFacade.findAllByShowId(showResponseDto.getId());
         model.addAttribute("soldSeats", ShowSeatUtil.createSoldSeats(showSeatList));
-        return "/pages/client/show_seat_order";
+        return "/pages/clients/show_seat_order";
     }
 
     @PostMapping("/seat/{id}")
@@ -66,7 +68,7 @@ public class ClientShowSeatOrderController extends AbstractController {
                             @RequestParam("chosenSeats") int[] chosenSeats,
                             Model model) {
         System.out.println(SecurityUtil.getUsername());
-
+        long bId = 0L;
         for (int seat : chosenSeats) {
 
             BookingRequestDto bookingRequestDto = new BookingRequestDto();
@@ -74,9 +76,11 @@ public class ClientShowSeatOrderController extends AbstractController {
             User user = ClassConverterUtil.userResponseDtoToEntity(
                     userFacade.findByEmail(userEmail));
             bookingRequestDto.setUser(user);
-            bookingRequestDto.setShow(ClassConverterUtil.showResponseDtoToEntity( showFacade.findById(id)));
+            bookingRequestDto.setTotalPrice(sum);
+            bookingRequestDto.setBookingStatus(BookingStatus.PENDING);
+            bookingRequestDto.setShow(ClassConverterUtil.showResponseDtoToEntity(showFacade.findById(id)));
 
-            bookingFacade.create(bookingRequestDto);
+              bId=bookingFacade.save(bookingRequestDto).getId();
 
 //            userFacade.addBooking(user.getId(),1);
 
@@ -95,13 +99,15 @@ public class ClientShowSeatOrderController extends AbstractController {
             requestDto.setShowSeatStatus(ShowSeatStatus.UNAVAILABLE);
 
 
-
             requestDto.setBooking(ClassConverterUtil.bookingResponseDtoToEntity(
                     bookingFacade.findByUser(user)));
             showSeatFacade.create(requestDto);
         }
-//        model.addAttribute()
-        return "redirect:/client/booking";
+        BookingResponseDto bookingResponseDto = bookingFacade.findById(bId);
+        model.addAttribute("bookingResponseDto",bookingResponseDto);
+        model.addAttribute("bookingId",bId);
+
+        return "pages/clients/booking";
 
     }
    /* @PostMapping("/seat/{id}")
@@ -112,7 +118,7 @@ public class ClientShowSeatOrderController extends AbstractController {
         for (ShowSeatRequestDto showSeat : showSeats) {
             System.out.println(showSeat.toString());
         }
-        return "redirect:/client/booking";
+        return "redirect:/clients/booking";
     }*/
 
 }

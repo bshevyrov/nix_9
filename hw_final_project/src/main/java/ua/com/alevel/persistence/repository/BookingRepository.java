@@ -10,5 +10,6 @@ import java.util.List;
 public interface BookingRepository extends BaseRepository<Booking>{
     Booking findByUser(User user);
 
-//    List<Booking> findAllByUser(User user);
+    List<Booking> findAllByUser(User user);
+
 }

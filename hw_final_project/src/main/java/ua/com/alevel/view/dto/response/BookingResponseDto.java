@@ -4,7 +4,9 @@ import ua.com.alevel.persistence.entity.Show;
 import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.persistence.type.BookingStatus;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 public class BookingResponseDto extends ResponseDto {
 
@@ -18,6 +20,18 @@ public class BookingResponseDto extends ResponseDto {
 
     private User user;
 
+    private double totalPrice;
+
+
+
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     public BookingStatus getBookingStatus() {
         return bookingStatus;
@@ -57,5 +71,18 @@ public class BookingResponseDto extends ResponseDto {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookingResponseDto that = (BookingResponseDto) o;
+        return numberOfSeats == that.numberOfSeats && Double.compare(that.totalPrice, totalPrice) == 0 && bookingStatus == that.bookingStatus && Objects.equals(timestamp, that.timestamp) && Objects.equals(show, that.show) && Objects.equals(user, that.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bookingStatus, timestamp, numberOfSeats, show, user, totalPrice);
     }
 }

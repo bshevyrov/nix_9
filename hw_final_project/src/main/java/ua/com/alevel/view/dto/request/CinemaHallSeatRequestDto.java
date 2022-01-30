@@ -2,7 +2,6 @@ package ua.com.alevel.view.dto.request;
 
 import ua.com.alevel.persistence.entity.CinemaHall;
 import ua.com.alevel.persistence.type.CinemaSeatType;
-import ua.com.alevel.view.dto.response.CinemaHallSeatResponseDto;
 
 import java.util.Objects;
 

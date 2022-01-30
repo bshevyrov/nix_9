@@ -168,7 +168,7 @@ public final class ClassConverterUtil {
         booking.setBookingStatus(bookingRequestDto.getBookingStatus());
         booking.setUser(bookingRequestDto.getUser());
         booking.setShow(bookingRequestDto.getShow());
-//        booking.setId(bookingRequestDto.getId());
+        booking.setId(bookingRequestDto.getId());
         //TODO проверить тайм стамп именно когда оплатил
         booking.setTimestamp(bookingRequestDto.getTimestamp());
         booking.setNumberOfSeats(bookingRequestDto.getNumberOfSeats());

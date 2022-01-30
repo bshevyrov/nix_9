@@ -5,6 +5,7 @@ import ua.com.alevel.persistence.entity.Booking;
 import ua.com.alevel.persistence.type.RoleType;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -35,7 +36,7 @@ public class User extends BaseEntity {
     @Column(name = "phone")
     private String phone;
 
- @OneToMany( fetch = FetchType.LAZY)
+ /*@OneToMany( fetch = FetchType.LAZY)
 private Set<Booking> bookings;
 
     public Set<Booking> getBookings() {
@@ -44,7 +45,7 @@ private Set<Booking> bookings;
 
     public void setBookings(Set<Booking> bookings) {
         this.bookings = bookings;
-    }
+    }*/
 
     public User() {
         super();
@@ -112,8 +113,21 @@ private Set<Booking> bookings;
         this.phone = phone;
     }
 
-    public void addBooking(Booking booking) {
+   /* public void addBooking(Booking booking) {
         bookings.add(booking);
         booking.setUser(this);
+    }*/
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(enabled, user.enabled) && roleType == user.roleType && Objects.equals(FirstName, user.FirstName) && Objects.equals(LastName, user.LastName) && Objects.equals(phone, user.phone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, password, enabled, roleType, FirstName, LastName, phone);
     }
 }

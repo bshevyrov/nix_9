@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <title>Movies</title>
+</head>
+<body>
+
+
+<section layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-2 mt-2">
+                    <div class="card-header">
+                        All shows
+                    </div>
+                    <div class="card-body">
+
+
+<!--                        <div th:if="${bookingList.size() > 0}">-->
+
+                            <tr th:each="booking,iter : ${bookingList}">
+                                <td th:text="${iter.count}"></td>
+<!--                                <td><a th:href="@{'/students/detail/' + ${show.getId()}}"-->
+<!--                                       th:text="${show.getId()}"></a></td>-->
+                                <td th:text="${booking.getId()}"></td>
+                                <td th:text="${booking.getBookingStatus().name()}"></td>
+<!--                                <td th:text="${show.getEndTime()}"></td>-->
+<!--                                <td th:text="${show.getMovie().getTitle()}"></td>-->
+<!--                                <td th:text="${show.getCinemaHall.getName()}"></td>-->
+<!--                                <td>-->
+<!--                                    <a class="btn btn-outline-light text-danger"-->
+<!--                                       th:href="@{'/students/delete/' + ${show.getId()}}"-->
+<!--                                       type="button">delete</a>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <a class="btn btn-outline-light text-primary"-->
+<!--                                       th:href="@{'/students/update/' + ${show.getId()}}"-->
+<!--                                       type="button">update</a>-->
+<!--                                </td>-->
+                            </tr>
+<!--                        </div>-->
+<!--                        <div class="container">-->
+<!--                            <tr>-->
+<!--                                <td>-->
+<!--                                    <a class="btn btn-outline-light text-danger" th:href="@{'/admin/shows/new' }"-->
+<!--                                       type="button">create</a>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </div>-->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--    </div>-->
+</section>
+</body>
+</html>

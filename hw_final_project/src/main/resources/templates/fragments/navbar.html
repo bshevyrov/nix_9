@@ -9,7 +9,7 @@
 </head>
 <body>
 <div th:fragment="navbar">
-    <div sec:authorize="hasRole('ROLE_CLIENT')|| isAnonymous()">
+    <div sec:authorize="hasRole('ROLE_USER')|| isAnonymous()">
         <div class="container">
             <nav class="navbar   navbar-expand-sm navbar-dark bg-dark">
                 <ul class="navbar-nav">

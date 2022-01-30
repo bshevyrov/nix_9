@@ -1,10 +1,10 @@
 package ua.com.alevel.persistence.entity.user;
 
 
-import ua.com.alevel.persistence.entity.BaseEntity;
 import ua.com.alevel.persistence.type.RoleType;
 
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("ADMIN")

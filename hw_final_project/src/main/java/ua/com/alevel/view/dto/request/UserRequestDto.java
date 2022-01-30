@@ -3,10 +3,6 @@ package ua.com.alevel.view.dto.request;
 import ua.com.alevel.persistence.type.RoleType;
 import ua.com.alevel.view.dto.request.register.AuthDto;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
 public class UserRequestDto extends AuthDto {
 
     private String email;

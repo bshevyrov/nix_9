@@ -5,7 +5,6 @@ import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.ShowSeatFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.Show;
 import ua.com.alevel.persistence.entity.ShowSeat;
 import ua.com.alevel.service.ShowSeatService;
 import ua.com.alevel.util.ClassConverterUtil;
@@ -15,7 +14,6 @@ import ua.com.alevel.view.dto.request.PageAndSizeData;
 import ua.com.alevel.view.dto.request.ShowSeatRequestDto;
 import ua.com.alevel.view.dto.request.SortData;
 import ua.com.alevel.view.dto.response.PageDataResponse;
-import ua.com.alevel.view.dto.response.ShowResponseDto;
 import ua.com.alevel.view.dto.response.ShowSeatResponseDto;
 
 import java.util.List;

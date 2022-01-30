@@ -1,14 +1,10 @@
 package ua.com.alevel.persistence.entity;
 
-import org.hibernate.annotations.Cascade;
 import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.persistence.type.BookingStatus;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "bookings")
@@ -24,16 +20,28 @@ public class Booking extends BaseEntity {
     @Column(name = "number_of_seats")
     private int numberOfSeats;
 
+    @Column(name = "total_price")
+    private double totalPrice;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "show_id", referencedColumnName = "id")
     private Show show;
 
-    @ManyToOne(fetch = FetchType.LAZY , cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     public Booking() {
         super();
+    }
+
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public BookingStatus getBookingStatus() {

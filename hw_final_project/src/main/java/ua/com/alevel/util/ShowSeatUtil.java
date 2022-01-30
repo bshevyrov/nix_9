@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import ua.com.alevel.view.dto.response.CinemaHallSeatResponseDto;
 import ua.com.alevel.view.dto.response.ShowSeatResponseDto;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 

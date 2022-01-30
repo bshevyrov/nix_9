@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
-import ua.com.alevel.config.security.SecurityService;
 import ua.com.alevel.facade.MovieFacade;
 import ua.com.alevel.view.dto.response.MovieResponseDto;
 import ua.com.alevel.view.dto.response.PageDataResponse;

@@ -2,10 +2,6 @@ package ua.com.alevel.view.dto.response;
 
 import ua.com.alevel.persistence.type.RoleType;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
 public class UserResponseDto extends ResponseDto{
 
     private String email;

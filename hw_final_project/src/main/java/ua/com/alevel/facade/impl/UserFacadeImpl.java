@@ -6,8 +6,6 @@ import ua.com.alevel.facade.UserFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Booking;
-import ua.com.alevel.persistence.entity.Show;
-import ua.com.alevel.persistence.entity.ShowSeat;
 import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.service.BookingService;
 import ua.com.alevel.service.UserService;
@@ -18,7 +16,6 @@ import ua.com.alevel.view.dto.request.PageAndSizeData;
 import ua.com.alevel.view.dto.request.SortData;
 import ua.com.alevel.view.dto.request.UserRequestDto;
 import ua.com.alevel.view.dto.response.PageDataResponse;
-import ua.com.alevel.view.dto.response.ShowResponseDto;
 import ua.com.alevel.view.dto.response.UserResponseDto;
 
 import java.util.List;
@@ -41,13 +38,13 @@ public class UserFacadeImpl implements UserFacade {
         return ClassConverterUtil.userToUserResponseDto(userService.findByEmail(email));
     }
 
-    @Override
+   /* @Override
     public void addBooking(long userid, long bookingId) {
      User user  =userService.findById(userid).get();
         Booking booking = bookingService.findById(bookingId).get();
         user.addBooking(booking);
         userService.update(user);
-    }
+    }*/
 
     @Override
     public void create(UserRequestDto userRequestDto) {

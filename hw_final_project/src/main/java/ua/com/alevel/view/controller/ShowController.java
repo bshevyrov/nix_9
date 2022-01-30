@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ua.com.alevel.facade.MovieFacade;
 import ua.com.alevel.facade.ShowFacade;
-import ua.com.alevel.persistence.entity.Show;
-import ua.com.alevel.service.MovieService;
-import ua.com.alevel.service.ShowService;
 
 @Controller
 @RequestMapping("/shows")

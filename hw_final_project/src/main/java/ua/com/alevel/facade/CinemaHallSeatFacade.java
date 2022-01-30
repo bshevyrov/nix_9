@@ -1,6 +1,5 @@
 package ua.com.alevel.facade;
 
-import ua.com.alevel.persistence.entity.CinemaHallSeat;
 import ua.com.alevel.view.dto.request.CinemaHallSeatRequestDto;
 import ua.com.alevel.view.dto.response.CinemaHallSeatResponseDto;
 

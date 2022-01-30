@@ -18,6 +18,17 @@ public class BookingRequestDto extends RequestDto{
 
     private User user;
 
+    private double totalPrice;
+
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     public BookingStatus getBookingStatus() {
         return bookingStatus;
     }
