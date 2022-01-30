@@ -85,10 +85,11 @@ public final class ClassConverterUtil {
     public static CinemaHallSeat cinemaHallSeatResponseDtoToCinemaHallSeat(CinemaHallSeatResponseDto cinemaHallSeatRequestDto) {
 
         CinemaHallSeat cinemaHallSeat = new CinemaHallSeat();
-        cinemaHallSeat.setCinemaHall(cinemaHallSeat.getCinemaHall());
-        cinemaHallSeat.setId(cinemaHallSeat.getId());
-        cinemaHallSeat.setCinemaSeatType(cinemaHallSeat.getCinemaSeatType());
-        cinemaHallSeat.setSeatNumber(cinemaHallSeat.getSeatNumber());
+        cinemaHallSeat.setId(cinemaHallSeatRequestDto.getId());
+        cinemaHallSeat.setCinemaHall(cinemaHallSeatRequestDto.getCinemaHall());
+        cinemaHallSeat.setId(cinemaHallSeatRequestDto.getId());
+        cinemaHallSeat.setCinemaSeatType(cinemaHallSeatRequestDto.getCinemaSeatType());
+        cinemaHallSeat.setSeatNumber(cinemaHallSeatRequestDto.getSeatNumber());
 
         return cinemaHallSeat;
     }
@@ -165,7 +166,7 @@ public final class ClassConverterUtil {
         Booking booking = new Booking();
 
         booking.setBookingStatus(bookingRequestDto.getBookingStatus());
-//        booking.setUser(bookingRequestDto.getUser());
+        booking.setUser(bookingRequestDto.getUser());
         booking.setShow(bookingRequestDto.getShow());
 //        booking.setId(bookingRequestDto.getId());
         //TODO проверить тайм стамп именно когда оплатил
@@ -190,7 +191,7 @@ public final class ClassConverterUtil {
         BookingResponseDto bookingResponseDto = new BookingResponseDto();
 
         bookingResponseDto.setBookingStatus(booking.getBookingStatus());
-//        bookingResponseDto.setUser(booking.getUser());
+        bookingResponseDto.setUser(booking.getUser());
         bookingResponseDto.setId(booking.getId());
         bookingResponseDto.setTimestamp(booking.getTimestamp());
         bookingResponseDto.setNumberOfSeats(booking.getNumberOfSeats());
@@ -200,7 +201,7 @@ public final class ClassConverterUtil {
 
     public static User userResponseDtoToEntity(UserResponseDto userResponseDto) {
         User user = new User();
-
+         user.setId(userResponseDto.getId());
         user.setEmail(userResponseDto.getEmail());
         user.setFirstName(userResponseDto.getFirstName());
         user.setLastName(userResponseDto.getLastName());

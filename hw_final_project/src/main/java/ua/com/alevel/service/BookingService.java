@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public interface BookingService extends BaseCrudService<Booking> {
-//    Booking findByUser(User user);
+    Booking findByUser(User user);
 //
 //    List<Booking> findAllByUser(User user);
 }

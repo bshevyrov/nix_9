@@ -78,6 +78,8 @@ public class ClientShowSeatOrderController extends AbstractController {
 
             bookingFacade.create(bookingRequestDto);
 
+//            userFacade.addBooking(user.getId(),1);
+
             ShowSeatRequestDto requestDto = new ShowSeatRequestDto();
             List<CinemaHallSeatResponseDto> responseDtos = cinemaHallSeatFacade.findAll();
             CinemaHallSeatResponseDto responseDto = responseDtos.stream().
@@ -94,8 +96,8 @@ public class ClientShowSeatOrderController extends AbstractController {
 
 
 
-//            requestDto.setBooking(ClassConverterUtil.bookingResponseDtoToEntity(
-//                    bookingFacade.findByUser(user)));
+            requestDto.setBooking(ClassConverterUtil.bookingResponseDtoToEntity(
+                    bookingFacade.findByUser(user)));
             showSeatFacade.create(requestDto);
         }
 //        model.addAttribute()

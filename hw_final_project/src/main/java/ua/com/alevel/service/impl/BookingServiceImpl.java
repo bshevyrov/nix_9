@@ -57,11 +57,11 @@ public class BookingServiceImpl implements BookingService {
         return crudRepositoryHelper.findAll(bookingRepository, request);
     }
 
-//    @Override
-//     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE, rollbackFor = Exception.class)
-//    public Booking findByUser(User user) {
-//        return bookingRepository.findByUser(user);
-//    }
+    @Override
+     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE, rollbackFor = Exception.class)
+    public Booking findByUser(User user) {
+        return bookingRepository.findByUser(user);
+    }
 
 //    @Override
 //    public List<Booking> findAllByUser(User user) {

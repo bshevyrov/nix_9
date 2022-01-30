@@ -6,7 +6,9 @@ import ua.com.alevel.persistence.type.BookingStatus;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "bookings")
@@ -26,9 +28,9 @@ public class Booking extends BaseEntity {
     @JoinColumn(name = "show_id", referencedColumnName = "id")
     private Show show;
 
-//    @ManyToOne(fetch = FetchType.LAZY , cascade = CascadeType.PERSIST)
-//    @JoinColumn(name = "user_id", referencedColumnName = "id")
-//    private User user;
+    @ManyToOne(fetch = FetchType.LAZY , cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     public Booking() {
         super();
@@ -66,12 +68,13 @@ public class Booking extends BaseEntity {
         this.show = show;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
 }

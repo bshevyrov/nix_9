@@ -83,10 +83,10 @@ public class BookingFacadeImpl implements BookingFacade {
     }
 
 
-//    @Override
-//    public BookingResponseDto findByUser(User user) {
-//        return ClassConverterUtil.bookingToResponseDto(bookingService.findByUser(user));
-//    }
+    @Override
+    public BookingResponseDto findByUser(User user) {
+        return ClassConverterUtil.bookingToResponseDto(bookingService.findByUser(user));
+    }
 //
 //    @Override
 //    public List<BookingResponseDto> findAllByUser(User user) {

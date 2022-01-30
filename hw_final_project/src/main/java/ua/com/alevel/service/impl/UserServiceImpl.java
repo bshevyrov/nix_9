@@ -1,6 +1,7 @@
 package ua.com.alevel.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
@@ -40,6 +41,8 @@ crudRepositoryHelper.create(userRepository,entity);
     }
 
     @Override
+    @Transactional(readOnly = true)
+
     public Optional<User> findById(Long id) {
 
         return crudRepositoryHelper.findById(userRepository,id);

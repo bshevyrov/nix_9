@@ -9,7 +9,7 @@ import ua.com.alevel.view.dto.response.BookingResponseDto;
 import java.util.List;
 
 public interface BookingFacade extends BaseFacade<BookingRequestDto, BookingResponseDto> {
-//    BookingResponseDto findByUser(User user);
+    BookingResponseDto findByUser(User user);
 //
 //    List<BookingResponseDto> findAllByUser(User user);
 }

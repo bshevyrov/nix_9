@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface BookingRepository extends BaseRepository<Booking>{
-//    Booking findByUser(User user);
+    Booking findByUser(User user);
 
 //    List<Booking> findAllByUser(User user);
 }

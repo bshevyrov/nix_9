@@ -112,4 +112,8 @@ private Set<Booking> bookings;
         this.phone = phone;
     }
 
+    public void addBooking(Booking booking) {
+        bookings.add(booking);
+        booking.setUser(this);
+    }
 }
