@@ -1,7 +1,7 @@
+/*
 package ua.com.alevel.persistence.entity.client;
 
 import ua.com.alevel.persistence.entity.BaseEntity;
-import ua.com.alevel.persistence.entity.user.ClientUser;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -16,19 +16,29 @@ public class Client extends BaseEntity {
 
     @Column(name = "last_name")
     private String LastName;
-    //    private String password;
-//    private String email;
+
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "phone")
     private String phone;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_user_id", referencedColumnName = "id")
-    private ClientUser clientUser;
+    private ua.com.alevel.persistence.entity.user.Client clientUser;
 
     public Client() {
         super();
     }
 
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getFirstName() {
         return FirstName;
@@ -54,11 +64,11 @@ public class Client extends BaseEntity {
         this.phone = phone;
     }
 
-    public ClientUser getClientUser() {
+    public ua.com.alevel.persistence.entity.user.Client getClientUser() {
         return clientUser;
     }
 
-    public void setClientUser(ClientUser clientUser) {
+    public void setClientUser(ua.com.alevel.persistence.entity.user.Client clientUser) {
         this.clientUser = clientUser;
     }
 
@@ -75,3 +85,4 @@ public class Client extends BaseEntity {
         return Objects.hash(FirstName, LastName, phone, clientUser);
     }
 }
+*/

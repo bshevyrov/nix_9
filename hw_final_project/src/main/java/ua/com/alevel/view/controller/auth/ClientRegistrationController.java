@@ -14,7 +14,7 @@ import ua.com.alevel.facade.RegistrationFacade;
 import ua.com.alevel.persistence.type.RoleType;
 import ua.com.alevel.util.SecurityUtil;
 import ua.com.alevel.view.controller.AbstractController;
-import ua.com.alevel.view.dto.request.ClientRequestDto;
+import ua.com.alevel.view.dto.request.UserRequestDto;
 
 @Controller
 @RequestMapping("/client/registration")
@@ -39,12 +39,12 @@ public class ClientRegistrationController extends AbstractController {
         if (securityService.isAuthenticated()) {
             return redirectProcess(model);
         }
-        model.addAttribute("authForm", new ClientRequestDto());
+        model.addAttribute("authForm", new UserRequestDto());
         return "/pages/client/registration";
     }
 
     @PostMapping
-    public String registration(@ModelAttribute("authForm") ClientRequestDto authForm, BindingResult bindingResult, Model model) {
+    public String registration(@ModelAttribute("authForm") UserRequestDto authForm, BindingResult bindingResult, Model model) {
         showMessage(model, false);
         authValidatorFacade.validate(authForm, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -61,7 +61,7 @@ public class ClientRegistrationController extends AbstractController {
 
     private String redirectProcess(Model model) {
         showMessage(model, false);
-        if (SecurityUtil.hasRole(RoleType.ROLE_CLIENT.name())) {
+        if (SecurityUtil.hasRole(RoleType.ROLE_USER.name())) {
             return "redirect:/client/dashboard";
         }
         return "redirect:/login";

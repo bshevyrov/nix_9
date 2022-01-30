@@ -1,9 +1,8 @@
 package ua.com.alevel.view.dto.response;
 
 import ua.com.alevel.persistence.entity.Show;
-import ua.com.alevel.persistence.entity.user.ClientUser;
+import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.persistence.type.BookingStatus;
-import ua.com.alevel.view.dto.request.RequestDto;
 
 import java.sql.Timestamp;
 
@@ -17,7 +16,7 @@ public class BookingResponseDto extends ResponseDto {
 
     private Show show;
 
-    private ClientUser client;
+    private User user;
 
 
     public BookingStatus getBookingStatus() {
@@ -52,14 +51,11 @@ public class BookingResponseDto extends ResponseDto {
         this.show = show;
     }
 
-    public ClientUser getClient() {
-        return client;
+    public User getUser() {
+        return user;
     }
 
-    public void setClient(ClientUser client) {
-        this.client = client;
+    public void setUser(User user) {
+        this.user = user;
     }
-
-
-
 }

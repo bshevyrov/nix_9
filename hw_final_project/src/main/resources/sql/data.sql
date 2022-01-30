@@ -1,5 +1,5 @@
-INSERT INTO private_cinema_new.users (DTYPE, id, email, enabled, password, role_type)
-VALUES ('CLIENT', 1, 'q@mail.ru', true, '$2a$10$s56Kr5MkqxdsEHlW0dtHoeUzxX4BMIWWnQEoJ3zzewXMCK1z6q5w6', 'ROLE_CLIENT');
+INSERT INTO private_cinema_new.users (DTYPE, id, first_name, last_name, email, enabled, password, phone, role_type) VALUES ('USER', 1, 'Ivan', 'Ivanov', 'q@mail.ru', true, '$2a$10$s56Kr5MkqxdsEHlW0dtHoeUzxX4BMIWWnQEoJ3zzewXMCK1z6q5w6', '+380991234567', 'ROLE_USER');
+
 INSERT INTO private_cinema_new.users (DTYPE, id, email, enabled, password, role_type)
 VALUES ('ADMIN', 2, 'a@mail.ru', true, '$2a$10$s56Kr5MkqxdsEHlW0dtHoeUzxX4BMIWWnQEoJ3zzewXMCK1z6q5w6', 'ROLE_ADMIN');
 

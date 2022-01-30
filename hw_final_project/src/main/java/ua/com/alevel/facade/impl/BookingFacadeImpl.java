@@ -6,6 +6,7 @@ import ua.com.alevel.facade.BookingFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Booking;
+import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.service.BookingService;
 import ua.com.alevel.util.ClassConverterUtil;
 import ua.com.alevel.util.FacadeUtil;
@@ -18,6 +19,8 @@ import ua.com.alevel.view.dto.response.PageDataResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.codehaus.groovy.runtime.DefaultGroovyMethods.collect;
 
 @Service
 public class BookingFacadeImpl implements BookingFacade {
@@ -80,4 +83,15 @@ public class BookingFacadeImpl implements BookingFacade {
     }
 
 
+//    @Override
+//    public BookingResponseDto findByUser(User user) {
+//        return ClassConverterUtil.bookingToResponseDto(bookingService.findByUser(user));
+//    }
+//
+//    @Override
+//    public List<BookingResponseDto> findAllByUser(User user) {
+//        return bookingService.findAllByUser(user).stream()
+//                .map(ClassConverterUtil::bookingToResponseDto)
+//        .collect(Collectors.toList());
+//    }
 }

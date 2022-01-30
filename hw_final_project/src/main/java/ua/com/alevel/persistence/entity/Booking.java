@@ -1,6 +1,7 @@
 package ua.com.alevel.persistence.entity;
 
-import ua.com.alevel.persistence.entity.user.ClientUser;
+import org.hibernate.annotations.Cascade;
+import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.persistence.type.BookingStatus;
 
 import javax.persistence.*;
@@ -21,13 +22,13 @@ public class Booking extends BaseEntity {
     @Column(name = "number_of_seats")
     private int numberOfSeats;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "show_id", referencedColumnName = "id")
     private Show show;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
-    private ClientUser client;
+//    @ManyToOne(fetch = FetchType.LAZY , cascade = CascadeType.PERSIST)
+//    @JoinColumn(name = "user_id", referencedColumnName = "id")
+//    private User user;
 
     public Booking() {
         super();
@@ -65,24 +66,12 @@ public class Booking extends BaseEntity {
         this.show = show;
     }
 
-    public ClientUser getClient() {
-        return client;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
-    public void setClient(ClientUser client) {
-        this.client = client;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Booking booking = (Booking) o;
-        return numberOfSeats == booking.numberOfSeats && bookingStatus == booking.bookingStatus && Objects.equals(timestamp, booking.timestamp) && Objects.equals(show, booking.show) && Objects.equals(client, booking.client);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(bookingStatus, timestamp, numberOfSeats, show, client);
-    }
 }

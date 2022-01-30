@@ -6,9 +6,9 @@ import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.persistence.repository.BaseRepository;
 
 @Repository
-public interface UserRepository<U extends User> extends BaseRepository<U> {
+public interface UserRepository extends BaseRepository<User> {
 
-    U findByEmail(String email);
+    User findByEmail(String email);
 
     boolean existsByEmail(String email);
 }

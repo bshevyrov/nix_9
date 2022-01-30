@@ -1,3 +1,4 @@
+/*
 package ua.com.alevel.persistence.repository;
 
 import org.springframework.stereotype.Repository;
@@ -8,3 +9,4 @@ public interface ClientRepository extends BaseRepository<Client>{
 
     Client findByEmail(String email);
 }
+*/

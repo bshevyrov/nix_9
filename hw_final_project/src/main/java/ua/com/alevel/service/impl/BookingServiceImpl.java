@@ -1,10 +1,14 @@
 package ua.com.alevel.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Booking;
+import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.persistence.repository.BookingRepository;
 import ua.com.alevel.service.BookingService;
 
@@ -23,6 +27,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void create(Booking entity) {
         crudRepositoryHelper.create(bookingRepository, entity);
     }
@@ -51,4 +56,15 @@ public class BookingServiceImpl implements BookingService {
     public DataTableResponse<Booking> findAll(DataTableRequest request) {
         return crudRepositoryHelper.findAll(bookingRepository, request);
     }
+
+//    @Override
+//     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE, rollbackFor = Exception.class)
+//    public Booking findByUser(User user) {
+//        return bookingRepository.findByUser(user);
+//    }
+
+//    @Override
+//    public List<Booking> findAllByUser(User user) {
+//        return bookingRepository.findAllByUser(user);
+//    }
 }

@@ -1,80 +1,14 @@
 package ua.com.alevel.util;
 
 import ua.com.alevel.persistence.entity.*;
-import ua.com.alevel.view.dto.request.BookingRequestDto;
-import ua.com.alevel.view.dto.request.CinemaHallSeatRequestDto;
-import ua.com.alevel.view.dto.request.MovieRequestDto;
-import ua.com.alevel.view.dto.request.ShowRequestDto;
+import ua.com.alevel.persistence.entity.user.User;
+import ua.com.alevel.view.dto.request.*;
 import ua.com.alevel.view.dto.response.*;
 
 public final class ClassConverterUtil {
 
     private ClassConverterUtil() {
     }
-//
-//    public static Student studentRequestDtoToStudent(StudentRequestDto studentRequestDto) {
-//        Student student = new Student();
-//        student.setCreateDate(studentRequestDto.getCreateDate());
-//        student.setId(studentRequestDto.getId());
-//        student.setEmail(studentRequestDto.getEmail());
-//        student.setBirthDate(studentRequestDto.getBirthDate());
-//        student.setFirstName(studentRequestDto.getFirstName());
-//        student.setLastName(studentRequestDto.getLastName());
-//        student.setPhone(studentRequestDto.getPhone());
-//        return student;
-//    }
-//
-//    public static Student resultSetToStudent(ResultSet resultSet) {
-//        Student student = new Student();
-//        try {
-//            student.setId(resultSet.getLong("id"));
-//            student.setCreateDate(resultSet.getDate("create_date"));
-//            student.setFirstName(resultSet.getString("first_name"));
-//            student.setLastName(resultSet.getString("last_name"));
-//            student.setEmail(resultSet.getString("email"));
-//            student.setPhone(resultSet.getString("phone"));
-//            student.setBirthDate(resultSet.getDate("birth_date"));
-//        } catch (SQLException e) {
-//            e.getMessage();
-//        }
-//        return student;
-//    }
-
-//
-//    public static Course courseRequestDtoToCourse(CourseRequestDto courseRequestDto) {
-//        Course course = new Course();
-//        course.setId(courseRequestDto.getId());
-//        course.setCreateDate(courseRequestDto.getCreateDate());
-//        course.setDescription(courseRequestDto.getDescription());
-//        course.setName(courseRequestDto.getName());
-//        course.setCourseType(courseRequestDto.getCourseType());
-//        return course;
-//    }
-
-//    public static Course resultSetToCourse(ResultSet resultSet) {
-//        Course course = new Course();
-//        try {
-//            course.setId(resultSet.getLong("id"));
-//            course.setCreateDate(resultSet.getDate("create_date"));
-//            course.setCourseType(CourseType.valueOf(resultSet.getString("course_type")));
-//            course.setName(resultSet.getString("name"));
-//            course.setDescription(resultSet.getString("description"));
-//        } catch (SQLException e) {
-//            e.getMessage();
-//        }
-//        return course;
-//    }
-
-
-//    public static CourseResponseDto courseToCourseResponseDto(Course course) {
-//        CourseResponseDto courseResponseDto = new CourseResponseDto();
-//        courseResponseDto.setId(course.getId());
-//        courseResponseDto.setCreateDate((Date) course.getCreateDate());
-//        courseResponseDto.setCourseType(course.getCourseType());
-//        courseResponseDto.setName(course.getName());
-//        courseResponseDto.setDescription(course.getDescription());
-//        return courseResponseDto;
-//    }
 
     public static MovieResponseDto movieToMovieResponseDto(Movie movie) {
         MovieResponseDto movieResponseDto = new MovieResponseDto();
@@ -185,6 +119,20 @@ public final class ClassConverterUtil {
         return showSeat;
     }
 
+    public static ShowSeat showSeatRequestDtoToEntity(ShowSeatRequestDto showSeatRequestDto) {
+
+        ShowSeat showSeat = new ShowSeat();
+        showSeat.setShow(showSeatRequestDto.getShow());
+        showSeat.setShowSeatStatus(showSeatRequestDto.getShowSeatStatus());
+        showSeat.setPrice(showSeatRequestDto.getPrice());
+        showSeat.setId(showSeatRequestDto.getId());
+        showSeat.setBooking(showSeatRequestDto.getBooking());
+        showSeat.setCinemaHallSeat(showSeatRequestDto.getCinemaHallSeat());
+
+        return showSeat;
+
+    }
+
     public static ShowSeatResponseDto showSeatToShowSeatResponseDto(ShowSeat showSeat) {
 
         ShowSeatResponseDto showSeatResponseDto = new ShowSeatResponseDto();
@@ -199,7 +147,9 @@ public final class ClassConverterUtil {
     }
 
 
-    public static Show SResponseDtoToEntity(ShowResponseDto showResponseDto) {
+
+
+    public static Show showResponseDtoToEntity(ShowResponseDto showResponseDto) {
         Show show = new Show();
         show.setId(showResponseDto.getId());
         show.setDate(showResponseDto.getDate());
@@ -215,8 +165,9 @@ public final class ClassConverterUtil {
         Booking booking = new Booking();
 
         booking.setBookingStatus(bookingRequestDto.getBookingStatus());
-        booking.setClient(bookingRequestDto.getClient());
-        booking.setId(bookingRequestDto.getId());
+//        booking.setUser(bookingRequestDto.getUser());
+        booking.setShow(bookingRequestDto.getShow());
+//        booking.setId(bookingRequestDto.getId());
         //TODO проверить тайм стамп именно когда оплатил
         booking.setTimestamp(bookingRequestDto.getTimestamp());
         booking.setNumberOfSeats(bookingRequestDto.getNumberOfSeats());
@@ -224,15 +175,68 @@ public final class ClassConverterUtil {
         return booking;
     }
 
+    public static Booking bookingResponseDtoToEntity(BookingResponseDto bookingResponseDto) {
+        Booking booking = new Booking();
+
+        booking.setBookingStatus(bookingResponseDto.getBookingStatus());
+//        booking.setUser(bookingResponseDto.getUser());
+        booking.setId(bookingResponseDto.getId());
+        booking.setTimestamp(bookingResponseDto.getTimestamp());
+        booking.setNumberOfSeats(bookingResponseDto.getNumberOfSeats());
+        return booking;
+    }
+
     public static BookingResponseDto bookingToResponseDto(Booking booking) {
         BookingResponseDto bookingResponseDto = new BookingResponseDto();
 
         bookingResponseDto.setBookingStatus(booking.getBookingStatus());
-        bookingResponseDto.setClient(booking.getClient());
+//        bookingResponseDto.setUser(booking.getUser());
         bookingResponseDto.setId(booking.getId());
         bookingResponseDto.setTimestamp(booking.getTimestamp());
         bookingResponseDto.setNumberOfSeats(booking.getNumberOfSeats());
         return bookingResponseDto;
+    }
+
+
+    public static User userResponseDtoToEntity(UserResponseDto userResponseDto) {
+        User user = new User();
+
+        user.setEmail(userResponseDto.getEmail());
+        user.setFirstName(userResponseDto.getFirstName());
+        user.setLastName(userResponseDto.getLastName());
+        user.setPhone(userResponseDto.getPhone());
+        user.setPassword(userResponseDto.getPassword());
+        user.setRoleType(userResponseDto.getRoleType());
+        user.setEnabled(userResponseDto.getEnabled());
+        return user;
+
+    }
+
+    public static UserResponseDto userToUserResponseDto(User user) {
+
+        UserResponseDto userResponseDto = new UserResponseDto();
+        userResponseDto.setEmail(user.getEmail());
+        userResponseDto.setId(user.getId());
+        userResponseDto.setFirstName(user.getFirstName());
+        userResponseDto.setLastName(user.getLastName());
+        userResponseDto.setPhone(user.getPhone());
+        userResponseDto.setPassword(user.getPassword());
+        userResponseDto.setRoleType(user.getRoleType());
+        userResponseDto.setEnabled(user.getEnabled());
+        return userResponseDto;
+    }
+
+    public static User userRequestDtoToUser(UserRequestDto userRequestDto) {
+        User user = new User();
+       user.setEmail(userRequestDto.getEmail());
+       user.setId(userRequestDto.getId());
+       user.setFirstName(userRequestDto.getFirstName());
+       user.setLastName(userRequestDto.getLastName());
+       user.setPhone(userRequestDto.getPhone());
+       user.setPassword(userRequestDto.getPassword());
+       user.setRoleType(userRequestDto.getRoleType());
+       user.setEnabled(userRequestDto.getEnabled());
+        return user;
     }
 }
 

@@ -4,6 +4,7 @@ import ua.com.alevel.persistence.type.CinemaSeatType;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "cinema_seats")
@@ -16,9 +17,25 @@ public class CinemaHallSeat extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private CinemaSeatType cinemaSeatType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
     @JoinColumn(name = "cinema_hall_id", referencedColumnName = "id")
     private CinemaHall cinemaHall;
+
+
+
+    @OneToMany(
+            cascade = {CascadeType.ALL},
+            fetch = FetchType.LAZY
+    )
+    private Set<ShowSeat> showSeats;
+
+    public Set<ShowSeat> getShowSeats() {
+        return showSeats;
+    }
+
+    public void setShowSeats(Set<ShowSeat> showSeats) {
+        this.showSeats = showSeats;
+    }
 
     public CinemaHallSeat() {
         super();

@@ -33,16 +33,18 @@ public class ShowSeatFacadeImpl implements ShowSeatFacade {
 
     @Override
     public void create(ShowSeatRequestDto showSeatRequestDto) {
-
+        showSeatService.create(ClassConverterUtil.showSeatRequestDtoToEntity(showSeatRequestDto));
     }
 
     @Override
     public void update(ShowSeatRequestDto showSeatRequestDto) {
+        showSeatService.update(ClassConverterUtil.showSeatRequestDtoToEntity(showSeatRequestDto));
 
     }
 
     @Override
     public void delete(long id) {
+        showSeatService.delete(id);
 
     }
 

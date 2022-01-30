@@ -2,35 +2,35 @@ package ua.com.alevel.facade.impl;
 
 import org.springframework.stereotype.Service;
 import ua.com.alevel.facade.RegistrationFacade;
-import ua.com.alevel.persistence.entity.client.Client;
-import ua.com.alevel.persistence.entity.user.ClientUser;
-import ua.com.alevel.service.ClientUserCrudService;
-import ua.com.alevel.view.dto.request.ClientRequestDto;
+import ua.com.alevel.persistence.entity.user.User;
+import ua.com.alevel.service.UserService;
+import ua.com.alevel.view.dto.request.UserRequestDto;
 
 
 @Service
 public class RegistrationFacadeImpl implements RegistrationFacade {
 
-    private final ClientUserCrudService clientService;
+    private final UserService userService;
 
-    public RegistrationFacadeImpl(ClientUserCrudService clientService) {
-        this.clientService = clientService;
+    public RegistrationFacadeImpl(UserService userService) {
+        this.userService = userService;
     }
 
+
     @Override
-    public void registration(ClientRequestDto requestDtoDto) {
-        ClientUser clientUser = new ClientUser();
+    public void registration(UserRequestDto requestDtoDto) {
+        User clientUser = new User();
         clientUser.setEmail(requestDtoDto.getEmail());
         clientUser.setPassword(requestDtoDto.getPassword());
 //        clientService.create(clientUser);
 
-        Client client = new Client();
+        User client = new User();
         client.setFirstName(requestDtoDto.getFirstName());
         client.setLastName(requestDtoDto.getLastName());
         client.setPhone(requestDtoDto.getPhone());
-        client.setClientUser(clientUser);
+//        client.setsetClientUser(clientUser);
 
-        clientUser.setClient(client);
-        clientService.create(clientUser);
+//        clientUser.setClient(client);
+        userService.create(clientUser);
     }
 }

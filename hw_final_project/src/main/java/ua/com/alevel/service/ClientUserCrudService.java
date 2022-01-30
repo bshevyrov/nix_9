@@ -1,9 +1,11 @@
+/*
 package ua.com.alevel.service;
 
-import ua.com.alevel.persistence.entity.user.ClientUser;
+import ua.com.alevel.persistence.entity.user.Client;
 
-public interface ClientUserCrudService extends BaseCrudService<ClientUser> {
-    ClientUser findByEmail(String email);
+public interface ClientUserCrudService extends BaseCrudService<Client> {
+    Client findByEmail(String email);
 
     boolean existsByEmail(String email);
 }
+*/

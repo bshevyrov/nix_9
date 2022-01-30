@@ -1,3 +1,4 @@
+/*
 package ua.com.alevel.persistence.entity.user;
 
 import ua.com.alevel.persistence.entity.client.Client;
@@ -12,11 +13,11 @@ import javax.persistence.OneToOne;
 public class ClientUser extends User {
 
     @OneToOne(mappedBy = "clientUser")
-    private Client client;
+    private ua.com.alevel.persistence.entity.client.Client client;
 
     public ClientUser() {
         super();
-        setRoleType(RoleType.ROLE_CLIENT);
+        setRoleType(RoleType.ROLE_USER);
     }
 
     public Client getClient() {
@@ -27,3 +28,4 @@ public class ClientUser extends User {
         this.client = client;
     }
 }
+*/

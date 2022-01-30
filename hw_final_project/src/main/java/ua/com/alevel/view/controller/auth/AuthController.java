@@ -35,7 +35,7 @@ public class AuthController extends AbstractController {
             if (SecurityUtil.hasRole(RoleType.ROLE_ADMIN.name())) {
                 return "redirect:/movies";
             }
-            if (SecurityUtil.hasRole(RoleType.ROLE_CLIENT.name())) {
+            if (SecurityUtil.hasRole(RoleType.ROLE_USER.name())) {
                 return "redirect:/movies";
             }
         }

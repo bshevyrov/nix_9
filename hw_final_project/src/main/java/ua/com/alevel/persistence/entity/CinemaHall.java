@@ -4,6 +4,7 @@ import ua.com.alevel.persistence.type.CinemaHallType;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "cinema_halls")
@@ -18,6 +19,17 @@ public class CinemaHall extends BaseEntity {
 
     @Column(name = "total_seats")
     private int totalSeats;
+
+@OneToMany(cascade = {CascadeType.ALL})
+private Set<CinemaHallSeat>cinemaHallSeats;
+
+    public Set<CinemaHallSeat> getCinemaHallSeats() {
+        return cinemaHallSeats;
+    }
+
+    public void setCinemaHallSeats(Set<CinemaHallSeat> cinemaHallSeats) {
+        this.cinemaHallSeats = cinemaHallSeats;
+    }
 
     public CinemaHall() {
         super();

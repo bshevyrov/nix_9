@@ -25,32 +25,37 @@ public class CinemaHallSeatServiceImpl implements CinemaHallSeatService {
 
     @Override
     public void create(CinemaHallSeat entity) {
+        crudRepositoryHelper.create(cinemaHallSeatRepository,entity);
 
     }
 
     @Override
     public void update(CinemaHallSeat entity) {
+      crudRepositoryHelper.update(cinemaHallSeatRepository,entity);
 
     }
 
     @Override
     public void delete(Long id) {
+        crudRepositoryHelper.delete(cinemaHallSeatRepository,id);
 
     }
 
     @Override
     public Optional<CinemaHallSeat> findById(Long id) {
-        return Optional.empty();
+           return crudRepositoryHelper.findById(cinemaHallSeatRepository,id);
+
     }
 
     @Override
     public List<CinemaHallSeat> findAll() {
-        return null;
+        return crudRepositoryHelper.findAll(cinemaHallSeatRepository);
     }
 
     @Override
     public DataTableResponse<CinemaHallSeat> findAll(DataTableRequest request) {
-        return null;
+        return
+                crudRepositoryHelper.findAll(cinemaHallSeatRepository,request);
     }
 
     @Override
