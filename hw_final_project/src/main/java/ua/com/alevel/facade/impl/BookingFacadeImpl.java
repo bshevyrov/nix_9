@@ -11,7 +11,7 @@ import ua.com.alevel.persistence.type.BookingStatus;
 import ua.com.alevel.service.BookingService;
 import ua.com.alevel.util.ClassConverterUtil;
 import ua.com.alevel.util.FacadeUtil;
-import ua.com.alevel.util.WebRequestUtil;
+import ua.com.alevel.util.WebUtil;
 import ua.com.alevel.view.dto.request.BookingRequestDto;
 import ua.com.alevel.view.dto.request.PageAndSizeData;
 import ua.com.alevel.view.dto.request.SortData;
@@ -51,7 +51,7 @@ public class BookingFacadeImpl implements BookingFacade {
 
     @Override
     public BookingResponseDto findById(long id) {
-        Booking booking =  bookingService.findById(id).get();
+        Booking booking = bookingService.findById(id).get();
         return ClassConverterUtil.bookingToResponseDto(booking);
     }
 
@@ -65,8 +65,8 @@ public class BookingFacadeImpl implements BookingFacade {
 
     @Override
     public PageDataResponse<BookingResponseDto> findAll(WebRequest request) {
-        PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
-        SortData sortData = WebRequestUtil.generateSortData(request);
+        PageAndSizeData pageAndSizeData = WebUtil.generatePageAndSizeData(request);
+        SortData sortData = WebUtil.generateSortData(request);
         DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
         DataTableResponse<Booking> all = bookingService.findAll(dataTableRequest);
         return getPageDataResponseFromDataTable(pageAndSizeData, sortData, all);
@@ -92,24 +92,24 @@ public class BookingFacadeImpl implements BookingFacade {
 
     @Override
     public BookingResponseDto save(BookingRequestDto requestDto) {
-       return ClassConverterUtil.bookingToResponseDto(
-               bookingService.save(
-                       ClassConverterUtil.
-                               bookingRequestDtoToEntity(requestDto)));
+        return ClassConverterUtil.bookingToResponseDto(
+                bookingService.save(
+                        ClassConverterUtil.
+                                bookingRequestDtoToEntity(requestDto)));
     }
 
     @Override
     public List<BookingResponseDto> findAllByUser(User user) {
         return bookingService.findAllByUser(user).stream()
                 .map(ClassConverterUtil::bookingToResponseDto)
-        .collect(Collectors.toList());
+                .collect(Collectors.toList());
     }
 
     @Override
     public void buy(long id) {
-    Booking booking = bookingService.findById(id).get();
-    booking.setBookingStatus(BookingStatus.SUCCESS);
-    booking.setTimestamp(Timestamp.from(Instant.now()) );
-    bookingService.update(booking);
+        Booking booking = bookingService.findById(id).get();
+        booking.setBookingStatus(BookingStatus.SUCCESS);
+        booking.setTimestamp(Timestamp.from(Instant.now()));
+        bookingService.update(booking);
     }
 }

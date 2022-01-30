@@ -60,7 +60,11 @@ public class BookingServiceImpl implements BookingService {
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE, rollbackFor = Exception.class)
     public Booking findByUser(User user) {
-        return bookingRepository.findByUser(user);
+
+       Booking booking= bookingRepository.findByUser(user);
+
+
+return booking;
     }
 
     @Override

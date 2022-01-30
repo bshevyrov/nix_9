@@ -64,7 +64,7 @@ public class ClientRegistrationController extends AbstractController {
         if (SecurityUtil.hasRole(RoleType.ROLE_USER.name())) {
             return "redirect:/movies";
         }
-        return "redirect:/login";
+        return "redirect:/movies";
 
     }
 

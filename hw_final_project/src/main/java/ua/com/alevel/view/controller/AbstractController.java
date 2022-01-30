@@ -1,20 +1,16 @@
 package ua.com.alevel.view.controller;
 
-import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.com.alevel.view.dto.response.PageDataResponse;
 import ua.com.alevel.view.dto.response.ResponseDto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static ua.com.alevel.util.WebUtil.DEFAULT_ORDER_PARAM_VALUE;
+
 
 public abstract class AbstractController {
 
@@ -34,6 +30,7 @@ public abstract class AbstractController {
 
     protected void showError(RedirectAttributes redirectAttributes, String error) {
         redirectAttributes.addFlashAttribute("errorMessage", error);
+        showMessage(redirectAttributes, true);
     }
 
     protected void showWarn(Model model, String message) {
@@ -49,10 +46,11 @@ public abstract class AbstractController {
         model.addAttribute("showMessage", show);
     }
 
-    protected void initDataTable(
-            PageDataResponse<? extends ResponseDto> response,
-            HeaderName[] columnNames,
-            Model model) {
+    protected void showMessage(RedirectAttributes redirectAttributes, boolean show) {
+        redirectAttributes.addFlashAttribute("showMessage", show);
+    }
+
+    protected <RES extends ResponseDto> List<HeaderData> getHeaderDataList(HeaderName[] columnNames, PageDataResponse<RES> response) {
         List<HeaderData> headerDataList = new ArrayList<>();
         for (HeaderName headerName : columnNames) {
             HeaderData data = new HeaderData();
@@ -72,16 +70,7 @@ public abstract class AbstractController {
             }
             headerDataList.add(data);
         }
-        model.addAttribute("headerDataList", headerDataList);
-        model.addAttribute("pageData", response);
-    }
-
-    public ModelAndView findAllRedirect(WebRequest request, ModelMap model, String redirectUrl) {
-        Map<String, String[]> parameterMap = request.getParameterMap();
-        if (MapUtils.isNotEmpty(parameterMap)) {
-            parameterMap.forEach(model::addAttribute);
-        }
-        return new ModelAndView("redirect:/" + redirectUrl, model);
+        return headerDataList;
     }
 
     protected static class HeaderName {

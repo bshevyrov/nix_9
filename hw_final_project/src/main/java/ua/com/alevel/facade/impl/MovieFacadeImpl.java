@@ -9,7 +9,7 @@ import ua.com.alevel.persistence.entity.Movie;
 import ua.com.alevel.service.MovieService;
 import ua.com.alevel.util.ClassConverterUtil;
 import ua.com.alevel.util.FacadeUtil;
-import ua.com.alevel.util.WebRequestUtil;
+import ua.com.alevel.util.WebUtil;
 import ua.com.alevel.view.dto.request.MovieRequestDto;
 import ua.com.alevel.view.dto.request.PageAndSizeData;
 import ua.com.alevel.view.dto.request.SortData;
@@ -60,8 +60,8 @@ public class MovieFacadeImpl implements MovieFacade {
 
     @Override
     public PageDataResponse<MovieResponseDto> findAll(WebRequest request) {
-        PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
-        SortData sortData = WebRequestUtil.generateSortData(request);
+        PageAndSizeData pageAndSizeData = WebUtil.generatePageAndSizeData(request);
+        SortData sortData = WebUtil.generateSortData(request);
         DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
         DataTableResponse<Movie> all = movieService.findAll(dataTableRequest);
         return getPageDataResponseFromDataTable(pageAndSizeData, sortData, all);

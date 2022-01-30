@@ -49,7 +49,7 @@ public class ClientBookingController extends AbstractController {
 //        model.addAttribute("show", responseDtos);
 //        model.addAttribute("bookingList", responseDtos);
 
-        return "/main/resources/templates/pages/clients/booking/booking_dashboard.html";
+        return "/pages/clients/booking/booking_dashboard";
     }
 
     @GetMapping("/booking/{id}")
@@ -57,7 +57,7 @@ public class ClientBookingController extends AbstractController {
                           Model model) {
         model.addAttribute("booking", bookingFacade.findById(id));
         model.addAttribute("agreement", new BookingRequestDto());
-        return "booking_confirmation";
+        return "/pages/clients/booking/booking_confirmation";
     }
 
     @PostMapping("/booking/{id}")

@@ -1,63 +1,147 @@
 <!DOCTYPE html>
-<html lang="en" layout:decorate="~{layout}"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/data_table}">
 <head>
     <meta charset="utf-8">
-    <title>Movies</title>
+    <title>Shows</title>
 </head>
 <body>
-
-
-<section layout:fragment="content">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="card mb-2 mt-2">
-                    <div class="card-header">
-                        All shows
-                    </div>
-                    <div class="card-body">
-
-
-                        <div th:if="${shows.getItemsSize() > 0}">
-
-                            <tr th:each="show,iter : ${shows.getItems()}">
-                                <td th:text="${iter.count}"></td>
-                                <td><a th:href="@{'/students/detail/' + ${show.getId()}}"
-                                       th:text="${show.getId()}"></a></td>
-                                <td th:text="${show.getDate()}"></td>
-                                <td th:text="${show.getStartTime()}"></td>
-                                <td th:text="${show.getEndTime()}"></td>
-                                <td th:text="${show.getMovie().getTitle()}"></td>
-                                <td th:text="${show.getCinemaHall.getName()}"></td>
-                                <td>
-                                    <a class="btn btn-outline-light text-danger"
-                                       th:href="@{'/students/delete/' + ${show.getId()}}"
-                                       type="button">delete</a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-outline-light text-primary"
-                                       th:href="@{'/students/update/' + ${show.getId()}}"
-                                       type="button">update</a>
-                                </td>
-                            </tr>
-                        </div>
-                        <div class="container">
-                            <tr>
-                                <td>
-                                    <a class="btn btn-outline-light text-danger" th:href="@{'/admin/shows/new' }"
-                                       type="button">create</a>
-                                </td>
-                            </tr>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<div layout:fragment="data_table_content">
+    <tr th:each="show,iter : ${pageDataResponse.getItems()}">
+        <td th:text="${iter.count}"></td>
+        <td><a th:href="@{'/admin/shows/detail/' + ${show.getId()}}"
+               th:text="${show.getId()}"></a></td>
+        <td th:text="${show.getDate()}"></td>
+        <td th:text="${show.getStartTime()}"></td>
+        <td th:text="${show.getEndTime()}"></td>
+        <td th:text="${show.getMovie().getTitle()}"></td>
+        <td th:text="${show.getCinemaHall().getName()}"></td>
+        <td>
+            <a type="button" th:href="@{'/admin/show/delete/' + ${show.getId()}}"
+               class="btn btn-outline-light text-danger">delete</a>
+        </td>
+        <td>
+            <a type="button" th:href="@{'/admin/show/update/' + ${show.getId()}}"
+               class="btn btn-outline-light text-primary">update</a>
+        </td>
+    </tr>
+</div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" layout:decorate="~{layout}"-->
+<!--      xmlns="http://www.w3.org/1999/xhtml"-->
+<!--      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <title>Movies</title>-->
+<!--    <style>-->
+<!--        .row{-->
+<!--              flex: content;-->
+<!--/*-->
+<!--        width: -moz-fit-content;-->
+<!--        width: fit-content;*/-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+
+<!--<section layout:fragment="content">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-12">-->
+<!--                <div class="card mb-2 mt-2">-->
+<!--                    <div class="card-header">-->
+<!--                        All shows-->
+<!--                    </div>-->
+<!--                    <div class="card-body">-->
+
+<!--                        <div th:if="${shows.getItemsSize() > 0}">-->
+
+
+<!--                            <div class="row" th:each="show,iter : ${shows.getItems()}">-->
+<!--                                <div class="col">-->
+<!--                                    <td th:text="${iter.count}"></td>-->
+<!--                                </div>-->
+<!--                                <div class="col">-->
+<!--                                    <td th:text="${show.getDate()}"></td>-->
+<!--                                </div>-->
+<!--                                <div class="col">-->
+<!--                                    <td th:text="${show.getStartTime()}"></td>-->
+<!--                                </div>-->
+<!--                                <div class="col">-->
+<!--                                    <td th:text="${show.getEndTime()}"></td>-->
+<!--                                </div>-->
+<!--                                <div class="col">-->
+<!--                                    <td th:text="${show.getMovie().getTitle()}"></td>-->
+<!--                                </div>-->
+<!--                                <div class="col">-->
+<!--                                    <td th:text="${show.getCinemaHall.getName()}"></td>-->
+<!--                                </div>-->
+<!--                                <div class="col">-->
+<!--                                    <td>-->
+<!--                                        <a class="btn btn-outline-light text-danger"-->
+<!--                                           th:href="@{'/admin/shows/delete/' + ${show.getId()}}"-->
+<!--                                           type="button">delete</a>-->
+<!--                                    </td>-->
+<!--                                </div>-->
+<!--                                <div class="col">-->
+<!--                                    <td>-->
+<!--                                        <a class="btn btn-outline-light text-primary"-->
+<!--                                           th:href="@{'/admin/shows/update/' + ${show.getId()}}"-->
+<!--                                           type="button">update</a>-->
+<!--                                    </td>-->
+<!--                                </div>-->
+
+<!--                            </div>-->
+<!--                            &lt;!&ndash;                            <tr th:each="show,iter : ${shows.getItems()}">&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                <td th:text="${iter.count}"></td>&ndash;&gt;-->
+<!--                            &lt;!&ndash;&lt;!&ndash;&lt;!&ndash;                                <tdth:text="${show.getId()}"></a></td>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--                            &lt;!&ndash;&lt;!&ndash;                                <td th:text="${show.getDate()}"></td>&ndash;&gt;&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                <td th:text="${show.getStartTime()}"></td>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                <td th:text="${show.getEndTime()}"></td>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                <td th:text="${show.getMovie().getTitle()}"></td>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                <td th:text="${show.getCinemaHall.getName()}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <a class="btn btn-outline-light text-danger"&ndash;&gt;-->
+<!--&lt;!&ndash;                                   th:href="@{'/students/delete/' + ${show.getId()}}"&ndash;&gt;-->
+<!--&lt;!&ndash;                                   type="button">delete</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <a class="btn btn-outline-light text-primary"&ndash;&gt;-->
+<!--&lt;!&ndash;                                   th:href="@{'/students/update/' + ${show.getId()}}"&ndash;&gt;-->
+<!--&lt;!&ndash;                                   type="button">update</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <br>&ndash;&gt;-->
+
+<!--                        </div>-->
+<!--                        <div class="container">-->
+<!--                            <tr>-->
+<!--                                <td>-->
+<!--                                    <a class="btn btn-outline-light text-danger" th:href="@{'/admin/shows/new' }"-->
+<!--                                       type="button">create</a>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </div>-->
+
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+<!--</body>-->
+<!--</html>-->

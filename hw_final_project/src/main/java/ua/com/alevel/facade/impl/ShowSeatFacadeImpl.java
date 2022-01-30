@@ -9,7 +9,7 @@ import ua.com.alevel.persistence.entity.ShowSeat;
 import ua.com.alevel.service.ShowSeatService;
 import ua.com.alevel.util.ClassConverterUtil;
 import ua.com.alevel.util.FacadeUtil;
-import ua.com.alevel.util.WebRequestUtil;
+import ua.com.alevel.util.WebUtil;
 import ua.com.alevel.view.dto.request.PageAndSizeData;
 import ua.com.alevel.view.dto.request.ShowSeatRequestDto;
 import ua.com.alevel.view.dto.request.SortData;
@@ -58,8 +58,8 @@ public class ShowSeatFacadeImpl implements ShowSeatFacade {
 
     @Override
     public PageDataResponse<ShowSeatResponseDto> findAll(WebRequest request) {
-        PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
-        SortData sortData = WebRequestUtil.generateSortData(request);
+        PageAndSizeData pageAndSizeData = WebUtil.generatePageAndSizeData(request);
+        SortData sortData = WebUtil.generateSortData(request);
         DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
         DataTableResponse<ShowSeat> all = showSeatService.findAll(dataTableRequest);
         return getPageDataResponseFromDataTable(pageAndSizeData, sortData, all);

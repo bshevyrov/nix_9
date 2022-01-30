@@ -9,7 +9,7 @@ import ua.com.alevel.persistence.entity.CinemaHallSeat;
 import ua.com.alevel.service.CinemaHallSeatService;
 import ua.com.alevel.util.ClassConverterUtil;
 import ua.com.alevel.util.FacadeUtil;
-import ua.com.alevel.util.WebRequestUtil;
+import ua.com.alevel.util.WebUtil;
 import ua.com.alevel.view.dto.request.CinemaHallSeatRequestDto;
 import ua.com.alevel.view.dto.request.PageAndSizeData;
 import ua.com.alevel.view.dto.request.SortData;
@@ -63,8 +63,8 @@ public class CinemaHallSeatFacadeImpl implements CinemaHallSeatFacade {
 
     @Override
     public PageDataResponse<CinemaHallSeatResponseDto> findAll(WebRequest request) {
-        PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
-        SortData sortData = WebRequestUtil.generateSortData(request);
+        PageAndSizeData pageAndSizeData = WebUtil.generatePageAndSizeData(request);
+        SortData sortData = WebUtil.generateSortData(request);
         DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
         DataTableResponse<CinemaHallSeat> all = cinemaHallSeatService.findAll(dataTableRequest);
         return getPageDataResponseFromDataTable(pageAndSizeData, sortData, all);

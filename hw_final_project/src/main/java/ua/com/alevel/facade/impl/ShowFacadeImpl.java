@@ -9,7 +9,7 @@ import ua.com.alevel.persistence.entity.Show;
 import ua.com.alevel.service.ShowService;
 import ua.com.alevel.util.ClassConverterUtil;
 import ua.com.alevel.util.FacadeUtil;
-import ua.com.alevel.util.WebRequestUtil;
+import ua.com.alevel.util.WebUtil;
 import ua.com.alevel.view.dto.request.PageAndSizeData;
 import ua.com.alevel.view.dto.request.ShowRequestDto;
 import ua.com.alevel.view.dto.request.SortData;
@@ -61,8 +61,8 @@ public class ShowFacadeImpl implements ShowFacade {
 
     @Override
     public PageDataResponse<ShowResponseDto> findAll(WebRequest request) {
-        PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
-        SortData sortData = WebRequestUtil.generateSortData(request);
+        PageAndSizeData pageAndSizeData = WebUtil.generatePageAndSizeData(request);
+        SortData sortData = WebUtil.generateSortData(request);
         DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
         DataTableResponse<Show> all = showService.findAll(dataTableRequest);
         return getPageDataResponseFromDataTable(pageAndSizeData, sortData, all);

@@ -5,13 +5,12 @@ import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.UserFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.Booking;
 import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.service.BookingService;
 import ua.com.alevel.service.UserService;
 import ua.com.alevel.util.ClassConverterUtil;
 import ua.com.alevel.util.FacadeUtil;
-import ua.com.alevel.util.WebRequestUtil;
+import ua.com.alevel.util.WebUtil;
 import ua.com.alevel.view.dto.request.PageAndSizeData;
 import ua.com.alevel.view.dto.request.SortData;
 import ua.com.alevel.view.dto.request.UserRequestDto;
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 public class UserFacadeImpl implements UserFacade {
 
     private final UserService userService;
- private final BookingService bookingService;
+    private final BookingService bookingService;
 
     public UserFacadeImpl(UserService userService, BookingService bookingService) {
         this.userService = userService;
@@ -66,7 +65,7 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public UserResponseDto findById(long id) {
-        return     ClassConverterUtil.userToUserResponseDto(userService.findById(id).get());
+        return ClassConverterUtil.userToUserResponseDto(userService.findById(id).get());
 
     }
 
@@ -79,8 +78,8 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public PageDataResponse<UserResponseDto> findAll(WebRequest request) {
-        PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
-        SortData sortData = WebRequestUtil.generateSortData(request);
+        PageAndSizeData pageAndSizeData = WebUtil.generatePageAndSizeData(request);
+        SortData sortData = WebUtil.generateSortData(request);
         DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
         DataTableResponse<User> all = userService.findAll(dataTableRequest);
         return getPageDataResponseFromDataTable(pageAndSizeData, sortData, all);

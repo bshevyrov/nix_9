@@ -5,8 +5,12 @@ import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.BaseEntity;
+import ua.com.alevel.view.dto.request.PageAndSizeData;
+import ua.com.alevel.view.dto.request.SortData;
 import ua.com.alevel.view.dto.response.PageDataResponse;
 import ua.com.alevel.view.dto.response.ResponseDto;
+
+import java.util.Objects;
 
 public final class WebUtil {
 
@@ -23,7 +27,25 @@ public final class WebUtil {
 
     private WebUtil() {
     }
+    public static PageAndSizeData generatePageAndSizeData(WebRequest webRequest) {
+        int page = webRequest.getParameter(PAGE_PARAM) != null ? Integer.parseInt(Objects.requireNonNull(webRequest.getParameter(PAGE_PARAM))) : DEFAULT_PAGE_PARAM_VALUE;
+        int size = webRequest.getParameter(SIZE_PARAM) != null ? Integer.parseInt(Objects.requireNonNull(webRequest.getParameter(SIZE_PARAM))) : DEFAULT_SIZE_PARAM_VALUE;
+        return new PageAndSizeData(page, size);
+    }
 
+    public static PageAndSizeData defaultPageAndSizeData() {
+        return new PageAndSizeData(DEFAULT_PAGE_PARAM_VALUE, DEFAULT_SIZE_PARAM_VALUE);
+    }
+
+    public static SortData generateSortData(WebRequest webRequest) {
+        String sort = StringUtils.isNotBlank(webRequest.getParameter(SORT_PARAM)) ? Objects.requireNonNull(webRequest.getParameter(SORT_PARAM)) : DEFAULT_SORT_PARAM_VALUE;
+        String order = StringUtils.isNotBlank(webRequest.getParameter(ORDER_PARAM)) ? Objects.requireNonNull(webRequest.getParameter(ORDER_PARAM)) : DEFAULT_ORDER_PARAM_VALUE;
+        return new SortData(sort, order);
+    }
+
+    public static SortData defaultSortData() {
+        return new SortData(DEFAULT_SORT_PARAM_VALUE, DEFAULT_ORDER_PARAM_VALUE);
+    }
     public static DataTableRequest generateDataTableRequestByWebRequest(WebRequest request) {
         DataTableRequest dataTableRequest = new DataTableRequest();
         int page = StringUtils.isBlank(request.getParameter(PAGE_PARAM))
