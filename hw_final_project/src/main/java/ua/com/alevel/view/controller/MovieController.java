@@ -10,6 +10,8 @@ import ua.com.alevel.facade.MovieFacade;
 import ua.com.alevel.view.dto.response.MovieResponseDto;
 import ua.com.alevel.view.dto.response.PageDataResponse;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/movies")
 public class MovieController extends AbstractController {
@@ -33,15 +35,15 @@ public class MovieController extends AbstractController {
         //*/
 
         //  AbstractController.HeaderName[] columnNames = getColumnNames();
-        PageDataResponse<MovieResponseDto> response = movieFacade.findAll(request);
-        response.initPaginationState(response.getCurrentPage());
-        //  List<AbstractController.HeaderData> headerDataList = getHeaderDataList(columnNames, response);
-        //  model.addAttribute("headerDataList", headerDataList);
-        model.addAttribute("createUrl", "/students/all");
-        model.addAttribute("pageData", response);
-        model.addAttribute("cardHeader", "All Students");
-        model.addAttribute("allowCreate", true);
-        model.addAttribute("createNewItemUrl", "/students/new");
+        List<MovieResponseDto> response = movieFacade.findAll();
+//        response.initPaginationState(response.getCurrentPage());
+//          List<HeaderData> headerDataList = getHeaderDataList(columnNames, response);
+//          model.addAttribute("headerDataList", headerDataList);
+//        model.addAttribute("createUrl", "/students/all");
+        model.addAttribute("pageDataResponse", response);
+//        model.addAttribute("cardHeader", "All Students");
+//        model.addAttribute("allowCreate", true);
+//        model.addAttribute("createNewItemUrl", "/students/new");
 //        return "/pages/student/student_all";
 
 
@@ -54,5 +56,17 @@ public class MovieController extends AbstractController {
         model.addAttribute("movie", byId);
         return "/pages/clients/movie/movie_detail";
     }
-
+    private HeaderName[] getColumnNames() {
+        return new HeaderName[]{
+                new HeaderName("#", null, null),
+                new HeaderName("Id", "id", "id"),
+                new HeaderName("Date", "date", "date"),
+                new HeaderName("Start time", "start_time", "startTime"),
+                new HeaderName("End time", "end_time", "emdTime"),
+                new HeaderName("Movie", "movie", "movie"),
+                new HeaderName("Cinema Hall", "cinema_hall", "cinemaHall"),
+                new HeaderName("Delete", null, null),
+                new HeaderName("Update", null, null)
+        };
+    }
 }

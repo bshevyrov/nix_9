@@ -12,7 +12,7 @@ public class CinemaHall extends BaseEntity {
 
     @Column(name = "cinema_hall_type")
     @Enumerated(EnumType.STRING)
-     private CinemaHallType cinemaHallType;
+    private CinemaHallType cinemaHallType;
 
     @Column(name = "name")
     private String name;
@@ -20,8 +20,8 @@ public class CinemaHall extends BaseEntity {
     @Column(name = "total_seats")
     private int totalSeats;
 
-@OneToMany(cascade = {CascadeType.ALL})
-private Set<CinemaHallSeat>cinemaHallSeats;
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    private Set<CinemaHallSeat> cinemaHallSeats;
 
     public Set<CinemaHallSeat> getCinemaHallSeats() {
         return cinemaHallSeats;

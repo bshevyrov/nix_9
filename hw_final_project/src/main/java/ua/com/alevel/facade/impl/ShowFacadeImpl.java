@@ -80,6 +80,14 @@ public class ShowFacadeImpl implements ShowFacade {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public PageDataResponse<ShowResponseDto> findAllByMovieId(long id, WebRequest request) {
+        PageAndSizeData pageAndSizeData = WebUtil.generatePageAndSizeData(request);
+        SortData sortData = WebUtil.generateSortData(request);
+        DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
+        DataTableResponse<Show> all = showService.findAllByMovieId(id,dataTableRequest);
+        return getPageDataResponseFromDataTable(pageAndSizeData, sortData, all);    }
+
     private PageDataResponse<ShowResponseDto> getPageDataResponseFromDataTable(PageAndSizeData pageAndSizeData, SortData sortData, DataTableResponse<Show> all) {
         List<ShowResponseDto> list = all.getItems()
                 .stream()

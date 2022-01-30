@@ -8,12 +8,12 @@
 
     <link href="/css/login.css" rel="stylesheet">
 
-<!--    <title tiles:fragment="title">Messages : Create</title>-->
+    <!--    <title tiles:fragment="title">Messages : Create</title>-->
 </head>
-<body id = login-body>
+<body id=login-body>
 
 <div tiles:fragment="content">
-    <div class="card border-dark mb-3"  >
+    <div class="card border-dark mb-3">
         <div class="card-body">
             <h5 class="card-title">Please Login</h5>
             <h6 class="card-subtitle mb-2 text-muted"></h6>
@@ -37,7 +37,11 @@
                 </fieldset>
             </form>
             <br>
-            <a href="#" class="card-link" th:href="@{/registration}">Registration</a>
+           <a href="#" class="card-link" th:href="@{/registration}">Registration</a>
+
+           <a href="#" class="card-link" th:href="@{/movies}">To Main page</a>
+
+            </div>
         </div>
     </div>
 </div>

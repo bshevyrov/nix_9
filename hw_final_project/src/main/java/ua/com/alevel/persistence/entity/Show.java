@@ -22,11 +22,11 @@ public class Show extends BaseEntity {
 //    @Temporal(TemporalType.TIMESTAMP)
     private LocalTime endTime;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "cinema_hall_id", referencedColumnName = "id")
     private CinemaHall cinemaHall;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private Movie movie;
 

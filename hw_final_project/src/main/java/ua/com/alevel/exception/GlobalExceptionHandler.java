@@ -39,16 +39,16 @@ public class GlobalExceptionHandler {
         return generateModelAndView("incorrect value");
     }
 
-    @ExceptionHandler(Throwable.class)
+  /*  @ExceptionHandler(Throwable.class)
     public String serverError(final Throwable throwable, final Model model) {
         System.out.println("GlobalExceptionHandler.serverError");
         String errorMessage = (throwable != null ? throwable.getMessage() : "Unknown error");
         model.addAttribute("errorMessage", errorMessage);
         model.addAttribute("showMessage", true);
         return "error";
-    }
+    }*/
 
-    @ExceptionHandler(Exception.class)
+/*    @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String notFound(final Exception throwable, final Model model) {
         System.out.println("GlobalExceptionHandler.notFound");
@@ -56,7 +56,7 @@ public class GlobalExceptionHandler {
         model.addAttribute("errorMessage", errorMessage);
         model.addAttribute("showMessage", true);
         return "error";
-    }
+    }*/
 
     private ModelAndView generateModelAndView(String msg) {
         ModelAndView mav = new ModelAndView();

@@ -62,4 +62,9 @@ public class ShowServiceImpl implements ShowService {
     public List<Show> findAllByMovieId(Long id) {
         return showRepository.findAllByMovieId(id);
     }
+
+    @Override
+    public DataTableResponse<Show> findAllByMovieId(long id, DataTableRequest request) {
+        return null;
+    }
 }

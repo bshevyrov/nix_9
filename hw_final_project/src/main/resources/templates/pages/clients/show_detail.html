@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en" layout:decorate="~{layout}"
       xmlns="http://www.w3.org/1999/xhtml"
@@ -7,6 +10,8 @@
     <title>Detail</title>
 </head>
 <body>
+
+
 
 <div layout:fragment="content">
     <div class="card mb-3" >
@@ -19,18 +24,81 @@
                     <h5 class="card-title" th:text="${movie.getTitle()}"></h5>
                     <p class="card-text">
                     <table>
-                         <tr th:each="show,iter : ${shows}">
-                            <td th:text="${iter.count}"></td>
+
+                    <span th:each="show,iter : ${shows}">
+                             <div class="card-group">
+
+
+                                 <div class="card" th:if="${show.getCinemaHall().getCinemaHallType().name() == 'TWO_D'}">
+
+<!--                                     <img class="card-img-top" src="..." alt="Card image cap">-->
+                                     <div class="card-body">
+                                         <h5 class="card-title">TWO DIMENSION</h5>
+                                         <span th:text="${show.getDate()}"></span>
+                                           <span><a th:href="@{'/clients/show/seat/' + ${show.getId()}}"
+                                              th:text="${show.getStartTime()}"></a></span>
+<!--                                         <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>-->
+<!--                                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
+                                     </div>
+                                 </div>
+                                  <div class="card" th:if="${show.getCinemaHall().getCinemaHallType().name() == 'THREE_D'}">
+
+<!--                                     <img class="card-img-top" src="..." alt="Card image cap">-->
+                                     <div class="card-body">
+                                         <h5 class="card-title">THREE DIMENSION</h5>
+                                         <span th:text="${show.getDate()}"></span >
+                                             <span ><a th:href="@{'/clients/show/seat/' + ${show.getId()}}"
+                                                 th:text="${show.getStartTime()}"></a></span>
+                                         <!--                                         <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>-->
+                                         <!--                                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
+                                     </div>
+                                 </div>
+                                <div class="card" th:if="${show.getCinemaHall().getCinemaHallType().name() == 'IMAX'}">
+
+<!--                                     <img class="card-img-top" src="..." alt="Card image cap">-->
+                                     <div class="card-body">
+                                         <h5 class="card-title">IMAX</h5>
+                                          <span th:text="${show.getDate()}"></span>
+                                              <span><a th:href="@{'/clients/show/seat/' + ${show.getId()}}"
+                                                 th:text="${show.getStartTime()}"></a></span>
+                                         <!--                                         <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>-->
+                                         <!--                                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
+                                     </div>
+                                 </div>
+                             </div>
+                    </span>
+
+
+
+
+<!--
+                             <div class="row"  th:if="${show.getCinemaHall().getCinemaHallType().name() == 'TWO_D'}">
+                                 TWO DIMENSIONAL HALL
+
                             <td th:text="${show.getDate()}"></td>
-<!--                            <td th:text="${show.getStartTime()}"></td>-->
+                              <td><a th:href="@{'/clients/show/seat/' + ${show.getId()}}"
+                                       th:text="${show.getStartTime()}"></a></td>
+                                </div>
+                             <div class="row"  th:if="${show.getCinemaHall().getCinemaHallType().name() == 'THREE_D'}">
+                                 THREE DIMENSIONAL HALL
+
+                                 <td th:text="${show.getDate()}"></td>
+                                 <td><a th:href="@{'/clients/show/seat/' + ${show.getId()}}"
+                                        th:text="${show.getStartTime()}"></a></td>
+                             </div>
+&lt;!&ndash;                            <td th:text="${show.getStartTime()}"></td>&ndash;&gt;
                              <td><a th:href="@{'/clients/show/seat/' + ${show.getId()}}"
                                     th:text="${show.getStartTime()}"></a></td>
-<!--                             <td th:text="${show.getEndTime}"></td>-->
+&lt;!&ndash;                             <td th:text="${show.getEndTime}"></td>&ndash;&gt;
                              <td th:text="${show.getCinemaHall().getCinemaHallType()}"></td>
 
-                        </tr>
+                        </tr>-->
                     </table>
-                  
+                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="btn btn-outline-light text-primary"
+                           th:href="@{'/admin/shows/new/' + ${show.getMovie().getId()}}"
+                           type="button">Add Show</a>
+                    </div>
                     </p>
                     <!--                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
                 </div>

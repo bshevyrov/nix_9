@@ -22,4 +22,5 @@ public interface CrudRepositoryHelper<E extends BaseEntity, R extends BaseReposi
     List<E> findAll(R repository);
 
     DataTableResponse<E> findAll(R repository, DataTableRequest request);
+
 }
