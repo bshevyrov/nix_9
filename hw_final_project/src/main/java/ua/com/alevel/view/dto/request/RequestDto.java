@@ -1,7 +1,7 @@
 package ua.com.alevel.view.dto.request;
 
-public class RequestDto {
-
+public abstract class RequestDto {
+/*
     private long id;
 
     public long getId() {
@@ -10,5 +10,5 @@ public class RequestDto {
 
     public void setId(long id) {
         this.id = id;
-    }
+    }*/
 }

@@ -1,32 +1,42 @@
 package ua.com.alevel.service.impl;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
+import ua.com.alevel.persistence.entity.BaseEntity;
 import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.persistence.repository.user.UserRepository;
 import ua.com.alevel.service.UserService;
 
+import javax.persistence.EntityExistsException;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
-    private final CrudRepositoryHelper<User, UserRepository> crudRepositoryHelper;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserRepository<BaseEntity> userRepository;
+    private final CrudRepositoryHelper<User, UserRepository<BaseEntity>> crudRepositoryHelper;
 
-    public UserServiceImpl(UserRepository userRepository, CrudRepositoryHelper<User, UserRepository> crudRepositoryHelper) {
+    public UserServiceImpl(BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository<BaseEntity> userRepository, CrudRepositoryHelper<User, UserRepository<BaseEntity>> crudRepositoryHelper) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userRepository = userRepository;
         this.crudRepositoryHelper = crudRepositoryHelper;
     }
 
     @Override
     public void create(User entity) {
-crudRepositoryHelper.create(userRepository,entity);
+        if (userRepository.existsByEmail(entity.getEmail())) {
+            throw new EntityExistsException("entity already exist");
+        }
+        entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
+        crudRepositoryHelper.create(userRepository, entity);
     }
+
 
     @Override
     public void update(User entity) {

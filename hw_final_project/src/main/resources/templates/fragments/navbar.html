@@ -9,41 +9,50 @@
 </head>
 <body>
 <div th:fragment="navbar">
-    <div sec:authorize="hasRole('ROLE_USER')|| isAnonymous()">
+    <div sec:authorize="isAnonymous()">
         <div class="container">
             <nav class="navbar   navbar-expand-sm navbar-dark bg-dark">
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/students/all">All Students</a>
-                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/courses/all">All Courses</a>
+                        <a class="nav-link" href="/movies">Movies</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/students/new">Add student</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="/courses/new">Add Course</a>
-                    </li>
+
                 </ul>
                 <div sec:authorize="isAnonymous()">
                     <a class="btn btn-outline-light text-danger" id="login-btn" th:href="@{'/login'}"
                        type="button">Login</a>
                 </div>
 
-                <div sec:authorize="hasRole('ROLE_CLIENT')">
-                    <form method="post" th:action="@{/logout}">
-                        <button class="btn btn-outline-light text-danger" id="logout-btn" th:href="@{'/logout'}"
-                                type="submit">Logout
-                        </button>
-                    </form>
-                </div>
-
 
             </nav>
         </div>
     </div>
+    <div th:fragment="navbar">
+        <div sec:authorize="hasRole('ROLE_USER')">
+            <div class="container">
+                <nav class="navbar   navbar-expand-sm navbar-dark bg-dark">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/movies">Movies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/clients/booking_dashboard">History</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/clients/user/detail">User info</a>
+                        </li>
+                    </ul>
+                                   <div sec:authorize="hasRole('ROLE_USER')">
+                        <form method="post" th:action="@{/logout}">
+                            <button class="btn btn-outline-light text-danger" id="logout-btn" th:href="@{'/logout'}"
+                                    type="submit">Logout
+                            </button>
+                        </form>
+                    </div>
 
+                </nav>
+            </div>
+        </div>
     <div sec:authorize="hasRole('ROLE_ADMIN')">
         <div class="container">
             <nav class="navbar   navbar-expand-sm navbar-dark bg-dark">
@@ -77,8 +86,6 @@
             </nav>
         </div>
     </div>
-
-
 </div>
 </body>
 </html>

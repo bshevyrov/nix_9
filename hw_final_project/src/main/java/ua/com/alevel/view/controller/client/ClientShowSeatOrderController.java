@@ -107,7 +107,7 @@ public class ClientShowSeatOrderController extends AbstractController {
         model.addAttribute("bookingResponseDto",bookingResponseDto);
         model.addAttribute("bookingId",bId);
 
-        return "pages/clients/booking";
+        return "/pages/clients/booking/booking_confirmation";
 
     }
    /* @PostMapping("/seat/{id}")

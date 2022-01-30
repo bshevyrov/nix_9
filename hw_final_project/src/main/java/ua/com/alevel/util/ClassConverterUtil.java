@@ -26,7 +26,7 @@ public final class ClassConverterUtil {
 
     public static Movie movieRequestDtoToMovie(MovieRequestDto movieRequestDto) {
         Movie movie = new Movie();
-        movie.setId(movieRequestDto.getId());
+//        movie.setId(movieRequestDto.getId());
         movie.setDescription(movieRequestDto.getDescription());
         movie.setImageUrl(movieRequestDto.getImageUrl());
         movie.setGenre(movieRequestDto.getGenre());
@@ -62,7 +62,7 @@ public final class ClassConverterUtil {
     public static Show SRDtoToEntity(ShowRequestDto showRequestDto) {
 
         Show show = new Show();
-        show.setId(showRequestDto.getId());
+//        show.setId(showRequestDto.getId());
         show.setCinemaHall(showRequestDto.getCinemaHall());
         show.setMovie(showRequestDto.getMovie());
         show.setDate(showRequestDto.getDate());
@@ -126,7 +126,7 @@ public final class ClassConverterUtil {
         showSeat.setShow(showSeatRequestDto.getShow());
         showSeat.setShowSeatStatus(showSeatRequestDto.getShowSeatStatus());
         showSeat.setPrice(showSeatRequestDto.getPrice());
-        showSeat.setId(showSeatRequestDto.getId());
+//        showSeat.setId(showSeatRequestDto.getId());
         showSeat.setBooking(showSeatRequestDto.getBooking());
         showSeat.setCinemaHallSeat(showSeatRequestDto.getCinemaHallSeat());
 
@@ -168,7 +168,7 @@ public final class ClassConverterUtil {
         booking.setBookingStatus(bookingRequestDto.getBookingStatus());
         booking.setUser(bookingRequestDto.getUser());
         booking.setShow(bookingRequestDto.getShow());
-        booking.setId(bookingRequestDto.getId());
+//        booking.setId(bookingRequestDto.getId());
         //TODO проверить тайм стамп именно когда оплатил
         booking.setTimestamp(bookingRequestDto.getTimestamp());
         booking.setNumberOfSeats(bookingRequestDto.getNumberOfSeats());
@@ -230,7 +230,7 @@ public final class ClassConverterUtil {
     public static User userRequestDtoToUser(UserRequestDto userRequestDto) {
         User user = new User();
        user.setEmail(userRequestDto.getEmail());
-       user.setId(userRequestDto.getId());
+//       user.setId(userRequestDto.getId());
        user.setFirstName(userRequestDto.getFirstName());
        user.setLastName(userRequestDto.getLastName());
        user.setPhone(userRequestDto.getPhone());

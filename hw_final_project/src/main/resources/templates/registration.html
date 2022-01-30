@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <title> User Detail</title>
+
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: black;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Add padding to containers */
+        .container {
+            padding: 16px;
+            background-color: white;
+        }
+
+        /* Full-width input fields */
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        input[type=text]:focus, input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        /* Overwrite default styles of hr */
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+        }
+
+        /* Set a style for the submit button */
+        .registerbtn {
+            background-color: #04AA6D;
+            color: white;
+            padding: 16px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        .registerbtn:hover {
+            opacity: 1;
+        }
+
+        /* Add a blue text color to links */
+        a {
+            color: dodgerblue;
+        }
+
+        /* Set a grey background color and center the text of the "sign in" section */
+        .signin {
+            background-color: #f1f1f1;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<section layout:fragment="content">
+    <form method="post" th:action="@{/registration}" th:object="${authForm}">
+
+        <!--                        <div layout:fragment="content">-->
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-2 mt-2">
+                        <div class="card-header">
+                            User Detail
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-sm table-hover">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="email"><b>Email</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input id="email" name="email" placeholder="Enter Email" required
+                                               th:field="*{email}" type="email">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="psw"><b>Password</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input id="psw" name="psw" placeholder="Enter Password" required
+                                               th:field="*{password}" type="password">
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="psw-repeat"><b>Repeat Password</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input id="psw-repeat" name="psw-repeat" placeholder="Repeat Password" required
+                                               th:field="*{passwordConfirm}"
+                                               type="password"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="psw-repeat"><b>First name</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input id="psw-repeat" name="psw-repeat" placeholder="First Name" required
+                                               th:field="*{firstName}" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="psw-repeat"><b>Last name</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input id="psw-repeat" name="psw-repeat" placeholder="Last Name" required
+                                               th:field="*{lastName}" type="text">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="psw-repeat"><b>Phone number</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input id="psw-repeat" name="psw-repeat" placeholder="Phone number" required
+                                               th:field="*{phone}" type="tel">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col">
+                                        <button class="btn" type="submit">Registration</button>
+                                    </div>
+                                    <div class="col">
+                                        <!--                                <input id="psw-repeat" name="psw-repeat" placeholder="Phone number" required th:field="*{phone}" type="tel">-->
+                                    </div>
+                                </div>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</section>
+</body>
+</html>

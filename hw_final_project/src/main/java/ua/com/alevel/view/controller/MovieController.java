@@ -45,14 +45,14 @@ public class MovieController extends AbstractController {
 //        return "/pages/student/student_all";
 
 
-        return "/pages/open/dashboard";
+        return "pages/clients/movie/movie_dashboard";
     }
 
     @GetMapping("/detail/{id}")
     public String details(@PathVariable("id") long id, Model model) {
         MovieResponseDto byId = movieFacade.findById(id);
         model.addAttribute("movie", byId);
-        return "/pages/open/movie_detail";
+        return "/pages/clients/movie/movie_detail";
     }
 
 }

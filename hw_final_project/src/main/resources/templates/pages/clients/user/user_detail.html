@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <title> User Detail</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <!--                        <div layout:fragment="content">-->
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-2 mt-2">
+                    <div class="card-header">
+                        User Detail
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-sm table-hover">
+                            <div class="row">
+                                <div class="col">
+                                    First Name
+                                </div>
+                                <div class="col">
+                                    <p th:text="${user.getFirstName()}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Last name
+                                </div>
+                                <div class="col">
+                                    <p th:text="${user.getLastName()}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Phone
+                                </div>
+                                <div class="col">
+                                    <p th:text="${user.getPhone()}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Email
+                                </div>
+                                <div class="col">
+                                    <p th:text="${user.getEmail()}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <a class="btn btn-warning" th:href="@{/clients/user/update}"
+                                       role="button">Update</a>
+                                </div>
+                                <div class="col">
+                                    <a class="btn btn-danger" th:href="@{/clients/user/update/password}"
+                                       role="button">Change password</a>
+                                </div>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

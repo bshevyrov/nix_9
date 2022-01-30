@@ -15,15 +15,11 @@ import java.util.Set;
 @Service
 public class DefaultUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UserRepository<User> userRepository;
 
-    public DefaultUserDetailsService(UserRepository userRepository) {
+    public DefaultUserDetailsService(UserRepository<User> userRepository) {
         this.userRepository = userRepository;
     }
-
-//    public DefaultUserDetailsService(UserRepository<User> userRepository) {
-//        this.userRepository = userRepository;
-//    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

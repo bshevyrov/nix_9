@@ -1,4 +1,4 @@
-package ua.com.alevel.view.controller.auth;
+package ua.com.alevel.view.controller.client;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ import ua.com.alevel.view.controller.AbstractController;
 import ua.com.alevel.view.dto.request.UserRequestDto;
 
 @Controller
-@RequestMapping("/client/registration")
+@RequestMapping("/registration")
 public class ClientRegistrationController extends AbstractController {
 
     private final RegistrationFacade registrationFacade;
@@ -40,7 +40,7 @@ public class ClientRegistrationController extends AbstractController {
             return redirectProcess(model);
         }
         model.addAttribute("authForm", new UserRequestDto());
-        return "/pages/client/registration";
+        return "/registration";
     }
 
     @PostMapping
@@ -48,7 +48,7 @@ public class ClientRegistrationController extends AbstractController {
         showMessage(model, false);
         authValidatorFacade.validate(authForm, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "/pages/client/registration";
+            return "/registration";
         }
         registrationFacade.registration(authForm);
         securityService.autoLogin(authForm.getEmail(), authForm.getPasswordConfirm());
@@ -58,11 +58,11 @@ public class ClientRegistrationController extends AbstractController {
         model.addAttribute("user", principal.toString());
         return redirectProcess(model);
     }
-
+//TODO ??
     private String redirectProcess(Model model) {
         showMessage(model, false);
         if (SecurityUtil.hasRole(RoleType.ROLE_USER.name())) {
-            return "redirect:/client/dashboard";
+            return "redirect:/movies";
         }
         return "redirect:/login";
 

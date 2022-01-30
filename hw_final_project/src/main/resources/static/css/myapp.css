@@ -51,11 +51,13 @@ a.nav-item.nav-link {
 #login-btn {
     position: absolute;
     left: 90%;
+    bottom: 20%;
 }
 
 #logout-btn {
-    position: relative;
-    left: 600%;
+    position: absolute;
+    left: 90%;
+    bottom: 20%;
 }
 
 

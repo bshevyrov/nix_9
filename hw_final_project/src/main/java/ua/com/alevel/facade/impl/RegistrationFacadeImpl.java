@@ -1,9 +1,12 @@
 package ua.com.alevel.facade.impl;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ua.com.alevel.config.WebSecurityConfig;
 import ua.com.alevel.facade.RegistrationFacade;
 import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.service.UserService;
+import ua.com.alevel.util.SecurityUtil;
 import ua.com.alevel.view.dto.request.UserRequestDto;
 
 
@@ -19,18 +22,24 @@ public class RegistrationFacadeImpl implements RegistrationFacade {
 
     @Override
     public void registration(UserRequestDto requestDtoDto) {
-        User clientUser = new User();
-        clientUser.setEmail(requestDtoDto.getEmail());
-        clientUser.setPassword(requestDtoDto.getPassword());
-//        clientService.create(clientUser);
+        User user = new User();
 
-        User client = new User();
-        client.setFirstName(requestDtoDto.getFirstName());
-        client.setLastName(requestDtoDto.getLastName());
-        client.setPhone(requestDtoDto.getPhone());
+        user.setEmail(requestDtoDto.getEmail());
+        System.out.println(requestDtoDto.getPassword());
+        user.setPassword(requestDtoDto.getPassword());
+        user.setFirstName(requestDtoDto.getFirstName());
+        user.setLastName(requestDtoDto.getLastName());
+        user.setPhone(requestDtoDto.getPhone());
+
+
 //        client.setsetClientUser(clientUser);
 
 //        clientUser.setClient(client);
-        userService.create(clientUser);
+        userService.create(user);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return null;
     }
 }

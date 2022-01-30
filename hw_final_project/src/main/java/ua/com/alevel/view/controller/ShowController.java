@@ -25,6 +25,6 @@ public class ShowController extends AbstractController {
     public String movieShows(@PathVariable("id") long id, Model model) {
         model.addAttribute("shows", showFacade.findAllByMovieId(id));
         model.addAttribute("movie", movieFacade.findById(id));
-        return "/pages/open/show_detail";
+        return "/pages/clients/show_detail";
     }
 }

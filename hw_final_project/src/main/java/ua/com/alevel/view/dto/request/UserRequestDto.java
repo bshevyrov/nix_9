@@ -5,36 +5,12 @@ import ua.com.alevel.view.dto.request.register.AuthDto;
 
 public class UserRequestDto extends AuthDto {
 
-    private String email;
-
-    private String password;
-
     private Boolean enabled;
-
     private RoleType roleType;
-
     private String FirstName;
-
     private String LastName;
-
-
     private String phone;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public Boolean getEnabled() {
         return enabled;

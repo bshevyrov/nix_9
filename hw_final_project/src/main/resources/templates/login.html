@@ -11,31 +11,15 @@
 <!--    <title tiles:fragment="title">Messages : Create</title>-->
 </head>
 <body id = login-body>
-<!--
-
-<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-    <div class="card-header">Header</div>
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-    </div>
-</div>
--->
 
 <div tiles:fragment="content">
-
-
     <div class="card border-dark mb-3"  >
         <div class="card-body">
             <h5 class="card-title">Please Login</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <h6 class="card-subtitle mb-2 text-muted"></h6>
+            <p class="card-text"></p>
             <form method="post" name="f" th:action="@{/login}">
                 <fieldset>
-                    <!--            <legend>Please Login</legend>-->
                     <div class="alert alert-error" th:if="${param.error}">
                         Invalid username and password.
                     </div>
@@ -47,47 +31,17 @@
                     <label for="password">Password</label>
                     <input id="password" name="password" type="password"/>
                     <div class="form-actions">
+                        <br>
                         <button class="btn" type="submit">Log in</button>
                     </div>
                 </fieldset>
             </form>
-
-            <a href="#" class="card-link" th:href="@{/client/registration}">Registration</a>
-<!--
-            <a class="btn" th:href="@{/client/registration}">Registration</a>
--->
-
-            <a href="#" class="card-link">Another link</a>
+            <br>
+            <a href="#" class="card-link" th:href="@{/registration}">Registration</a>
         </div>
     </div>
-
-
-  <!--  <form method="post" name="f" th:action="@{/login}">
-        <fieldset>
-&lt;!&ndash;            <legend>Please Login</legend>&ndash;&gt;
-            <div class="alert alert-error" th:if="${param.error}">
-                Invalid username and password.
-            </div>
-            <div class="alert alert-success" th:if="${param.logout}">
-                You have been logged out.
-            </div>
-            <label for="username">Email</label>
-            <input id="username" name="username" type="email"/>
-            <label for="password">Password</label>
-            <input id="password" name="password" type="password"/>
-            <div class="form-actions">
-                <button class="btn" type="submit">Log in</button>
-            </div>
-        </fieldset>
-    </form>-->
 </div>
 <div>
 </div>
-
-<!--<a class="nav-link disabled" href="/courses/new">Add Course</a>-->
-
-<!--<a id="log-btn" type="button" th:href="@{'/login'}"-->
-
-
 </body>
 </html>
