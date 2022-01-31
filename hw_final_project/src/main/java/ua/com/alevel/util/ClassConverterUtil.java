@@ -13,7 +13,6 @@ public final class ClassConverterUtil {
     public static MovieResponseDto movieToMovieResponseDto(Movie movie) {
         MovieResponseDto movieResponseDto = new MovieResponseDto();
         movieResponseDto.setId(movie.getId());
-//        movieResponseDto.setCreateDate((Date) movie.getCreateDate());
         movieResponseDto.setDescription(movie.getDescription());
         movieResponseDto.setImageUrl(movie.getImageUrl());
         movieResponseDto.setGenre(movie.getGenre());
@@ -168,6 +167,7 @@ public final class ClassConverterUtil {
         booking.setBookingStatus(bookingRequestDto.getBookingStatus());
         booking.setUser(bookingRequestDto.getUser());
         booking.setShow(bookingRequestDto.getShow());
+        booking.setTotalPrice(bookingRequestDto.getTotalPrice());
 //        booking.setId(bookingRequestDto.getId());
         //TODO проверить тайм стамп именно когда оплатил
         booking.setTimestamp(bookingRequestDto.getTimestamp());
@@ -182,6 +182,7 @@ public final class ClassConverterUtil {
         booking.setBookingStatus(bookingResponseDto.getBookingStatus());
 //        booking.setUser(bookingResponseDto.getUser());
         booking.setId(bookingResponseDto.getId());
+        booking.setTotalPrice(bookingResponseDto.getTotalPrice());
         booking.setTimestamp(bookingResponseDto.getTimestamp());
         booking.setNumberOfSeats(bookingResponseDto.getNumberOfSeats());
         return booking;
@@ -193,6 +194,7 @@ public final class ClassConverterUtil {
         bookingResponseDto.setBookingStatus(booking.getBookingStatus());
         bookingResponseDto.setUser(booking.getUser());
         bookingResponseDto.setId(booking.getId());
+        bookingResponseDto.setTotalPrice(booking.getTotalPrice());
         bookingResponseDto.setTimestamp(booking.getTimestamp());
         bookingResponseDto.setNumberOfSeats(booking.getNumberOfSeats());
         return bookingResponseDto;

@@ -18,16 +18,9 @@ public class BookingRequestDto extends RequestDto{
 
     private User user;
 
-    private double totalPrice;
+    private int totalPrice;
 
 
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
 
     public BookingStatus getBookingStatus() {
         return bookingStatus;
@@ -67,5 +60,13 @@ public class BookingRequestDto extends RequestDto{
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

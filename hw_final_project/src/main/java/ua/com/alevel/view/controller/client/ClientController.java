@@ -1,3 +1,4 @@
+/*
 package ua.com.alevel.view.controller.client;
 
 import org.springframework.stereotype.Controller;
@@ -19,3 +20,4 @@ public class ClientController extends AbstractController {
         return "pages/client/dashboard";
     }
 }
+*/

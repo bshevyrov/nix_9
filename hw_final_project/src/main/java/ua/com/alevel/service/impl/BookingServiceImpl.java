@@ -61,15 +61,15 @@ public class BookingServiceImpl implements BookingService {
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE, rollbackFor = Exception.class)
     public Booking findByUser(User user) {
 
-       Booking booking= bookingRepository.findByUser(user);
-
-
+      Booking booking= bookingRepository.findAllByUser(user)
+              .stream().distinct().findFirst().get();
 return booking;
     }
 
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public Booking save(Booking booking) {
+
         return bookingRepository.save(booking);
     }
 

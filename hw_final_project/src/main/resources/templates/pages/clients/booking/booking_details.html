@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <title> Booking Detail</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <!--                        <div layout:fragment="content">-->
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-2 mt-2">
+                    <div class="card-header">
+                        Booking Detail
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-sm table-hover">
+                            <div class="row">
+                                <div class="col">
+                                    Date :
+                                </div>
+                                <div class="col">
+                                    <p th:text="${booking.getTimestamp()}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Movie :
+                                </div>
+                                <div class="col">
+                                    <p th:text="${booking.getShow().getMovie().getTitle()}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Sum :
+                                </div>
+                                <div class="col">
+                                    <p th:text="${booking.getTotalPrice()}"></p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Status :
+                                </div>
+                                <div class="col">
+                                    <p th:text="${booking.getBookingStatus()}"></p>
+                                </div>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

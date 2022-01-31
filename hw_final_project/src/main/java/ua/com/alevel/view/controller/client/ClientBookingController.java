@@ -26,30 +26,40 @@ public class ClientBookingController extends AbstractController {
         this.userFacade = userFacade;
     }
 
-
     @PostMapping("/booking/dashboard")
-    public String bookingDash1(@ModelAttribute("confirm1") String confirm1,
-//                                @RequestParam("bookingStatus") String bookingStatus,
+    public String bookingDash1(@ModelAttribute("confirm") String confirm,
                                Model model) {
 
-
         List<BookingResponseDto> responseDtos = bookingFacade.findAllByUser(ClassConverterUtil.userResponseDtoToEntity(userFacade.findByEmail(SecurityUtil.getUsername())));
-
         long id = responseDtos.get(responseDtos.size() - 1).getId();
         BookingResponseDto responseDtos1 = bookingFacade.findById(id);
-        if(!(StringUtils.equals(responseDtos1.getBookingStatus().name(),"SUCCESS"))){
-            if (StringUtils.equals("agree", confirm1)) {
+        if (!(StringUtils.equals(responseDtos1.getBookingStatus().name(), "SUCCESS"))) {
+            if (StringUtils.equals("agree", confirm)) {
                 bookingFacade.buy(id);
             } else {
                 System.out.println("NOT BUY");
             }
         }
-
         model.addAttribute("bookingList", bookingFacade.findAll());
-//        model.addAttribute("show", responseDtos);
-//        model.addAttribute("bookingList", responseDtos);
 
         return "/pages/clients/booking/booking_dashboard";
+    }
+
+    @GetMapping("/booking/dashboard")
+    public String bookingMeth(Model model) {
+        model.addAttribute("bookingList", bookingFacade
+                .findAllByUser(ClassConverterUtil
+                        .userResponseDtoToEntity(
+                                userFacade.findByEmail(
+                                        SecurityUtil.getUsername()))));
+        return "/pages/clients/booking/booking_dashboard";
+    }
+
+    @GetMapping("/booking/detail/{id}")
+    public String details(@PathVariable("id") long id,
+                          Model model) {
+        model.addAttribute("booking", bookingFacade.findById(id));
+        return "/pages/clients/booking/booking_details";
     }
 
     @GetMapping("/booking/{id}")
@@ -67,12 +77,4 @@ public class ClientBookingController extends AbstractController {
         bookingFacade.update(bookingRequestDto);
         return "redirect:/booking/all";
     }
-
-//    @GetMapping("/booking/all")
-//    public String bookingDash(Model model) {
-//        model.addAttribute("booking", bookingFacade.findAllByUser(ClassConverterUtil
-//                .userResponseDtoToEntity(userFacade.findByEmail(SecurityUtil.getUsername()))));
-//        model.addAttribute("agreement", new BookingRequestDto());
-//        return "/pages/clients/booking/dashboard";
-//    }
 }

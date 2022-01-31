@@ -5,6 +5,7 @@ import ua.com.alevel.persistence.type.BookingStatus;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "bookings")
@@ -21,7 +22,7 @@ public class Booking extends BaseEntity {
     private int numberOfSeats;
 
     @Column(name = "total_price")
-    private double totalPrice;
+    private int totalPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "show_id", referencedColumnName = "id")
@@ -35,12 +36,11 @@ public class Booking extends BaseEntity {
         super();
     }
 
-
-    public double getTotalPrice() {
+    public int getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -85,4 +85,16 @@ public class Booking extends BaseEntity {
         this.user = user;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return numberOfSeats == booking.numberOfSeats && Double.compare(booking.totalPrice, totalPrice) == 0 && bookingStatus == booking.bookingStatus && Objects.equals(show, booking.show) && Objects.equals(user, booking.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bookingStatus, numberOfSeats, totalPrice, show, user);
+    }
 }

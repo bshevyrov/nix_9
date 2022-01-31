@@ -4,47 +4,126 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>jQuery Seat Charts Plugin Demo</title>
     <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="/css/jquery.seat-charts.css">
     <link rel="stylesheet" type="text/css" href="/css/show-seat.order.css">
+<style>
+    .front-indicator {
+position: absolute;
+        top:-10%;
+        left: -2%;
+    }
+    #middle{
+        position: absolute;
+        left: 36%;
+
+
+    }   #left{
+        position: absolute;
+left: 6%;
+        top: 30%;
+
+    }   #right{
+        position: absolute;
+        right: 10%;
+
+    }
+</style>
 </head>
 
 <body>
 
-<div class="wrapper">
-    <div class="container" id="seats">
-       <!-- show
-        movie
-        seatMap
-        soldSeats-->
 
+
+
+
+<!--
+
+<div class="row">
+    <div class="col">
         <span th:text="${movie.getTitle()}"></span>
+    </div>
+</div>
+
+<div class="row">
+
         <span th:text="${show.getDate()}"></span>
-        <span th:text="${show.getStartTime()}"></span>
-<!--        <h1>jQuery Seat Charts Plugin Demo</h1>-->
-        <div id="seat-map">
-            <div class="front-indicator">Front</div>
+
+
+</div>
+<div class="row">
+    <div class="col">
+        <h3 th:text="${show.getStartTime()}"></h3>
+    </div>
+</div>
+
+
+
+
+</div>-->
+
+<div class="wrapper">
+
+    <div class="card-group">
+        <div class="card" id="left">
+            <div class="card-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <h3 th:text="${movie.getTitle()}"></h3>
+
+                        </div>
+                        <div class="col-sm">
+                            <h4 th:text="${show.getDate()}"></h4>
+                        </div>
+                        <div class="col-sm">
+                            <h4 th:text="${show.getStartTime()}"></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="booking-details" id="details">
-            <h2>Booking Details</h2>
-            <h3> Selected Seats (<span id="counter">0</span>):</h3>
-            <ul id="selected-seats">
-            </ul>
-            Total: <b>$<span id="total">0</span></b>
+        <div class="card" id="middle">
+            <div class="card-body">
+                <div class="container" id="seats">
 
-            <form th:action="@{'/clients/show/seat/' + ${show.getId()}}"  method="post">
-                <input type="hidden" id="sum" name="sum"/>
-                <input type="hidden" id="chosenSeats" name="chosenSeats"/>
 
-                <button type="submit"  onclick="myFunction()" name="submit" value="value" class="checkout-button"><!--class="link-button"--> This is a link that sends a POST request</button>
-            </form>
 
-<!--            <button  class="checkout-button">Checkout &raquo;</button>-->
+                    <!--        <h1>jQuery Seat Charts Plugin Demo</h1>-->
+                    <div id="seat-map">
+                        <div class="front-indicator">Front</div>
+                    </div>
 
-            <div id="legend"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card" id="right">
+            <div class="card-body">
+                <div class="booking-details" id="details">
+                    <h2>Booking Details</h2>
+                    <h3> Selected Seats (<span id="counter">0</span>):</h3>
+                    <ul id="selected-seats">
+                    </ul>
+                    Total: <b>$<span id="total">0</span></b>
+
+                    <form th:action="@{'/clients/show/seat/' + ${show.getId()}}"  method="post">
+                        <input type="hidden" id="sum" name="sum"/>
+                        <input type="hidden" id="chosenSeats" name="chosenSeats"/>
+
+                        <button type="submit"  onclick="myFunction()" name="submit" value="value" class="checkout-button"><!--class="link-button"--> This is a link that sends a POST request</button>
+                    </form>
+                    <a th:href="@{/clients/booking/new}"> test</a>                   <!--            <button  class="checkout-button">Checkout &raquo;</button>-->
+
+                    <div id="legend"></div>
+                </div>
+            </div>
         </div>
     </div>
+
+
+
+
+
 </div>
 
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -58,7 +137,7 @@
             $total = $('#total'),
 
             sc = $('#seat-map').seatCharts({
-            map:[[${seatMap}]],
+                map:[[${seatMap}]],
 
                 // map: [
                 //     'ff_ffe',
@@ -170,8 +249,8 @@
         let elements = document.getElementsByTagName("li");
         for(let i = 0; i < elements.length; i++) {
             if(elements[i].className!=='seatCharts-legendItem'){
-                           let num = elements[i].innerText;
-                                let currentS=(num.substring((num.indexOf('#')+2), num.indexOf(':')));
+                let num = elements[i].innerText;
+                let currentS=(num.substring((num.indexOf('#')+2), num.indexOf(':')));
 
                 seeeets.push(currentS);
             }

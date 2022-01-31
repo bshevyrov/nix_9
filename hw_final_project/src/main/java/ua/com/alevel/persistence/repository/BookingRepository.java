@@ -12,4 +12,5 @@ public interface BookingRepository extends BaseRepository<Booking>{
 
     List<Booking> findAllByUser(User user);
 
+
 }

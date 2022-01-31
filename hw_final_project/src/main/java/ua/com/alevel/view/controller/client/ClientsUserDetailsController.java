@@ -25,7 +25,7 @@ public class ClientsUserDetailsController extends AbstractController {
                 SecurityUtil.getUsername());
         System.out.println(responseDto.getPhone());
         model.addAttribute("user",responseDto);
-        return "/pages/clients/user/user_detail";
+        return "/pages/clients/user_detail";
     }
 
 }

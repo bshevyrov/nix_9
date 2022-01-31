@@ -18,6 +18,8 @@ import ua.com.alevel.view.dto.response.CinemaHallSeatResponseDto;
 import ua.com.alevel.view.dto.response.ShowResponseDto;
 import ua.com.alevel.view.dto.response.ShowSeatResponseDto;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 @Controller
@@ -56,9 +58,11 @@ public class ClientShowSeatOrderController extends AbstractController {
         int totalSeat = showResponseDto.getCinemaHall().getTotalSeats();
         List<CinemaHallSeatResponseDto> cinemaHallSeatList = cinemaHallSeatFacade.findAllByCinemaHallId(cinemaHallId);
         model.addAttribute("seatMap", ShowSeatUtil.createSeatMap(totalSeat, cinemaHallSeatList));
-
         List<ShowSeatResponseDto> showSeatList = showSeatFacade.findAllByShowId(showResponseDto.getId());
+
         model.addAttribute("soldSeats", ShowSeatUtil.createSoldSeats(showSeatList));
+
+
         return "/pages/clients/show_seat_order";
     }
 
@@ -69,6 +73,11 @@ public class ClientShowSeatOrderController extends AbstractController {
                             Model model) {
         System.out.println(SecurityUtil.getUsername());
         long bId = 0L;
+        for (int chosenSeat : chosenSeats) {
+            System.out.println("CS:" + chosenSeat);
+            System.out.println(chosenSeat);
+        }
+        ShowSeatRequestDto rr = new ShowSeatRequestDto();
         for (int seat : chosenSeats) {
 
             BookingRequestDto bookingRequestDto = new BookingRequestDto();
@@ -77,7 +86,10 @@ public class ClientShowSeatOrderController extends AbstractController {
                     userFacade.findByEmail(userEmail));
             bookingRequestDto.setUser(user);
             bookingRequestDto.setTotalPrice(sum);
+
+            //ЕЩВЩscheduller 2 минуты пендинга и снятие с брони
             bookingRequestDto.setBookingStatus(BookingStatus.PENDING);
+            bookingRequestDto.setTimestamp( Timestamp.from(Instant.now()));
             bookingRequestDto.setShow(ClassConverterUtil.showResponseDtoToEntity(showFacade.findById(id)));
 
               bId=bookingFacade.save(bookingRequestDto).getId();
@@ -97,15 +109,17 @@ public class ClientShowSeatOrderController extends AbstractController {
                     .cinemaHallSeatResponseDtoToCinemaHallSeat(
                             cinemaHallSeatFacade.findById(seat)));
             requestDto.setShowSeatStatus(ShowSeatStatus.UNAVAILABLE);
-
+                  rr = requestDto;
 
             requestDto.setBooking(ClassConverterUtil.bookingResponseDtoToEntity(
                     bookingFacade.findByUser(user)));
             showSeatFacade.create(requestDto);
         }
+
         BookingResponseDto bookingResponseDto = bookingFacade.findById(bId);
         model.addAttribute("bookingResponseDto",bookingResponseDto);
         model.addAttribute("bookingId",bId);
+        model.addAttribute("showSeat",rr);
 
         return "/pages/clients/booking/booking_confirmation";
 

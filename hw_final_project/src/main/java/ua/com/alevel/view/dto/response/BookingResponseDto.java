@@ -4,7 +4,6 @@ import ua.com.alevel.persistence.entity.Show;
 import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.persistence.type.BookingStatus;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -20,16 +19,13 @@ public class BookingResponseDto extends ResponseDto {
 
     private User user;
 
-    private double totalPrice;
+    private int totalPrice;
 
-
-
-
-    public double getTotalPrice() {
+    public int getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
     }
 

@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>New Hall</title>
+    <title>Payment</title>
 
 </head>
 <body>
@@ -16,7 +16,7 @@
             <div class="col-12">
                 <div class="card mb-2 mt-2">
                     <div class="card-header">
-                        New Show
+                        Order Details
                     </div>
                     <div class="card-body">
                         <form action="#" th:action="@{/clients/booking/dashboard}" th:object="${bookingResponseDto}" method="post">
@@ -24,11 +24,42 @@
                             <table class="table table-sm table-hover">
                                 <div class="row">
                                     <div class="col">
+                                        <p>Date : </p>
+                                    </div>
+                                    <div class="col">
+                                        <div class="col">
+                                        [[${bookingResponseDto.getShow().getDate()}]]
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Time : </p>
+                                    </div>
+                                    <div class="col">
+                                        <div class="col">
+                                            [[${bookingResponseDto.getShow().getStartTime()}]]
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
                                         <p>Movies : </p>
                                     </div>
                                     <div class="col">
                                         <div class="col">
-
+                                            [[${showSeat.getShow().getMovie.getTitle()}]]
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Total sum : </p>
+                                    </div>
+                                    <div class="col">
+                                        <div class="col">
+                                            <span th:text="${bookingResponseDto.getTotalPrice()}">
                                         </div>
                                     </div>
                                 </div>
@@ -44,16 +75,15 @@
                                     <div class="col">
                                         <!--<a th:href="@{/clients/booking/dashboard}"
                                            >Buy</a>-->
-                                        <label th:for="confirm1">Тест действия checkbox</label>
-                                        <input type="checkbox" name="confirm1" value="agree" />
+                                        <label th:for="confirm">Instant Pay</label>
+                                        <input type="checkbox" name="confirm" value="agree" />
 
-                                        <input type="submit" value="Submit"/>
+
 
 <!--                                        <input type>="text" name="bookingStatus" id="bookingStatus" value="${bookingStatus}">-->
                                     </div>
                                     <div class="col">
-                                        <span>
-                                        </span>
+                                        <input type="submit" value="Submit"/>
                                     </div>
                                 </div>
 

@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="utf-8">
-    <title>Movies</title>
+    <title>Booking History</title>
 </head>
 <body>
 
@@ -15,18 +15,16 @@
             <div class="col-12">
                 <div class="card mb-2 mt-2">
                     <div class="card-header">
-                        All shows
+                        Booking History
                     </div>
                     <div class="card-body">
-
-
 <!--                        <div th:if="${bookingList.size() > 0}">-->
 
                             <tr th:each="booking,iter : ${bookingList}">
                                 <td th:text="${iter.count}"></td>
-<!--                                <td><a th:href="@{'/students/detail/' + ${show.getId()}}"-->
-<!--                                       th:text="${show.getId()}"></a></td>-->
-                                <td th:text="${booking.getId()}"></td>
+                                <td><a th:href="@{'/clients/booking/detail/' + ${booking.getId()}}"
+                                       th:text="${booking.getTimestamp()}"></a></td>
+
                                 <td th:text="${booking.getBookingStatus().name()}"></td>
 <!--                                <td th:text="${show.getEndTime()}"></td>-->
 <!--                                <td th:text="${show.getMovie().getTitle()}"></td>-->
