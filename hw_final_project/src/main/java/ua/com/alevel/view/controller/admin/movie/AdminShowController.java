@@ -1,10 +1,12 @@
 package ua.com.alevel.view.controller.admin.movie;
 
+import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.CinemaHallFacade;
 import ua.com.alevel.facade.MovieFacade;
 import ua.com.alevel.facade.ShowFacade;
@@ -14,6 +16,7 @@ import ua.com.alevel.view.dto.response.PageDataResponse;
 import ua.com.alevel.view.dto.response.ShowResponseDto;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/shows")
@@ -40,14 +43,23 @@ public class AdminShowController extends AdminController {
         response.initPaginationState(response.getCurrentPage());
         List<HeaderData> headerDataList = getHeaderDataList(columnNames, response);
         model.addAttribute("headerDataList", headerDataList);
-        model.addAttribute("createUrl", "/students/all");
-        model.addAttribute("pageDataResponse", response);
-        System.out.println(response.getItemsSize());
+        model.addAttribute("createUrl", "/admin/shows/all");
+        model.addAttribute("pageData", response);
         model.addAttribute("cardHeader", "All Shows");
         model.addAttribute("allowCreate", true);
-        model.addAttribute("createNewItemUrl", "/students/new");
+//        model.addAttribute("createNewItemUrl", "/students/new");
         return "/pages/admin/shows/shows_all";
     }
+
+    @PostMapping("/all")
+    public ModelAndView findAll(WebRequest request, ModelMap model) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        if (MapUtils.isNotEmpty(parameterMap)) {
+            parameterMap.forEach(model::addAttribute);
+        }
+        return new ModelAndView("redirect:/admin/shows/all", model);
+    }
+
 
 /*
     @GetMapping("/all")
