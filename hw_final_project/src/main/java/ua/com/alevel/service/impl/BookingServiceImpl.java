@@ -10,6 +10,7 @@ import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Booking;
 import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.persistence.repository.BookingRepository;
+import ua.com.alevel.persistence.type.BookingStatus;
 import ua.com.alevel.service.BookingService;
 
 import java.util.List;
@@ -33,16 +34,19 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void update(Booking entity) {
         crudRepositoryHelper.update(bookingRepository, entity);
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void delete(Long id) {
         crudRepositoryHelper.delete(bookingRepository, id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Booking> findById(Long id) {
         return crudRepositoryHelper.findById(bookingRepository, id);
     }
@@ -53,6 +57,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public DataTableResponse<Booking> findAll(DataTableRequest request) {
         return crudRepositoryHelper.findAll(bookingRepository, request);
     }
@@ -60,21 +65,26 @@ public class BookingServiceImpl implements BookingService {
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE, rollbackFor = Exception.class)
     public Booking findByUser(User user) {
-
-      Booking booking= bookingRepository.findAllByUser(user)
-              .stream().distinct().findFirst().get();
-return booking;
+        Booking booking = bookingRepository.findAllByUser(user)
+                .stream().distinct().findFirst().get();
+        return booking;
     }
 
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public Booking save(Booking booking) {
-
         return bookingRepository.save(booking);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Booking> findAllByUser(User user) {
         return bookingRepository.findAllByUser(user);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Booking> findAllByBookingStatus(BookingStatus status) {
+        return bookingRepository.findAllByBookingStatus(status);
     }
 }

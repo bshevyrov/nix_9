@@ -1,49 +1,39 @@
 <!DOCTYPE html>
-<html lang="en" layout:decorate="~{layout}"
+<html lang="en" layout:decorate="~{fragments/data_table}"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Movies</title>
+    <title>Shows</title>
 </head>
 <body>
 
-
-<!--<div class="container">-->
-<div layout:fragment="content">
-
-    <div class="card" style="width: max-content">
-        <img alt="Card image cap" class="card-img-top"
-             src="https://cs4.pikabu.ru/post_img/2016/05/29/1/1464476620124332284.jpg">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <a class="btn btn-primary" href="#">Go somewhere</a>
-        </div>
-    </div>
-    <div class="card" style="width: max-content">
-        <img alt="Card image cap" class="card-img-top"
-             src="https://cs4.pikabu.ru/post_img/2016/05/29/1/1464476620124332284.jpg">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <a class="btn btn-primary" href="#">Go somewhere</a>
-        </div>
-    </div>
-
-    <div class="card" style="width: max-content">
-        <img alt="Card image cap" class="card-img-top"
-             src="https://cs4.pikabu.ru/post_img/2016/05/29/1/1464476620124332284.jpg">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            <a class="btn btn-primary" href="#">Go somewhere</a>
-        </div>
-    </div>
-
+<div layout:fragment="data_table_content">
+    <tr th:each="movie,iter : ${pageData.getItems()}">
+        <td th:text="${iter.count}"></td>
+        <td><a th:href="@{'/admin/movies/detail/' + ${movie.getId()}}"
+               th:text="${movie.getId()}"></a></td>
+        <td th:text="${movie.getTitle()}"></td>
+        <td th:text="${movie.getDuration()}"></td>
+        <td th:text="${movie.getDirector()}"></td>
+        <td th:text="${movie.getGenre()}"></td>
+        <td th:text="${movie.getReleaseYear()}"></td>
+        <td>
+            <a class="btn btn-outline-light text-danger" th:href="@{'/admin/movies/delete/' + ${movie.getId()}}"
+               type="button">delete</a>
+        </td>
+        <td>
+            <a class="btn btn-outline-light text-primary" th:href="@{'/admin/movies/update/' + ${movie.getId()}}"
+               type="button">update</a>
+        </td>
+    </tr>
 </div>
 </body>
 </html>
+
+
+
+
+
+

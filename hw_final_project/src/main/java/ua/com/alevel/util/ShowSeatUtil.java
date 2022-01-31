@@ -30,7 +30,7 @@ public final class ShowSeatUtil {
                 }
                 index++;
             }
-            setss = ArrayUtils.add(setss,stringBuilder.toString());
+            setss = ArrayUtils.add(setss, stringBuilder.toString());
         }
 
         return setss;
@@ -49,9 +49,9 @@ public final class ShowSeatUtil {
                 if (seatNum <= seatsInRow) {
                     seatRow = 1;
                 } else {
-                    seatRow = ((seatNum / seatsInRow)+1);
+                    seatRow = ((seatNum / seatsInRow) + 1);
                 }
-                int seatNumber = seatNum- ( seatsInRow*(seatRow-1));
+                int seatNumber = seatNum - (seatsInRow * (seatRow - 1));
                 stringBuilder.append(seatRow).append("_").append(seatNumber);
                 setss = ArrayUtils.add(setss, stringBuilder.toString());
             }
@@ -62,4 +62,5 @@ public final class ShowSeatUtil {
         return setss;
 
 
-}}
+    }
+}

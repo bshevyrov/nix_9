@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+<html lang="en" layout:decorate="~{layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 
 <head>
@@ -11,109 +11,109 @@
 </head>
 <body>
 <section layout:fragment="content">
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div class="card mb-2 mt-2">
-                <div class="card-header">
-                    New Show
-                </div>
-                <div class="card-body">
-                    <form action="#" th:action="@{/admin/shows/new}" th:object="${showRequestDto}" method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-2 mt-2">
+                    <div class="card-header">
+                        New Show
+                    </div>
+                    <div class="card-body">
+                        <form action="#" method="post" th:action="@{/admin/shows/new}" th:object="${showRequestDto}">
 
-                        <table class="table table-sm table-hover">
+                            <table class="table table-sm table-hover">
 
-                            <div class="row">
-                                <div class="col">
-                                    <p>Movies : </p>
-                                </div>
-                                <div class="col">
+                                <div class="row">
                                     <div class="col">
-                                        <div th:each="cinemaHall, iter : ${cinemaHalls}">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                       th:value="${cinemaHall.getId()}"
-                                                       id="cinemaHall"
-                                                       name="cinemaHall"
-                                                       th:checked="${iter.index} == 0">
-                                                <label class="form-check-label" for="cinemaHall">
-                                                    [[${cinemaHall.getName()}]] </label>
+                                        <p>Movies : </p>
+                                    </div>
+                                    <div class="col">
+                                        <div class="col">
+                                            <div th:each="cinemaHall, iter : ${cinemaHalls}">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" id="cinemaHall"
+                                                           name="cinemaHall"
+                                                           th:checked="${iter.index} == 0"
+                                                           th:value="${cinemaHall.getId()}"
+                                                           type="radio">
+                                                    <label class="form-check-label" for="cinemaHall">
+                                                        [[${cinemaHall.getName()}]] </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col">
-                                    <p>Movies : </p>
-                                </div>
-                                <div class="col">
+                                <br>
+                                <div class="row">
                                     <div class="col">
-                                        <div th:each="movie, iter : ${movies}">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio"
-                                                       th:value="${movie.getId()}"
-                                                       id="movie"
-                                                       name="movie"
-                                                       th:checked="${iter.index} == 0">
-                                                <label class="form-check-label" for="movie">
-                                                    [[${movie.getTitle()}]] </label>
+                                        <p>Movies : </p>
+                                    </div>
+                                    <div class="col">
+                                        <div class="col">
+                                            <div th:each="movie, iter : ${movies}">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" id="movie"
+                                                           name="movie"
+                                                           th:checked="${iter.index} == 0"
+                                                           th:value="${movie.getId()}"
+                                                           type="radio">
+                                                    <label class="form-check-label" for="movie">
+                                                        [[${movie.getTitle()}]] </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col">
-                                    <p>Date : </p>
-                                </div>
-                                <div class="col">
-                                    <input type="date" th:field="*{date}" name="date" aria-label="+380"/>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <p>Start Time : </p>
-                                </div>
-                                <div class="col">
-                                    <input type="time" id="startTime" th:field="*{startTime}">
-
+                                <br>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Date : </p>
+                                    </div>
+                                    <div class="col">
+                                        <input aria-label="+380" name="date" th:field="*{date}" type="date"/>
+                                    </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Start Time : </p>
+                                    </div>
+                                    <div class="col">
+                                        <input id="startTime" th:field="*{startTime}" type="time">
 
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <p>End Time : </p>
+                                    </div>
+
+
                                 </div>
-                                <div class="col">
-                                    <input type="time" value="22:00" th:field="*{endTime}">
+                                <div class="row">
+                                    <div class="col">
+                                        <p>End Time : </p>
+                                    </div>
+                                    <div class="col">
+                                        <input th:field="*{endTime}" type="time" value="22:00">
 
+                                    </div>
                                 </div>
-                            </div>
 
 
-                            <div class="row">
-                                <div class="col">
-                                    <input type="submit" value="Submit"/>
-                                </div>
-                                <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="submit" value="Submit"/>
+                                    </div>
+                                    <div class="col">
                                         <span>
                                         </span>
+                                    </div>
                                 </div>
-                            </div>
 
-<!--                            <input type="hidden" name="_csrf" value="437b30dc-a103-44d0-b4e9-791d8de62986"/>-->
-                        </table>
-                    </form>
+                                <!--                            <input type="hidden" name="_csrf" value="437b30dc-a103-44d0-b4e9-791d8de62986"/>-->
+                            </table>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 </section>
 </body>

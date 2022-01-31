@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
+<html lang="en" layout:decorate="~{fragments/data_table}"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/data_table}">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>Shows</title>
@@ -19,12 +19,12 @@
         <td th:text="${show.getMovie().getTitle()}"></td>
         <td th:text="${show.getCinemaHall().getName()}"></td>
         <td>
-            <a type="button" th:href="@{'/admin/shows/delete/' + ${show.getId()}}"
-               class="btn btn-outline-light text-danger">delete</a>
+            <a class="btn btn-outline-light text-danger" th:href="@{'/admin/shows/delete/' + ${show.getId()}}"
+               type="button">delete</a>
         </td>
         <td>
-            <a type="button" th:href="@{'/admin/shows/update/' + ${show.getId()}}"
-               class="btn btn-outline-light text-primary">update</a>
+            <a class="btn btn-outline-light text-primary" th:href="@{'/admin/shows/update/' + ${show.getId()}}"
+               type="button">update</a>
         </td>
     </tr>
 </div>

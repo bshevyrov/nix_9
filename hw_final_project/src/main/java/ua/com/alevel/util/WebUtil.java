@@ -27,6 +27,7 @@ public final class WebUtil {
 
     private WebUtil() {
     }
+
     public static PageAndSizeData generatePageAndSizeData(WebRequest webRequest) {
         int page = webRequest.getParameter(PAGE_PARAM) != null ? Integer.parseInt(Objects.requireNonNull(webRequest.getParameter(PAGE_PARAM))) : DEFAULT_PAGE_PARAM_VALUE;
         int size = webRequest.getParameter(SIZE_PARAM) != null ? Integer.parseInt(Objects.requireNonNull(webRequest.getParameter(SIZE_PARAM))) : DEFAULT_SIZE_PARAM_VALUE;
@@ -46,6 +47,7 @@ public final class WebUtil {
     public static SortData defaultSortData() {
         return new SortData(DEFAULT_SORT_PARAM_VALUE, DEFAULT_ORDER_PARAM_VALUE);
     }
+
     public static DataTableRequest generateDataTableRequestByWebRequest(WebRequest request) {
         DataTableRequest dataTableRequest = new DataTableRequest();
         int page = StringUtils.isBlank(request.getParameter(PAGE_PARAM))

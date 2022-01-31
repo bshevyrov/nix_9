@@ -10,7 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.CinemaHallFacade;
 import ua.com.alevel.facade.MovieFacade;
 import ua.com.alevel.facade.ShowFacade;
-import ua.com.alevel.view.controller.admin.AdminController;
+import ua.com.alevel.view.controller.AbstractController;
+import ua.com.alevel.view.dto.request.MovieRequestDto;
 import ua.com.alevel.view.dto.request.ShowRequestDto;
 import ua.com.alevel.view.dto.response.PageDataResponse;
 import ua.com.alevel.view.dto.response.ShowResponseDto;
@@ -20,7 +21,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/shows")
-public class AdminShowController extends AdminController {
+public class AdminShowController extends AbstractController {
 
     private final ShowFacade showFacade;
     private final CinemaHallFacade cinemaHallFacade;
@@ -31,8 +32,6 @@ public class AdminShowController extends AdminController {
         this.cinemaHallFacade = cinemaHallFacade;
         this.movieFacade = movieFacade;
     }
-
-
 
 
     @GetMapping("/all")
@@ -47,7 +46,6 @@ public class AdminShowController extends AdminController {
         model.addAttribute("pageData", response);
         model.addAttribute("cardHeader", "All Shows");
         model.addAttribute("allowCreate", true);
-//        model.addAttribute("createNewItemUrl", "/students/new");
         return "/pages/admin/shows/shows_all";
     }
 
@@ -59,22 +57,22 @@ public class AdminShowController extends AdminController {
         }
         return new ModelAndView("redirect:/admin/shows/all", model);
     }
+    @GetMapping("/update/{id}")
+    public String update(@PathVariable("id") long id, Model model) {
+        ShowRequestDto showRequestDto = new ShowRequestDto();
+        showRequestDto.setId(id);
+        model.addAttribute("showRequestDto", showRequestDto);
+        return "/pages/admin/shows/shows_new";
+    }
 
-
-/*
-    @GetMapping("/all")
-    public String getAdminShowsAll(Model model, WebRequest request) {
-        PageDataResponse<ShowResponseDto> response = showFacade.findAll(request);
-        model.addAttribute("shows", response);
-        return "/pages/admin/shows/shows_all";
-    }*/
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") long id){
+    public String delete(@PathVariable("id") long id) {
         showFacade.delete(id);
         return "redirect:/admin/shows/all";
 
     }
+
     @GetMapping("/new")
     public String redirectToNewHallPage(Model model) {
         model.addAttribute("showRequestDto", new ShowRequestDto());
@@ -85,14 +83,14 @@ public class AdminShowController extends AdminController {
 
     @PostMapping("/new")
     public String CreateNewHall(@ModelAttribute ShowRequestDto showRequestDto,
-                                /*@RequestParam long cinemaHall,
-                                @RequestParam long movie,*/
+
                                 Model model) {
 
         showFacade.create(showRequestDto);
 
         return "redirect:/admin/shows/all";
     }
+
     private HeaderName[] getColumnNames() {
         return new HeaderName[]{
                 new HeaderName("#", null, null),

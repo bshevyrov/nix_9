@@ -23,16 +23,16 @@ public class CinemaHall extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private Set<CinemaHallSeat> cinemaHallSeats;
 
+    public CinemaHall() {
+        super();
+    }
+
     public Set<CinemaHallSeat> getCinemaHallSeats() {
         return cinemaHallSeats;
     }
 
     public void setCinemaHallSeats(Set<CinemaHallSeat> cinemaHallSeats) {
         this.cinemaHallSeats = cinemaHallSeats;
-    }
-
-    public CinemaHall() {
-        super();
     }
 
     public CinemaHallType getCinemaHallType() {

@@ -17,10 +17,9 @@ public class CinemaHallSeat extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private CinemaSeatType cinemaSeatType;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "cinema_hall_id", referencedColumnName = "id")
     private CinemaHall cinemaHall;
-
 
 
     @OneToMany(
@@ -29,6 +28,10 @@ public class CinemaHallSeat extends BaseEntity {
     )
     private Set<ShowSeat> showSeats;
 
+    public CinemaHallSeat() {
+        super();
+    }
+
     public Set<ShowSeat> getShowSeats() {
         return showSeats;
     }
@@ -36,11 +39,6 @@ public class CinemaHallSeat extends BaseEntity {
     public void setShowSeats(Set<ShowSeat> showSeats) {
         this.showSeats = showSeats;
     }
-
-    public CinemaHallSeat() {
-        super();
-    }
-
 
     public int getSeatNumber() {
         return seatNumber;

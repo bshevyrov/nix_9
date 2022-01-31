@@ -20,11 +20,11 @@ public class ClientsUserDetailsController extends AbstractController {
     }
 
     @GetMapping("/user/detail")
-    public String detail(Model model){
+    public String detail(Model model) {
         UserResponseDto responseDto = userFacade.findByEmail(
                 SecurityUtil.getUsername());
         System.out.println(responseDto.getPhone());
-        model.addAttribute("user",responseDto);
+        model.addAttribute("user", responseDto);
         return "/pages/clients/user_detail";
     }
 

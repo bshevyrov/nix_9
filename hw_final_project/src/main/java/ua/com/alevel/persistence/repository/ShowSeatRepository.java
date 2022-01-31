@@ -8,5 +8,5 @@ import java.util.List;
 @Repository
 public interface ShowSeatRepository extends BaseRepository<ShowSeat> {
 
-       List<ShowSeat> findAllByShowId(long id);
+    List<ShowSeat> findAllByShowId(long id);
 }

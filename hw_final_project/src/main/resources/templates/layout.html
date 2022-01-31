@@ -5,12 +5,12 @@
 <head>
     <meta charset="UTF-8">
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!--    <link href="/css/background.css" rel="stylesheet">-->
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!--    <link href="/css/myapp.css" rel="stylesheet">-->
 
     <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -26,21 +26,21 @@
     <div th:insert="fragments/navbar :: navbar"></div>
     <div class="row mt-2" th:if="${showMessage}">
         <div class="col">
-            <div th:if="${message}" class="alert alert-primary alert-dismissible fade show" role="alert">
+            <div class="alert alert-primary alert-dismissible fade show" role="alert" th:if="${message}">
                 <span th:text="${message}">message text</span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <button aria-label="Close" class="close" data-dismiss="alert" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${errorMessage}">
                 <span th:text="${errorMessage}">message text</span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <button aria-label="Close" class="close" data-dismiss="alert" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div th:if="${warnMessage}" class="alert alert-dark alert-dismissible fade show" role="alert">
+            <div class="alert alert-dark alert-dismissible fade show" role="alert" th:if="${warnMessage}">
                 <span th:text="${warnMessage}">message text</span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <button aria-label="Close" class="close" data-dismiss="alert" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -54,12 +54,12 @@
 
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+<script crossorigin="anonymous"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <th:block layout:fragment="scripts"/>
 
 </body>

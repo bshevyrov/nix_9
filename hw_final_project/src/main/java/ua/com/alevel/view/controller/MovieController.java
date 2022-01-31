@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.MovieFacade;
 import ua.com.alevel.view.dto.response.MovieResponseDto;
-import ua.com.alevel.view.dto.response.PageDataResponse;
 
 import java.util.List;
 
@@ -56,6 +55,7 @@ public class MovieController extends AbstractController {
         model.addAttribute("movie", byId);
         return "/pages/clients/movie/movie_detail";
     }
+
     private HeaderName[] getColumnNames() {
         return new HeaderName[]{
                 new HeaderName("#", null, null),

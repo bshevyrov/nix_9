@@ -2,7 +2,7 @@ package ua.com.alevel.view.dto.response;
 
 import ua.com.alevel.persistence.type.RoleType;
 
-public class UserResponseDto extends ResponseDto{
+public class UserResponseDto extends ResponseDto {
 
     private String email;
 

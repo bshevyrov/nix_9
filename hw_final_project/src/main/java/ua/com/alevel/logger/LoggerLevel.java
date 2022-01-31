@@ -6,11 +6,11 @@ public enum LoggerLevel {
     WARN("warn"),
     ERROR("error");
 
+    private final String level;
+
     LoggerLevel(String level) {
         this.level = level;
     }
-
-    private final String level;
 
     public String getLevel() {
         return level;

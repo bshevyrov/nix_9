@@ -6,7 +6,7 @@ import ua.com.alevel.persistence.type.BookingStatus;
 
 import java.sql.Timestamp;
 
-public class BookingRequestDto extends RequestDto{
+public class BookingRequestDto extends RequestDto {
 
     private BookingStatus bookingStatus;
 
@@ -19,7 +19,6 @@ public class BookingRequestDto extends RequestDto{
     private User user;
 
     private int totalPrice;
-
 
 
     public BookingStatus getBookingStatus() {

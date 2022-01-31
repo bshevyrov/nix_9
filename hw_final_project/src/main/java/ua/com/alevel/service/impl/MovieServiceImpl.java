@@ -1,6 +1,8 @@
 package ua.com.alevel.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
@@ -24,21 +26,28 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void create(Movie entity) {
+        if (entity.getId() != 0) {
+            crudRepositoryHelper.update(movieRepository, entity);
+        }
         crudRepositoryHelper.create(movieRepository, entity);
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void update(Movie entity) {
         crudRepositoryHelper.update(movieRepository, entity);
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void delete(Long id) {
         crudRepositoryHelper.delete(movieRepository, id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Movie> findById(Long id) {
         return crudRepositoryHelper.findById(movieRepository, id);
     }
@@ -49,8 +58,8 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public DataTableResponse<Movie> findAll(DataTableRequest request) {
-
         return crudRepositoryHelper.findAll(movieRepository, request);
     }
 }

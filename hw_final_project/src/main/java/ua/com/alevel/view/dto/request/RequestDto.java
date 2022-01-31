@@ -7,6 +7,9 @@ public abstract class RequestDto {
     private long id;
     private Date createDate;
 
+    public RequestDto() {
+    }
+
     public Date getCreateDate() {
         return createDate;
     }
@@ -21,8 +24,5 @@ public abstract class RequestDto {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public RequestDto() {
     }
 }

@@ -5,7 +5,7 @@ import ua.com.alevel.view.dto.response.CinemaHallSeatResponseDto;
 
 import java.util.List;
 
-public interface CinemaHallSeatFacade extends BaseFacade<CinemaHallSeatRequestDto, CinemaHallSeatResponseDto>{
+public interface CinemaHallSeatFacade extends BaseFacade<CinemaHallSeatRequestDto, CinemaHallSeatResponseDto> {
 
     List<CinemaHallSeatResponseDto> findAllByCinemaHallId(long id);
 

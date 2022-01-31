@@ -1,12 +1,9 @@
 package ua.com.alevel.exception;
 
 import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,24 +36,6 @@ public class GlobalExceptionHandler {
         return generateModelAndView("incorrect value");
     }
 
-  /*  @ExceptionHandler(Throwable.class)
-    public String serverError(final Throwable throwable, final Model model) {
-        System.out.println("GlobalExceptionHandler.serverError");
-        String errorMessage = (throwable != null ? throwable.getMessage() : "Unknown error");
-        model.addAttribute("errorMessage", errorMessage);
-        model.addAttribute("showMessage", true);
-        return "error";
-    }*/
-
-/*    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String notFound(final Exception throwable, final Model model) {
-        System.out.println("GlobalExceptionHandler.notFound");
-        String errorMessage = (throwable != null ? throwable.getMessage() : "Unknown error");
-        model.addAttribute("errorMessage", errorMessage);
-        model.addAttribute("showMessage", true);
-        return "error";
-    }*/
 
     private ModelAndView generateModelAndView(String msg) {
         ModelAndView mav = new ModelAndView();

@@ -58,7 +58,8 @@ public class ClientRegistrationController extends AbstractController {
         model.addAttribute("user", principal.toString());
         return redirectProcess(model);
     }
-//TODO ??
+
+    //TODO ??
     private String redirectProcess(Model model) {
         showMessage(model, false);
         if (SecurityUtil.hasRole(RoleType.ROLE_USER.name())) {

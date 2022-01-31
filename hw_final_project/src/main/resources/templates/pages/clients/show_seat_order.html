@@ -2,39 +2,41 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="/css/jquery.seat-charts.css">
-    <link rel="stylesheet" type="text/css" href="/css/show-seat.order.css">
-<style>
-    .front-indicator {
-position: absolute;
-        top:-10%;
-        left: -2%;
-    }
-    #middle{
-        position: absolute;
-        left: 36%;
+    <link href="/css/jquery.seat-charts.css" rel="stylesheet" type="text/css">
+    <link href="/css/show-seat.order.css" rel="stylesheet" type="text/css">
+    <style>
+        .front-indicator {
+            position: absolute;
+            top: -10%;
+            left: -2%;
+        }
+
+        #middle {
+            position: absolute;
+            left: 36%;
 
 
-    }   #left{
-        position: absolute;
-left: 6%;
-        top: 30%;
+        }
 
-    }   #right{
-        position: absolute;
-        right: 10%;
+        #left {
+            position: absolute;
+            left: 6%;
+            top: 30%;
 
-    }
-</style>
+        }
+
+        #right {
+            position: absolute;
+            right: 10%;
+
+        }
+    </style>
 </head>
 
 <body>
-
-
-
 
 
 <!--
@@ -88,7 +90,6 @@ left: 6%;
                 <div class="container" id="seats">
 
 
-
                     <!--        <h1>jQuery Seat Charts Plugin Demo</h1>-->
                     <div id="seat-map">
                         <div class="front-indicator">Front</div>
@@ -106,13 +107,17 @@ left: 6%;
                     </ul>
                     Total: <b>$<span id="total">0</span></b>
 
-                    <form th:action="@{'/clients/show/seat/' + ${show.getId()}}"  method="post">
-                        <input type="hidden" id="sum" name="sum"/>
-                        <input type="hidden" id="chosenSeats" name="chosenSeats"/>
+                    <form method="post" th:action="@{'/clients/show/seat/' + ${show.getId()}}">
+                        <input id="sum" name="sum" type="hidden"/>
+                        <input id="chosenSeats" name="chosenSeats" type="hidden"/>
 
-                        <button type="submit"  onclick="myFunction()" name="submit" value="value" class="checkout-button"><!--class="link-button"--> This is a link that sends a POST request</button>
+                        <button class="checkout-button" name="submit" onclick="myFunction()" type="submit"
+                                value="value"><!--class="link-button"--> This is a link that sends a POST
+                            request
+                        </button>
                     </form>
-                    <a th:href="@{/clients/booking/new}"> test</a>                   <!--            <button  class="checkout-button">Checkout &raquo;</button>-->
+                    <a th:href="@{/clients/booking/new}"> test</a>
+                    <!--            <button  class="checkout-button">Checkout &raquo;</button>-->
 
                     <div id="legend"></div>
                 </div>
@@ -121,23 +126,20 @@ left: 6%;
     </div>
 
 
-
-
-
 </div>
 
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="/js/jquery.seat-charts.js"></script>
-<script  th:inline="javascript">
+<script th:inline="javascript">
     /*<![CDATA[*/
     var firstSeatLabel = 1;
-    $(document).ready(function() {
+    $(document).ready(function () {
         var $cart = $('#selected-seats'),
             $counter = $('#counter'),
             $total = $('#total'),
 
             sc = $('#seat-map').seatCharts({
-                map:[[${seatMap}]],
+                map: [[${seatMap}]],
 
                 // map: [
                 //     'ff_ffe',
@@ -152,36 +154,36 @@ left: 6%;
                 // ],
                 seats: {
                     f: {
-                        price   : 100,
-                        classes : 'first-class', //your custom CSS class
+                        price: 100,
+                        classes: 'first-class', //your custom CSS class
                         category: 'First Class'
                     },
                     e: {
-                        price   : 40,
-                        classes : 'economy-class', //your custom CSS class
+                        price: 40,
+                        classes: 'economy-class', //your custom CSS class
                         category: 'Economy Class'
                     }
 
                 },
-                naming : {
-                    top : false,
-                    getLabel : function (character, row, column) {
+                naming: {
+                    top: false,
+                    getLabel: function (character, row, column) {
                         return firstSeatLabel++;
                     },
                 },
-                legend : {
-                    node : $('#legend'),
-                    items : [
-                        [ 'f', 'available',   'First Class' ],
-                        [ 'e', 'available',   'Economy Class'],
-                        [ 'f', 'unavailable', 'Already Booked']
+                legend: {
+                    node: $('#legend'),
+                    items: [
+                        ['f', 'available', 'First Class'],
+                        ['e', 'available', 'Economy Class'],
+                        ['f', 'unavailable', 'Already Booked']
                     ]
                 },
                 click: function () {
                     if (this.status() == 'available') {
                         //let's create a new <li> which we'll add to the cart items
-                        $('<li>'+this.data().category+' Seat # '+this.settings.label+': <b>$'+this.data().price+'</b> <a href="#" class="cancel-cart-item">[cancel]</a></li>')
-                            .attr('id', 'cart-item-'+this.settings.id)
+                        $('<li>' + this.data().category + ' Seat # ' + this.settings.label + ': <b>$' + this.data().price + '</b> <a href="#" class="cancel-cart-item">[cancel]</a></li>')
+                            .attr('id', 'cart-item-' + this.settings.id)
                             .data('seatId', this.settings.id)
                             .appendTo($cart);
 
@@ -191,18 +193,18 @@ left: 6%;
                          * .find function will not find the current seat, because it will change its stauts only after return
                          * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
                          */
-                        $counter.text(sc.find('selected').length+1);
-                        $total.text(recalculateTotal(sc)+this.data().price);
+                        $counter.text(sc.find('selected').length + 1);
+                        $total.text(recalculateTotal(sc) + this.data().price);
 
                         return 'selected';
                     } else if (this.status() == 'selected') {
                         //update the counter
-                        $counter.text(sc.find('selected').length-1);
+                        $counter.text(sc.find('selected').length - 1);
                         //and total
-                        $total.text(recalculateTotal(sc)-this.data().price);
+                        $total.text(recalculateTotal(sc) - this.data().price);
 
                         //remove the item from our cart
-                        $('#cart-item-'+this.settings.id).remove();
+                        $('#cart-item-' + this.settings.id).remove();
 
                         //seat has been vacated
                         return 'available';
@@ -236,21 +238,22 @@ left: 6%;
 
         return total;
     }
+
     /*]]>*/
 </script>
 
 <script type="text/javascript">
     function myFunction() {
         //write sum to TH
-        document.getElementById("sum").setAttribute('value',document.getElementById('total').innerText);
+        document.getElementById("sum").setAttribute('value', document.getElementById('total').innerText);
 
         //choosen seats
         let seeeets = [];
         let elements = document.getElementsByTagName("li");
-        for(let i = 0; i < elements.length; i++) {
-            if(elements[i].className!=='seatCharts-legendItem'){
+        for (let i = 0; i < elements.length; i++) {
+            if (elements[i].className !== 'seatCharts-legendItem') {
                 let num = elements[i].innerText;
-                let currentS=(num.substring((num.indexOf('#')+2), num.indexOf(':')));
+                let currentS = (num.substring((num.indexOf('#') + 2), num.indexOf(':')));
 
                 seeeets.push(currentS);
             }

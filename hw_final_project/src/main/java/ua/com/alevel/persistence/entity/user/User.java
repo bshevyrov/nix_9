@@ -1,12 +1,10 @@
 package ua.com.alevel.persistence.entity.user;
 
 import ua.com.alevel.persistence.entity.BaseEntity;
-import ua.com.alevel.persistence.entity.Booking;
 import ua.com.alevel.persistence.type.RoleType;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -53,8 +51,6 @@ private Set<Booking> bookings;
         setRoleType(RoleType.ROLE_USER);
 
     }
-
-
 
 
     public String getEmail() {

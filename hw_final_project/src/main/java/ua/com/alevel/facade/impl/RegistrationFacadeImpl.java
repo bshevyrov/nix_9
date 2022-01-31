@@ -1,12 +1,9 @@
 package ua.com.alevel.facade.impl;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import ua.com.alevel.config.WebSecurityConfig;
 import ua.com.alevel.facade.RegistrationFacade;
 import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.service.UserService;
-import ua.com.alevel.util.SecurityUtil;
 import ua.com.alevel.view.dto.request.UserRequestDto;
 
 

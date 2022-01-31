@@ -31,7 +31,7 @@ public class MovieFacadeImpl implements MovieFacade {
 
     @Override
     public void create(MovieRequestDto movieRequestDto) {
-    movieService.create(ClassConverterUtil.movieRequestDtoToMovie(movieRequestDto));
+        movieService.create(ClassConverterUtil.movieRequestDtoToMovie(movieRequestDto));
     }
 
     @Override

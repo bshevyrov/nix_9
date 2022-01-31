@@ -5,4 +5,5 @@ import ua.com.alevel.persistence.entity.Movie;
 
 @Repository
 public interface MovieRepository extends BaseRepository<Movie> {
+
 }

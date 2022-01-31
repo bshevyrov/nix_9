@@ -147,8 +147,6 @@ public final class ClassConverterUtil {
     }
 
 
-
-
     public static Show showResponseDtoToEntity(ShowResponseDto showResponseDto) {
         Show show = new Show();
         show.setId(showResponseDto.getId());
@@ -203,7 +201,7 @@ public final class ClassConverterUtil {
 
     public static User userResponseDtoToEntity(UserResponseDto userResponseDto) {
         User user = new User();
-         user.setId(userResponseDto.getId());
+        user.setId(userResponseDto.getId());
         user.setEmail(userResponseDto.getEmail());
         user.setFirstName(userResponseDto.getFirstName());
         user.setLastName(userResponseDto.getLastName());
@@ -231,14 +229,14 @@ public final class ClassConverterUtil {
 
     public static User userRequestDtoToUser(UserRequestDto userRequestDto) {
         User user = new User();
-       user.setEmail(userRequestDto.getEmail());
+        user.setEmail(userRequestDto.getEmail());
 //       user.setId(userRequestDto.getId());
-       user.setFirstName(userRequestDto.getFirstName());
-       user.setLastName(userRequestDto.getLastName());
-       user.setPhone(userRequestDto.getPhone());
-       user.setPassword(userRequestDto.getPassword());
-       user.setRoleType(userRequestDto.getRoleType());
-       user.setEnabled(userRequestDto.getEnabled());
+        user.setFirstName(userRequestDto.getFirstName());
+        user.setLastName(userRequestDto.getLastName());
+        user.setPhone(userRequestDto.getPhone());
+        user.setPassword(userRequestDto.getPassword());
+        user.setRoleType(userRequestDto.getRoleType());
+        user.setEnabled(userRequestDto.getEnabled());
         return user;
     }
 }

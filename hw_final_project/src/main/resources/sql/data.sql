@@ -1,4 +1,6 @@
-INSERT INTO private_cinema_new.users (DTYPE, id, first_name, last_name, email, enabled, password, phone, role_type) VALUES ('USER', 1, 'Ivan', 'Ivanov', 'q@mail.ru', true, '$2a$10$s56Kr5MkqxdsEHlW0dtHoeUzxX4BMIWWnQEoJ3zzewXMCK1z6q5w6', '+380991234567', 'ROLE_USER');
+INSERT INTO private_cinema_new.users (DTYPE, id, first_name, last_name, email, enabled, password, phone, role_type)
+VALUES ('USER', 1, 'Ivan', 'Ivanov', 'q@mail.ru', true, '$2a$10$s56Kr5MkqxdsEHlW0dtHoeUzxX4BMIWWnQEoJ3zzewXMCK1z6q5w6',
+        '+380991234567', 'ROLE_USER');
 
 INSERT INTO private_cinema_new.users (DTYPE, id, email, enabled, password, role_type)
 VALUES ('ADMIN', 2, 'a@mail.ru', true, '$2a$10$s56Kr5MkqxdsEHlW0dtHoeUzxX4BMIWWnQEoJ3zzewXMCK1z6q5w6', 'ROLE_ADMIN');
@@ -495,5 +497,6 @@ INSERT INTO private_cinema_new.cinema_seats (id, cinema_seat_type, seat_number, 
 VALUES (210, 'FIRST_CLASS', 60, 5);
 
 
-INSERT INTO private_cinema_new.show_seats (id, price, show_seat_status, booking_id, cinema_seat_id, show_id) VALUES (1, 50, 'UNAVAILABLE', null, 1, 3);
+INSERT INTO private_cinema_new.show_seats (id, price, show_seat_status, booking_id, cinema_seat_id, show_id)
+VALUES (1, 50, 'UNAVAILABLE', null, 1, 3);
 

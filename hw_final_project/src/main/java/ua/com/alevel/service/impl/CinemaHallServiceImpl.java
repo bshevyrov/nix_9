@@ -1,6 +1,8 @@
 package ua.com.alevel.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
@@ -15,7 +17,7 @@ import java.util.Optional;
 public class CinemaHallServiceImpl implements CinemaHallService {
 
     private final CinemaHallRepository cinemaHallRepository;
-    private final CrudRepositoryHelper<CinemaHall,CinemaHallRepository> crudRepositoryHelper;
+    private final CrudRepositoryHelper<CinemaHall, CinemaHallRepository> crudRepositoryHelper;
 
     public CinemaHallServiceImpl(CinemaHallRepository cinemaHallRepository, CrudRepositoryHelper<CinemaHall, CinemaHallRepository> crudRepositoryHelper) {
         this.cinemaHallRepository = cinemaHallRepository;
@@ -23,27 +25,33 @@ public class CinemaHallServiceImpl implements CinemaHallService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+
     public void create(CinemaHall entity) {
-crudRepositoryHelper.create(cinemaHallRepository,entity);
+        crudRepositoryHelper.create(cinemaHallRepository, entity);
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+
     public void update(CinemaHall entity) {
-        crudRepositoryHelper.update(cinemaHallRepository,entity);
+        crudRepositoryHelper.update(cinemaHallRepository, entity);
 
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+
     public void delete(Long id) {
-        crudRepositoryHelper.delete(cinemaHallRepository,id);
+        crudRepositoryHelper.delete(cinemaHallRepository, id);
 
     }
 
     @Override
+    @Transactional(readOnly = true)
+
     public Optional<CinemaHall> findById(Long id) {
-
-        return crudRepositoryHelper.findById(cinemaHallRepository,id);
-
+        return crudRepositoryHelper.findById(cinemaHallRepository, id);
     }
 
     @Override
@@ -52,8 +60,8 @@ crudRepositoryHelper.create(cinemaHallRepository,entity);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public DataTableResponse<CinemaHall> findAll(DataTableRequest request) {
-
         return null;
     }
 }

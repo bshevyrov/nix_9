@@ -2,6 +2,8 @@ package ua.com.alevel.service.impl;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
@@ -29,6 +31,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.REPEATABLE_READ, rollbackFor = Exception.class)
     public void create(User entity) {
         if (userRepository.existsByEmail(entity.getEmail())) {
             throw new EntityExistsException("entity already exist");
@@ -39,14 +42,18 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+
     public void update(User entity) {
-        crudRepositoryHelper.update(userRepository,entity);
+        crudRepositoryHelper.update(userRepository, entity);
 
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+
     public void delete(Long id) {
-        crudRepositoryHelper.delete(userRepository,id);
+        crudRepositoryHelper.delete(userRepository, id);
 
     }
 
@@ -55,23 +62,26 @@ public class UserServiceImpl implements UserService {
 
     public Optional<User> findById(Long id) {
 
-        return crudRepositoryHelper.findById(userRepository,id);
+        return crudRepositoryHelper.findById(userRepository, id);
 
     }
 
     @Override
     public List<User> findAll() {
-                return crudRepositoryHelper.findAll(userRepository);
+        return crudRepositoryHelper.findAll(userRepository);
 
     }
 
     @Override
+    @Transactional(readOnly = true)
+
     public DataTableResponse<User> findAll(DataTableRequest request) {
-        return crudRepositoryHelper.findAll(userRepository,request);
+        return crudRepositoryHelper.findAll(userRepository, request);
 
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User findByEmail(String email) {
 
         return userRepository.findByEmail(email);

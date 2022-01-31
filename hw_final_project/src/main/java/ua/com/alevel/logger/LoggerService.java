@@ -1,4 +1,3 @@
-
 package ua.com.alevel.logger;
 
 public interface LoggerService {

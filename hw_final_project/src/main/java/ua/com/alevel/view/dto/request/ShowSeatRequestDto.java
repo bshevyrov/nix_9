@@ -5,7 +5,7 @@ import ua.com.alevel.persistence.entity.CinemaHallSeat;
 import ua.com.alevel.persistence.entity.Show;
 import ua.com.alevel.persistence.type.ShowSeatStatus;
 
-public class ShowSeatRequestDto extends RequestDto{
+public class ShowSeatRequestDto extends RequestDto {
 
     private ShowSeatStatus showSeatStatus;
 

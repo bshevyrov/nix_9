@@ -106,6 +106,11 @@ public class BookingFacadeImpl implements BookingFacade {
     }
 
     @Override
+    public List<Booking> findAllByBookingStatus(BookingStatus status) {
+        return bookingService.findAllByBookingStatus(status);
+    }
+
+    @Override
     public void buy(long id) {
         Booking booking = bookingService.findById(id).get();
         booking.setBookingStatus(BookingStatus.SUCCESS);

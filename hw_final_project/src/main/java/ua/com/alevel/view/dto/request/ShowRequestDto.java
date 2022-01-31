@@ -30,7 +30,7 @@ public class ShowRequestDto extends RequestDto {
     public void setDate(String date) {
 
         LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        this.date =   Date.valueOf(       LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        this.date = Date.valueOf(LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
     }
 

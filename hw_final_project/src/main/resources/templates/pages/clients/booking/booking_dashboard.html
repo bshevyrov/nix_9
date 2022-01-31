@@ -18,44 +18,44 @@
                         Booking History
                     </div>
                     <div class="card-body">
-<!--                        <div th:if="${bookingList.size() > 0}">-->
+                        <!--                        <div th:if="${bookingList.size() > 0}">-->
 
-                            <tr th:each="booking,iter : ${bookingList}">
-                                <td th:text="${iter.count}"></td>
-                                <td><a th:href="@{'/clients/booking/detail/' + ${booking.getId()}}"
-                                       th:text="${booking.getTimestamp()}"></a></td>
+                        <tr th:each="booking,iter : ${bookingList}">
+                            <td th:text="${iter.count}"></td>
+                            <td><a th:href="@{'/clients/booking/detail/' + ${booking.getId()}}"
+                                   th:text="${booking.getTimestamp()}"></a></td>
 
-                                <td th:text="${booking.getBookingStatus().name()}"></td>
-<!--                                <td th:text="${show.getEndTime()}"></td>-->
-<!--                                <td th:text="${show.getMovie().getTitle()}"></td>-->
-<!--                                <td th:text="${show.getCinemaHall.getName()}"></td>-->
-<!--                                <td>-->
-<!--                                    <a class="btn btn-outline-light text-danger"-->
-<!--                                       th:href="@{'/students/delete/' + ${show.getId()}}"-->
-<!--                                       type="button">delete</a>-->
-<!--                                </td>-->
-<!--                                <td>-->
-<!--                                    <a class="btn btn-outline-light text-primary"-->
-<!--                                       th:href="@{'/students/update/' + ${show.getId()}}"-->
-<!--                                       type="button">update</a>-->
-<!--                                </td>-->
-                            </tr>
-<!--                        </div>-->
-<!--                        <div class="container">-->
-<!--                            <tr>-->
-<!--                                <td>-->
-<!--                                    <a class="btn btn-outline-light text-danger" th:href="@{'/admin/shows/new' }"-->
-<!--                                       type="button">create</a>-->
-<!--                                </td>-->
-<!--                            </tr>-->
-<!--                        </div>-->
+                            <td th:text="${booking.getBookingStatus().name()}"></td>
+                            <!--                                <td th:text="${show.getEndTime()}"></td>-->
+                            <!--                                <td th:text="${show.getMovie().getTitle()}"></td>-->
+                            <!--                                <td th:text="${show.getCinemaHall.getName()}"></td>-->
+                            <!--                                <td>-->
+                            <!--                                    <a class="btn btn-outline-light text-danger"-->
+                            <!--                                       th:href="@{'/students/delete/' + ${show.getId()}}"-->
+                            <!--                                       type="button">delete</a>-->
+                            <!--                                </td>-->
+                            <!--                                <td>-->
+                            <!--                                    <a class="btn btn-outline-light text-primary"-->
+                            <!--                                       th:href="@{'/students/update/' + ${show.getId()}}"-->
+                            <!--                                       type="button">update</a>-->
+                            <!--                                </td>-->
+                        </tr>
+                        <!--                        </div>-->
+                        <!--                        <div class="container">-->
+                        <!--                            <tr>-->
+                        <!--                                <td>-->
+                        <!--                                    <a class="btn btn-outline-light text-danger" th:href="@{'/admin/shows/new' }"-->
+                        <!--                                       type="button">create</a>-->
+                        <!--                                </td>-->
+                        <!--                            </tr>-->
+                        <!--                        </div>-->
 
 
                     </div>
                 </div>
             </div>
         </div>
-<!--    </div>-->
+        <!--    </div>-->
 </section>
 </body>
 </html>

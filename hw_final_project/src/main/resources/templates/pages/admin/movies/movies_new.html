@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+<head>
+    <meta charset="utf-8">
+    <title>New Hall</title>
+    <script src=" https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src=" https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+    <style>
+        .ui-datepicker-calendar {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-2 mt-2">
+                    <div class="card-header">
+                        New Movie
+                    </div>
+                    <div class="card-body">
+                        <form action="#" method="post" th:action="@{/admin/movies/new}" th:object="${movieRequestDto}">
+
+                            <table class="table table-sm table-hover">
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="title"><b>Title</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input id="title" name="title" placeholder="Enter Title" required
+                                               th:field="*{title}" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="title"><b>Description</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input id="description" name="description" placeholder="Enter Description"
+                                               required
+                                               th:field="*{description}" type="text">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="title"><b>Director</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input id="director" name="director" placeholder="Enter Directors name" required
+                                               th:field="*{director}" type="text">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="title"><b>Genre</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input id="genre" name="director" placeholder="Enter Genre" required
+                                               th:field="*{genre}" type="text">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="title"><b>Image Url</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input id="imageUrl" name="direimageUrlctor" placeholder="Enter URL" required
+                                               th:field="*{imageUrl}" type="url">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="title"><b>Release Year</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <input class="date-own form-control" style="width: 300px;"
+                                               th:field="*{releaseYear}" type="text">
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="title"><b>Duration</b></label>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            <input id="hours" max="4" min="00" name="value" size=3/ value=0>
+                                            <input id="minutes" max="59" min="00" name="value" size=2/ value=0>
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                    </div>
+                                    <div class="col">
+                                        <input type="submit" value="Submit"/>
+
+                                    </div>
+                                </div>
+
+                                <!--                            <input type="hidden" name="_csrf" value="437b30dc-a103-44d0-b4e9-791d8de62986"/>-->
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<script>      $('.date-own').datepicker({
+    minViewMode: 2,
+    format: 'yyyy'
+});</script>
+</body>
+
+
+</html>
