@@ -1,5 +1,7 @@
 package ua.com.alevel.persistence.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import ua.com.alevel.persistence.entity.Show;
 
@@ -13,6 +15,6 @@ public interface ShowRepository extends BaseRepository<Show> {
 
     Optional<Show> findByMovieId(long id);
 
-//    DataTableResponse<E> findAllByMovie(Movie movie, DataTableRequest request);
+    Page<Show> findAllByMovieId(long movieId, Pageable pageable);
 }
 

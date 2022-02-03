@@ -38,32 +38,6 @@
 
 <body>
 
-
-<!--
-
-<div class="row">
-    <div class="col">
-        <span th:text="${movie.getTitle()}"></span>
-    </div>
-</div>
-
-<div class="row">
-
-        <span th:text="${show.getDate()}"></span>
-
-
-</div>
-<div class="row">
-    <div class="col">
-        <h3 th:text="${show.getStartTime()}"></h3>
-    </div>
-</div>
-
-
-
-
-</div>-->
-
 <div class="wrapper">
 
     <div class="card-group">
@@ -72,14 +46,14 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm">
-                            <h3 th:text="${movie.getTitle()}"></h3>
+                            <h3 th:text="${showResponseDto.getMovie().getTitle()}"></h3>
 
                         </div>
                         <div class="col-sm">
-                            <h4 th:text="${show.getDate()}"></h4>
+                            <h4 th:text="${showResponseDto.getDate()}"></h4>
                         </div>
                         <div class="col-sm">
-                            <h4 th:text="${show.getStartTime()}"></h4>
+                            <h4 th:text="${showResponseDto.getStartTime()}"></h4>
                         </div>
                     </div>
                 </div>
@@ -89,8 +63,6 @@
             <div class="card-body">
                 <div class="container" id="seats">
 
-
-                    <!--        <h1>jQuery Seat Charts Plugin Demo</h1>-->
                     <div id="seat-map">
                         <div class="front-indicator">Front</div>
                     </div>
@@ -107,8 +79,12 @@
                     </ul>
                     Total: <b>$<span id="total">0</span></b>
 
-                    <form method="post" th:action="@{'/clients/show/seat/' + ${show.getId()}}">
-                        <input id="sum" name="sum" type="hidden"/>
+                    <form method="post" th:action="@{'/clients/show/seat/' + ${showResponseDto.getId()}}">
+                        <input type="hidden"       th:value="${newBookingRequestDto}"       th:object="${newBookingRequestDto}"/>
+<!--                        <input type="hidden"       th:value="${newShowSeatRequestDto}"       th:object="${newShowSeatRequestDto}"/>-->
+
+<!--                        <input id="sum" name="sum" type="hidden" th:field="*{newBookingRequestDto.totalPrice}"/>-->
+                        <input id="sum" name="sum" type="hidden" th:field="*{newBookingRequestDto.totalPrice}"/>
                         <input id="chosenSeats" name="chosenSeats" type="hidden"/>
 
                         <button class="checkout-button" name="submit" onclick="myFunction()" type="submit"
@@ -244,22 +220,19 @@
 
 <script type="text/javascript">
     function myFunction() {
-        //write sum to TH
-        document.getElementById("sum").setAttribute('value', document.getElementById('total').innerText);
 
-        //choosen seats
-        let seeeets = [];
+        let chosenSeats = [];
         let elements = document.getElementsByTagName("li");
+
         for (let i = 0; i < elements.length; i++) {
             if (elements[i].className !== 'seatCharts-legendItem') {
-                let num = elements[i].innerText;
-                let currentS = (num.substring((num.indexOf('#') + 2), num.indexOf(':')));
-
-                seeeets.push(currentS);
+                let seatNumberString = elements[i].innerText;
+                let seatNumber = (seatNumberString.substring((seatNumberString.indexOf('#') + 2), seatNumberString.indexOf(':')));
+                chosenSeats.push(seatNumber);
             }
         }
-        document.getElementById("chosenSeats").setAttribute('value', seeeets);
-
+        document.getElementById("chosenSeats").setAttribute('value', chosenSeats);
+        document.getElementById("sum").setAttribute('value', document.getElementById('total').innerText);
     }
 
 </script>

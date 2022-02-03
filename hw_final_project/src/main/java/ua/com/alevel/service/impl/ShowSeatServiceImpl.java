@@ -9,6 +9,7 @@ import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.ShowSeat;
 import ua.com.alevel.persistence.repository.ShowSeatRepository;
 import ua.com.alevel.service.ShowSeatService;
+import ua.com.alevel.view.dto.response.ShowSeatResponseDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -68,5 +69,17 @@ public class ShowSeatServiceImpl implements ShowSeatService {
     @Transactional(readOnly = true)
     public List<ShowSeat> findAllByShowId(long id) {
         return showSeatRepository.findAllByShowId(id);
+    }
+
+
+    @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class )
+    public ShowSeat save(ShowSeat showSeat) {
+        return showSeatRepository.save(showSeat);
+    }
+
+    @Override
+    public List<ShowSeat> findAllByBookingId(long id) {
+        return showSeatRepository.findAllByBookingId(id);
     }
 }

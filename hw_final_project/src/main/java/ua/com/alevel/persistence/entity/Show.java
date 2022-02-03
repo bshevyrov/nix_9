@@ -26,7 +26,7 @@ public class Show extends BaseEntity {
     @JoinColumn(name = "cinema_hall_id", referencedColumnName = "id")
     private CinemaHall cinemaHall;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "movie_id", referencedColumnName = "id")
     private Movie movie;
 

@@ -15,7 +15,6 @@ public interface BaseCrudService<E extends BaseEntity> {
 
     void delete(Long id);
 
-
     Optional<E> findById(Long id);
 
     List<E> findAll();

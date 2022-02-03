@@ -19,7 +19,7 @@
                         Order Details
                     </div>
                     <div class="card-body">
-                        <form action="#" method="post" th:action="@{/clients/booking/dashboard}"
+                        <form action="#" method="post" th:action="@{'/clients/booking/' + ${bookingResponseDto.getId()}}"
                               th:object="${bookingResponseDto}">
 
                             <table class="table table-sm table-hover">
@@ -40,6 +40,7 @@
                                     </div>
                                     <div class="col">
                                         <div class="col">
+
                                             [[${bookingResponseDto.getShow().getStartTime()}]]
                                         </div>
                                     </div>
@@ -50,7 +51,21 @@
                                     </div>
                                     <div class="col">
                                         <div class="col">
-                                            [[${showSeat.getShow().getMovie.getTitle()}]]
+                                            [[${bookingResponseDto.getShow().getMovie().getTitle()}]]
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Seats : </p>
+                                    </div>
+                                    <div class="col">
+                                        <div class="col">
+                                            <div th:each="showSeat,iter : ${showSeats}">
+                                                <span th:text="${showSeat.getCinemaHallSeat().getSeatNumber()}"></span>
+                                                <span th:if="${iter.index} < ${showSeats.size()-1}">,</span>
+                                            </div>
+                                            <br>
                                         </div>
                                     </div>
                                 </div>

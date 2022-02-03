@@ -58,7 +58,7 @@ public final class ClassConverterUtil {
 
     }
 
-    public static Show SRDtoToEntity(ShowRequestDto showRequestDto) {
+    public static Show ShowRequestDtoToEntity(ShowRequestDto showRequestDto) {
 
         Show show = new Show();
 //        show.setId(showRequestDto.getId());
@@ -166,11 +166,10 @@ public final class ClassConverterUtil {
         booking.setUser(bookingRequestDto.getUser());
         booking.setShow(bookingRequestDto.getShow());
         booking.setTotalPrice(bookingRequestDto.getTotalPrice());
-//        booking.setId(bookingRequestDto.getId());
+        booking.setId(bookingRequestDto.getId());
         //TODO проверить тайм стамп именно когда оплатил
         booking.setTimestamp(bookingRequestDto.getTimestamp());
         booking.setNumberOfSeats(bookingRequestDto.getNumberOfSeats());
-
         return booking;
     }
 

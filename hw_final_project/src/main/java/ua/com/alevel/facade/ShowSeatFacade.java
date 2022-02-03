@@ -7,4 +7,9 @@ import java.util.List;
 
 public interface ShowSeatFacade extends BaseFacade<ShowSeatRequestDto, ShowSeatResponseDto> {
     List<ShowSeatResponseDto> findAllByShowId(long id);
+
+    ShowSeatResponseDto save(ShowSeatRequestDto newShowSeatRequestDto);
+
+    List<ShowSeatResponseDto> findAllByBookingId(long id);
 }
+

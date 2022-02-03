@@ -17,7 +17,7 @@ public final class ShowSeatUtil {
         //Hard code  5 seat in row
         int seatsInRow = 5;
         int row = totalSeat / seatsInRow;
-        String[] setss = new String[]{};
+        String[] seatMap = new String[]{};
         int index = 0;
         for (int i = 0; i < row; i++) {
             StringBuilder stringBuilder = new StringBuilder();
@@ -30,22 +30,21 @@ public final class ShowSeatUtil {
                 }
                 index++;
             }
-            setss = ArrayUtils.add(setss, stringBuilder.toString());
+            seatMap = ArrayUtils.add(seatMap, stringBuilder.toString());
         }
-
-        return setss;
+        return seatMap;
     }
 
     public static String[] createSoldSeats(List<ShowSeatResponseDto> showSeats) {
         //Hard code  5 seat in row
         int seatsInRow = 5;
-        String[] setss = new String[]{};
-
+        String[] soldSeats = new String[]{};
         for (ShowSeatResponseDto showSeat : showSeats) {
             StringBuilder stringBuilder = new StringBuilder();
+            //Can add another ShowSeatStatus
             if (StringUtils.equals(showSeat.getShowSeatStatus().name().toUpperCase(Locale.ROOT), "UNAVAILABLE")) {
                 int seatNum = showSeat.getCinemaHallSeat().getSeatNumber();
-                int seatRow = 0;
+                int seatRow;
                 if (seatNum <= seatsInRow) {
                     seatRow = 1;
                 } else {
@@ -53,14 +52,10 @@ public final class ShowSeatUtil {
                 }
                 int seatNumber = seatNum - (seatsInRow * (seatRow - 1));
                 stringBuilder.append(seatRow).append("_").append(seatNumber);
-                setss = ArrayUtils.add(setss, stringBuilder.toString());
+                soldSeats = ArrayUtils.add(soldSeats, stringBuilder.toString());
             }
-
-
-//            sc.get(['1_2', '4_1', '7_1', '7_2'])
         }
-        return setss;
-
+        return soldSeats;
 
     }
 }

@@ -1,5 +1,7 @@
 package ua.com.alevel.persistence.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import ua.com.alevel.persistence.type.ShowSeatStatus;
 
 import javax.persistence.*;
@@ -20,11 +22,13 @@ public class ShowSeat extends BaseEntity {
     @JoinColumn(name = "cinema_seat_id", referencedColumnName = "id")
     private CinemaHallSeat cinemaHallSeat;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.REMOVE} )
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "show_id", referencedColumnName = "id")
     private Show show;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "booking_id", referencedColumnName = "id")
     private Booking booking;
 

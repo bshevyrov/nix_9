@@ -85,10 +85,7 @@ public class BookingFacadeImpl implements BookingFacade {
     }
 
 
-    @Override
-    public BookingResponseDto findByUser(User user) {
-        return ClassConverterUtil.bookingToResponseDto(bookingService.findByUser(user));
-    }
+
 
     @Override
     public BookingResponseDto save(BookingRequestDto requestDto) {
@@ -106,6 +103,16 @@ public class BookingFacadeImpl implements BookingFacade {
     }
 
     @Override
+    public PageDataResponse<BookingResponseDto> findAllByUser(User user, WebRequest request) {
+        PageAndSizeData pageAndSizeData = WebUtil.generatePageAndSizeData(request);
+        SortData sortData = WebUtil.generateSortData(request);
+        DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
+        DataTableResponse<Booking> all = bookingService.findAllByUser(user, dataTableRequest);
+        return getPageDataResponseFromDataTable(pageAndSizeData, sortData, all);
+
+    }
+
+    @Override
     public List<Booking> findAllByBookingStatus(BookingStatus status) {
         return bookingService.findAllByBookingStatus(status);
     }
@@ -116,5 +123,10 @@ public class BookingFacadeImpl implements BookingFacade {
         booking.setBookingStatus(BookingStatus.SUCCESS);
         booking.setTimestamp(Timestamp.from(Instant.now()));
         bookingService.update(booking);
+    }
+
+    @Override
+    public void removeCopy(User user) {
+        bookingService.removeCopy(user);
     }
 }

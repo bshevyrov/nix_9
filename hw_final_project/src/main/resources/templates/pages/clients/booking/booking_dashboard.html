@@ -1,61 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" layout:decorate="~{layout}"
+<html lang="en" layout:decorate="~{fragments/data_table}"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>Booking History</title>
 </head>
 <body>
-
-
-<section layout:fragment="content">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="card mb-2 mt-2">
-                    <div class="card-header">
-                        Booking History
-                    </div>
-                    <div class="card-body">
-                        <!--                        <div th:if="${bookingList.size() > 0}">-->
-
-                        <tr th:each="booking,iter : ${bookingList}">
-                            <td th:text="${iter.count}"></td>
-                            <td><a th:href="@{'/clients/booking/detail/' + ${booking.getId()}}"
-                                   th:text="${booking.getTimestamp()}"></a></td>
-
-                            <td th:text="${booking.getBookingStatus().name()}"></td>
-                            <!--                                <td th:text="${show.getEndTime()}"></td>-->
-                            <!--                                <td th:text="${show.getMovie().getTitle()}"></td>-->
-                            <!--                                <td th:text="${show.getCinemaHall.getName()}"></td>-->
-                            <!--                                <td>-->
-                            <!--                                    <a class="btn btn-outline-light text-danger"-->
-                            <!--                                       th:href="@{'/students/delete/' + ${show.getId()}}"-->
-                            <!--                                       type="button">delete</a>-->
-                            <!--                                </td>-->
-                            <!--                                <td>-->
-                            <!--                                    <a class="btn btn-outline-light text-primary"-->
-                            <!--                                       th:href="@{'/students/update/' + ${show.getId()}}"-->
-                            <!--                                       type="button">update</a>-->
-                            <!--                                </td>-->
-                        </tr>
-                        <!--                        </div>-->
-                        <!--                        <div class="container">-->
-                        <!--                            <tr>-->
-                        <!--                                <td>-->
-                        <!--                                    <a class="btn btn-outline-light text-danger" th:href="@{'/admin/shows/new' }"-->
-                        <!--                                       type="button">create</a>-->
-                        <!--                                </td>-->
-                        <!--                            </tr>-->
-                        <!--                        </div>-->
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--    </div>-->
-</section>
+<div layout:fragment="data_table_content">
+    <tr th:each="booking,iter : ${bookingList}">
+        <td th:text="${iter.count}"></td>
+        <td><a th:href="@{'/clients/booking/detail/' + ${booking.getId()}}"
+               th:text="${booking.getTimestamp()}"></a></td>
+        <td th:text="${booking.getBookingStatus().name()}"></td>
+        <td th:text="${booking.getTotalPrice()}"></td>
+    </tr>
+</div>
 </body>
 </html>
+

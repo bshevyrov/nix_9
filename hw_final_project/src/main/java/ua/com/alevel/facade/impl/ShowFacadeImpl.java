@@ -30,12 +30,12 @@ public class ShowFacadeImpl implements ShowFacade {
 
     @Override
     public void create(ShowRequestDto showRequestDto) {
-        showService.create(ClassConverterUtil.SRDtoToEntity(showRequestDto));
+        showService.create(ClassConverterUtil.ShowRequestDtoToEntity(showRequestDto));
     }
 
     @Override
     public void update(ShowRequestDto showRequestDto) {
-        showService.update(ClassConverterUtil.SRDtoToEntity(showRequestDto));
+        showService.update(ClassConverterUtil.ShowRequestDtoToEntity(showRequestDto));
     }
 
     @Override

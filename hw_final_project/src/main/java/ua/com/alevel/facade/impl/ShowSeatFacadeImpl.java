@@ -81,4 +81,15 @@ public class ShowSeatFacadeImpl implements ShowSeatFacade {
         return showSeatService.findAllByShowId(id).stream().map(ClassConverterUtil::showSeatToShowSeatResponseDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public ShowSeatResponseDto save(ShowSeatRequestDto newShowSeatRequestDto) {
+        return   ClassConverterUtil.showSeatToShowSeatResponseDto(showSeatService.save(ClassConverterUtil.showSeatRequestDtoToEntity(newShowSeatRequestDto)));
+    }
+
+    @Override
+    public List<ShowSeatResponseDto> findAllByBookingId(long id) {
+        return  showSeatService.findAllByBookingId(id).stream().map(ClassConverterUtil::showSeatToShowSeatResponseDto)
+                .collect(Collectors.toList());
+    }
 }

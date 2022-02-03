@@ -24,7 +24,7 @@ public class Booking extends BaseEntity {
     @Column(name = "total_price")
     private int totalPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "show_id", referencedColumnName = "id")
     private Show show;
 
@@ -75,7 +75,6 @@ public class Booking extends BaseEntity {
     public void setShow(Show show) {
         this.show = show;
     }
-
 
     public User getUser() {
         return user;

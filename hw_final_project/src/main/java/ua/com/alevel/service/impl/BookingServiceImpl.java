@@ -1,8 +1,9 @@
 package ua.com.alevel.service.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
@@ -10,11 +11,14 @@ import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Booking;
 import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.persistence.repository.BookingRepository;
+import ua.com.alevel.persistence.repository.ShowSeatRepository;
 import ua.com.alevel.persistence.type.BookingStatus;
 import ua.com.alevel.service.BookingService;
+import ua.com.alevel.util.DataTableUtil;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -63,17 +67,17 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE, rollbackFor = Exception.class)
-    public Booking findByUser(User user) {
-        Booking booking = bookingRepository.findAllByUser(user)
-                .stream().distinct().findFirst().get();
-        return booking;
-    }
-
-    @Override
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public Booking save(Booking booking) {
         return bookingRepository.save(booking);
+    }
+
+    @Override
+    public DataTableResponse<Booking> findAllByUser(User user, DataTableRequest request) {
+        PageRequest pageRequest = DataTableUtil.dataTableRequestToPageRequest(request);
+        Page<Booking> page = bookingRepository.findAllByUserId(user.getId(), pageRequest);
+
+        return DataTableUtil.responsePageToDTResponse(page, request);
     }
 
     @Override
@@ -86,5 +90,14 @@ public class BookingServiceImpl implements BookingService {
     @Transactional(readOnly = true)
     public List<Booking> findAllByBookingStatus(BookingStatus status) {
         return bookingRepository.findAllByBookingStatus(status);
+    }
+
+    @Override
+    public void removeCopy(User user) {
+        List<Booking> list = bookingRepository.findAllByUser(user).stream()
+                .filter(booking -> booking.getBookingStatus().name().equals("PENDING")).collect(Collectors.toList());
+        for (Booking booking : list) {
+            crudRepositoryHelper.delete(bookingRepository, booking.getId());
+        }
     }
 }

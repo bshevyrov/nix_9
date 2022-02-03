@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.com.alevel.facade.*;
+import ua.com.alevel.persistence.entity.CinemaHallSeat;
+import ua.com.alevel.persistence.entity.Show;
 import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.persistence.type.BookingStatus;
 import ua.com.alevel.persistence.type.ShowSeatStatus;
@@ -30,109 +32,74 @@ public class ClientShowSeatOrderController extends AbstractController {
     private final BookingFacade bookingFacade;
     private final ShowFacade showFacade;
     private final ShowSeatFacade showSeatFacade;
-    private final MovieFacade movieFacade;
     private final CinemaHallSeatFacade cinemaHallSeatFacade;
 
     public ClientShowSeatOrderController(UserFacade userFacade, BookingFacade bookingFacade,
                                          ShowFacade showFacade,
                                          ShowSeatFacade showSeatFacade,
-                                         MovieFacade movieFacade,
                                          CinemaHallSeatFacade cinemaHallSeatFacade) {
         this.userFacade = userFacade;
         this.bookingFacade = bookingFacade;
         this.showFacade = showFacade;
         this.showSeatFacade = showSeatFacade;
-        this.movieFacade = movieFacade;
         this.cinemaHallSeatFacade = cinemaHallSeatFacade;
     }
 
     @GetMapping("/seat/{id}")
     public String seat(@PathVariable("id") long id, Model model) {
-        //request responce TODO yне та ентитя
-        model.addAttribute("showSeat", new ShowSeatRequestDto());
-        ShowResponseDto showResponseDto = showFacade.findById(id);
-        model.addAttribute("show", showResponseDto);
-        model.addAttribute("movie", movieFacade.findById(showResponseDto.getMovie().getId()));
 
+        model.addAttribute("newBookingRequestDto", new BookingRequestDto());
+        ShowResponseDto showResponseDto = showFacade.findById(id);
+        model.addAttribute("showResponseDto",showResponseDto);
         long cinemaHallId = showResponseDto.getCinemaHall().getId();
         int totalSeat = showResponseDto.getCinemaHall().getTotalSeats();
         List<CinemaHallSeatResponseDto> cinemaHallSeatList = cinemaHallSeatFacade.findAllByCinemaHallId(cinemaHallId);
         model.addAttribute("seatMap", ShowSeatUtil.createSeatMap(totalSeat, cinemaHallSeatList));
-        List<ShowSeatResponseDto> showSeatList = showSeatFacade.findAllByShowId(showResponseDto.getId());
-
+        List<ShowSeatResponseDto> showSeatList = showSeatFacade.findAllByShowId(id);
         model.addAttribute("soldSeats", ShowSeatUtil.createSoldSeats(showSeatList));
-
 
         return "/pages/clients/show_seat_order";
     }
 
     @PostMapping("/seat/{id}")
     public String seatOrder(@PathVariable("id") long id,
-                            @RequestParam("sum") int sum,
+                            @ModelAttribute("newBookingRequestDto") BookingRequestDto newBookingRequestDto,
                             @RequestParam("chosenSeats") int[] chosenSeats,
                             Model model) {
-        System.out.println(SecurityUtil.getUsername());
-        long bId = 0L;
-        for (int chosenSeat : chosenSeats) {
-            System.out.println("CS:" + chosenSeat);
-            System.out.println(chosenSeat);
+
+        Show show = ClassConverterUtil.showResponseDtoToEntity(showFacade.findById(id));
+        newBookingRequestDto.setShow(show);
+        String userEmail = SecurityUtil.getUsername();
+        User user = ClassConverterUtil.userResponseDtoToEntity(
+                userFacade.findByEmail(userEmail));
+        newBookingRequestDto.setUser(user);
+
+        //ЕЩВЩscheduller 2 минуты пендинга и снятие с брони
+        newBookingRequestDto.setBookingStatus(BookingStatus.PENDING);
+        newBookingRequestDto.setTimestamp(Timestamp.from(Instant.now()));
+        newBookingRequestDto.setNumberOfSeats(chosenSeats.length);
+        BookingResponseDto bookingResponseDto= bookingFacade.save(newBookingRequestDto);
+
+        if(showSeatFacade.findAllByBookingId(bookingResponseDto.getId()).size()<=0) {
+
+            //TODO cronчистильщик не купленых
+            for (int seat : chosenSeats) {
+                CinemaHallSeat cinemaHallSeat = ClassConverterUtil
+                        .cinemaHallSeatResponseDtoToCinemaHallSeat(
+                                cinemaHallSeatFacade.findById(seat));
+                ShowSeatRequestDto requestDto = new ShowSeatRequestDto();
+                requestDto.setBooking(ClassConverterUtil.bookingResponseDtoToEntity(bookingResponseDto));
+                requestDto.setShow(show);
+                requestDto.setPrice(cinemaHallSeat.getCinemaSeatType().getPrice());
+                requestDto.setCinemaHallSeat(cinemaHallSeat);
+                requestDto.setShowSeatStatus(ShowSeatStatus.UNAVAILABLE);
+                showSeatFacade.create(requestDto);
+
+               }
         }
-        ShowSeatRequestDto rr = new ShowSeatRequestDto();
-        for (int seat : chosenSeats) {
-
-            BookingRequestDto bookingRequestDto = new BookingRequestDto();
-            String userEmail = SecurityUtil.getUsername();
-            User user = ClassConverterUtil.userResponseDtoToEntity(
-                    userFacade.findByEmail(userEmail));
-            bookingRequestDto.setUser(user);
-            bookingRequestDto.setTotalPrice(sum);
-
-            //ЕЩВЩscheduller 2 минуты пендинга и снятие с брони
-            bookingRequestDto.setBookingStatus(BookingStatus.PENDING);
-            bookingRequestDto.setTimestamp(Timestamp.from(Instant.now()));
-            bookingRequestDto.setShow(ClassConverterUtil.showResponseDtoToEntity(showFacade.findById(id)));
-
-            bId = bookingFacade.save(bookingRequestDto).getId();
-
-//            userFacade.addBooking(user.getId(),1);
-
-            ShowSeatRequestDto requestDto = new ShowSeatRequestDto();
-            List<CinemaHallSeatResponseDto> responseDtos = cinemaHallSeatFacade.findAll();
-            CinemaHallSeatResponseDto responseDto = responseDtos.stream().
-                    filter(responseDtoa -> seat == (responseDtoa.getSeatNumber()))
-                    .findFirst().get();
-
-            requestDto.setPrice(responseDto.getCinemaSeatType().getPrice());
-            requestDto.setShow(ClassConverterUtil.
-                    showResponseDtoToEntity(showFacade.findById(id)));
-            requestDto.setCinemaHallSeat(ClassConverterUtil
-                    .cinemaHallSeatResponseDtoToCinemaHallSeat(
-                            cinemaHallSeatFacade.findById(seat)));
-            requestDto.setShowSeatStatus(ShowSeatStatus.UNAVAILABLE);
-            rr = requestDto;
-
-            requestDto.setBooking(ClassConverterUtil.bookingResponseDtoToEntity(
-                    bookingFacade.findByUser(user)));
-            showSeatFacade.create(requestDto);
-        }
-
-        BookingResponseDto bookingResponseDto = bookingFacade.findById(bId);
+        model.addAttribute("showSeats", showSeatFacade.findAllByBookingId(bookingResponseDto.getId()));
         model.addAttribute("bookingResponseDto", bookingResponseDto);
-        model.addAttribute("bookingId", bId);
-        model.addAttribute("showSeat", rr);
 
         return "/pages/clients/booking/booking_confirmation";
-
     }
-   /* @PostMapping("/seat/{id}")
-    public String seatOrder(@PathVariable("id") long id,
-                            @ModelAttribute("showSeats") List<ShowSeatRequestDto> showSeats,
-                            Model model){
-
-        for (ShowSeatRequestDto showSeat : showSeats) {
-            System.out.println(showSeat.toString());
-        }
-        return "redirect:/clients/booking";
-    }*/
-
 }

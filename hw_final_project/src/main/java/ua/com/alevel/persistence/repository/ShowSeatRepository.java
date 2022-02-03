@@ -9,4 +9,7 @@ import java.util.List;
 public interface ShowSeatRepository extends BaseRepository<ShowSeat> {
 
     List<ShowSeat> findAllByShowId(long id);
+
+    List<ShowSeat> findAllByBookingId(long id);
 }
+
