@@ -12,11 +12,37 @@
 </head>
 
 <body>
-
+<div layout:fragment="content">
+<!--
+    <div class="row mb-2 mt-2" th:if="${showMessage}">
+        <div class="col-12">
+            <div th:if="${message}" class="alert alert-primary alert-dismissible fade show" role="alert">
+                <span th:text="${message}">message text</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span th:text="${errorMessage}">message text</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div th:if="${warnMessage}" class="alert alert-dark alert-dismissible fade show" role="alert">
+                <span th:text="${warnMessage}">message text</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+-->
 
 <section layout:fragment="content">
     <form method="post" th:action="@{/registration}" th:object="${authForm}">
-
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+        </div>
         <!--                        <div layout:fragment="content">-->
         <div class="container">
             <div class="row">
@@ -34,6 +60,8 @@
                                     <div class="col">
                                         <input id="email" name="email" placeholder="Enter Email" required
                                                th:field="*{email}" type="email">
+                                        <li th:each="err : ${#fields.errors('email')}" th:text="${err}" class="error" />
+
                                     </div>
                                 </div>
 
@@ -44,6 +72,8 @@
                                     <div class="col">
                                         <input id="psw" name="psw" placeholder="Enter Password" required
                                                th:field="*{password}" type="password">
+                                        <li th:each="err : ${#fields.errors('password')}" th:text="${err}" class="error" />
+
                                     </div>
                                 </div>
 
@@ -56,6 +86,8 @@
                                         <input id="psw-repeat" name="psw-repeat" placeholder="Repeat Password" required
                                                th:field="*{passwordConfirm}"
                                                type="password"></div>
+                                    <li th:each="err : ${#fields.errors('passwordConfirm')}" th:text="${err}" class="error" />
+
                                 </div>
                                 <div class="row">
                                     <div class="col">

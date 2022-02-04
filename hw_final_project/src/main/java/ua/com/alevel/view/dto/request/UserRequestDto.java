@@ -10,7 +10,16 @@ public class UserRequestDto extends AuthDto {
     private String FirstName;
     private String LastName;
     private String phone;
+    private String oldPassword;
 
+    public String getOldPassword() {
+
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
 
     public Boolean getEnabled() {
         return enabled;

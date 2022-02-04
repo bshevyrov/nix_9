@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <title> User Detail</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <!--                        <div layout:fragment="content">-->
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-2 mt-2">
+                    <div class="card-header">
+                        User Detail
+                    </div>
+                    <div class="card-body">
+                        <form action="#" method="post" th:action="@{/clients/user/update}" th:object="${newUserRequestDto}">
+                        <table class="table table-sm table-hover">
+                                <div class="row">
+                                    <div class="col">
+                                        First Name
+                                    </div>
+                                    <div class="col">
+                                        <input  placeholder="First name" required
+                                               th:field="*{firstName}" type="text">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        Last name
+                                    </div>
+                                    <div class="col">
+                                        <input id="title" name="title" placeholder="Last name" required
+                                               th:field="*{lastName}" type=text >
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        Phone
+                                    </div>
+                                    <div class="col">
+                                        <input  placeholder="Phone:" required
+                                               th:field="*{phone}" type=tel>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="submit" value="Submit"/>
+                                    </div>
+                                </div>
+                        </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

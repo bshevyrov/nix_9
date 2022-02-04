@@ -6,6 +6,8 @@ import ua.com.alevel.view.dto.response.UserResponseDto;
 public interface UserFacade extends BaseFacade<UserRequestDto, UserResponseDto> {
     UserResponseDto findByEmail(String email);
 
+    void updatePass(long id, String encode);
+
 
 
 /*

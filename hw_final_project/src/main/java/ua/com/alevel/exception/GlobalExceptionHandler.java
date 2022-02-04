@@ -1,3 +1,4 @@
+/*
 package ua.com.alevel.exception;
 
 import org.hibernate.exception.ConstraintViolationException;
@@ -45,3 +46,4 @@ public class GlobalExceptionHandler {
         return mav;
     }
 }
+*/

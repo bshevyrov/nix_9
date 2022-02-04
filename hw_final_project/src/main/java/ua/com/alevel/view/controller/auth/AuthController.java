@@ -14,16 +14,10 @@ import ua.com.alevel.view.controller.AbstractController;
 @Controller
 public class AuthController extends AbstractController {
 
-    private final RegistrationFacade registrationFacade;
-    private final AuthValidatorFacade authValidatorFacade;
     private final SecurityService securityService;
 
     public AuthController(
-            RegistrationFacade registrationFacade,
-            AuthValidatorFacade authValidatorFacade,
             SecurityService securityService) {
-        this.registrationFacade = registrationFacade;
-        this.authValidatorFacade = authValidatorFacade;
         this.securityService = securityService;
     }
 

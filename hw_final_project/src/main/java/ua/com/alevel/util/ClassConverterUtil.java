@@ -229,7 +229,7 @@ public final class ClassConverterUtil {
     public static User userRequestDtoToUser(UserRequestDto userRequestDto) {
         User user = new User();
         user.setEmail(userRequestDto.getEmail());
-//       user.setId(userRequestDto.getId());
+        user.setId(userRequestDto.getId());
         user.setFirstName(userRequestDto.getFirstName());
         user.setLastName(userRequestDto.getLastName());
         user.setPhone(userRequestDto.getPhone());

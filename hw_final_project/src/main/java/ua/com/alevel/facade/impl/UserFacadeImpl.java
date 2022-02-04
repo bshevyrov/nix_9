@@ -6,7 +6,6 @@ import ua.com.alevel.facade.UserFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.user.User;
-import ua.com.alevel.service.BookingService;
 import ua.com.alevel.service.UserService;
 import ua.com.alevel.util.ClassConverterUtil;
 import ua.com.alevel.util.FacadeUtil;
@@ -24,36 +23,34 @@ import java.util.stream.Collectors;
 public class UserFacadeImpl implements UserFacade {
 
     private final UserService userService;
-    private final BookingService bookingService;
 
-    public UserFacadeImpl(UserService userService, BookingService bookingService) {
+    public UserFacadeImpl(UserService userService) {
         this.userService = userService;
-        this.bookingService = bookingService;
     }
 
     @Override
     public UserResponseDto findByEmail(String email) {
-
         return ClassConverterUtil.userToUserResponseDto(userService.findByEmail(email));
     }
 
-   /* @Override
-    public void addBooking(long userid, long bookingId) {
-     User user  =userService.findById(userid).get();
-        Booking booking = bookingService.findById(bookingId).get();
-        user.addBooking(booking);
-        userService.update(user);
-    }*/
+    @Override
+    public void updatePass(long id, String encode) {
+        userService.updatePassword(id, encode);
+    }
 
     @Override
     public void create(UserRequestDto userRequestDto) {
-        userService.create(ClassConverterUtil.userRequestDtoToUser(userRequestDto));
+        userService
+                .create(ClassConverterUtil
+                        .userRequestDtoToUser(userRequestDto));
 
     }
 
     @Override
     public void update(UserRequestDto userRequestDto) {
-        userService.update(ClassConverterUtil.userRequestDtoToUser(userRequestDto));
+        userService
+                .update(ClassConverterUtil
+                        .userRequestDtoToUser(userRequestDto));
 
     }
 

@@ -20,12 +20,15 @@ public class CinemaHall extends BaseEntity {
     @Column(name = "total_seats")
     private int totalSeats;
 
+/*
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private Set<CinemaHallSeat> cinemaHallSeats;
+*/
 
     public CinemaHall() {
         super();
     }
+/*
 
     public Set<CinemaHallSeat> getCinemaHallSeats() {
         return cinemaHallSeats;
@@ -34,6 +37,7 @@ public class CinemaHall extends BaseEntity {
     public void setCinemaHallSeats(Set<CinemaHallSeat> cinemaHallSeats) {
         this.cinemaHallSeats = cinemaHallSeats;
     }
+*/
 
     public CinemaHallType getCinemaHallType() {
         return cinemaHallType;

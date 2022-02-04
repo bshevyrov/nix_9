@@ -15,7 +15,6 @@ public interface BookingRepository extends BaseRepository<Booking> {
 
     List<Booking> findAllByUser(User user);
 
-//    @Query("select b from Booking b INNER JOIN b.user u WHERE u.id=?1")
     Page<Booking> findAllByUserId(Long userId, Pageable pageable);
 
     List<Booking> findAllByBookingStatus(BookingStatus status);

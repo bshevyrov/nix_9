@@ -43,7 +43,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED)
-
     public void update(User entity) {
         crudRepositoryHelper.update(userRepository, entity);
 
@@ -51,7 +50,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED)
-
     public void delete(Long id) {
         crudRepositoryHelper.delete(userRepository, id);
 
@@ -59,9 +57,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-
     public Optional<User> findById(Long id) {
-
         return crudRepositoryHelper.findById(userRepository, id);
 
     }
@@ -83,7 +79,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public User findByEmail(String email) {
-
         return userRepository.findByEmail(email);
     }
 
@@ -91,5 +86,11 @@ public class UserServiceImpl implements UserService {
     public boolean existsByEmail(String email) {
         //TODO проверка перед созданием с формы
         return userRepository.existsByEmail(email);
+    }
+
+    public void updatePassword(long id, String encode) {
+        User user = userRepository.findById(id).get();
+        user.setPassword(encode);
+      userRepository.save(user);
     }
 }

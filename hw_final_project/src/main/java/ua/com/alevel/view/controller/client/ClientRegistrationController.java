@@ -52,10 +52,9 @@ public class ClientRegistrationController extends AbstractController {
         }
         registrationFacade.registration(authForm);
         securityService.autoLogin(authForm.getEmail(), authForm.getPasswordConfirm());
-
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(principal.toString());
-        model.addAttribute("user", principal.toString());
+//
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        model.addAttribute("user", principal.toString());
         return redirectProcess(model);
     }
 

@@ -9,4 +9,6 @@ public interface UserService extends BaseCrudService<User> {
     User findByEmail(String email);
 
     boolean existsByEmail(String email);
+
+    void updatePassword(long id, String encode);
 }

@@ -71,15 +71,17 @@ public class ClientBookingController extends AbstractController {
                              @ModelAttribute("confirm") String confirm,
                              Model model) {
 
-        if (confirm.isEmpty()) {
-        } else {
-            if (StringUtils.equals("agree", confirm)) {
+        if (!confirm.isEmpty() && StringUtils.equals("agree", confirm)) {
                 bookingFacade.buy(id);
-                bookingFacade.removeCopy(ClassConverterUtil
-                        .userResponseDtoToEntity(
-                                userFacade.findByEmail(
-                                        SecurityUtil.getUsername())));
-                        }
+
+
+                //SPIKE
+//                bookingFacade.removeCopy(ClassConverterUtil
+//                        .userResponseDtoToEntity(
+//                                userFacade.findByEmail(
+//                                        SecurityUtil.getUsername())));
+//                        }
+                //
         }
         return "redirect:/clients/booking/dashboard";
     }

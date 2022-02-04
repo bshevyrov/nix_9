@@ -16,27 +16,21 @@ public class RegistrationFacadeImpl implements RegistrationFacade {
         this.userService = userService;
     }
 
-
     @Override
     public void registration(UserRequestDto requestDtoDto) {
-        User user = new User();
 
+        User user = new User();
         user.setEmail(requestDtoDto.getEmail());
-        System.out.println(requestDtoDto.getPassword());
         user.setPassword(requestDtoDto.getPassword());
         user.setFirstName(requestDtoDto.getFirstName());
         user.setLastName(requestDtoDto.getLastName());
         user.setPhone(requestDtoDto.getPhone());
 
-
-//        client.setsetClientUser(clientUser);
-
-//        clientUser.setClient(client);
         userService.create(user);
     }
 
     @Override
     public User findByEmail(String email) {
-        return null;
+        return userService.findByEmail(email);
     }
 }
