@@ -9,7 +9,6 @@ import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.ShowSeat;
 import ua.com.alevel.persistence.repository.ShowSeatRepository;
 import ua.com.alevel.service.ShowSeatService;
-import ua.com.alevel.view.dto.response.ShowSeatResponseDto;
 
 import java.util.List;
 import java.util.Optional;

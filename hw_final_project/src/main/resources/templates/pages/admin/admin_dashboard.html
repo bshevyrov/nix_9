@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/data_table}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Users</title>
+</head>
+<body>
+
+<div layout:fragment="data_table_content">
+    <tr th:each="user,iter : ${pageData.getItems()}">
+        <td th:text="${iter.count}"></td>
+        <td><a th:href="@{'/admin/movies/detail/' + ${user.getId()}}"
+               th:text="${user.getId()}"></a></td>
+        <td th:text="${user.getFirstName()}"></td>
+        <td th:text="${user.getLastName()}"></td>
+        <td th:text="${user.getEmail()}"></td>
+        <td th:text="${user.getPhone()}"></td>
+        <td th:text="${user.getEnabled()}"></td>
+        <td>
+            <form action="#" th:action="@{'/admin/user/ban/' + ${user.getId()}}" th:method="post" >
+                <input type="hidden" name="enabled" th:value="${user.getEnabled()}" />
+                <button type="submit" id="submitButton"> Ban/Unban</button>
+            </form>
+
+<!--            <a class="btn btn-outline-light text-danger" method="post" th:name="enabled" th:value="${user.getEnabled()}" th:href="@{'/admin/user/ban/' + ${user.getId()}}"-->
+<!--               type="button">Ban/Unban</a>-->
+        </td>
+
+    </tr>
+</div>
+</body>
+</html>
+
+
+
+
+
+

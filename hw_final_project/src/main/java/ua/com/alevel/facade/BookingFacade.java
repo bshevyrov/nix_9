@@ -7,7 +7,6 @@ import ua.com.alevel.persistence.type.BookingStatus;
 import ua.com.alevel.view.dto.request.BookingRequestDto;
 import ua.com.alevel.view.dto.response.BookingResponseDto;
 import ua.com.alevel.view.dto.response.PageDataResponse;
-import ua.com.alevel.view.dto.response.ShowResponseDto;
 
 import java.util.List;
 

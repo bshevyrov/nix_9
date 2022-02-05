@@ -1,5 +1,7 @@
 package ua.com.alevel.service.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -9,9 +11,12 @@ import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.BaseEntity;
+import ua.com.alevel.persistence.entity.Booking;
 import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.persistence.repository.user.UserRepository;
+import ua.com.alevel.persistence.type.RoleType;
 import ua.com.alevel.service.UserService;
+import ua.com.alevel.util.DataTableUtil;
 
 import javax.persistence.EntityExistsException;
 import java.util.List;
@@ -91,6 +96,28 @@ public class UserServiceImpl implements UserService {
     public void updatePassword(long id, String encode) {
         User user = userRepository.findById(id).get();
         user.setPassword(encode);
-      userRepository.save(user);
+        userRepository.save(user);
     }
+
+
+    @Override
+    @Transactional
+    public void ban(long id) {
+        userRepository.ban(id);
+    }
+
+    @Override
+    @Transactional
+    public void unban(long id) {
+        userRepository.unban(id);
+    }
+
+
+@Override
+public DataTableResponse<User> findAllUser(DataTableRequest request) {
+    PageRequest pageRequest = DataTableUtil.dataTableRequestToPageRequest(request);
+    Page<User> page = userRepository.findByRoleType(RoleType.ROLE_USER, pageRequest);
+
+    return DataTableUtil.responsePageToDTResponse(page, request);
+}
 }

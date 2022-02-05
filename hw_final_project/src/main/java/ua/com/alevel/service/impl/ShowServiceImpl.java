@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.Booking;
 import ua.com.alevel.persistence.entity.Show;
 import ua.com.alevel.persistence.repository.ShowRepository;
 import ua.com.alevel.service.ShowService;

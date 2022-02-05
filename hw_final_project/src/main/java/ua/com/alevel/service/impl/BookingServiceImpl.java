@@ -11,13 +11,15 @@ import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Booking;
 import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.persistence.repository.BookingRepository;
-import ua.com.alevel.persistence.repository.ShowSeatRepository;
 import ua.com.alevel.persistence.type.BookingStatus;
 import ua.com.alevel.service.BookingService;
 import ua.com.alevel.util.DataTableUtil;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -99,5 +101,16 @@ public class BookingServiceImpl implements BookingService {
         for (Booking booking : list) {
             crudRepositoryHelper.delete(bookingRepository, booking.getId());
         }
+    }
+
+    @Override
+    @Transactional
+    public void deletePendingBooking() {
+        //pending timeout
+        int delayMinutes =2;
+        Timestamp timestamp = Timestamp.from(Instant.now());
+        timestamp.setTime(timestamp.getTime()
+                - TimeUnit.MINUTES.toMillis(delayMinutes));
+      bookingRepository.deleteAllByBookingStatusAndTimestampGreaterThanEqual(BookingStatus.PENDING,timestamp);
     }
 }

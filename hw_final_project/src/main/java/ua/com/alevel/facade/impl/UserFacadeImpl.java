@@ -39,6 +39,28 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
+    public void ban(long id) {
+        userService.ban(id);
+
+    }
+
+    @Override
+    public void unban(long id) {
+        userService.unban(id);
+
+    }
+
+    @Override
+    public PageDataResponse<UserResponseDto> findAllUser(WebRequest request) {
+        PageAndSizeData pageAndSizeData = WebUtil.generatePageAndSizeData(request);
+        SortData sortData = WebUtil.generateSortData(request);
+        DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
+        DataTableResponse<User> all = userService.findAllUser(dataTableRequest);
+        return getPageDataResponseFromDataTable(pageAndSizeData, sortData, all);
+    }
+
+
+    @Override
     public void create(UserRequestDto userRequestDto) {
         userService
                 .create(ClassConverterUtil
@@ -51,19 +73,16 @@ public class UserFacadeImpl implements UserFacade {
         userService
                 .update(ClassConverterUtil
                         .userRequestDtoToUser(userRequestDto));
-
     }
 
     @Override
     public void delete(long id) {
         userService.delete(id);
-
     }
 
     @Override
     public UserResponseDto findById(long id) {
         return ClassConverterUtil.userToUserResponseDto(userService.findById(id).get());
-
     }
 
     @Override
@@ -80,7 +99,6 @@ public class UserFacadeImpl implements UserFacade {
         DataTableRequest dataTableRequest = FacadeUtil.getDTReqFromPageAndSortData(pageAndSizeData, sortData);
         DataTableResponse<User> all = userService.findAll(dataTableRequest);
         return getPageDataResponseFromDataTable(pageAndSizeData, sortData, all);
-
     }
 
     private PageDataResponse<UserResponseDto> getPageDataResponseFromDataTable(PageAndSizeData pageAndSizeData, SortData sortData, DataTableResponse<User> all) {

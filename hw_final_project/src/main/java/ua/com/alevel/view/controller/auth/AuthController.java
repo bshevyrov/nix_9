@@ -5,8 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ua.com.alevel.config.security.SecurityService;
-import ua.com.alevel.facade.AuthValidatorFacade;
-import ua.com.alevel.facade.RegistrationFacade;
 import ua.com.alevel.persistence.type.RoleType;
 import ua.com.alevel.util.SecurityUtil;
 import ua.com.alevel.view.controller.AbstractController;
@@ -27,7 +25,7 @@ public class AuthController extends AbstractController {
         boolean authenticated = securityService.isAuthenticated();
         if (authenticated) {
             if (SecurityUtil.hasRole(RoleType.ROLE_ADMIN.name())) {
-                return "redirect:/movies";
+                return "redirect:/admin/user/dashboard";
             }
             if (SecurityUtil.hasRole(RoleType.ROLE_USER.name())) {
                 return "redirect:/movies";

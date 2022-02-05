@@ -4,7 +4,6 @@ import ua.com.alevel.persistence.type.CinemaSeatType;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "cinema_seats")
@@ -22,22 +21,10 @@ public class CinemaHallSeat extends BaseEntity {
     private CinemaHall cinemaHall;
 
 
-    @OneToMany(
-            cascade = {CascadeType.ALL},
-            fetch = FetchType.LAZY
-    )
-    private Set<ShowSeat> showSeats;
+
 
     public CinemaHallSeat() {
         super();
-    }
-
-    public Set<ShowSeat> getShowSeats() {
-        return showSeats;
-    }
-
-    public void setShowSeats(Set<ShowSeat> showSeats) {
-        this.showSeats = showSeats;
     }
 
     public int getSeatNumber() {

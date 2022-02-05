@@ -11,7 +11,6 @@ import ua.com.alevel.facade.CinemaHallFacade;
 import ua.com.alevel.facade.MovieFacade;
 import ua.com.alevel.facade.ShowFacade;
 import ua.com.alevel.view.controller.AbstractController;
-import ua.com.alevel.view.dto.request.MovieRequestDto;
 import ua.com.alevel.view.dto.request.ShowRequestDto;
 import ua.com.alevel.view.dto.response.PageDataResponse;
 import ua.com.alevel.view.dto.response.ShowResponseDto;
@@ -97,7 +96,7 @@ public class AdminShowController extends AbstractController {
                 new HeaderName("Id", "id", "id"),
                 new HeaderName("Date", "date", "date"),
                 new HeaderName("Start time", "start_time", "startTime"),
-                new HeaderName("End time", "end_time", "emdTime"),
+                new HeaderName("End time", "end_time", "endTime"),
                 new HeaderName("Movie", "movie", "movie"),
                 new HeaderName("Cinema Hall", "cinema_hall", "cinemaHall"),
                 new HeaderName("Delete", null, null),
