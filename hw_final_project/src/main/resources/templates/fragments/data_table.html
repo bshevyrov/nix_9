@@ -3,10 +3,7 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
-<!--<head>-->
-<!--    <meta charset="utf-8">-->
-<!--    <title>All Personals</title>-->
-<!--</head>-->
+
 <body>
 
 <div layout:fragment="content">
@@ -55,9 +52,12 @@
 
                         </tbody>
                     </table>
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between align-items-center">
                         <div class="p-1">
-
+                            <a   class="btn btn-primary"
+                                   th:href="@{${createUrl}}" type="button">
+                                <span>New</span>
+                            </a>
                         </div>
                         <div class="d-flex justify-content-end align-items-center">
                             <div class="p-1">Showing [[${pageData.getCurrentShowFromEntries()}]] to
@@ -112,12 +112,11 @@
         </div>
     </div>
 
-    <form id="personalSearch" method="POST" th:action="@{${createUrl}}">
-        <input id="personalSearchSubmit"
-               style="visibility: hidden"
-               type="submit"
-        />
-    </form>
+<!--    <form th:if="${allowCreate}" id="personalSearch" method="get" th:action="@{${createNewItemUrl}}">-->
+<!--        <input id="personalSearchSubmit"-->
+<!--               type="submit"-->
+<!--        />-->
+<!--    </form>-->
 
     <span id="pageData"
           th:data-order="${pageData.getOrder()}"

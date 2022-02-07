@@ -8,12 +8,10 @@
     <title>Users</title>
 </head>
 <body>
-
 <div layout:fragment="data_table_content">
     <tr th:each="user,iter : ${pageData.getItems()}">
         <td th:text="${iter.count}"></td>
-        <td><a th:href="@{'/admin/movies/detail/' + ${user.getId()}}"
-               th:text="${user.getId()}"></a></td>
+        <td th:text="${user.getId()}"></td>
         <td th:text="${user.getFirstName()}"></td>
         <td th:text="${user.getLastName()}"></td>
         <td th:text="${user.getEmail()}"></td>
@@ -24,11 +22,7 @@
                 <input type="hidden" name="enabled" th:value="${user.getEnabled()}" />
                 <button type="submit" id="submitButton"> Ban/Unban</button>
             </form>
-
-<!--            <a class="btn btn-outline-light text-danger" method="post" th:name="enabled" th:value="${user.getEnabled()}" th:href="@{'/admin/user/ban/' + ${user.getId()}}"-->
-<!--               type="button">Ban/Unban</a>-->
         </td>
-
     </tr>
 </div>
 </body>

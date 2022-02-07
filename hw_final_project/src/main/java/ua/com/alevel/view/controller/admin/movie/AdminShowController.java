@@ -41,7 +41,7 @@ public class AdminShowController extends AbstractController {
         response.initPaginationState(response.getCurrentPage());
         List<HeaderData> headerDataList = getHeaderDataList(columnNames, response);
         model.addAttribute("headerDataList", headerDataList);
-        model.addAttribute("createUrl", "/admin/shows/all");
+        model.addAttribute("createUrl", "/admin/shows/new");
         model.addAttribute("pageData", response);
         model.addAttribute("cardHeader", "All Shows");
         model.addAttribute("allowCreate", true);
@@ -82,11 +82,9 @@ public class AdminShowController extends AbstractController {
 
     @PostMapping("/new")
     public String CreateNewHall(@ModelAttribute ShowRequestDto showRequestDto,
-
                                 Model model) {
 
         showFacade.create(showRequestDto);
-
         return "redirect:/admin/shows/all";
     }
 

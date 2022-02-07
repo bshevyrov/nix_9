@@ -62,11 +62,10 @@ public class AdminMovieController extends AbstractController {
         response.initPaginationState(response.getCurrentPage());
         List<AbstractController.HeaderData> headerDataList = getHeaderDataList(columnNames, response);
         model.addAttribute("headerDataList", headerDataList);
-        model.addAttribute("createUrl", "/admin/movies/all");
+        model.addAttribute("createUrl", "/admin/movies/new");
         model.addAttribute("pageData", response);
         model.addAttribute("cardHeader", "All Movies");
         model.addAttribute("allowCreate", true);
-//        model.addAttribute("createNewItemUrl", "/students/new");
         return "/pages/admin/movies/movies_all";
     }
 
@@ -100,5 +99,4 @@ public class AdminMovieController extends AbstractController {
                 new AbstractController.HeaderName("Update", null, null)
         };
     }
-
 }

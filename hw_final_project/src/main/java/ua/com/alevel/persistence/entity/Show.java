@@ -11,18 +11,15 @@ public class Show extends BaseEntity {
 
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
-    @Column(name = "start_time"/*, columnDefinition = "TIME"*/)
-//        @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "start_time")
     private LocalTime startTime;
 
-    @Column(name = "end_time"/*, columnDefinition = "TIME"*/)
-//    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "end_time")
     private LocalTime endTime;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "cinema_hall_id", referencedColumnName = "id")
     private CinemaHall cinemaHall;
 
