@@ -17,14 +17,15 @@
                         User Detail
                     </div>
                     <div class="card-body">
-                        <form action="#" method="post" th:action="@{/clients/user/update}" th:object="${newUserRequestDto}">
-                        <table class="table table-sm table-hover">
+                        <form action="#" method="post" th:action="@{/clients/user/update}"
+                              th:object="${newUserRequestDto}">
+                            <table class="table table-sm table-hover">
                                 <div class="row">
                                     <div class="col">
                                         First Name
                                     </div>
                                     <div class="col">
-                                        <input  placeholder="First name" required
+                                        <input placeholder="First name" required
                                                th:field="*{firstName}" type="text">
                                     </div>
                                 </div>
@@ -34,7 +35,7 @@
                                     </div>
                                     <div class="col">
                                         <input id="title" name="title" placeholder="Last name" required
-                                               th:field="*{lastName}" type=text >
+                                               th:field="*{lastName}" type=text>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -42,7 +43,7 @@
                                         Phone
                                     </div>
                                     <div class="col">
-                                        <input  placeholder="Phone:" required
+                                        <input placeholder="Phone:" required
                                                th:field="*{phone}" type=tel>
 
                                     </div>
@@ -53,7 +54,7 @@
                                         <input type="submit" value="Submit"/>
                                     </div>
                                 </div>
-                        </table>
+                            </table>
                         </form>
                     </div>
                 </div>

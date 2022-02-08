@@ -14,7 +14,6 @@ public interface UserService extends BaseCrudService<User> {
 
     void updatePassword(long id, String encode);
 
-
     void ban(long id);
 
     void unban(long id);

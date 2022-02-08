@@ -31,7 +31,6 @@ public class ClientBookingController extends AbstractController {
         this.showSeatFacade = showSeatFacade;
     }
 
-
     @GetMapping("/booking/dashboard")
     public String bookingMeth(WebRequest request, ModelMap model) {
         model.addAttribute("bookingList", bookingFacade
@@ -40,19 +39,19 @@ public class ClientBookingController extends AbstractController {
                                 userFacade.findByEmail(
                                         SecurityUtil.getUsername()))));
 
-            HeaderName[] columnNames = getColumnNames();
-            PageDataResponse<BookingResponseDto> response =bookingFacade
-                    .findAllByUser(ClassConverterUtil
-                            .userResponseDtoToEntity(
-                                    userFacade.findByEmail(
-                                            SecurityUtil.getUsername())), request);
-            response.initPaginationState(response.getCurrentPage());
-            List<HeaderData> headerDataList = getHeaderDataList(columnNames, response);
-            model.addAttribute("headerDataList", headerDataList);
-            model.addAttribute("createUrl", "/clients/booking/dashboard");
-            model.addAttribute("pageData", response);
-            model.addAttribute("cardHeader", "Booking History");
-            model.addAttribute("allowCreate", true);
+        HeaderName[] columnNames = getColumnNames();
+        PageDataResponse<BookingResponseDto> response = bookingFacade
+                .findAllByUser(ClassConverterUtil
+                        .userResponseDtoToEntity(
+                                userFacade.findByEmail(
+                                        SecurityUtil.getUsername())), request);
+        response.initPaginationState(response.getCurrentPage());
+        List<HeaderData> headerDataList = getHeaderDataList(columnNames, response);
+        model.addAttribute("headerDataList", headerDataList);
+        model.addAttribute("createUrl", "/clients/booking/dashboard");
+        model.addAttribute("pageData", response);
+        model.addAttribute("cardHeader", "Booking History");
+        model.addAttribute("allowCreate", true);
 
         return "/pages/clients/booking/booking_dashboard";
     }
@@ -60,31 +59,20 @@ public class ClientBookingController extends AbstractController {
     @GetMapping("/booking/detail/{id}")
     public String details(@PathVariable("id") long id,
                           Model model) {
-        model.addAttribute("booking", bookingFacade.findById(id));
-        model.addAttribute("showSeats", showSeatFacade.findAllByBookingId(id) );
-        return "/pages/clients/booking/booking_details";
+        model.addAttribute("bookingResponseDto", bookingFacade.findById(id));
+        model.addAttribute("showSeats", showSeatFacade.findAllByBookingId(id));
+        return "/pages/clients/booking/booking_confirmation";
     }
 
     @PostMapping("/booking/{id}")
     public String bookingUpd(@PathVariable("id") long id,
                              @ModelAttribute("confirm") String confirm,
                              Model model) {
-
         if (!confirm.isEmpty() && StringUtils.equals("agree", confirm)) {
-                bookingFacade.buy(id);
-
-
-                //SPIKE
-//                bookingFacade.removeCopy(ClassConverterUtil
-//                        .userResponseDtoToEntity(
-//                                userFacade.findByEmail(
-//                                        SecurityUtil.getUsername())));
-//                        }
-                //
+            bookingFacade.buy(id);
         }
         return "redirect:/clients/booking/dashboard";
     }
-
 
 
     private HeaderName[] getColumnNames() {
@@ -93,6 +81,6 @@ public class ClientBookingController extends AbstractController {
                 new HeaderName("Date", "timestamp", "timestamp"),
                 new HeaderName("Booking status", "booking_status", "bookingStatus"),
                 new HeaderName("Total Price", "total_price", "totalPrice"),
-           };
+        };
     }
 }

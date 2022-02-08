@@ -11,7 +11,6 @@ import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.BaseEntity;
-import ua.com.alevel.persistence.entity.Booking;
 import ua.com.alevel.persistence.entity.user.User;
 import ua.com.alevel.persistence.repository.user.UserRepository;
 import ua.com.alevel.persistence.type.RoleType;
@@ -50,35 +49,29 @@ public class UserServiceImpl implements UserService {
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void update(User entity) {
         crudRepositoryHelper.update(userRepository, entity);
-
     }
 
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void delete(Long id) {
         crudRepositoryHelper.delete(userRepository, id);
-
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<User> findById(Long id) {
         return crudRepositoryHelper.findById(userRepository, id);
-
     }
 
     @Override
     public List<User> findAll() {
         return crudRepositoryHelper.findAll(userRepository);
-
     }
 
     @Override
     @Transactional(readOnly = true)
-
     public DataTableResponse<User> findAll(DataTableRequest request) {
         return crudRepositoryHelper.findAll(userRepository, request);
-
     }
 
     @Override
@@ -99,7 +92,6 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-
     @Override
     @Transactional
     public void ban(long id) {
@@ -113,11 +105,11 @@ public class UserServiceImpl implements UserService {
     }
 
 
-@Override
-public DataTableResponse<User> findAllUser(DataTableRequest request) {
-    PageRequest pageRequest = DataTableUtil.dataTableRequestToPageRequest(request);
-    Page<User> page = userRepository.findByRoleType(RoleType.ROLE_USER, pageRequest);
+    @Override
+    public DataTableResponse<User> findAllUser(DataTableRequest request) {
+        PageRequest pageRequest = DataTableUtil.dataTableRequestToPageRequest(request);
+        Page<User> page = userRepository.findByRoleType(RoleType.ROLE_USER, pageRequest);
 
-    return DataTableUtil.responsePageToDTResponse(page, request);
-}
+        return DataTableUtil.responsePageToDTResponse(page, request);
+    }
 }

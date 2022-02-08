@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ShowService extends BaseCrudService<Show> {
+
     Optional<Show> findByMovieId(long id);
 
     List<Show> findAllByMovieId(Long id);

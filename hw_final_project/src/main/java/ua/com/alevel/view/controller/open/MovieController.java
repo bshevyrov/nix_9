@@ -25,27 +25,8 @@ public class MovieController extends AbstractController {
 
     @GetMapping()
     public String getFirst(Model model, WebRequest request) {
-       /* //
-        boolean authenticated = securityService.isAuthenticated();
-        if (authenticated) {
-            if (SecurityUtil.hasRole(RoleType.ROLE_ADMIN.name())) {
-                return "redirect:/admin/movies/all";
-            }
-        }
-        //*/
-
-        //  AbstractController.HeaderName[] columnNames = getColumnNames();
-        List<MovieResponseDto> response = movieFacade.findAll();
-//        response.initPaginationState(response.getCurrentPage());
-//          List<HeaderData> headerDataList = getHeaderDataList(columnNames, response);
-//          model.addAttribute("headerDataList", headerDataList);
-//        model.addAttribute("createUrl", "/students/all");
-        model.addAttribute("pageDataResponse", response);
-//        model.addAttribute("cardHeader", "All Students");
-//        model.addAttribute("allowCreate", true);
-//        model.addAttribute("createNewItemUrl", "/students/new");
-//        return "/pages/student/student_all";
-
+       List<MovieResponseDto> response = movieFacade.findAll();
+      model.addAttribute("pageDataResponse", response);
 
         return "pages/clients/movie/movie_dashboard";
     }

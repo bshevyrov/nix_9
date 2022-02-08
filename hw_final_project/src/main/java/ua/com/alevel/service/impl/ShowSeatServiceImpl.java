@@ -36,7 +36,6 @@ public class ShowSeatServiceImpl implements ShowSeatService {
 
     public void update(ShowSeat entity) {
         crudRepositoryHelper.update(showSeatRepository, entity);
-
     }
 
     @Override
@@ -72,7 +71,7 @@ public class ShowSeatServiceImpl implements ShowSeatService {
 
 
     @Override
-    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class )
+    @Transactional(isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
     public ShowSeat save(ShowSeat showSeat) {
         return showSeatRepository.save(showSeat);
     }

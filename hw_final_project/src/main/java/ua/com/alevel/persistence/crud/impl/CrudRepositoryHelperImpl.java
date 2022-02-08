@@ -22,13 +22,13 @@ public class CrudRepositoryHelperImpl<
 
     @Override
     public void create(R repository, E entity) {
-         repository.save(entity);
+        repository.save(entity);
     }
 
     @Override
     public void update(R repository, E entity) {
         checkExist(repository, entity.getId());
-         repository.save(entity);
+        repository.save(entity);
     }
 
     @Override

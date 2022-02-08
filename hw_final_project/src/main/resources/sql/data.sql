@@ -1,10 +1,15 @@
 INSERT INTO private_cinema_new.users (DTYPE, id, first_name, last_name, email, enabled, password, phone, role_type)
 VALUES ('USER', 1, 'Ivan', 'Ivanov', 'q@mail.ru', true, '$2a$10$s56Kr5MkqxdsEHlW0dtHoeUzxX4BMIWWnQEoJ3zzewXMCK1z6q5w6',
         '+380991234567', 'ROLE_USER');
-
-INSERT INTO private_cinema_new.users (DTYPE, id, email, enabled, password, role_type)
-VALUES ('ADMIN', 2, 'a@mail.ru', true, '$2a$10$s56Kr5MkqxdsEHlW0dtHoeUzxX4BMIWWnQEoJ3zzewXMCK1z6q5w6', 'ROLE_ADMIN');
-
+INSERT INTO private_cinema_new.users (DTYPE, id, first_name, last_name, email, enabled, password, phone, role_type)
+VALUES ('ADMIN', 2, null, null, 'a@mail.ru', true, '$2a$10$s56Kr5MkqxdsEHlW0dtHoeUzxX4BMIWWnQEoJ3zzewXMCK1z6q5w6', null,
+        'ROLE_ADMIN');
+INSERT INTO private_cinema_new.users (DTYPE, id, first_name, last_name, email, enabled, password, phone, role_type)
+VALUES ('USER', 3, 'Oleg', 'Olegov', 'b@mail.ru', true, '$2a$10$s56Kr5MkqxdsEHlW0dtHoeUzxX4BMIWWnQEoJ3zzewXMCK1z6q5w6',
+        '+380991234563', 'ROLE_USER');
+INSERT INTO private_cinema_new.users (DTYPE, id, first_name, last_name, email, enabled, password, phone, role_type)
+VALUES ('USER', 4, 'Vanya', 'Vavnya', 'c@mail.ru', false,
+        '$2a$10$s56Kr5MkqxdsEHlW0dtHoeUzxX4BMIWWnQEoJ3zzewXMCK1z6q5w6', '+380991234560', 'ROLE_USER');
 
 
 INSERT INTO private_cinema_new.movies (id, description, director, duration, genre, image_url, relese_year, title)
@@ -497,6 +502,9 @@ INSERT INTO private_cinema_new.cinema_seats (id, cinema_seat_type, seat_number, 
 VALUES (210, 'FIRST_CLASS', 60, 5);
 
 
+INSERT INTO private_cinema_new.bookings (id, booking_status, number_of_seats, timestamp, total_price, show_id, user_id)
+VALUES (1, 'SUCCESS', 1, '2022-02-08 00:57:16', 50, 3, 3);
+
 INSERT INTO private_cinema_new.show_seats (id, price, show_seat_status, booking_id, cinema_seat_id, show_id)
-VALUES (1, 50, 'UNAVAILABLE', null, 1, 3);
+VALUES (1, 50, 'UNAVAILABLE', 1, 1, 3);
 

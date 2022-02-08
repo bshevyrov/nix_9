@@ -47,7 +47,7 @@ public class ClientsUserDetailsController extends AbstractController {
         newUserRequestDto.setFirstName(userResponseDto.getFirstName());
         newUserRequestDto.setLastName(userResponseDto.getLastName());
         newUserRequestDto.setPhone(userResponseDto.getPhone());
-                        model.addAttribute("newUserRequestDto", userResponseDto);
+        model.addAttribute("newUserRequestDto", userResponseDto);
         return "/pages/clients/user/user_update";
     }
 
@@ -81,7 +81,7 @@ public class ClientsUserDetailsController extends AbstractController {
         UserResponseDto userResponseDto = userFacade.findByEmail(
                 SecurityUtil.getUsername());
         showMessage(model, false);
-        if (!bCryptPasswordEncoder.matches(newUserRequestDto.getOldPassword(),userResponseDto.getPassword()) ){
+        if (!bCryptPasswordEncoder.matches(newUserRequestDto.getOldPassword(), userResponseDto.getPassword())) {
             bindingResult.reject(
                     "passwordCurrent", "Old password different from Current Password");
             return "/pages/clients/user/user_update_password";
@@ -92,9 +92,8 @@ public class ClientsUserDetailsController extends AbstractController {
             return "/pages/clients/user/user_update_password";
         }
 
-
-        userFacade.updatePass(userResponseDto.getId(),bCryptPasswordEncoder
+        userFacade.updatePass(userResponseDto.getId(), bCryptPasswordEncoder
                 .encode(newUserRequestDto.getPassword()));
-                    return "redirect:/clients/user/detail";
+        return "redirect:/clients/user/detail";
     }
 }

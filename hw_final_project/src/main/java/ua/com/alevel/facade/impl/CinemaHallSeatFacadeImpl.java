@@ -39,7 +39,6 @@ public class CinemaHallSeatFacadeImpl implements CinemaHallSeatFacade {
     public void update(CinemaHallSeatRequestDto cinemaHallSeatRequestDto) {
         cinemaHallSeatService.update(ClassConverterUtil
                 .cinemaHallSeatRequestDtoToCinemaHallSeat(cinemaHallSeatRequestDto));
-
     }
 
     @Override

@@ -13,6 +13,7 @@ import ua.com.alevel.view.dto.request.MovieRequestDto;
 import ua.com.alevel.view.dto.response.MovieResponseDto;
 import ua.com.alevel.view.dto.response.PageDataResponse;
 
+import java.sql.Time;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +49,10 @@ public class AdminMovieController extends AbstractController {
 
     @PostMapping("/new")
     public String create(@ModelAttribute("movieRequestDto") MovieRequestDto movieRequestDto,
+                         @RequestParam("hours") int hours,
+                         @RequestParam("minutes") int minutes,
                          Model model) {
+        movieRequestDto.setDuration(Time.valueOf(hours + ":" + minutes + ":00"));
         movieFacade.create(movieRequestDto);
         return "redirect:/admin/movies/all";
     }
@@ -56,7 +60,6 @@ public class AdminMovieController extends AbstractController {
 
     @GetMapping("/all")
     public String fil(WebRequest request, ModelMap model) {
-
         AbstractController.HeaderName[] columnNames = getColumnNames();
         PageDataResponse<MovieResponseDto> response = movieFacade.findAll(request);
         response.initPaginationState(response.getCurrentPage());

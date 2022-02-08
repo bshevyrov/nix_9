@@ -50,7 +50,7 @@ public class ClientShowSeatOrderController extends AbstractController {
 
         model.addAttribute("newBookingRequestDto", new BookingRequestDto());
         ShowResponseDto showResponseDto = showFacade.findById(id);
-        model.addAttribute("showResponseDto",showResponseDto);
+        model.addAttribute("showResponseDto", showResponseDto);
         long cinemaHallId = showResponseDto.getCinemaHall().getId();
         int totalSeat = showResponseDto.getCinemaHall().getTotalSeats();
         List<CinemaHallSeatResponseDto> cinemaHallSeatList = cinemaHallSeatFacade.findAllByCinemaHallId(cinemaHallId);
@@ -78,11 +78,10 @@ public class ClientShowSeatOrderController extends AbstractController {
         newBookingRequestDto.setBookingStatus(BookingStatus.PENDING);
         newBookingRequestDto.setTimestamp(Timestamp.from(Instant.now()));
         newBookingRequestDto.setNumberOfSeats(chosenSeats.length);
-        BookingResponseDto bookingResponseDto= bookingFacade.save(newBookingRequestDto);
+        BookingResponseDto bookingResponseDto = bookingFacade.save(newBookingRequestDto);
 
-        if(showSeatFacade.findAllByBookingId(bookingResponseDto.getId()).size()<=0) {
+        if (showSeatFacade.findAllByBookingId(bookingResponseDto.getId()).size() <= 0) {
 
-            //TODO cronчистильщик не купленых
             for (int seat : chosenSeats) {
                 CinemaHallSeat cinemaHallSeat = ClassConverterUtil
                         .cinemaHallSeatResponseDtoToCinemaHallSeat(
@@ -95,7 +94,7 @@ public class ClientShowSeatOrderController extends AbstractController {
                 requestDto.setShowSeatStatus(ShowSeatStatus.UNAVAILABLE);
                 showSeatFacade.create(requestDto);
 
-               }
+            }
         }
         model.addAttribute("showSeats", showSeatFacade.findAllByBookingId(bookingResponseDto.getId()));
         model.addAttribute("bookingResponseDto", bookingResponseDto);

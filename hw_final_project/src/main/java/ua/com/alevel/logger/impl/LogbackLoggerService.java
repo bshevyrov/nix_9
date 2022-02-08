@@ -16,6 +16,7 @@ public class LogbackLoggerService implements LoggerService {
     private static Logger LOGGER_INFO = LogManager.getLogger(LoggerLevel.WARN.getLevel());
     private static Logger LOGGER_WARN = LogManager.getLogger(LoggerLevel.WARN.getLevel());
     private static Logger LOGGER_ERROR = LogManager.getLogger(LoggerLevel.WARN.getLevel());
+
     @Override
     public void commit(LoggerLevel level, String message) {
         switch (level) {

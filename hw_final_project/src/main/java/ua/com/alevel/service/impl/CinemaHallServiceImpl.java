@@ -36,7 +36,6 @@ public class CinemaHallServiceImpl implements CinemaHallService {
 
     public void update(CinemaHall entity) {
         crudRepositoryHelper.update(cinemaHallRepository, entity);
-
     }
 
     @Override
@@ -44,7 +43,6 @@ public class CinemaHallServiceImpl implements CinemaHallService {
 
     public void delete(Long id) {
         crudRepositoryHelper.delete(cinemaHallRepository, id);
-
     }
 
     @Override

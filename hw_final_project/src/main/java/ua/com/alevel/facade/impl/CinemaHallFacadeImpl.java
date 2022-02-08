@@ -29,17 +29,14 @@ public class CinemaHallFacadeImpl implements CinemaHallFacade {
 
     @Override
     public void create(CinemaHallRequestDto cinemaHallRequestDto) {
-
     }
 
     @Override
     public void update(CinemaHallRequestDto cinemaHallRequestDto) {
-
     }
 
     @Override
     public void delete(long id) {
-
     }
 
     @Override

@@ -51,10 +51,8 @@ public class ClientRegistrationController extends AbstractController {
         }
         registrationFacade.registration(authForm);
         securityService.autoLogin(authForm.getEmail(), authForm.getPasswordConfirm());
-//
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        model.addAttribute("user", principal.toString());
-        return redirectProcess(model);
+
+ return redirectProcess(model);
     }
 
     //TODO ??
@@ -66,38 +64,4 @@ public class ClientRegistrationController extends AbstractController {
         return "redirect:/movies";
 
     }
-
-/*
-    @GetMapping
-    public String registration(Model model) {
-        if (securityService.isAuthenticated()) {
-            return redirectProcess(model);
-        }
-        model.addAttribute("authForm", new AuthDto());
-        return "registration";
-    }
-
-    @PostMapping
-    public String registration(@ModelAttribute("authForm") ClientRequestDto authForm, BindingResult bindingResult, Model model) {
-        showMessage(model, false);
-        authValidatorFacade.validate(authForm, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
-        registrationFacade.registration(authForm);
-        securityService.autoLogin(authForm.getEmail(), authForm.getPasswordConfirm());
-        return redirectProcess(model);
-    }
-
-    private String redirectProcess(Model model) {
-        showMessage(model, false);
-        if (SecurityUtil.hasRole(RoleType.ROLE_ADMIN.name())) {
-            return "redirect:/admin/dashboard";
-        }
-        if (SecurityUtil.hasRole(RoleType.ROLE_CLIENT.name())) {
-            return "redirect:/client/dashboard";
-        }
-        return "redirect:/login";
-    }*/
-
 }

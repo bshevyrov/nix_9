@@ -107,10 +107,10 @@ public class BookingServiceImpl implements BookingService {
     @Transactional
     public void deletePendingBooking() {
         //pending timeout
-        int delayMinutes =2;
+        int delayMinutes = 2;
         Timestamp timestamp = Timestamp.from(Instant.now());
         timestamp.setTime(timestamp.getTime()
                 - TimeUnit.MINUTES.toMillis(delayMinutes));
-      bookingRepository.deleteAllByBookingStatusAndTimestampGreaterThanEqual(BookingStatus.PENDING,timestamp);
+        bookingRepository.deleteAllByBookingStatusAndTimestampGreaterThanEqual(BookingStatus.PENDING, timestamp);
     }
 }

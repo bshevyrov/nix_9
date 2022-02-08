@@ -41,13 +41,11 @@ public class UserFacadeImpl implements UserFacade {
     @Override
     public void ban(long id) {
         userService.ban(id);
-
     }
 
     @Override
     public void unban(long id) {
         userService.unban(id);
-
     }
 
     @Override

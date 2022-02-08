@@ -34,22 +34,10 @@ public class User extends BaseEntity {
     @Column(name = "phone")
     private String phone;
 
- /*@OneToMany( fetch = FetchType.LAZY)
-private Set<Booking> bookings;
-
-    public Set<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(Set<Booking> bookings) {
-        this.bookings = bookings;
-    }*/
-
     public User() {
         super();
         this.enabled = true;
         setRoleType(RoleType.ROLE_USER);
-
     }
 
 
@@ -109,10 +97,6 @@ private Set<Booking> bookings;
         this.phone = phone;
     }
 
-   /* public void addBooking(Booking booking) {
-        bookings.add(booking);
-        booking.setUser(this);
-    }*/
 
     @Override
     public boolean equals(Object o) {

@@ -115,7 +115,6 @@ public final class ClassConverterUtil {
         showSeat.setBooking(showSeatResponseDto.getBooking());
         showSeat.setCinemaHallSeat(showSeatResponseDto.getCinemaHallSeat());
 
-
         return showSeat;
     }
 
@@ -130,7 +129,6 @@ public final class ClassConverterUtil {
         showSeat.setCinemaHallSeat(showSeatRequestDto.getCinemaHallSeat());
 
         return showSeat;
-
     }
 
     public static ShowSeatResponseDto showSeatToShowSeatResponseDto(ShowSeat showSeat) {
@@ -155,8 +153,8 @@ public final class ClassConverterUtil {
         show.setMovie(showResponseDto.getMovie());
         show.setEndTime(showResponseDto.getEndTime());
         show.setStartTime(showResponseDto.getStartTime());
-        return show;
 
+        return show;
     }
 
     public static Booking bookingRequestDtoToEntity(BookingRequestDto bookingRequestDto) {
@@ -186,6 +184,7 @@ public final class ClassConverterUtil {
     }
 
     public static BookingResponseDto bookingToResponseDto(Booking booking) {
+
         BookingResponseDto bookingResponseDto = new BookingResponseDto();
         bookingResponseDto.setShow(booking.getShow());
         bookingResponseDto.setBookingStatus(booking.getBookingStatus());
@@ -199,6 +198,7 @@ public final class ClassConverterUtil {
 
 
     public static User userResponseDtoToEntity(UserResponseDto userResponseDto) {
+
         User user = new User();
         user.setId(userResponseDto.getId());
         user.setEmail(userResponseDto.getEmail());
@@ -208,8 +208,8 @@ public final class ClassConverterUtil {
         user.setPassword(userResponseDto.getPassword());
         user.setRoleType(userResponseDto.getRoleType());
         user.setEnabled(userResponseDto.getEnabled());
-        return user;
 
+        return user;
     }
 
     public static UserResponseDto userToUserResponseDto(User user) {
@@ -223,6 +223,7 @@ public final class ClassConverterUtil {
         userResponseDto.setPassword(user.getPassword());
         userResponseDto.setRoleType(user.getRoleType());
         userResponseDto.setEnabled(user.getEnabled());
+
         return userResponseDto;
     }
 
@@ -236,6 +237,7 @@ public final class ClassConverterUtil {
         user.setPassword(userRequestDto.getPassword());
         user.setRoleType(userRequestDto.getRoleType());
         user.setEnabled(userRequestDto.getEnabled());
+
         return user;
     }
 }

@@ -18,9 +18,9 @@
         <td th:text="${user.getPhone()}"></td>
         <td th:text="${user.getEnabled()}"></td>
         <td>
-            <form action="#" th:action="@{'/admin/user/ban/' + ${user.getId()}}" th:method="post" >
-                <input type="hidden" name="enabled" th:value="${user.getEnabled()}" />
-                <button type="submit" id="submitButton"> Ban/Unban</button>
+            <form action="#" th:action="@{'/admin/user/ban/' + ${user.getId()}}" th:method="post">
+                <input name="enabled" th:value="${user.getEnabled()}" type="hidden"/>
+                <button id="submitButton" type="submit"> Ban/Unban</button>
             </form>
         </td>
     </tr>

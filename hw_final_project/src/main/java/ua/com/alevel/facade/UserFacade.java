@@ -1,13 +1,12 @@
 package ua.com.alevel.facade;
 
 import org.springframework.web.context.request.WebRequest;
-import ua.com.alevel.persistence.datatable.DataTableRequest;
-import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.view.dto.request.UserRequestDto;
 import ua.com.alevel.view.dto.response.PageDataResponse;
 import ua.com.alevel.view.dto.response.UserResponseDto;
 
 public interface UserFacade extends BaseFacade<UserRequestDto, UserResponseDto> {
+
     UserResponseDto findByEmail(String email);
 
     void updatePass(long id, String encode);
@@ -18,7 +17,4 @@ public interface UserFacade extends BaseFacade<UserRequestDto, UserResponseDto> 
 
     PageDataResponse<UserResponseDto> findAllUser(WebRequest request);
 
-/*
-    void addBooking(long userid, long bookingId);
-*/
 }

@@ -31,18 +31,6 @@ public class Movie extends BaseEntity {
     @Column(name = "genre")
     private String genre;
 
-    /*@OneToMany(mappedBy = "show")
-    private Set<Show> shows;
-
-
-    public Set<Show> getShows() {
-        return shows;
-    }
-
-    public void setShows(Set<Show> shows) {
-        this.shows = shows;
-    }*/
-
     public Movie() {
         super();
     }

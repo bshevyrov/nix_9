@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class  DefaultUserDetailsService implements UserDetailsService {
+public class DefaultUserDetailsService implements UserDetailsService {
 
     private final UserRepository<User> userRepository;
 

@@ -80,11 +80,11 @@
                     Total: <b>$<span id="total">0</span></b>
 
                     <form method="post" th:action="@{'/clients/show/seat/' + ${showResponseDto.getId()}}">
-                        <input type="hidden"       th:value="${newBookingRequestDto}"       th:object="${newBookingRequestDto}"/>
-<!--                        <input type="hidden"       th:value="${newShowSeatRequestDto}"       th:object="${newShowSeatRequestDto}"/>-->
+                        <input th:object="${newBookingRequestDto}" th:value="${newBookingRequestDto}" type="hidden"/>
+                        <!--                        <input type="hidden"       th:value="${newShowSeatRequestDto}"       th:object="${newShowSeatRequestDto}"/>-->
 
-<!--                        <input id="sum" name="sum" type="hidden" th:field="*{newBookingRequestDto.totalPrice}"/>-->
-                        <input id="sum" name="sum" type="hidden" th:field="*{newBookingRequestDto.totalPrice}"/>
+                        <!--                        <input id="sum" name="sum" type="hidden" th:field="*{newBookingRequestDto.totalPrice}"/>-->
+                        <input id="sum" name="sum" th:field="*{newBookingRequestDto.totalPrice}" type="hidden"/>
                         <input id="chosenSeats" name="chosenSeats" type="hidden"/>
 
                         <button class="checkout-button" name="submit" onclick="myFunction()" type="submit"
@@ -92,7 +92,9 @@
                             request
                         </button>
                     </form>
+<!--
                     <a th:href="@{/clients/booking/new}"> test</a>
+-->
                     <!--            <button  class="checkout-button">Checkout &raquo;</button>-->
 
                     <div id="legend"></div>

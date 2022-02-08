@@ -56,6 +56,7 @@ public class AdminShowController extends AbstractController {
         }
         return new ModelAndView("redirect:/admin/shows/all", model);
     }
+
     @GetMapping("/update/{id}")
     public String update(@PathVariable("id") long id, Model model) {
         ShowRequestDto showRequestDto = new ShowRequestDto();
@@ -64,12 +65,10 @@ public class AdminShowController extends AbstractController {
         return "/pages/admin/shows/shows_new";
     }
 
-
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") long id) {
         showFacade.delete(id);
         return "redirect:/admin/shows/all";
-
     }
 
     @GetMapping("/new")

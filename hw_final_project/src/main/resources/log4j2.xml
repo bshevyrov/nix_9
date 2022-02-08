@@ -6,48 +6,48 @@
     </Properties>
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout pattern="${LOG_PATTERN}" />
+            <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
 
 
         <RollingFile name="warn"
-                    fileName="${APP_LOG_ROOT}/warn.log"
-                    filePattern="${APP_LOG_ROOT}/warn-%d{yyyy-MM-dd}-%i.log">
+                     fileName="${APP_LOG_ROOT}/warn.log"
+                     filePattern="${APP_LOG_ROOT}/warn-%d{yyyy-MM-dd}-%i.log">
             <LevelRangeFilter minLevel="WARN" maxLevel="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
-           <PatternLayout pattern="${LOG_PATTERN}" />
-           <Policies>
-               <SizeBasedTriggeringPolicy size="19500KB" />
-           </Policies>
-           <DefaultRolloverStrategy max="1" />
-       </RollingFile>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="19500KB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="1"/>
+        </RollingFile>
         <RollingFile name="info"
-                    fileName="${APP_LOG_ROOT}/info.log"
-                    filePattern="${APP_LOG_ROOT}/warn-%d{yyyy-MM-dd}-%i.log">
+                     fileName="${APP_LOG_ROOT}/info.log"
+                     filePattern="${APP_LOG_ROOT}/warn-%d{yyyy-MM-dd}-%i.log">
             <LevelRangeFilter minLevel="INFO" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
-           <PatternLayout pattern="${LOG_PATTERN}" />
-           <Policies>
-               <SizeBasedTriggeringPolicy size="19500KB" />
-           </Policies>
-           <DefaultRolloverStrategy max="1" />
-       </RollingFile>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="19500KB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="1"/>
+        </RollingFile>
         <RollingFile name="error"
-                    fileName="${APP_LOG_ROOT}/error.log"
-                    filePattern="${APP_LOG_ROOT}/error-%d{yyyy-MM-dd}-%i.log">
+                     fileName="${APP_LOG_ROOT}/error.log"
+                     filePattern="${APP_LOG_ROOT}/error-%d{yyyy-MM-dd}-%i.log">
             <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
-           <PatternLayout pattern="${LOG_PATTERN}" />
-           <Policies>
-               <SizeBasedTriggeringPolicy size="19500KB" />
-           </Policies>
-           <DefaultRolloverStrategy max="1" />
-       </RollingFile>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="19500KB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="1"/>
+        </RollingFile>
 
     </Appenders>
     <Loggers>
         <Root level="info">
-            <AppenderRef ref="console" />
-            <AppenderRef ref="info" />
-            <AppenderRef ref="warn" />
-            <AppenderRef ref="error" />
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="info"/>
+            <AppenderRef ref="warn"/>
+            <AppenderRef ref="error"/>
         </Root>
     </Loggers>
 </Configuration>

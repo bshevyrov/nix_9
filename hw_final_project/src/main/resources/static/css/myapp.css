@@ -16,7 +16,6 @@ html, body {
 
 a.nav-item.nav-link {
     color: #430e06;
-
 }
 
 
@@ -26,7 +25,8 @@ a.nav-item.nav-link {
 }
 
 .card {
-
+    background-color: #343a40 !important;
+    color: #b9b9b9 !important;
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;

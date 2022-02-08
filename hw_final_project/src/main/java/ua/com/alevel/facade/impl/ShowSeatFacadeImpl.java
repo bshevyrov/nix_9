@@ -37,13 +37,11 @@ public class ShowSeatFacadeImpl implements ShowSeatFacade {
     @Override
     public void update(ShowSeatRequestDto showSeatRequestDto) {
         showSeatService.update(ClassConverterUtil.showSeatRequestDtoToEntity(showSeatRequestDto));
-
     }
 
     @Override
     public void delete(long id) {
         showSeatService.delete(id);
-
     }
 
     @Override
@@ -84,12 +82,12 @@ public class ShowSeatFacadeImpl implements ShowSeatFacade {
 
     @Override
     public ShowSeatResponseDto save(ShowSeatRequestDto newShowSeatRequestDto) {
-        return   ClassConverterUtil.showSeatToShowSeatResponseDto(showSeatService.save(ClassConverterUtil.showSeatRequestDtoToEntity(newShowSeatRequestDto)));
+        return ClassConverterUtil.showSeatToShowSeatResponseDto(showSeatService.save(ClassConverterUtil.showSeatRequestDtoToEntity(newShowSeatRequestDto)));
     }
 
     @Override
     public List<ShowSeatResponseDto> findAllByBookingId(long id) {
-        return  showSeatService.findAllByBookingId(id).stream().map(ClassConverterUtil::showSeatToShowSeatResponseDto)
+        return showSeatService.findAllByBookingId(id).stream().map(ClassConverterUtil::showSeatToShowSeatResponseDto)
                 .collect(Collectors.toList());
     }
 }

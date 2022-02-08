@@ -19,7 +19,8 @@
                         Order Details
                     </div>
                     <div class="card-body">
-                        <form action="#" method="post" th:action="@{'/clients/booking/' + ${bookingResponseDto.getId()}}"
+                        <form action="#" method="post"
+                              th:action="@{'/clients/booking/' + ${bookingResponseDto.getId()}}"
                               th:object="${bookingResponseDto}">
 
                             <table class="table table-sm table-hover">
@@ -88,11 +89,11 @@
                                 <!--                                </div>-->
 
                                 <div class="row">
-                                    <div class="col">
+                                    <div  class="col">
                                         <!--<a th:href="@{/clients/booking/dashboard}"
                                            >Buy</a>-->
-                                        <label th:for="confirm">Instant Pay</label>
-                                        <input name="confirm" type="checkbox" value="agree"/>
+                                        <label th:if="${bookingResponseDto.getBookingStatus().name() == 'PENDING'}" th:for="confirm">Instant Pay</label>
+                                        <input  th:if="${bookingResponseDto.getBookingStatus().name() == 'PENDING'}" name="confirm" type="checkbox" value="agree"/>
 
 
                                         <!--                                        <input type>="text" name="bookingStatus" id="bookingStatus" value="${bookingStatus}">-->

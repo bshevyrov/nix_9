@@ -19,6 +19,8 @@ public class MovieRequestDto extends RequestDto {
 
     private String genre;
 
+
+
     public String getTitle() {
         return title;
     }

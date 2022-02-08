@@ -35,10 +35,8 @@ public class AdminUserController extends AbstractController {
         response.initPaginationState(response.getCurrentPage());
         List<HeaderData> headerDataList = getHeaderDataList(columnNames, response);
         model.addAttribute("headerDataList", headerDataList);
-        model.addAttribute("createUrl", "/admin/users/dashboard");
         model.addAttribute("pageData", response);
         model.addAttribute("cardHeader", "All Users");
-//        model.addAttribute("allowCreate", true);
         return "/pages/admin/admin_dashboard";
     }
 
@@ -55,12 +53,11 @@ public class AdminUserController extends AbstractController {
     public String ban(@PathVariable("id") long id,
                       @RequestParam("enabled") String enabled,
                       Model model) {
-        if (StringUtils.equals("true",enabled)) {
+        if (StringUtils.equals("true", enabled)) {
             userFacade.ban(id);
         } else {
             userFacade.unban(id);
         }
-
         return "redirect:/admin/users/dashboard";
     }
 

@@ -21,8 +21,6 @@ public class CinemaHallSeat extends BaseEntity {
     private CinemaHall cinemaHall;
 
 
-
-
     public CinemaHallSeat() {
         super();
     }

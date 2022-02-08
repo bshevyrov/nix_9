@@ -7,14 +7,8 @@
 <head>
     <meta charset="utf-8">
     <title>New Movie</title>
-    <script src=" https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src=" https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
-    <style>
-        .ui-datepicker-calendar {
-            display: none;
-        }
-    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
 </head>
 <body>
 <section layout:fragment="content">
@@ -83,7 +77,7 @@
                                     </div>
                                     <div class="col">
                                         <input class="date-own form-control" style="width: 300px;"
-                                               th:field="*{releaseYear}" type="text">
+                                               th:field="*{releaseYear}" type="number">
                                     </div>
 
                                 </div>
@@ -92,9 +86,14 @@
                                         <label for="title"><b>Duration</b></label>
                                     </div>
                                     <div class="col">
+
+
+                                        <p><label for="hours"><b>Hour</b></label>
+                                            <input id="hours"  type="number" name="hours" >
+                                        </p>
                                         <p>
-                                            <input id="hours" max="4" min="00" name="value" size=3/ value=0>
-                                            <input id="minutes" max="59" min="00" name="value" size=2/ value=0>
+                                            <label for="minutes"><b>Minutes</b></label>
+                                            <input id="minutes"  type="number" name="minutes" >
 
                                         </p>
                                     </div>
@@ -118,10 +117,7 @@
     </div>
 
 </section>
-<script>      $('.date-own').datepicker({
-    minViewMode: 2,
-    format: 'yyyy'
-});</script>
+
 </body>
 
 
