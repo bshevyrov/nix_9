@@ -4,7 +4,11 @@ import ua.com.alevel.persistence.entity.CinemaHall;
 import ua.com.alevel.persistence.entity.Movie;
 
 import java.time.LocalTime;
+import java.time.Month;
+import java.time.format.TextStyle;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 public class ShowResponseDto extends ResponseDto {
@@ -20,6 +24,16 @@ public class ShowResponseDto extends ResponseDto {
 
     private Movie movie;
 
+    public String getSimpleDate() {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        Month month = Month.of(calendar.get(Calendar.MONTH) + 1);
+        Locale locale = Locale.getDefault();
+        String monthStr = month.getDisplayName(TextStyle.SHORT, locale);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        return monthStr + " " + day;
+    }
 
     public Date getDate() {
         return date;

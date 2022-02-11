@@ -22,7 +22,7 @@
                         <form action="#" method="post" th:action="@{/admin/shows/new}" th:object="${showRequestDto}">
 
                             <table class="table table-sm table-hover">
-
+<input type="hidden" th:value="${showRequestDto.getId()}" th:field="*{id}"/>
                                 <div class="row">
                                     <div class="col">
                                         <p>Movies : </p>

@@ -56,6 +56,8 @@ public class ClientBookingController extends AbstractController {
         return "/pages/clients/booking/booking_dashboard";
     }
 
+
+
     @GetMapping("/booking/detail/{id}")
     public String details(@PathVariable("id") long id,
                           Model model) {

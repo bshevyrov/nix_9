@@ -61,7 +61,7 @@ public final class ClassConverterUtil {
     public static Show ShowRequestDtoToEntity(ShowRequestDto showRequestDto) {
 
         Show show = new Show();
-//        show.setId(showRequestDto.getId());
+        show.setId(showRequestDto.getId());
         show.setCinemaHall(showRequestDto.getCinemaHall());
         show.setMovie(showRequestDto.getMovie());
         show.setDate(showRequestDto.getDate());

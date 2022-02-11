@@ -6,6 +6,7 @@ import ua.com.alevel.facade.ShowFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Show;
+import ua.com.alevel.persistence.type.CinemaHallType;
 import ua.com.alevel.service.ShowService;
 import ua.com.alevel.util.ClassConverterUtil;
 import ua.com.alevel.util.FacadeUtil;
@@ -16,7 +17,7 @@ import ua.com.alevel.view.dto.request.SortData;
 import ua.com.alevel.view.dto.response.PageDataResponse;
 import ua.com.alevel.view.dto.response.ShowResponseDto;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -88,6 +89,26 @@ public class ShowFacadeImpl implements ShowFacade {
         DataTableResponse<Show> all = showService.findAllByMovieId(id, dataTableRequest);
         return getPageDataResponseFromDataTable(pageAndSizeData, sortData, all);
     }
+
+    @Override
+    public Map<String, List<ShowResponseDto>> getShowsByMovieIdSortedByCinemaHallType(long id) {
+
+        Map<String, List<ShowResponseDto>> shows = new HashMap<>();
+        CinemaHallType[] types = CinemaHallType.values();
+        for (CinemaHallType type : types) {
+            shows.put(type.name(), new ArrayList<>());
+        }
+        List<ShowResponseDto> showResponseDtos = showService.findAllByMovieId(id).stream()
+                .map(ClassConverterUtil::showToShowResponseDto)
+                .sorted(Comparator.comparing(ShowResponseDto::getDate ).thenComparing(ShowResponseDto::getStartTime))
+                .collect(Collectors.toList());
+
+        for (ShowResponseDto showResponseDto : showResponseDtos) {
+            shows.get(showResponseDto.getCinemaHall().getCinemaHallType().name()).add(showResponseDto);
+        }
+        return shows;
+    }
+
 
     private PageDataResponse<ShowResponseDto> getPageDataResponseFromDataTable(PageAndSizeData pageAndSizeData, SortData sortData, DataTableResponse<Show> all) {
         List<ShowResponseDto> list = all.getItems()

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" layout:decorate="~{layout}"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
-    <title>Detail</title>
+    <title>Show</title>
 </head>
 <body>
 
@@ -21,81 +21,78 @@
                     <p class="card-text">
                     <table>
 
-                    <span th:each="show,iter : ${shows}">
-                             <div class="card-group">
+                        <!--                    <span th:each="show,iter : ${shows}">-->
+                        <span>
+                    <div class="card-group">
+              <span>
 
+                            <div class="card"
+                                 th:if="${shows.get('TWO_D').size>0}">
+                                <div class="card-body">
+                                    <h5 class="card-title">TWO DIMENSION
+                                        <img src="https://cdn4.iconfinder.com/data/icons/cinema-ticket-app/24/2D-512.png"
+                                             width="42" height="42"></img></h5>
+                                    <span th:each="show,iter : ${shows.get('TWO_D')}">
 
-                                 <div class="card"
-                                      th:if="${show.getCinemaHall().getCinemaHallType().name() == 'TWO_D'}">
-
-<!--                                     <img class="card-img-top" src="..." alt="Card image cap">-->
-                                     <div class="card-body">
-                                         <h5 class="card-title">TWO DIMENSION</h5>
-                                         <span th:text="${show.getDate()}"></span>
+                                         <span th:text="${show.getSimpleDate()}"></span>
                                            <span><a th:href="@{'/clients/show/seat/' + ${show.getId()}}"
                                                     th:text="${show.getStartTime()}"></a></span>
-                                         <!--                                         <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>-->
-                                         <!--                                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
-                                     </div>
-                                 </div>
-                                  <div class="card"
-                                       th:if="${show.getCinemaHall().getCinemaHallType().name() == 'THREE_D'}">
+                                                                                    <br>
 
-<!--                                     <img class="card-img-top" src="..." alt="Card image cap">-->
-                                     <div class="card-body">
-                                         <h5 class="card-title">THREE DIMENSION</h5>
-                                         <span th:text="${show.getDate()}"></span>
+                                             </span>
+                                </div>
+                            </div>
+
+                            </span>
+                        <span>
+
+                            <div class="card"
+                                 th:if="${shows.get('THREE_D').size>0}">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">THREE DIMENSION
+                                        <img src="https://icon-library.com/images/icon-3d/icon-3d-11.jpg" width="48"
+                                             height="48"/>
+                                    </h5>
+                                    <span th:each="show,iter : ${shows.get('THREE_D')}">
+                                         <span th:text="${show.getSimpleDate()}"></span>
                                              <span><a th:href="@{'/clients/show/seat/' + ${show.getId()}}"
                                                       th:text="${show.getStartTime()}"></a></span>
-                                         <!--                                         <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>-->
-                                         <!--                                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
-                                     </div>
-                                 </div>
-                                <div class="card" th:if="${show.getCinemaHall().getCinemaHallType().name() == 'IMAX'}">
+                                                                                    <br>
 
-<!--                                     <img class="card-img-top" src="..." alt="Card image cap">-->
-                                     <div class="card-body">
-                                         <h5 class="card-title">IMAX</h5>
-                                          <span th:text="${show.getDate()}"></span>
-                                              <span><a th:href="@{'/clients/show/seat/' + ${show.getId()}}"></a></span>
-                                         <!--                                         <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>-->
-                                         <!--                                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
-                                     </div>
-                                 </div>
-                             </div>
-                    </span>
+                                             </span>
+                                </div>
+                            </div>
+                                                                    </span>
 
+                        <span>
 
-                        <!--
-                                                     <div class="row"  th:if="${show.getCinemaHall().getCinemaHallType().name() == 'TWO_D'}">
-                                                         TWO DIMENSIONAL HALL
-
-                                                    <td th:text="${show.getDate()}"></td>
-                                                      <td><a th:href="@{'/clients/show/seat/' + ${show.getId()}}"
-                                                               th:text="${show.getStartTime()}"></a></td>
-                                                        </div>
-                                                     <div class="row"  th:if="${show.getCinemaHall().getCinemaHallType().name() == 'THREE_D'}">
-                                                         THREE DIMENSIONAL HALL
-
-                                                         <td th:text="${show.getDate()}"></td>
-                                                         <td><a th:href="@{'/clients/show/seat/' + ${show.getId()}}"
-                                                                th:text="${show.getStartTime()}"></a></td>
-                                                     </div>
-                        &lt;!&ndash;                            <td th:text="${show.getStartTime()}"></td>&ndash;&gt;
-                                                     <td><a th:href="@{'/clients/show/seat/' + ${show.getId()}}"
-                                                            th:text="${show.getStartTime()}"></a></td>
-                        &lt;!&ndash;                             <td th:text="${show.getEndTime}"></td>&ndash;&gt;
-                                                     <td th:text="${show.getCinemaHall().getCinemaHallType()}"></td>
-
-                                                </tr>-->
+                            <div class="card"
+                                 th:if="${shows.get('IMAX').size>0}">
+                                <div class="card-body">
+                                    <h5 class="card-title">IMAX
+                                        <img src="https://pic.onlinewebfonts.com/svg/img_119078.png" width="34"
+                                             height="34"></img>
+                                    </h5>
+                                    <span th:each="show,iter : ${shows.get('IMAX')}">
+                                          <span th:text="${show.getSimpleDate()}"></span>
+                                                                               <span><a
+                                                                                       th:href="@{'/clients/show/seat/' + ${show.getId()}}"
+                                                                                       th:text="${show.getStartTime()}"></a>
+                                       </span>
+                                        <br>
+                                    </span>
+                                </div>
+                            </div>
+                                    </span>
+                </div>
+</span>
                     </table>
                     <div sec:authorize="hasRole('ROLE_ADMIN')">
                         <a class="btn btn-outline-light text-primary"
                            th:href="@{'/admin/shows/new/' + ${show.getMovie().getId()}}"
                            type="button">Add Show</a>
                     </div>
-                    </p>
-                    <!--                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
                 </div>
             </div>
         </div>

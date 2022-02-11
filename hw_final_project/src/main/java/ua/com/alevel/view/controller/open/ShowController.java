@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ua.com.alevel.facade.MovieFacade;
 import ua.com.alevel.facade.ShowFacade;
 import ua.com.alevel.view.controller.AbstractController;
+import ua.com.alevel.view.dto.response.ShowResponseDto;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/shows")
@@ -24,8 +28,10 @@ public class ShowController extends AbstractController {
 
     @GetMapping("/movie/{id}")
     public String movieShows(@PathVariable("id") long id, Model model) {
-        model.addAttribute("shows", showFacade.findAllByMovieId(id));
+
+        model.addAttribute("shows",         showFacade.getShowsByMovieIdSortedByCinemaHallType(id));
         model.addAttribute("movie", movieFacade.findById(id));
+
         return "/pages/clients/show_detail";
     }
 

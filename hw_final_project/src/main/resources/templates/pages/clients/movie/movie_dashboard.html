@@ -46,8 +46,25 @@
                         <p class="card-text" id="text-card" th:text="${movie.getDescription()}"></p>
                         <!--
                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
-                        <a class="btn btn-primary" th:href="@{'/movies/detail/' + ${movie.getId()}}">Details</a>
 
+
+
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <tr th:each="type : ${types.get(movie.getId())}">
+                                        <img th:src="${type.getImgUrl()}" width="42" height="42"  th:if="${type.name =='TWO_D'}"></img>
+                                        <img th:src="${type.getImgUrl()}" width="48" height="48"  th:if="${type.name =='THREE_D'}" ></img>
+                                        <img th:src="${type.getImgUrl()}" width="34" height="34"  th:if="${type.name =='IMAX'}" ></img>
+                                    </tr>
+                                </div>
+                                <div class="col-sm">
+                                    <a class="btn btn-primary" th:href="@{'/movies/detail/' + ${movie.getId()}}">Details</a>
+                                </div>
+
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -55,18 +72,6 @@
         </div>
 
     </th:block>
-
-    <!--    <div class="card" >-->
-    <!--        <img alt="Card image cap" class="card-img-left"-->
-    <!--             src="https://cs4.pikabu.ru/post_img/2016/05/29/1/1464476620124332284.jpg">-->
-    <!--        <div class="card-body">-->
-    <!--            <h5 class="card-title">Card title</h5>-->
-    <!--            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's-->
-    <!--                content.</p>-->
-    <!--            <a class="btn btn-primary" href="#">Go somewhere</a>-->
-    <!--        </div>-->
-    <!--    </div>-->
-
 </div>
 </body>
 </html>

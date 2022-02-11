@@ -62,7 +62,9 @@ public class AdminShowController extends AbstractController {
         ShowRequestDto showRequestDto = new ShowRequestDto();
         showRequestDto.setId(id);
         model.addAttribute("showRequestDto", showRequestDto);
-        return "/pages/admin/shows/shows_new";
+        model.addAttribute("cinemaHalls", cinemaHallFacade.findAll());
+        model.addAttribute("movies", movieFacade.findAll());
+        return "/pages/admin/shows/show_new";
     }
 
     @GetMapping("/delete/{id}")
@@ -82,7 +84,10 @@ public class AdminShowController extends AbstractController {
     @PostMapping("/new")
     public String CreateNewHall(@ModelAttribute ShowRequestDto showRequestDto,
                                 Model model) {
-
+        if (showRequestDto.getId()!=0){
+            System.out.println((showRequestDto.getId()));
+            showFacade.update(showRequestDto);
+        }
         showFacade.create(showRequestDto);
         return "redirect:/admin/shows/all";
     }

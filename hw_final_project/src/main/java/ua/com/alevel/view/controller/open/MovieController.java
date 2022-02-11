@@ -7,26 +7,47 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.MovieFacade;
+import ua.com.alevel.facade.ShowFacade;
+import ua.com.alevel.persistence.type.CinemaHallType;
 import ua.com.alevel.view.controller.AbstractController;
 import ua.com.alevel.view.dto.response.MovieResponseDto;
+import ua.com.alevel.view.dto.response.ShowResponseDto;
 
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/movies")
 public class MovieController extends AbstractController {
 
     private final MovieFacade movieFacade;
+    private final ShowFacade showFacade;
 
-    public MovieController(MovieFacade movieFacade) {
+    public MovieController(MovieFacade movieFacade, ShowFacade showFacade) {
         this.movieFacade = movieFacade;
+        this.showFacade = showFacade;
     }
 
 
     @GetMapping()
     public String getFirst(Model model, WebRequest request) {
-       List<MovieResponseDto> response = movieFacade.findAll();
-      model.addAttribute("pageDataResponse", response);
+
+        List<MovieResponseDto> response = movieFacade.findAll();
+        List<ShowResponseDto> shows = showFacade.findAll();
+        Map<Long, Set<CinemaHallType>> typesByMovieId = new HashMap<>();
+        for (MovieResponseDto movieResponseDto : response) {
+            Set<CinemaHallType> cinemaHallTypeSet = new HashSet<>();
+            for (ShowResponseDto show : shows) {
+                if (CinemaHallType.values().length == cinemaHallTypeSet.size()) {
+                    break;
+                }
+                if (show.getMovie().getId() == movieResponseDto.getId()) {
+                    cinemaHallTypeSet.add(show.getCinemaHall().getCinemaHallType());
+                }
+            }
+            typesByMovieId.put(movieResponseDto.getId(), cinemaHallTypeSet);
+        }
+        model.addAttribute("pageDataResponse", response);
+        model.addAttribute("types", typesByMovieId);
 
         return "pages/clients/movie/movie_dashboard";
     }

@@ -66,9 +66,31 @@ VALUES (5, 'IMAX', 'BLACK', 60);
 INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
 VALUES (1, '2022-01-12', '23:45:00', '22:00:00', 1, 4);
 INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
-VALUES (2, '2022-01-28', '11:11:00', '11:11:00', 1, 1);
+VALUES (2, '2022-01-17', '12:40:00', '10:00:00', 1, 1);
 INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
 VALUES (3, '2022-01-27', '15:11:00', '11:11:00', 2, 1);
+INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
+VALUES (4, '2022-02-15', '12:40:00', '10:00:00', 5, 1);
+INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
+VALUES (6, '2022-02-22', '15:40:00', '13:00:00', 5, 1);
+INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
+VALUES (7, '2022-03-01', '18:40:00', '16:00:00', 5, 1);
+INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
+VALUES (8, '2022-03-08', '21:40:00', '19:00:00', 5, 1);
+INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
+VALUES (9, '2022-02-24', '15:40:00', '13:00:00', 1, 1);
+INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
+VALUES (10, '2022-03-03', '18:40:00', '16:00:00', 1, 1);
+INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
+VALUES (11, '2022-03-10', '21:40:00', '19:00:00', 1, 1);
+INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
+VALUES (12, '2022-02-16', '12:40:00', '10:00:00', 2, 1);
+INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
+VALUES (13, '2022-02-23', '15:40:00', '13:00:00', 2, 1);
+INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
+VALUES (14, '2022-03-02', '18:40:00', '16:00:00', 2, 1);
+INSERT INTO private_cinema_new.shows (id, date, end_time, start_time, cinema_hall_id, movie_id)
+VALUES (15, '2022-03-09', '21:40:00', '19:00:00', 2, 1);
 
 
 INSERT INTO private_cinema_new.cinema_seats (id, cinema_seat_type, seat_number, cinema_hall_id)
