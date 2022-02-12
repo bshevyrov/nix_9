@@ -12,24 +12,18 @@ import ua.com.alevel.service.BookingService;
 public class BookingStatusCronJon {
 
     private final BookingService bookingService;
-//    private static final Logger logger = LoggerFactory.getLogger(BookingStatusCronJon.class);
-    @InjectLog
-    private LoggerService loggerService;
 
 
     public BookingStatusCronJon(BookingService bookingService) {
         this.bookingService = bookingService;
     }
 
+    @InjectLog
+    private LoggerService loggerService;
+
     @Scheduled(fixedRate = 1000 * 60)
     public void deletePendingBooking() {
-        loggerService.commit(LoggerLevel.INFO, "Clear pending booking11");
-        loggerService.commit(LoggerLevel.WARN, "Clear pending booking22");
-        loggerService.commit(LoggerLevel.ERROR, "Clear pending booking33");
-//        logger.debug("Clear pending booking2");
-//        logger.warn("Clear pending booking3");
-//        logger.error("Clear pending bookingerr");
-//        logger.info("Clear pending bookinginf");
+        loggerService.commit(LoggerLevel.WARN, "Clear pending booking");
         bookingService.deletePendingBooking();
     }
 }

@@ -20,21 +20,18 @@ public class ShowCronJob {
 
     private final ShowService showService;
 
-    @InjectLog
-    LoggerService loggerService;
-
-
     public ShowCronJob(ShowService showService) {
         this.showService = showService;
     }
 
+    @InjectLog
+    LoggerService loggerService;
+
     @Scheduled(fixedRate = 1000 * 60 * 15)
     public void deleteCurrentShows() {
-        List<Show> all = showService.findAll();
         LocalTime time = LocalTime.ofInstant(Instant.now(), ZoneId.systemDefault());
-        for (Show show : all) {
+        for (Show show : showService.findAll()) {
             if (DateUtils.isSameDay(show.getDate(), Date.from(Instant.now()))) {
-
                 if (time.compareTo(show.getStartTime()) > 0) {
                     showService.delete(show.getId());
                     loggerService.commit(LoggerLevel.WARN, "Cron delete " +
