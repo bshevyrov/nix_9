@@ -9,29 +9,7 @@
 <body>
 
 
-<!--<div class="container">-->
 <div layout:fragment="content">
-
-    <!--    <div layout:fragment="data_table_content">-->
-    <!--        <tr th:each="movie,iter : ${pageData}">-->
-    <!--            <td th:text="${iter.count}"></td>-->
-    <!--            <td><a th:href="@{'/students/detail/' + ${student.getId()}}"-->
-    <!--                   th:text="${student.getId()}"></a></td>-->
-    <!--            <td th:text="${student.getFirstName()}"></td>-->
-    <!--            <td th:text="${student.getLastName()}"></td>-->
-    <!--            <td th:text="${student.getEmail()}"></td>-->
-    <!--            <td th:text="${student.getPhone()}"></td>-->
-    <!--            <td th:text="${student.getBirthDate()}"></td>-->
-    <!--            <td>-->
-    <!--                <a type="button" th:href="@{'/students/delete/' + ${student.getId()}}"-->
-    <!--                   class="btn btn-outline-light text-danger">delete</a>-->
-    <!--            </td>-->
-    <!--            <td>-->
-    <!--                <a type="button" th:href="@{'/students/update/' + ${student.getId()}}"-->
-    <!--                   class="btn btn-outline-light text-primary">update</a>-->
-    <!--            </td>-->
-    <!--        </tr>-->
-
 
     <th:block th:each="movie : ${pageDataResponse}">
 
@@ -44,10 +22,6 @@
                     <div class="card-body">
                         <h5 class="card-title" id="title-card" th:text="${movie.getTitle()}"></h5>
                         <p class="card-text" id="text-card" th:text="${movie.getDescription()}"></p>
-                        <!--
-                           <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
-
-
 
 
                         <div class="container">

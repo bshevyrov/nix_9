@@ -88,11 +88,7 @@
                 </div>
 </span>
                     </table>
-                    <div sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="btn btn-outline-light text-primary"
-                           th:href="@{'/admin/shows/new/' + ${show.getMovie().getId()}}"
-                           type="button">Add Show</a>
-                    </div>
+
                 </div>
             </div>
         </div>
