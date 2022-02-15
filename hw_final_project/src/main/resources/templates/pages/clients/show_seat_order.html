@@ -17,29 +17,22 @@
         #middle {
             position: absolute;
             left: 36%;
-
-
         }
 
         #left {
             position: absolute;
             left: 6%;
             top: 30%;
-
         }
 
         #right {
             position: absolute;
             right: 10%;
-
         }
     </style>
 </head>
-
 <body>
-
 <div class="wrapper">
-
     <div class="card-group">
         <div class="card" id="left">
             <div class="card-body">
@@ -47,7 +40,6 @@
                     <div class="row">
                         <div class="col-sm">
                             <h3 th:text="${showResponseDto.getMovie().getTitle()}"></h3>
-
                         </div>
                         <div class="col-sm">
                             <h4 th:text="${showResponseDto.getDate()}"></h4>
@@ -62,11 +54,9 @@
         <div class="card" id="middle">
             <div class="card-body">
                 <div class="container" id="seats">
-
                     <div id="seat-map">
                         <div class="front-indicator">Front</div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -78,12 +68,10 @@
                     <ul id="selected-seats">
                     </ul>
                     Total: <b>$<span id="total">0</span></b>
-
                     <form method="post" th:action="@{'/clients/show/seat/' + ${showResponseDto.getId()}}">
                         <input th:object="${newBookingRequestDto}" th:value="${newBookingRequestDto}" type="hidden"/>
                         <input id="sum" name="sum" th:field="*{newBookingRequestDto.totalPrice}" type="hidden"/>
                         <input id="chosenSeats" name="chosenSeats" type="hidden"/>
-
                         <button class="checkout-button" name="submit" onclick="myFunction()" type="submit"
                                 value="value">Buy
                         </button>
