@@ -16,7 +16,7 @@ public class CinemaHallSeat extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private CinemaSeatType cinemaSeatType;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "cinema_hall_id", referencedColumnName = "id")
     private CinemaHall cinemaHall;
 

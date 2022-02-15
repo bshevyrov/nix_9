@@ -18,7 +18,7 @@ public class ShowSeat extends BaseEntity {
     @Column(name = "price")
     private double price;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "cinema_seat_id", referencedColumnName = "id")
     private CinemaHallSeat cinemaHallSeat;
 

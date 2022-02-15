@@ -44,12 +44,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(staticResources).permitAll()
                 .antMatchers("/movies/**", "/shows/**", "/registration", "/").permitAll()
-//                .antMatchers("/doctor/**").access("hasRole('ROLE_DOCTOR')")
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/client/**").access("hasRole('ROLE_USER')")
-//                .antMatchers("/doctors/**", "/patients/**", "/departments/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT','ROLE_DOCTOR')")
                 .anyRequest().authenticated()
-//                .and().formLogin().loginPage("/login").defaultSuccessUrl("/dashboard").permitAll()
                 .and().formLogin().loginPage("/login").permitAll()
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/movies");
     }
