@@ -7,8 +7,8 @@ public class UserRequestDto extends AuthDto {
 
     private Boolean enabled;
     private RoleType roleType;
-    private String FirstName;
-    private String LastName;
+    private String firstName;
+    private String lastName;
     private String phone;
     private String oldPassword;
 
@@ -38,19 +38,19 @@ public class UserRequestDto extends AuthDto {
     }
 
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        firstName = firstName;
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        lastName = lastName;
     }
 
     public String getPhone() {
