@@ -42,7 +42,7 @@ public class UserRequestDto extends AuthDto {
     }
 
     public void setFirstName(String firstName) {
-        firstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -50,7 +50,7 @@ public class UserRequestDto extends AuthDto {
     }
 
     public void setLastName(String lastName) {
-        lastName = lastName;
+        this.lastName = lastName;
     }
 
     public String getPhone() {
