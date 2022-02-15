@@ -51,8 +51,7 @@ public class ClientRegistrationController extends AbstractController {
         }
         registrationFacade.registration(authForm);
         securityService.autoLogin(authForm.getEmail(), authForm.getPasswordConfirm());
-
- return redirectProcess(model);
+        return redirectProcess(model);
     }
 
 
