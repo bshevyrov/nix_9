@@ -22,7 +22,6 @@ public class AuthValidatorFacadeImpl implements AuthValidatorFacade {
     }
 
 
-    //TODO exeption eeror page
     @Override
     public void validate(Object target, Errors errors) {
         AuthDto dto = (AuthDto) target;
